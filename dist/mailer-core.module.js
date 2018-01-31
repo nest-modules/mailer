@@ -10,13 +10,14 @@ const common_1 = require("@nestjs/common");
 /** Providers **/
 const mailer_provider_1 = require("./mailer.provider");
 let MailerCoreModule = MailerCoreModule_1 = class MailerCoreModule {
-    static forRoot(transport, defaults) {
+    static forRoot(config) {
         const MailerConfig = {
             name: 'MAILER_CONFIG',
             provide: 'MAILER_CONFIG',
             useValue: {
-                transport: transport,
-                defaults: defaults,
+                transport: config.transport,
+                defaults: config.defaults,
+                templateDir: config.templateDir
             },
         };
         return {

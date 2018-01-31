@@ -11,11 +11,11 @@ const common_1 = require("@nestjs/common");
 /** Modules **/
 const mailer_core_module_1 = require("./mailer-core.module");
 let MailerModule = MailerModule_1 = class MailerModule {
-    static forRoot(transport, defaults) {
+    static forRoot(config) {
         return {
             module: MailerModule_1,
             modules: [
-                mailer_core_module_1.MailerCoreModule.forRoot(transport, defaults),
+                mailer_core_module_1.MailerCoreModule.forRoot(config),
             ],
         };
     }

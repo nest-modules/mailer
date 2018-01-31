@@ -23,18 +23,37 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /** Dependencies **/
 const common_1 = require("@nestjs/common");
 const nodemailer_1 = require("nodemailer");
+const path_1 = require("path");
+const pug_1 = require("pug");
 let MailerProvider = class MailerProvider {
     constructor(mailerConfig) {
         this.mailerConfig = mailerConfig;
-        this.setupTransporter(mailerConfig.transport, mailerConfig.defaults);
+        if (!mailerConfig.transport) {
+            throw new Error("Make sure to provide a nodemailer transport configuration object, connection url or a transport plugin instance");
+        }
+        this.setupTransporter(mailerConfig.transport, mailerConfig.defaults, mailerConfig.templateDir);
     }
-    setupTransporter(transport, defaults) {
+    setupTransporter(transport, defaults, templateDir) {
         this.transporter = nodemailer_1.createTransport(transport, defaults);
+        this.transporter.use('compile', this.renderTemplate(templateDir));
     }
     sendMail(sendMailOptions) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield this.transporter.sendMail(sendMailOptions);
         });
+    }
+    renderTemplate(templateDir) {
+        return (mail, callback) => {
+            if (mail.data.html)
+                return callback();
+            let templatePath = path_1.join(process.cwd(), templateDir || './public/templates', mail.data.template + '.pug');
+            pug_1.renderFile(templatePath, mail.data.context, (err, body) => {
+                if (err)
+                    return callback(err);
+                mail.data.html = body;
+                callback();
+            });
+        };
     }
 };
 MailerProvider = __decorate([

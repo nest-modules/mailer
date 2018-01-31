@@ -14,13 +14,14 @@ import { MailerProvider } from './mailer.provider';
 })
 export class MailerCoreModule {
 
-  static forRoot(transport?: any, defaults?: any): DynamicModule {
+  static forRoot(config?: any): DynamicModule {
     const MailerConfig: CustomValue = {
       name: 'MAILER_CONFIG',
       provide: 'MAILER_CONFIG',
       useValue: {
-        transport: transport,
-        defaults: defaults,
+        transport: config.transport,
+        defaults: config.defaults,
+        templateDir: config.templateDir
       },
     };
 
