@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/partyka95/nest-mailer.git"
+    "url": "git+https://github.com/nest-modules/mailer.git"
   },
   "keywords": [
     "nest",
@@ -18,19 +18,22 @@
     "nodejs"
   ],
   "author": "Paweł Partyka <partyka950@gmail.com>",
+  "contributors": [
+    "Cristiam Díaz <c.diaz@udla.edu.co>"
+  ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/partyka95/nest-mailer/issues"
+    "url": "https://github.com/nest-modules/mailer/issues"
   },
-  "homepage": "https://github.com/partyka95/nest-mailer#readme",
+  "homepage": "https://github.com/nest-modules/mailer#readme",
   "dependencies": {
     "@nestjs/common": "^4.5.9",
     "@nestjs/core": "^4.5.10",
-    "nodemailer": "^4.4.1",
+    "nodemailer": "^4.4.2",
     "rxjs": "^5.5.6",
     "typescript": "^2.6.2"
   },
   "devDependencies": {
-    "@types/nodemailer": "^4.3.1"
+    "@types/nodemailer": "^4.3.2"
   }
 }
