@@ -1,6 +1,6 @@
 {
   "name": "nest-mailer",
-  "version": "0.0.2",
+  "version": "0.1.2",
   "description": "A mailer module for Nest framework (node.js)",
   "main": "dist/index.js",
   "types": "./lib/index.d.ts",

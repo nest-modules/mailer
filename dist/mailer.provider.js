@@ -28,7 +28,7 @@ const pug_1 = require("pug");
 let MailerProvider = class MailerProvider {
     constructor(mailerConfig) {
         this.mailerConfig = mailerConfig;
-        if (!mailerConfig.transport) {
+        if ((!mailerConfig.transport) || (Object.keys(mailerConfig.transport).length < 1)) {
             throw new Error("Make sure to provide a nodemailer transport configuration object, connection url or a transport plugin instance");
         }
         this.setupTransporter(mailerConfig.transport, mailerConfig.defaults, mailerConfig.templateDir);

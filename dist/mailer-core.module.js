@@ -7,10 +7,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
+const mailer_utils_1 = require("./mailer.utils");
 /** Providers **/
 const mailer_provider_1 = require("./mailer.provider");
 let MailerCoreModule = MailerCoreModule_1 = class MailerCoreModule {
     static forRoot(config) {
+        config = mailer_utils_1.ConfigRead(config);
         const MailerConfig = {
             name: 'MAILER_CONFIG',
             provide: 'MAILER_CONFIG',
