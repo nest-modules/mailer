@@ -4,7 +4,7 @@
     "module": "commonjs",
     "outDir": "./dist",
     "baseUrl": "./lib",
-    "allowJs": true,
+    "allowJs": false,
     "sourceMap": true,
     "declaration": true,
     "moduleResolution": "node",
