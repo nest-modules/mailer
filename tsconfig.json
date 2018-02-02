@@ -6,7 +6,7 @@
     "baseUrl": "./lib",
     "allowJs": true,
     "sourceMap": true,
-    "declaration": false,
+    "declaration": true,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,

@@ -1,10 +1,12 @@
 /** Dependencies **/
 import { CustomValue } from '@nestjs/core/injector/module';
 import { DynamicModule, Module, Global } from '@nestjs/common';
-import { ConfigRead } from './mailer.utils';
 
 /** Providers **/
 import { MailerProvider } from './mailer.provider';
+
+/** Utils **/
+import { ConfigRead } from './mailer.utils';
 
 @Global()
 @Module({
@@ -16,7 +18,8 @@ import { MailerProvider } from './mailer.provider';
 export class MailerCoreModule {
 
   static forRoot(config: any): DynamicModule {
-    config = ConfigRead(config)
+    config = ConfigRead(config);
+
     const MailerConfig: CustomValue = {
       name: 'MAILER_CONFIG',
       provide: 'MAILER_CONFIG',

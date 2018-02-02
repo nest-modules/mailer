@@ -2,9 +2,20 @@
 
 A mailer module for Nest framework (node.js)
 
-### People
+### Installation
 
-* Author - [Paweł Partyka](http://epartyka.com)
+```
+npm install --save @nest-modules/mailer
+```
+
+### Usage
+
+_coming soon_
+
+### Contributing
+
+* [Paweł Partyka](http://epartyka.com)
+* [Cristiam Diaz](https://github.com/cdiaz)
 
 ### License
 
