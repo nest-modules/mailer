@@ -48,8 +48,8 @@ Futhermore, instead of passing anything to the `forRoot()`, we can create an `ma
 
 ```javascript
 //mailerconfig.js
-{
-transport: {
+module.exports = {
+  transport: {
     host: 'smtp.example.com',
     port: 587,
     secure: false,
