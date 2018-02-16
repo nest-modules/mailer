@@ -44,18 +44,18 @@ The `forRoot()` method accepts a configuration JSON object with the following at
 >For more details about transporters and defaults values please visit: [nodemailer](https://nodemailer.com/)
 
 
-Futhermore, instead of passing anything to the `forRoot()`, we can create an `mailerconfig.js` file in the project root directory.
+Futhermore, instead of passing anything to the `forRoot()`, we can create an `mailerconfig.ts` file in the project root directory.
 
 ```javascript
-//mailerconfig.js
-module.exports = {
+//mailerconfig.ts
+export = {
   transport: {
     host: 'smtp.example.com',
     port: 587,
     secure: false,
     auth: {
-        user: 'username',
-        pass: 'password'
+      user: 'username',
+      pass: 'password'
     }
   },
   defaults: {
@@ -159,10 +159,10 @@ npm install --save nodemailer-mandrill-transport
 ```
 
 ```javascript
-//mailerconfig.js
+//mailerconfig.ts
 import * as mandrillTransport from 'nodemailer-mandrill-transport'
 
-module.exports = {
+export = {
   transport: mandrillTransport({
     auth: {
       api_key: 'key'
