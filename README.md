@@ -27,6 +27,7 @@ import { MailerModule } from '@nest-modules/mailer';
         from:'"nest-modules" <modules@nestjs.com>',
       },
       templateDir: './src/common/email-templates'
+      templateEngine: 'PUG'
     }),
   ],
 })
@@ -40,6 +41,8 @@ The `forRoot()` method accepts a configuration JSON object with the following at
 **defaults** is an optional object of message data fields that are set for every message sent
 
 **templateDir** is the path to directory where you have put your templates; the default value is `/public/templates` if not specified.
+
+**templateEngeine** is the template engine used for rendering html. Values PUG (default) order HANDLEBARS
 
 >For more details about transporters and defaults values please visit: [nodemailer](https://nodemailer.com/)
 
@@ -109,7 +112,7 @@ this.mailerProvider.sendMail({
 This method returns a Promise object
 
 #### Templating:
-MailerModule renders pug templates using the data specified in the context message object
+MailerModule renders pug/handlebars templates using the data specified in the context message object
 
 ex:
 
@@ -146,6 +149,17 @@ The result is:
 ```html
 <p>Welcome john doe, your activation code is cf1a3f828287</p>
 ```
+
+Or for handlebars create a template 
+
+`<templateDir>/welcome.hbs`
+
+With the following content
+```
+<h1>Welcome {{username}}!</h1>
+<p>your activation code is {{code}}</p>
+```
+
 
 #### Using a transport plugin instance:
 

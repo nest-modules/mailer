@@ -26,7 +26,8 @@ export class MailerCoreModule {
       useValue: {
         transport: config.transport,
         defaults: config.defaults,
-        templateDir: config.templateDir
+        templateDir: config.templateDir,
+        templateEngine:config.templateEngine,
       },
     };
 
