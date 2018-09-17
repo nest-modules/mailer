@@ -1,5 +1,5 @@
 {
-  "name": "@nest-modules/mailer",
+  "name": "@isarbits/mailer",
   "version": "0.2.1",
   "description": "A mailer module for Nest framework (node.js)",
   "main": "dist/index.js",
@@ -39,6 +39,9 @@
     "typescript": "^2.7.2"
   },
   "devDependencies": {
-    "@types/nodemailer": "^4.3.4"
+    "@types/handlebars": "^4.0.39",
+    "@types/nodemailer": "^4.3.4",
+    "@types/pug": "^2.0.4",
+    "reflect-metadata": "^0.1.12"
   }
 }
