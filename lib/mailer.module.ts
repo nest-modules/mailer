@@ -11,14 +11,10 @@ import { MailerCoreModule } from './mailer-core.module';
   exports: [],
 })
 export class MailerModule {
-
   static forRoot(config?: any): DynamicModule {
     return {
       module: MailerModule,
-      modules: [
-        MailerCoreModule.forRoot(config),
-      ],
+      modules: [MailerCoreModule.forRoot(config)],
     };
   }
-
 }

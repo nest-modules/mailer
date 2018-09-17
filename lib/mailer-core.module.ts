@@ -16,7 +16,6 @@ import { ConfigRead } from './mailer.utils';
   exports: [],
 })
 export class MailerCoreModule {
-
   static forRoot(config: any): DynamicModule {
     config = ConfigRead(config);
 
@@ -27,20 +26,14 @@ export class MailerCoreModule {
         transport: config.transport,
         defaults: config.defaults,
         templateDir: config.templateDir,
-        templateEngine:config.templateEngine,
+        templateOptions: config.templateOptions,
       },
     };
 
     return {
       module: MailerCoreModule,
-      components: [
-        MailerProvider,
-        MailerConfig,
-      ],
-      exports: [
-        MailerProvider,
-      ],
+      components: [MailerProvider, MailerConfig],
+      exports: [MailerProvider],
     };
   }
-
 }
