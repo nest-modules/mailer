@@ -1,0 +1,8 @@
+{
+    "watch": [
+        "lib"
+    ],
+    "ext": "ts",
+    "ignore": [],
+    "exec": "tsc -p tsconfig.json && touch ../daimler-one-click/server/src/*"
+}

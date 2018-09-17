@@ -1,5 +1,5 @@
 /** Dependencies **/
-import { join } from 'path';
+import * as path from 'path';
 import { renderFile } from 'pug';
 import * as Handlebars from 'handlebars';
 import * as fs from 'fs';
@@ -65,7 +65,7 @@ export class MailerProvider {
   }
 
   private getTemplatePath(templateDir: string, templateName?: string, extension?: string) {
-    return join(process.cwd(), templateDir || './public/templates', templateName) + extension;
+    return path.join(process.cwd(), templateDir || './public/templates', templateName) + extension;
   }
 
   private renderTemplateWithAdapter(templateDir: string, templateAdapter: any) {
@@ -93,7 +93,7 @@ export class MailerProvider {
 
   private handlebarsAdapter(templateDir: string, mail: any, callback: RenderCallback) {
     const templatePath = this.getTemplatePath(templateDir, mail.data.template, '.hbs');
-    const templateName = mail.data.template;
+    const templateName = path.basename(mail.data.template, path.extname(mail.data.template));
 
     if (!this.precompiledTemplates[templateName]) {
       try {
