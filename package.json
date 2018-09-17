@@ -1,5 +1,5 @@
 {
-  "name": "@isarbits/mailer",
+  "name": "@nest-modules/mailer",
   "version": "0.2.1",
   "description": "A mailer module for Nest framework (node.js)",
   "main": "dist/index.js",
