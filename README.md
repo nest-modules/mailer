@@ -27,6 +27,9 @@ import { MailerModule } from '@nest-modules/mailer';
         from:'"nest-modules" <modules@nestjs.com>',
       },
       templateDir: './src/common/email-templates'
+      templateOptions: {
+        engine: 'PUG'
+      }
     }),
   ],
 })
@@ -40,6 +43,12 @@ The `forRoot()` method accepts a configuration JSON object with the following at
 **defaults** is an optional object of message data fields that are set for every message sent
 
 **templateDir** is the path to directory where you have put your templates; the default value is `/public/templates` if not specified.
+
+**templateOptions.engine** is the template engine used for rendering html. Accepts PUG (default) or HANDLEBARS (case-insensitive).
+
+**templateOptions.precompiledTemplates** is a hash of `templateName: (context) => htmlString`. Currently only used in `handlebars` engine, to optimize dynamic rendering.
+
+**templateOptions.engineAdapter** is a custom templating function. The function signature is `(templateDir: string, mail: any, callback: (err?: any, data?: string) => any)`.
 
 >For more details about transporters and defaults values please visit: [nodemailer](https://nodemailer.com/)
 
@@ -109,7 +118,7 @@ this.mailerProvider.sendMail({
 This method returns a Promise object
 
 #### Templating:
-MailerModule renders pug templates using the data specified in the context message object
+MailerModule renders pug/handlebars templates using the data specified in the context message object
 
 ex:
 
@@ -147,6 +156,41 @@ The result is:
 <p>Welcome john doe, your activation code is cf1a3f828287</p>
 ```
 
+Or for handlebars create a template
+
+`<templateDir>/welcome.hbs`
+
+With the following content
+```
+<h1>Welcome {{username}}!</h1>
+<p>your activation code is {{code}}</p>
+```
+
+and set the `templateOptions.engine` parameter to `handlebars` (case-insensitive):
+
+```javascript
+//mailerconfig.ts
+export = {
+  transport: {
+    host: 'smtp.example.com',
+    port: 587,
+    secure: false,
+    auth: {
+      user: 'username',
+      pass: 'password'
+    }
+  },
+  defaults: {
+    forceEmbeddedImages: true,
+    from:'"nest-modules" <modules@nestjs.com>',
+  },
+  templateDir: './src/common/email-templates',
+  templateOptions: {
+    engine: 'handlebars'
+  }
+}
+```
+
 #### Using a transport plugin instance:
 
 In some cases you will want to use a nodemailer transport plugin, such as mandrill, sendgrid, mailgun, etc.
@@ -175,10 +219,74 @@ export = {
 }
 ```
 
+
+#### Custom templating
+
+Pug and Handlebars are natively supported (via the `templateOptions.engine` option), but you can pass in a custom template adaptor function (such as EJS) to the `templateOptions.adaptor` config:
+
+```javascript
+//mailerconfig.ts
+
+const customAdaptor = (templateDir, mail, callback) => {
+    const templatePath = path.join(process.cwd(), templateDir, mail.data.template) + '.html';
+
+    try {
+        const templateString = fs.readFileSync(templatePath, 'UTF-8');
+        mail.data.html = templateString.replace(/javascript/g, 'typescript');
+
+        return callback();
+    } catch (err) {
+        return callback(err);
+    }
+}
+
+export = {
+  transport: {
+    host: 'smtp.example.com',
+    port: 587,
+    secure: false,
+    auth: {
+      user: 'username',
+      pass: 'password'
+    }
+  },
+  defaults: {
+    forceEmbeddedImages: true,
+    from:'"nest-modules" <modules@nestjs.com>',
+  },
+  templateDir: './src/common/email-templates',
+  templateOptions: {
+    engineAdapter: customAdaptor
+  }
+}
+```
+
+You can also supply precompiled templates, for instance in handlebars:
+
+```javascript
+//mailerconfig.ts
+module.exports = {
+    transport: config.mail,
+    defaults: {
+        forceEmbeddedImages: true,
+        from: '"nest-modules" <modules@nestjs.com>',
+    },
+    templateDir: './src/common/templates',
+    templateOptions: {
+        precompiledTemplates: {
+            test_1: Handlebars.compile(test_1_string),
+            test_2: Handlebars.compile(test_2_string)
+        },
+        engine: 'handlebars',
+    },
+};
+```
+
 ### Contributing
 
 * [Paweł Partyka](http://epartyka.com)
 * [Cristiam Diaz](https://github.com/cdiaz)
+* [Pat McGowan](https://github.com/p-mcgowan)
 
 ### License
 

@@ -2,4 +2,4 @@
 export { MailerModule } from './mailer.module';
 
 /** Providers **/
-export { MailerProvider } from './mailer.provider';
+export { MailerProvider, TemplateEngineOptions, MailerConfig } from './mailer.provider';
