@@ -12,7 +12,7 @@ import { ConfigRead } from './mailer.utils';
 @Module({
   imports: [],
   controllers: [],
-  components: [],
+  providers: [],
   exports: [],
 })
 export class MailerCoreModule {

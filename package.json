@@ -1,6 +1,6 @@
 {
   "name": "@nest-modules/mailer",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "A mailer module for Nest framework (node.js)",
   "main": "dist/index.js",
   "types": "dist/index",
@@ -29,8 +29,8 @@
   },
   "homepage": "https://github.com/nest-modules/mailer#readme",
   "dependencies": {
-    "@nestjs/common": "^4.6.2",
-    "@nestjs/core": "^4.6.2",
+    "@nestjs/common": "5.3.9",
+    "@nestjs/core": "5.3.10",
     "handlebars": "^4.0.11",
     "nodemailer": "^4.4.2",
     "pug": "^2.0.0-rc.4",

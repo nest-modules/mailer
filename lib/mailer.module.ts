@@ -7,7 +7,7 @@ import { MailerCoreModule } from './mailer-core.module';
 @Module({
   imports: [],
   controllers: [],
-  components: [],
+  providers: [],
   exports: [],
 })
 export class MailerModule {

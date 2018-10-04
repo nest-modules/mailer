@@ -3,7 +3,7 @@ import * as path from 'path';
 import { renderFile } from 'pug';
 import * as Handlebars from 'handlebars';
 import * as fs from 'fs';
-import { Component, Inject } from '@nestjs/common';
+import { Injectable, Inject } from '@nestjs/common';
 import { createTransport, SentMessageInfo, Transporter, SendMailOptions } from 'nodemailer';
 
 export interface TemplateEngineOptions {
@@ -23,7 +23,7 @@ export interface MailerConfig {
 
 export type RenderCallback = (err?: any, body?: string) => any;
 
-@Component()
+@Injectable()
 export class MailerProvider {
   private transporter: Transporter;
   private precompiledTemplates: any;
