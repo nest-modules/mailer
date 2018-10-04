@@ -289,7 +289,7 @@ You must only create the instance and send it to the transport value.
 
 Here are some examples of how you can do it.
 
-**Do not nodemailer.createTransport in the transport passed. If you do this, you will receive the error** `TypeError: Converting circular structure to JSON` **since we call createTransport inside this library.**
+**Do not call nodemailer.createTransport in the transport passed. If you do this, you will receive the error** `TypeError: Converting circular structure to JSON` **since we call createTransport inside this library.**
 
 ##### Mandrill
 
