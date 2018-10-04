@@ -22,7 +22,7 @@ import { MailerModule } from '@nest-modules/mailer';
 @Module({
   imports: [
     MailerModule.forRoot({
-      transport: 'smtps://user%40gmail.com:pass@smtp.gmail.com',
+      transport: 'smtps://user%40domain.com:pass@smtp.domain.com',
       defaults: {
         from:'"nest-modules" <modules@nestjs.com>',
       },
@@ -97,6 +97,51 @@ Afterwards, MailerProvider will be available to inject across entire project (wi
 @Inject('MailerProvider') private readonly mailerProvider
 ```
 
+#### Async configuration
+
+Quite often you might want to asynchronously pass your module options instead of passing them beforehand. In such case, use forRootAsync() method, that provides a couple of various ways to deal with async data.
+
+##### useFactory:
+First possible approach is to use a factory function.
+Our factory behaves like every other one (might be async and is able to inject dependencies through inject):
+
+```javascript
+MailerModule.forRootAsync({
+ imports: [ConfigModule],
+  useFactory: async (config: ConfigService) => ({
+    transport: config.getString('MAILER_TRANSPORT'),
+    ...
+  }),
+  inject: [ConfigService],
+})
+```
+##### useClass:
+ Alternatively, you are able to use class instead of a factory.
+
+```javascript
+MailerModule.forRootAsync({
+  useClass: MailerConfigService,
+})
+```
+
+Above construction will instantiate MailerConfigService inside MailerModule and will leverage it to create options object. The MailerConfigService has to implement MailerOptionsFactory interface. 
+
+```javascript
+@Injectable()
+export class MailerConfigService implements MailerOptionsFactory {
+  constructor(
+    private readonly config: ConfigService
+  ){}
+  createMailerOptions(): MailerModuleOptions {
+    return {
+      transport: this.config.getString('MAILER_TRANSPORT'),
+      ...
+    };
+  }
+}
+
+```
+
 #### Sending messages:
 
 MailerProvider exports the `sendMail()` function to which you can pass the message options (sender, email subject, recipient, body content, etc)
@@ -127,8 +172,8 @@ this.mailerProvider.sendMail({
   to: 'test@nestjs.com',
   from: 'noreply@nestjs.com',
   subject: 'Testing Nest Mailermodule with template ✔',
-  template: 'welcome', // The `.pug` extension is appended automatically.
-  context: {  // Data to be sent to PugJS template files.
+  template: 'welcome', // The `.pug` or `.hbs` extension is appended automatically.
+  context: {  // Data to be sent to template engine.
     username: 'john doe',
     code: 'cf1a3f828287'
   }
@@ -173,9 +218,8 @@ With the following content
 and set the `templateOptions.engine` parameter to `handlebars` (case-insensitive):
 
 ```javascript
-//mailerconfig.ts
 export = {
-  transport: 'smtps://user%40gmail.com:pass@smtp.gmail.com',
+  transport: 'smtps://user%40domain.com:pass@smtp.domain.com',
   defaults: {
     forceEmbeddedImages: true,
     from:'"nest-modules" <modules@nestjs.com>',
@@ -190,9 +234,8 @@ export = {
 You can also supply precompiled templates, for instance in handlebars:
 
 ```javascript
-//mailerconfig.ts
 export = {
-  transport: 'smtps://user%40gmail.com:pass@smtp.gmail.com',
+  transport: 'smtps://user%40domain.com:pass@smtp.domain.com',
   defaults: {
     forceEmbeddedImages: true,
     from: '"nest-modules" <modules@nestjs.com>',
@@ -213,15 +256,12 @@ export = {
 Pug and Handlebars are natively supported (via the `templateOptions.engine` option), but you can pass in a custom template adaptor function (such as EJS) to the `templateOptions.adaptor` config:
 
 ```javascript
-//mailerconfig.ts
-
 const customAdaptor = (templateDir, mail, callback) => {
   const templatePath = path.join(process.cwd(), templateDir, mail.data.template) + '.html';
 
   try {
     const templateString = fs.readFileSync(templatePath, 'UTF-8');
     mail.data.html = templateString.replace(/javascript/g, 'typescript');
-
     return callback();
   } catch (err) {
     return callback(err);
@@ -229,7 +269,7 @@ const customAdaptor = (templateDir, mail, callback) => {
 }
 
 export = {
-  transport: 'smtps://user%40gmail.com:pass@smtp.gmail.com',
+  transport: 'smtps://user%40domain.com:pass@smtp.domain.com',
   defaults: {
     forceEmbeddedImages: true,
     from:'"nest-modules" <modules@nestjs.com>',
@@ -253,7 +293,6 @@ npm install --save nodemailer-mandrill-transport
 ```
 
 ```javascript
-//mailerconfig.ts
 import * as mandrillTransport from 'nodemailer-mandrill-transport'
 
 export = {

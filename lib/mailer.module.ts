@@ -1,6 +1,9 @@
 import { DynamicModule, Module } from '@nestjs/common';
 import { MailerCoreModule } from './mailer-core.module';
-import { MailerModuleOptions } from './interfaces';
+import { 
+  MailerModuleOptions, 
+  MailerModuleAsyncOptions 
+} from './interfaces';
 
 @Module({})
 export class MailerModule {
@@ -10,4 +13,12 @@ export class MailerModule {
       modules: [MailerCoreModule.forRoot(options)],
     };
   }
+
+  static forRootAsync(options: MailerModuleAsyncOptions): DynamicModule {
+    return {
+      module: MailerModule,
+      imports: [MailerCoreModule.forRootAsync(options)],
+    };
+  }
+
 }
