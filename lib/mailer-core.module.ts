@@ -1,39 +1,31 @@
-/** Dependencies **/
 import { CustomValue } from '@nestjs/core/injector/module';
 import { DynamicModule, Module, Global } from '@nestjs/common';
-
-/** Providers **/
 import { MailerProvider } from './mailer.provider';
-
-/** Utils **/
 import { ConfigRead } from './mailer.utils';
+import { MailerModuleOptions } from './interfaces';
 
 @Global()
-@Module({
-  imports: [],
-  controllers: [],
-  providers: [],
-  exports: [],
-})
+@Module({})
 export class MailerCoreModule {
-  static forRoot(config: any): DynamicModule {
-    config = ConfigRead(config);
+  static forRoot(options: MailerModuleOptions): DynamicModule {
+    options = ConfigRead(options);
 
-    const MailerConfig: CustomValue = {
-      name: 'MAILER_CONFIG',
-      provide: 'MAILER_CONFIG',
+    const MailerOptions: CustomValue = {
+      name: 'MAILER_MODULE_OPTIONS',
+      provide: 'MAILER_MODULE_OPTIONS',
       useValue: {
-        transport: config.transport,
-        defaults: config.defaults,
-        templateDir: config.templateDir,
-        templateOptions: config.templateOptions,
-      },
+        transport: options.transport,
+        defaults: options.defaults,
+        templateDir: options.templateDir,
+        templateOptions: options.templateOptions,
+      } as MailerModuleOptions,
     };
 
     return {
       module: MailerCoreModule,
-      components: [MailerProvider, MailerConfig],
+      components: [MailerProvider, MailerOptions],
       exports: [MailerProvider],
     };
   }
+
 }

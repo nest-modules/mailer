@@ -1,20 +1,13 @@
-/** Dependencies **/
 import { DynamicModule, Module } from '@nestjs/common';
-
-/** Modules **/
 import { MailerCoreModule } from './mailer-core.module';
+import { MailerModuleOptions } from './interfaces';
 
-@Module({
-  imports: [],
-  controllers: [],
-  providers: [],
-  exports: [],
-})
+@Module({})
 export class MailerModule {
-  static forRoot(config?: any): DynamicModule {
+  static forRoot(options?: MailerModuleOptions): DynamicModule {
     return {
       module: MailerModule,
-      modules: [MailerCoreModule.forRoot(config)],
+      modules: [MailerCoreModule.forRoot(options)],
     };
   }
 }

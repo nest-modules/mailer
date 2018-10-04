@@ -4,42 +4,37 @@ import { renderFile } from 'pug';
 import * as Handlebars from 'handlebars';
 import * as fs from 'fs';
 import { Injectable, Inject } from '@nestjs/common';
-import { createTransport, SentMessageInfo, Transporter, SendMailOptions } from 'nodemailer';
-
-export interface TemplateEngineOptions {
-  engine?: string;
-  engineAdapter?: Function;
-  precompiledTemplates?: {
-    [templateName: string]: (context: any) => any;
-  };
-}
-
-export interface MailerConfig {
-  transport?: any;
-  defaults?: any;
-  templateDir?: string;
-  templateOptions?: TemplateEngineOptions;
-}
-
-export type RenderCallback = (err?: any, body?: string) => any;
+import { 
+  createTransport,
+  SentMessageInfo,
+  Transporter,
+  SendMailOptions 
+} from 'nodemailer';
+import { 
+  MailerModuleOptions,
+  TemplateEngineOptions,
+  RenderCallback
+} from './interfaces'
 
 @Injectable()
 export class MailerProvider {
   private transporter: Transporter;
   private precompiledTemplates: any;
 
-  constructor(@Inject('MAILER_CONFIG') private readonly mailerConfig: MailerConfig) {
-    if (!mailerConfig.transport || Object.keys(mailerConfig.transport).length < 1) {
+  constructor(
+    @Inject('MAILER_MODULE_OPTIONS') 
+    private readonly options: MailerModuleOptions
+  ) {
+    if (!options.transport || Object.keys(options.transport).length < 1) {
       throw new Error('Make sure to provide a nodemailer transport configuration object, connection url or a transport plugin instance');
     }
-
-    this.setupTransporter(mailerConfig.transport, mailerConfig.defaults, mailerConfig.templateDir, mailerConfig.templateOptions);
+    this.setupTransporter(options.transport, options.defaults, options.templateDir, options.templateOptions);
   }
 
   private setupTransporter(transport: any, defaults?: any, templateDir?: string, templateOptions: TemplateEngineOptions = { engine: 'pug' }): void {
     this.transporter = createTransport(transport, defaults);
-
     this.precompiledTemplates = templateOptions.precompiledTemplates || {};
+
     if (templateOptions && typeof templateOptions.engineAdapter === 'function') {
       this.transporter.use('compile', this.renderTemplateWithAdapter(templateDir, templateOptions.engineAdapter));
     } else if (templateOptions.engine) {
@@ -73,7 +68,6 @@ export class MailerProvider {
       if (mail.data.html) {
         return callback();
       }
-
       templateAdapter(templateDir, mail, callback);
     };
   }
@@ -84,9 +78,7 @@ export class MailerProvider {
       if (err) {
         return callback(err);
       }
-
       mail.data.html = body;
-
       return callback();
     });
   }
@@ -103,9 +95,7 @@ export class MailerProvider {
         return callback(err);
       }
     }
-
     mail.data.html = this.precompiledTemplates[templateName](mail.data.context);
-
     return callback();
   }
 }

@@ -10,7 +10,7 @@ declare class MailerProvider {
   public sendMail(sendMailOptions: SendMailOptions): Promise<SentMessageInfo>;
 }
 
-declare interface MailerConfig {
+declare interface MailerModuleOptions {
   transport?: any;
   defaults?: any;
   templateDir?: string;
