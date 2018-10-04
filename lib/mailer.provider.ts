@@ -30,7 +30,7 @@ export class MailerProvider {
 
   constructor(@Inject('MAILER_CONFIG') private readonly mailerConfig: MailerConfig) {
     if (!mailerConfig.transport || Object.keys(mailerConfig.transport).length < 1) {
-      throw new Error('Make sure to provide a nodemaileanyr transport configuration object, connection url or a transport plugin instance');
+      throw new Error('Make sure to provide a nodemailer transport configuration object, connection url or a transport plugin instance');
     }
 
     this.setupTransporter(mailerConfig.transport, mailerConfig.defaults, mailerConfig.templateDir, mailerConfig.templateOptions);
