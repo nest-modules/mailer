@@ -140,7 +140,9 @@ where:
 
 **context** is an object with dynamic content which will be bing to templates
 
-Now create a pug template in your templateDir, on this case:
+##### Pug engine:
+
+Create a pug template in your templateDir, on this case:
 
 `<templateDir>/welcome.pug`
 
@@ -155,6 +157,8 @@ The result is:
 ```html
 <p>Welcome john doe, your activation code is cf1a3f828287</p>
 ```
+
+##### Handlebars engine:
 
 Or for handlebars create a template
 
@@ -171,15 +175,7 @@ and set the `templateOptions.engine` parameter to `handlebars` (case-insensitive
 ```javascript
 //mailerconfig.ts
 export = {
-  transport: {
-    host: 'smtp.example.com',
-    port: 587,
-    secure: false,
-    auth: {
-      user: 'username',
-      pass: 'password'
-    }
-  },
+  transport: 'smtps://user%40gmail.com:pass@smtp.gmail.com',
   defaults: {
     forceEmbeddedImages: true,
     from:'"nest-modules" <modules@nestjs.com>',
@@ -187,6 +183,60 @@ export = {
   templateDir: './src/common/email-templates',
   templateOptions: {
     engine: 'handlebars'
+  }
+}
+```
+
+You can also supply precompiled templates, for instance in handlebars:
+
+```javascript
+//mailerconfig.ts
+export = {
+  transport: 'smtps://user%40gmail.com:pass@smtp.gmail.com',
+  defaults: {
+    forceEmbeddedImages: true,
+    from: '"nest-modules" <modules@nestjs.com>',
+  },
+  templateDir: './src/common/email-templates',
+  templateOptions: {
+    precompiledTemplates: {
+      test_1: Handlebars.compile(test_1_string),
+      test_2: Handlebars.compile(test_2_string)
+    },
+    engine: 'handlebars',
+  },
+};
+```
+
+##### Custom template Adaptor
+
+Pug and Handlebars are natively supported (via the `templateOptions.engine` option), but you can pass in a custom template adaptor function (such as EJS) to the `templateOptions.adaptor` config:
+
+```javascript
+//mailerconfig.ts
+
+const customAdaptor = (templateDir, mail, callback) => {
+  const templatePath = path.join(process.cwd(), templateDir, mail.data.template) + '.html';
+
+  try {
+    const templateString = fs.readFileSync(templatePath, 'UTF-8');
+    mail.data.html = templateString.replace(/javascript/g, 'typescript');
+
+    return callback();
+  } catch (err) {
+    return callback(err);
+  }
+}
+
+export = {
+  transport: 'smtps://user%40gmail.com:pass@smtp.gmail.com',
+  defaults: {
+    forceEmbeddedImages: true,
+    from:'"nest-modules" <modules@nestjs.com>',
+  },
+  templateDir: './src/common/email-templates',
+  templateOptions: {
+    engineAdapter: customAdaptor
   }
 }
 ```
@@ -217,69 +267,6 @@ export = {
   },
   templateDir: './src/common/email-templates'
 }
-```
-
-
-#### Custom templating
-
-Pug and Handlebars are natively supported (via the `templateOptions.engine` option), but you can pass in a custom template adaptor function (such as EJS) to the `templateOptions.adaptor` config:
-
-```javascript
-//mailerconfig.ts
-
-const customAdaptor = (templateDir, mail, callback) => {
-    const templatePath = path.join(process.cwd(), templateDir, mail.data.template) + '.html';
-
-    try {
-        const templateString = fs.readFileSync(templatePath, 'UTF-8');
-        mail.data.html = templateString.replace(/javascript/g, 'typescript');
-
-        return callback();
-    } catch (err) {
-        return callback(err);
-    }
-}
-
-export = {
-  transport: {
-    host: 'smtp.example.com',
-    port: 587,
-    secure: false,
-    auth: {
-      user: 'username',
-      pass: 'password'
-    }
-  },
-  defaults: {
-    forceEmbeddedImages: true,
-    from:'"nest-modules" <modules@nestjs.com>',
-  },
-  templateDir: './src/common/email-templates',
-  templateOptions: {
-    engineAdapter: customAdaptor
-  }
-}
-```
-
-You can also supply precompiled templates, for instance in handlebars:
-
-```javascript
-//mailerconfig.ts
-module.exports = {
-    transport: config.mail,
-    defaults: {
-        forceEmbeddedImages: true,
-        from: '"nest-modules" <modules@nestjs.com>',
-    },
-    templateDir: './src/common/templates',
-    templateOptions: {
-        precompiledTemplates: {
-            test_1: Handlebars.compile(test_1_string),
-            test_2: Handlebars.compile(test_2_string)
-        },
-        engine: 'handlebars',
-    },
-};
 ```
 
 ### Contributing
