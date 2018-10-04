@@ -285,9 +285,14 @@ export = {
 
 In some cases you will want to use a nodemailer transport plugin, such as mandrill, sendgrid, mailgun, etc.
 
-You must only create the instance and send it to the transport value.
+You must only create the instance and send it to the transport value. 
 
-ex:
+Here are some examples of how you can do it.
+
+**Do not nodemailer.createTransport in the transport passed. If you do this, you will receive the error** `TypeError: Converting circular structure to JSON` **since we call createTransport inside this library.**
+
+##### Mandrill
+
 ```
 npm install --save nodemailer-mandrill-transport
 ```
@@ -301,6 +306,28 @@ export = {
       api_key: 'key'
     }
   }),
+  defaults: {
+    from:'"nest-mailer" <noreply@nestjs.com>',
+  },
+  templateDir: './src/common/email-templates'
+}
+```
+
+##### AWS SES
+
+```
+npm install --save aws-sdk
+```
+
+```javascript
+import * as aws from 'aws-sdk';
+
+export = {
+  transport: {
+    SES: new aws.SES({
+      apiVersion: '2010-12-01',
+    }),
+  },
   defaults: {
     from:'"nest-mailer" <noreply@nestjs.com>',
   },
