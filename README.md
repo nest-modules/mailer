@@ -28,7 +28,11 @@ import { MailerModule } from '@nest-modules/mailer';
       },
       templateDir: './src/common/email-templates'
       templateOptions: {
-        engine: 'PUG'
+        engine: 'PUG',
+        engineConfig: {
+          doctype: 'html',
+          debug: true
+        }
       }
     }),
   ],
@@ -45,6 +49,8 @@ The `forRoot()` method accepts a configuration JSON object with the following at
 **templateDir** is the path to directory where you have put your templates; the default value is `/public/templates` if not specified.
 
 **templateOptions.engine** is the template engine used for rendering html. Accepts PUG (default) or HANDLEBARS (case-insensitive).
+
+**templateOptions.engineConfig** is an options object used as parameter in template engine `compile/render` function. See more details and avaliable options in [`pug`](https://pugjs.org/api/reference.html) or [`handlebars`](https://handlebarsjs.com/reference.html) API reference.
 
 **templateOptions.precompiledTemplates** is a hash of `templateName: (context) => htmlString`. Currently only used in `handlebars` engine, to optimize dynamic rendering.
 
@@ -124,7 +130,7 @@ MailerModule.forRootAsync({
 })
 ```
 
-Above construction will instantiate MailerConfigService inside MailerModule and will leverage it to create options object. The MailerConfigService has to implement MailerOptionsFactory interface. 
+Above construction will instantiate MailerConfigService inside MailerModule and will leverage it to create options object. The MailerConfigService has to implement MailerOptionsFactory interface.
 
 ```javascript
 @Injectable()
