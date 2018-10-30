@@ -4,17 +4,18 @@ import { renderFile } from 'pug';
 import * as Handlebars from 'handlebars';
 import * as fs from 'fs';
 import { Injectable, Inject } from '@nestjs/common';
-import { 
+import {
   createTransport,
   SentMessageInfo,
   Transporter,
-  SendMailOptions 
+  SendMailOptions
 } from 'nodemailer';
-import { 
+import {
   MailerModuleOptions,
   TemplateEngineOptions,
   RenderCallback
-} from './interfaces'
+} from './interfaces';
+import { getProperty } from './mailer.utils';
 
 @Injectable()
 export class MailerProvider {
@@ -22,7 +23,7 @@ export class MailerProvider {
   private precompiledTemplates: any;
 
   constructor(
-    @Inject('MAILER_MODULE_OPTIONS') 
+    @Inject('MAILER_MODULE_OPTIONS')
     private readonly options: MailerModuleOptions
   ) {
     if (!options.transport || Object.keys(options.transport).length < 1) {
@@ -74,7 +75,9 @@ export class MailerProvider {
 
   private pugAdapter(templateDir: string, mail: any, callback: RenderCallback) {
     const templatePath = this.getTemplatePath(templateDir, mail.data.template, '.pug');
-    renderFile(templatePath, mail.data.context, (err, body) => {
+    let engineConfig = getProperty(this, ['options', 'templateOptions', 'engineConfig'], {});
+        engineConfig = { ...mail.data.context, ...engineConfig };
+    renderFile(templatePath, engineConfig, (err, body) => {
       if (err) {
         return callback(err);
       }
@@ -86,11 +89,12 @@ export class MailerProvider {
   private handlebarsAdapter(templateDir: string, mail: any, callback: RenderCallback) {
     const templatePath = this.getTemplatePath(templateDir, mail.data.template, '.hbs');
     const templateName = path.basename(mail.data.template, path.extname(mail.data.template));
+    const engineConfig = getProperty(this, ['options', 'templateOptions', 'engineConfig'], {});
 
     if (!this.precompiledTemplates[templateName]) {
       try {
         const templateString = fs.readFileSync(templatePath, 'UTF-8');
-        this.precompiledTemplates[templateName] = Handlebars.compile(templateString);
+        this.precompiledTemplates[templateName] = Handlebars.compile(templateString, engineConfig);
       } catch (err) {
         return callback(err);
       }

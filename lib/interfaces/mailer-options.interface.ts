@@ -10,6 +10,9 @@ export interface MailerModuleOptions {
 export interface TemplateEngineOptions {
   engine?: string;
   engineAdapter?: Function;
+  engineConfig?: {
+    [optionName: string]: string
+  }
   precompiledTemplates?: {
     [templateName: string]: (context: any) => any;
   };

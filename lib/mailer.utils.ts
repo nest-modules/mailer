@@ -17,3 +17,11 @@ export function ConfigRead(config: any) {
     return {};
   }
 }
+
+export function getProperty(target: object, propertyPath: Array<string>, defaultValue = null) {
+  return propertyPath.reduce(
+    (currentPath, currentProperty) => (currentPath && currentPath[currentProperty])
+      ? currentPath[currentProperty]
+      : defaultValue
+  , target);
+}
