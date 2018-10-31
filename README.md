@@ -32,6 +32,12 @@ import { MailerModule } from '@nest-modules/mailer';
         engineConfig: {
           doctype: 'html',
           debug: true
+        },
+        inlineCSS: {
+          enabled: true,
+          options: {
+            preserveImportant: true
+          }
         }
       }
     }),
@@ -51,6 +57,8 @@ The `forRoot()` method accepts a configuration JSON object with the following at
 **templateOptions.engine** is the template engine used for rendering html. Accepts PUG (default) or HANDLEBARS (case-insensitive).
 
 **templateOptions.engineConfig** is an options object used as parameter in template engine `compile/render` function. See more details and avaliable options in [`pug`](https://pugjs.org/api/reference.html) or [`handlebars`](https://handlebarsjs.com/reference.html) API reference.
+
+**templateOptions.inlineCSS** when `templateOptions.inlineCSS.enabled` is set to `true` all css declared in `style` or `link` tag are removed and setted as inline. An adidtional property called `options` can be passed to `templateOptions.inlineCSS` and accept any value compatiple with [`juice options`](https://github.com/Automattic/juice#options).
 
 **templateOptions.precompiledTemplates** is a hash of `templateName: (context) => htmlString`. Currently only used in `handlebars` engine, to optimize dynamic rendering.
 
