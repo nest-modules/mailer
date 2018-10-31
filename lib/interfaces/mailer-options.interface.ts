@@ -10,12 +10,20 @@ export interface MailerModuleOptions {
 export interface TemplateEngineOptions {
   engine?: string;
   engineAdapter?: Function;
+  inlineCSS?: InlineCSSOptions;
   engineConfig?: {
     [optionName: string]: string
   }
   precompiledTemplates?: {
     [templateName: string]: (context: any) => any;
   };
+}
+
+export interface InlineCSSOptions {
+  enabled?: boolean;
+  options?: {
+    [optionName: string]: string
+  }
 }
 
 export interface MailerOptionsFactory {
