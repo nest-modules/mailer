@@ -17,7 +17,6 @@ import {
   TemplateEngineOptions,
   RenderCallback
 } from './interfaces';
-import { getProperty } from './mailer.utils';
 
 @Injectable()
 export class MailerProvider {
@@ -75,10 +74,14 @@ export class MailerProvider {
     };
   }
 
-  private inlinefyCSS(html, options) {
-    return declassify.process(
-      juice(html, options)
-    );
+  private inlinefyCSS(html, options): Promise<string> {
+    return new Promise((resolve, reject) => {
+      juice.juiceResources(html, options, (error, inlineHTML) => {
+        if (error) reject(error);
+        const inlineHTMLWithoutClass = declassify.process(inlineHTML);
+        resolve(inlineHTMLWithoutClass);
+      });
+    });
   }
 
   private pugAdapter(templateDir: string, mail: any, callback: RenderCallback) {
@@ -87,18 +90,18 @@ export class MailerProvider {
     const inlineCSS = templateOpts.inlineCSS || {};
     let engineConfig = templateOpts.engineConfig || {};
         engineConfig = { ...mail.data.context, ...engineConfig };
-    renderFile(templatePath, engineConfig, (err, body) => {
+    renderFile(templatePath, engineConfig, async (err, body) => {
       if (err) {
         return callback(err);
       }
       mail.data.html = (inlineCSS.enabled)
-        ? this.inlinefyCSS(body, inlineCSS.options)
+        ? await this.inlinefyCSS(body, inlineCSS.options)
         : body;
       return callback();
     });
   }
 
-  private handlebarsAdapter(templateDir: string, mail: any, callback: RenderCallback) {
+  private async handlebarsAdapter(templateDir: string, mail: any, callback: RenderCallback) {
     const templatePath = this.getTemplatePath(templateDir, mail.data.template, '.hbs');
     const templateName = path.basename(mail.data.template, path.extname(mail.data.template));
     const templateOpts = this.options.templateOptions || {};
@@ -109,7 +112,7 @@ export class MailerProvider {
       try {
         let templateString = fs.readFileSync(templatePath, 'UTF-8');
             templateString = (inlineCSS.enabled)
-              ? this.inlinefyCSS(templateString, inlineCSS.options)
+              ? await this.inlinefyCSS(templateString, inlineCSS.options)
               : templateString;
         this.precompiledTemplates[templateName] = Handlebars.compile(templateString, engineConfig);
       } catch (err) {
