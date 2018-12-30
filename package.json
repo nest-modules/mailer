@@ -5,8 +5,11 @@
   "main": "dist/index.js",
   "types": "dist/index",
   "private": false,
+  "files":[
+    "dist/**/*"
+  ],
   "scripts": {
-    "build": "tsc -p tsconfig.json"
+    "build": "rm -rf dist && tsc -p tsconfig.json"
   },
   "repository": {
     "type": "git",

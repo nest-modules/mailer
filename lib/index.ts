@@ -5,4 +5,4 @@ export { MailerModule } from './mailer.module';
 export { MailerProvider } from './mailer.provider';
 
 /** Interfaces **/
-export { TemplateEngineOptions, MailerModuleOptions, MailerOptionsFactory } from './interfaces'
+export * from './interfaces';
