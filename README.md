@@ -2,6 +2,13 @@
 
 A mailer module for Nest framework (node.js)
 
+<a href="https://www.npmjs.com/~nest-modules"><img src="https://img.shields.io/npm/v/@nest-modules/mailer.svg" alt="NPM Version" /></a>
+<a href="https://www.npmjs.com/~nest-modules"><img src="https://img.shields.io/npm/l/@nest-modules/mailer.svg" alt="Package License" /></a>
+<a href="https://www.npmjs.com/~nest-modules"><img src="https://img.shields.io/npm/dm/@nest-modules/mailer.svg" alt="NPM Downloads" /></a>
+
+### Description
+test
+
 ### Installation
 
 ```
