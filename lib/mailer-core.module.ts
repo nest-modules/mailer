@@ -1,87 +1,96 @@
+/** Dependencies **/
 import { CustomValue } from '@nestjs/core/injector/module';
-import {
-  DynamicModule,
-  Module,
-  Global,
-  Provider
-} from '@nestjs/common';
-import {
-  MailerModuleOptions,
-  MailerModuleAsyncOptions,
-  MailerOptionsFactory
-} from './interfaces';
-import { MailerProvider } from './mailer.provider';
-import { ConfigRead } from './mailer.utils';
+import { DynamicModule, Module, Global, Provider } from '@nestjs/common';
+
+/** Constants **/
+import { MAILER_OPTIONS } from './constants/mailer-options.constant';
+
+/** Interfaces **/
+import { MailerOptions } from './interfaces/mailer-options.interface';
+import { MailerAsyncOptions } from './interfaces/mailer-async-options.interface';
+import { MailerOptionsFactory } from './interfaces/mailer-options-factory.interface';
+
+/** Services **/
+import { MailerService } from './mailer.service';
 
 @Global()
 @Module({})
 export class MailerCoreModule {
-  static forRoot(options: MailerModuleOptions): DynamicModule {
-    options = ConfigRead(options);
-
+  public static forRoot(options: MailerOptions): DynamicModule {
     const MailerOptions: CustomValue = {
-      name: 'MAILER_MODULE_OPTIONS',
-      provide: 'MAILER_MODULE_OPTIONS',
-      useValue: {
-        transport: options.transport,
-        defaults: options.defaults,
-        templateDir: options.templateDir,
-        templateOptions: options.templateOptions,
-      } as MailerModuleOptions,
+      name: MAILER_OPTIONS,
+      provide: MAILER_OPTIONS,
+      useValue: options,
     };
 
     return {
       module: MailerCoreModule,
-      components: [MailerProvider, MailerOptions],
-      exports: [MailerProvider],
-    };
-  }
-
-  static forRootAsync(options: MailerModuleAsyncOptions): DynamicModule {
-
-    const asyncProviders = this.createAsyncProviders(options);
-
-    return {
-      module: MailerCoreModule,
-      imports: options.imports,
       providers: [
-        ...asyncProviders,
-        MailerProvider
+        /** Options **/
+        MailerOptions,
+
+        /** Services **/
+        MailerService,
       ],
-      exports: [MailerProvider],
+      exports: [
+        /** Services **/
+        MailerService,
+      ],
     };
   }
 
-  private static createAsyncProviders(
-    options: MailerModuleAsyncOptions,
-  ): Provider[] {
-    if (options.useExisting || options.useFactory) {
-      return [this.createAsyncOptionsProvider(options)];
-    }
-    return [
+  public static forRootAsync(options: MailerAsyncOptions): DynamicModule {
+    const providers: Provider[] = this.createAsyncProviders(options);
+
+    return {
+      module: MailerCoreModule,
+      providers: [
+        /** Providers **/
+        ...providers,
+
+        /** Services **/
+        MailerService,
+      ],
+      imports: options.imports,
+      exports: [
+        /** Services **/
+        MailerService,
+      ],
+    };
+  }
+
+  private static createAsyncProviders(options: MailerAsyncOptions): Provider[] {
+    const providers: Provider[] = [
       this.createAsyncOptionsProvider(options),
-      {
+    ];
+
+    if (options.useClass) {
+      providers.push({
         provide: options.useClass,
         useClass: options.useClass,
-      },
-    ];
+      });
+    }
+
+    return providers;
   }
 
-  private static createAsyncOptionsProvider(
-    options: MailerModuleAsyncOptions,
-  ): Provider {
+  private static createAsyncOptionsProvider(options: MailerAsyncOptions): Provider {
     if (options.useFactory) {
       return {
-        provide: 'MAILER_MODULE_OPTIONS',
+        name: MAILER_OPTIONS,
+        provide: MAILER_OPTIONS,
         useFactory: options.useFactory,
         inject: options.inject || [],
       };
     }
+
     return {
-      provide: 'MAILER_MODULE_OPTIONS',
-      useFactory: async (optionsFactory: MailerOptionsFactory) => optionsFactory.createMailerOptions(),
+      name: MAILER_OPTIONS,
+      provide: MAILER_OPTIONS,
+      useFactory: async (optionsFactory: MailerOptionsFactory) => {
+        return optionsFactory.createMailerOptions();
+      },
       inject: [options.useExisting || options.useClass],
     };
   }
-
 }

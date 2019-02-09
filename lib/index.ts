@@ -1,8 +1,14 @@
 /** Modules **/
 export { MailerModule } from './mailer.module';
 
-/** Providers **/
-export { MailerProvider } from './mailer.provider';
+/** Adapters **/
+export { PugAdapter } from './adapters/pug.adapter';
+export { HandlebarsAdapter } from './adapters/handlebars.adapter';
 
 /** Interfaces **/
-export { TemplateEngineOptions, MailerModuleOptions, MailerOptionsFactory } from './interfaces'
+export { MailerOptions } from './interfaces/mailer-options.interface';
+export { TemplateAdapter } from './interfaces/template-adapter.interface';
+export { MailerOptionsFactory } from './interfaces/mailer-options-factory.interface';
+
+/** Services **/
+export { MailerService } from './mailer.service';
