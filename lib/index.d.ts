@@ -4,9 +4,9 @@ import { DynamicModule, Type } from '@nestjs/common';
 import { SendMailOptions, SentMessageInfo } from 'nodemailer';
 
 declare class MailerModule {
-  static forRoot(config?: MailerOptions): DynamicModule;
+  public static forRoot(config?: MailerOptions): DynamicModule;
 
-  static forRootAsync(config?: MailerAsyncOptions): DynamicModule;
+  public static forRootAsync(config?: MailerAsyncOptions): DynamicModule;
 }
 
 declare class MailerService {
