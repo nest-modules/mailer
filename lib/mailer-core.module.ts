@@ -17,7 +17,7 @@ import { MailerService } from './mailer.service';
 @Module({})
 export class MailerCoreModule {
   public static forRoot(options: MailerOptions): DynamicModule {
-    const MailerOptions: CustomValue = {
+    const MailerOptionsProvider: CustomValue = {
       name: MAILER_OPTIONS,
       provide: MAILER_OPTIONS,
       useValue: options,
@@ -27,7 +27,7 @@ export class MailerCoreModule {
       module: MailerCoreModule,
       providers: [
         /** Options **/
-        MailerOptions,
+        MailerOptionsProvider,
 
         /** Services **/
         MailerService,
