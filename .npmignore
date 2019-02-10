@@ -43,6 +43,7 @@ testem.log
 Thumbs.db
 
 # Other
+/test
 /wiki
 /lib
 publish.sh
