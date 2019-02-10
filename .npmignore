@@ -8,3 +8,5 @@ lib
 lib/
 .vscode
 .vscode/
+
+publish.sh

@@ -1,3 +1,3 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# TODO@
+npm version $1
