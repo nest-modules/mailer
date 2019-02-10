@@ -94,7 +94,7 @@ export class ExampleService {
 
 MailerProvider exports the `sendMail()` function to which you can pass the message options (sender, email subject, recipient, body content, etc)
 
-`sendMail()` acept the same fields of an [nodemailer email message](https://nodemailer.com/message/)
+`sendMail()` accept the same fields of an [nodemailer email message](https://nodemailer.com/message/)
 
 ```typescript
 import { Injectable } from '@nestjs/common';
