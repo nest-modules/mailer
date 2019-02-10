@@ -1,35 +1,13 @@
-import { ModuleMetadata, Type } from '@nestjs/common/interfaces';
+/** Interfaces **/
+import * as SMTPTransport from 'nodemailer/lib/smtp-transport';
+import { TemplateAdapter } from './template-adapter.interface';
 
-export interface MailerModuleOptions {
-  transport?: any;
-  defaults?: any;
-  templateDir?: string;
-  templateOptions?: TemplateEngineOptions;
-}
-
-export interface TemplateEngineOptions {
-  engine?: string;
-  engineAdapter?: Function;
-  engineConfig?: {
-    [optionName: string]: string
-  }
-  precompiledTemplates?: {
-    [templateName: string]: (context: any) => any;
+export interface MailerOptions {
+  defaults?: SMTPTransport.Options;
+  transport?: SMTPTransport | SMTPTransport.Options | string;
+  template?: {
+    dir?: string;
+    adapter?: TemplateAdapter;
+    options?: { [name: string]: string; };
   };
 }
-
-export interface MailerOptionsFactory {
-  createMailerOptions(): Promise<MailerModuleOptions> | MailerModuleOptions;
-}
-
-export interface MailerModuleAsyncOptions
-  extends Pick<ModuleMetadata, 'imports'> {
-  useExisting?: Type<MailerOptionsFactory>;
-  useClass?: Type<MailerOptionsFactory>;
-  useFactory?: (
-    ...args: any[]
-  ) => Promise<MailerModuleOptions> | MailerModuleOptions;
-  inject?: any[];
-}
-
-export type RenderCallback = (err?: any, body?: string) => any;

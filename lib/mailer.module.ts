@@ -1,24 +1,32 @@
+/** Dependencies **/
 import { DynamicModule, Module } from '@nestjs/common';
+
+/** Modules **/
 import { MailerCoreModule } from './mailer-core.module';
-import { 
-  MailerModuleOptions, 
-  MailerModuleAsyncOptions 
-} from './interfaces';
+
+/** Interfaces **/
+import { MailerOptions } from './interfaces/mailer-options.interface';
+import { MailerAsyncOptions } from './interfaces/mailer-async-options.interface';
 
 @Module({})
 export class MailerModule {
-  static forRoot(options?: MailerModuleOptions): DynamicModule {
+  public static forRoot(options?: MailerOptions): DynamicModule {
     return {
       module: MailerModule,
-      modules: [MailerCoreModule.forRoot(options)],
+      modules: [
+        /** Modules **/
+        MailerCoreModule.forRoot(options),
+      ],
     };
   }
 
-  static forRootAsync(options: MailerModuleAsyncOptions): DynamicModule {
+  public static forRootAsync(options: MailerAsyncOptions): DynamicModule {
     return {
       module: MailerModule,
-      imports: [MailerCoreModule.forRootAsync(options)],
+      imports: [
+        /** Modules **/
+        MailerCoreModule.forRootAsync(options),
+      ],
     };
   }
-
 }

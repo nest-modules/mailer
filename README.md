@@ -1,8 +1,18 @@
-## Nest mailer module
+<p align="center">
+  <a href="http://nestjs.com/" target="blank">
+    <img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" />
+  </a>
+</p>
 
-A mailer module for Nest framework (node.js)
+<p align="center">
+  A mailer module for Nest framework (node.js)
+</p>
 
-Nest MailerModule provide a wrapper around [nodemailer](https://nodemailer.com/) used for send email with support for [PugJS](https://pugjs.org) template files.
+<p align="center">
+  <a href="https://www.npmjs.com/~nest-modules"><img src="https://img.shields.io/npm/v/@nest-modules/mailer.svg" alt="NPM Version" /></a>
+  <a href="https://www.npmjs.com/~nest-modules"><img src="https://img.shields.io/npm/l/@nest-modules/mailer.svg" alt="Package License" /></a>
+  <a href="https://www.npmjs.com/~nest-modules"><img src="https://img.shields.io/npm/dm/@nest-modules/mailer.svg" alt="NPM Downloads" /></a>
+</p>
 
 ### Installation
 
@@ -12,311 +22,141 @@ npm install --save @nest-modules/mailer
 
 ### Usage
 
-Import the MailerModule into the root ApplicationModule.
+Import the MailerModule into the root AppModule.
 
 ```javascript
 //app.module.ts
 import { Module } from '@nestjs/common';
-import { MailerModule } from '@nest-modules/mailer';
+import { HandlebarsAdapter, MailerModule } from '@nest-modules/mailer';
 
 @Module({
   imports: [
     MailerModule.forRoot({
-      transport: 'smtps://user%40domain.com:pass@smtp.domain.com',
+      transport: 'smtps://user@domain.com:pass@smtp.domain.com',
       defaults: {
         from:'"nest-modules" <modules@nestjs.com>',
       },
-      templateDir: './src/common/email-templates'
-      templateOptions: {
-        engine: 'PUG',
-        engineConfig: {
+      template: {
+        dir: __dirname + '/templates',
+        adapter: new HandlebarsAdapter(), // or new PugAdapter()
+        options: {
+          debug: true,
           doctype: 'html',
-          debug: true
-        }
-      }
+        },
+      },
     }),
   ],
 })
-export class ApplicationModule {}
+export class AppModule {}
 ```
 
-The `forRoot()` method accepts a configuration JSON object with the following attributes:
+Of course, it is possible to use an async configuration:
 
-**transport** is the transport configuration object, connection url or a transport plugin instance
-
-**defaults** is an optional object of message data fields that are set for every message sent
-
-**templateDir** is the path to directory where you have put your templates; the default value is `/public/templates` if not specified.
-
-**templateOptions.engine** is the template engine used for rendering html. Accepts PUG (default) or HANDLEBARS (case-insensitive).
-
-**templateOptions.engineConfig** is an options object used as parameter in template engine `compile/render` function. See more details and avaliable options in [`pug`](https://pugjs.org/api/reference.html) or [`handlebars`](https://handlebarsjs.com/reference.html) API reference.
-
-**templateOptions.precompiledTemplates** is a hash of `templateName: (context) => htmlString`. Currently only used in `handlebars` engine, to optimize dynamic rendering.
-
-**templateOptions.engineAdapter** is a custom templating function. The function signature is `(templateDir: string, mail: any, callback: (err?: any, data?: string) => any)`.
-
->For more details about transporters and defaults values please visit: [nodemailer](https://nodemailer.com/)
-
-
-Futhermore, instead of passing anything to the `forRoot()`, we can create an `mailerconfig.ts` file in the project root directory.
-
-```javascript
-//mailerconfig.ts
-export = {
-  transport: {
-    host: 'smtp.example.com',
-    port: 587,
-    secure: false,
-    auth: {
-      user: 'username',
-      pass: 'password'
-    }
-  },
-  defaults: {
-    forceEmbeddedImages: true,
-    from:'"nest-modules" <modules@nestjs.com>',
-  },
-  templateDir: './src/common/email-templates'
-}
-```
-
-Now we can simply leave the parenthesis empty:
-
-```javascript
+```typescript
 //app.module.ts
-app.module.ts JavaScript TypeScript
-
 import { Module } from '@nestjs/common';
-import { MailerModule } from '@nest-modules/mailer';
+import { HandlebarsAdapter, MailerModule } from '@nest-modules/mailer';
 
 @Module({
-  imports: [MailerModule.forRoot()],
+  imports: [
+    MailerModule.forRootAsync({
+      useFactory: () => ({
+        transport: 'smtps://user@domain.com:pass@smtp.domain.com',
+        defaults: {
+          from:'"nest-modules" <modules@nestjs.com>',
+        },
+        template: {
+          dir: __dirname + '/templates',
+          adapter: new HandlebarsAdapter(), // or new PugAdapter()
+          options: {
+            debug: true,
+            doctype: 'html',
+          },
+        },
+      }),
+    }),
+  ],
 })
-export class ApplicationModule {}
+export class AppModule {}
 ```
 
+Afterwards, MailerService will be available to inject across entire project (without importing any module elsewhere), for example in this way:
 
-Afterwards, MailerProvider will be available to inject across entire project (without importing any module elsewhere), for example in this way:
+```typescript
+import { Injectable } from '@nestjs/common';
+import { MailerService } from '@nest-modules/mailer';
 
-```javascript
-@Inject('MailerProvider') private readonly mailerProvider
-```
-
-#### Async configuration
-
-Quite often you might want to asynchronously pass your module options instead of passing them beforehand. In such case, use forRootAsync() method, that provides a couple of various ways to deal with async data.
-
-##### useFactory:
-First possible approach is to use a factory function.
-Our factory behaves like every other one (might be async and is able to inject dependencies through inject):
-
-```javascript
-MailerModule.forRootAsync({
- imports: [ConfigModule],
-  useFactory: async (config: ConfigService) => ({
-    transport: config.getString('MAILER_TRANSPORT'),
-    ...
-  }),
-  inject: [ConfigService],
-})
-```
-##### useClass:
- Alternatively, you are able to use class instead of a factory.
-
-```javascript
-MailerModule.forRootAsync({
-  useClass: MailerConfigService,
-})
-```
-
-Above construction will instantiate MailerConfigService inside MailerModule and will leverage it to create options object. The MailerConfigService has to implement MailerOptionsFactory interface.
-
-```javascript
 @Injectable()
-export class MailerConfigService implements MailerOptionsFactory {
-  constructor(
-    private readonly config: ConfigService
-  ){}
-  createMailerOptions(): MailerModuleOptions {
-    return {
-      transport: this.config.getString('MAILER_TRANSPORT'),
-      ...
-    };
-  }
+export class ExampleService {
+  constructor(private readonly mailerService: MailerService) {}
 }
-
 ```
-
-#### Sending messages:
 
 MailerProvider exports the `sendMail()` function to which you can pass the message options (sender, email subject, recipient, body content, etc)
 
-`sendMail()` acept the same fields of an [nodemailer email message](https://nodemailer.com/message/)
+`sendMail()` accept the same fields of an [nodemailer email message](https://nodemailer.com/message/)
 
-ex:
+```typescript
+import { Injectable } from '@nestjs/common';
+import { MailerService } from '@nest-modules/mailer';
 
-```javascript
-this.mailerProvider.sendMail({
-  to: 'test@nestjs.com', // sender address
-  from: 'noreply@nestjs.com', // list of receivers
-  subject: 'Testing Nest MailerModule ✔', // Subject line
-  text: 'welcome', // plaintext body
-  html: '<b>welcome</b>' // HTML body content
-})
-```
-
-This method returns a Promise object
-
-#### Templating:
-MailerModule renders pug/handlebars templates using the data specified in the context message object
-
-ex:
-
-```javascript
-this.mailerProvider.sendMail({
-  to: 'test@nestjs.com',
-  from: 'noreply@nestjs.com',
-  subject: 'Testing Nest Mailermodule with template ✔',
-  template: 'welcome', // The `.pug` or `.hbs` extension is appended automatically.
-  context: {  // Data to be sent to template engine.
-    username: 'john doe',
-    code: 'cf1a3f828287'
+@Injectable()
+export class ExampleService {
+  constructor(private readonly mailerService: MailerService) {}
+  
+  public example(): void {
+    this
+      .mailerService
+      .sendMail({
+        to: 'test@nestjs.com', // sender address
+        from: 'noreply@nestjs.com', // list of receivers
+        subject: 'Testing Nest MailerModule ✔', // Subject line
+        text: 'welcome', // plaintext body
+        html: '<b>welcome</b>', // HTML body content
+      })
+      .then(() => {})
+      .catch(() => {});
   }
-})
-```
-where:
-
-**template** is a name from template file (without extension)
-
-**context** is an object with dynamic content which will be bing to templates
-
-##### Pug engine:
-
-Create a pug template in your templateDir, on this case:
-
-`<templateDir>/welcome.pug`
-
-Put this code in your template:
-```jade
-p Welcome #{username}, your activation code is #{code}
-```
-
-Pug will compile the template to html code and return the body of message
-
-The result is:
-```html
-<p>Welcome john doe, your activation code is cf1a3f828287</p>
-```
-
-##### Handlebars engine:
-
-Or for handlebars create a template
-
-`<templateDir>/welcome.hbs`
-
-With the following content
-```
-<h1>Welcome {{username}}!</h1>
-<p>your activation code is {{code}}</p>
-```
-
-and set the `templateOptions.engine` parameter to `handlebars` (case-insensitive):
-
-```javascript
-export = {
-  transport: 'smtps://user%40domain.com:pass@smtp.domain.com',
-  defaults: {
-    forceEmbeddedImages: true,
-    from:'"nest-modules" <modules@nestjs.com>',
-  },
-  templateDir: './src/common/email-templates',
-  templateOptions: {
-    engine: 'handlebars'
+  
+  public example2(): void {
+    this
+      .mailerService
+      .sendMail({
+        to: 'test@nestjs.com',
+        from: 'noreply@nestjs.com',
+        subject: 'Testing Nest Mailermodule with template ✔',
+        template: 'welcome', // The `.pug` or `.hbs` extension is appended automatically.
+        context: {  // Data to be sent to template engine.
+          code: 'cf1a3f828287',
+          username: 'john doe',
+        },
+      })
+      .then(() => {})
+      .catch(() => {});
   }
-}
-```
-
-You can also supply precompiled templates, for instance in handlebars:
-
-```javascript
-export = {
-  transport: 'smtps://user%40domain.com:pass@smtp.domain.com',
-  defaults: {
-    forceEmbeddedImages: true,
-    from: '"nest-modules" <modules@nestjs.com>',
-  },
-  templateDir: './src/common/email-templates',
-  templateOptions: {
-    precompiledTemplates: {
-      test_1: Handlebars.compile(test_1_string),
-      test_2: Handlebars.compile(test_2_string)
-    },
-    engine: 'handlebars',
-  },
-};
-```
-
-##### Custom template Adaptor
-
-Pug and Handlebars are natively supported (via the `templateOptions.engine` option), but you can pass in a custom template adaptor function (such as EJS) to the `templateOptions.adaptor` config:
-
-```javascript
-const customAdaptor = (templateDir, mail, callback) => {
-  const templatePath = path.join(process.cwd(), templateDir, mail.data.template) + '.html';
-
-  try {
-    const templateString = fs.readFileSync(templatePath, 'UTF-8');
-    mail.data.html = templateString.replace(/javascript/g, 'typescript');
-    return callback();
-  } catch (err) {
-    return callback(err);
+  
+  public example3(): void {
+    this
+      .mailerService
+      .sendMail({
+        to: 'test@nestjs.com',
+        from: 'noreply@nestjs.com',
+        subject: 'Testing Nest Mailermodule with template ✔',
+        template: __dirname + '/welcome', // The `.pug` or `.hbs` extension is appended automatically.
+        context: {  // Data to be sent to template engine.
+          code: 'cf1a3f828287',
+          username: 'john doe',
+        },
+      })
+      .then(() => {})
+      .catch(() => {});
   }
-}
-
-export = {
-  transport: 'smtps://user%40domain.com:pass@smtp.domain.com',
-  defaults: {
-    forceEmbeddedImages: true,
-    from:'"nest-modules" <modules@nestjs.com>',
-  },
-  templateDir: './src/common/email-templates',
-  templateOptions: {
-    engineAdapter: customAdaptor
-  }
-}
-```
-
-#### Using a transport plugin instance:
-
-In some cases you will want to use a nodemailer transport plugin, such as mandrill, sendgrid, mailgun, etc.
-
-You must only create the instance and send it to the transport value.
-
-ex:
-```
-npm install --save nodemailer-mandrill-transport
-```
-
-```javascript
-import * as mandrillTransport from 'nodemailer-mandrill-transport'
-
-export = {
-  transport: mandrillTransport({
-    auth: {
-      api_key: 'key'
-    }
-  }),
-  defaults: {
-    from:'"nest-mailer" <noreply@nestjs.com>',
-  },
-  templateDir: './src/common/email-templates'
 }
 ```
 
 ### Contributing
 
-* [Paweł Partyka](http://epartyka.com)
+* [Paweł Partyka](https://github.com/partyka95)
 * [Cristiam Diaz](https://github.com/cdiaz)
 * [Pat McGowan](https://github.com/p-mcgowan)
 
