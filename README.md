@@ -40,8 +40,7 @@ import { HandlebarsAdapter, MailerModule } from '@nest-modules/mailer';
         dir: __dirname + '/templates',
         adapter: new HandlebarsAdapter(), // or new PugAdapter()
         options: {
-          debug: true,
-          doctype: 'html',
+          strict: true,
         },
       },
     }),
@@ -69,8 +68,7 @@ import { HandlebarsAdapter, MailerModule } from '@nest-modules/mailer';
           dir: __dirname + '/templates',
           adapter: new HandlebarsAdapter(), // or new PugAdapter()
           options: {
-            debug: true,
-            doctype: 'html',
+            strict: true,
           },
         },
       }),
