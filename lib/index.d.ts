@@ -27,7 +27,7 @@ declare interface MailerOptions {
   template?: {
     dir?: string;
     adapter?: TemplateAdapter;
-    options?: { [name: string]: string; };
+    options?: { [name: string]: any; };
   };
 }
 
