@@ -8,7 +8,8 @@
   "scripts": {
     "preversion": "rm -rf dist && tsc -p tsconfig.json",
     "version": "git add .",
-    "postversion": "git push && git push --tags"
+    "postversion": "git push && git push --tags",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -41,9 +42,15 @@
     "typescript": "^2.8.1"
   },
   "devDependencies": {
+    "@nestjs/testing": "^5.7.4",
+    "@types/jest": "^24.0.11",
     "@types/lodash": "^4.14.120",
     "@types/nodemailer": "^4.6.5",
     "@types/pug": "^2.0.4",
-    "reflect-metadata": "^0.1.12"
+    "jest": "^24.5.0",
+    "prettier": "^1.16.4",
+    "reflect-metadata": "^0.1.12",
+    "ts-jest": "^24.0.0",
+    "ts-node": "^8.0.3"
   }
 }

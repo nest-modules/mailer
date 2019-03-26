@@ -1,7 +1,8 @@
 /** Dependencies **/
 import { get } from 'lodash';
 import { Injectable, Inject } from '@nestjs/common';
-import { createTransport, SentMessageInfo, Transporter, SendMailOptions } from 'nodemailer';
+import { createTransport, SentMessageInfo, Transporter } from 'nodemailer';
+import { MailerSendMailOptions } from './interfaces/mailer-send-mail-options.interface';
 
 /** Constants **/
 import { MAILER_OPTIONS } from './constants/mailer-options.constant';
@@ -36,7 +37,7 @@ export class MailerService {
     }
   }
 
-  public async sendMail(sendMailOptions: SendMailOptions): Promise<SentMessageInfo> {
+  public async sendMail(sendMailOptions: MailerSendMailOptions): Promise<SentMessageInfo> {
     return await this.transporter.sendMail(sendMailOptions);
   }
 }
