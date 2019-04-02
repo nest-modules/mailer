@@ -10,7 +10,7 @@ declare class MailerModule {
 }
 
 declare class MailerService {
-  public sendMail(sendMailOptions: SendMailOptions): Promise<SentMessageInfo>;
+  public sendMail(sendMailOptions: ISendMailOptions): Promise<SentMessageInfo>;
 }
 
 declare interface TemplateAdapter {
@@ -36,4 +36,9 @@ declare interface MailerAsyncOptions {
   useClass?: Type<MailerOptionsFactory>;
   useExisting?: Type<MailerOptionsFactory>;
   useFactory?: (...args: any[]) => Promise<MailerOptions> | MailerOptions;
+}
+
+declare interface ISendMailOptions extends SendMailOptions  {
+  template?: string,
+  context?: { [name: string]: any; }
 }
