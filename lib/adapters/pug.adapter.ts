@@ -2,6 +2,7 @@
 import * as path from 'path';
 import { get } from 'lodash';
 import { renderFile } from 'pug';
+import * as CSSInliner from 'css-inliner';
 
 /** Interfaces **/
 import { MailerOptions } from '../interfaces/mailer-options.interface';
@@ -24,9 +25,14 @@ export class PugAdapter implements TemplateAdapter {
         return callback(err);
       }
 
-      mail.data.html = body;
+      const { dir } = path.parse(templatePath);
+      const inliner = new CSSInliner({ directory: dir });
 
-      return callback();
+      inliner.inlineCSSAsync(body).then((html) => {
+        mail.data.html = html;
+        return callback();
+      });
+
     });
   }
 }
