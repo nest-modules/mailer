@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  A mailer module for Nest framework (node.js)
+  A mailer module for Nest framework (node.js) using <a href="https://nodemailer.com/">Nodemailer</a> library
 </p>
 
 <p align="center">
@@ -92,7 +92,7 @@ export class ExampleService {
 
 MailerProvider exports the `sendMail()` function to which you can pass the message options (sender, email subject, recipient, body content, etc)
 
-`sendMail()` accept the same fields of an [nodemailer email message](https://nodemailer.com/message/)
+`sendMail()` accepts the same fields as [nodemailer email message](https://nodemailer.com/message/)
 
 ```typescript
 import { Injectable } from '@nestjs/common';
@@ -106,8 +106,8 @@ export class ExampleService {
     this
       .mailerService
       .sendMail({
-        to: 'test@nestjs.com', // sender address
-        from: 'noreply@nestjs.com', // list of receivers
+        to: 'test@nestjs.com', // list of receivers
+        from: 'noreply@nestjs.com', // sender address
         subject: 'Testing Nest MailerModule ✔', // Subject line
         text: 'welcome', // plaintext body
         html: '<b>welcome</b>', // HTML body content
