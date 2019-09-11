@@ -6,7 +6,7 @@ export interface ISendMailOptions extends SendMailOptions {
   subject?: string;
   text?: string;
   html?: string;
-  attachments?: [{ filename?: string, path?: string, content: string | Buffer }];
+  attachments?: [{ filename?: string, path?: string, content?: string | Buffer }];
   template?: string,
   context?: { [name: string]: any; }
   
