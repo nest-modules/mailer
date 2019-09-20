@@ -31,15 +31,15 @@
   },
   "homepage": "https://github.com/nest-modules/mailer#readme",
   "dependencies": {
-    "handlebars": "^4.1.1",
-    "lodash": "^4.17.11",
-    "nodemailer": "^6.0.0",
-    "pug": "^2.0.3",
+    "handlebars": "^4.2.0",
+    "lodash": "^4.17.15",
+    "nodemailer": "^6.3.0",
+    "pug": "^2.0.4",
     "rxjs": "^6.4.0"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.123",
-    "@types/nodemailer": "^4.6.7",
+    "@types/lodash": "^4.14.138",
+    "@types/nodemailer": "^6.2.1",
     "@types/pug": "^2.0.4",
     "reflect-metadata": "^0.1.13",
     "typescript": "^3.4.1"
