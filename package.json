@@ -42,7 +42,7 @@
     "@types/nodemailer": "^6.2.1",
     "@types/pug": "^2.0.4",
     "reflect-metadata": "^0.1.13",
-    "typescript": "^3.4.1"
+    "typescript": "^3.6.3"
   },
   "peerDependencies": {
     "@nestjs/common": "^6.0.5",
