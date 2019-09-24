@@ -9,7 +9,7 @@ import { MAILER_OPTIONS } from './constants/mailer-options.constant';
 /** Interfaces **/
 import { MailerOptions } from './interfaces/mailer-options.interface';
 import { TemplateAdapter } from './interfaces/template-adapter.interface';
-import { ISendMailOptions } from './interfaces/send-mail-options.interface';
+import { SendMailOptions } from './interfaces/send-mail-options.interface';
 
 @Injectable()
 export class MailerService {
@@ -37,7 +37,7 @@ export class MailerService {
     }
   }
 
-  public async sendMail(sendMailOptions: ISendMailOptions): Promise<SentMessageInfo> {
+  public async sendMail(sendMailOptions: SendMailOptions): Promise<SentMessageInfo> {
     return await this.transporter.sendMail(sendMailOptions);
   }
 }

@@ -1,11 +1,9 @@
-import { SendMailOptions } from 'nodemailer';
+import { SendMailOptions as BaseMailOptions } from 'nodemailer';
 
-export interface ISendMailOptions extends SendMailOptions {
-  to?: string;
-  from?: string;
-  subject?: string;
-  text?: string;
-  html?: string;
-  template?: string,
-  context?: { [name: string]: any; }
+export interface SendMailOptions extends BaseMailOptions {
+  template?: string;
+  context?: { [name: string]: any };
 }
+
+/* @deprecated defined to maintain compatibility with v1.1.{2,3}, use SendMailOptions instead  */
+export type ISendMailOptions = SendMailOptions;
