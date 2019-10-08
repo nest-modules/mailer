@@ -5,6 +5,7 @@ import { TemplateAdapter } from './template-adapter.interface';
 export interface MailerOptions {
   defaults?: SMTPTransport.Options;
   transport?: SMTPTransport | SMTPTransport.Options | string;
+  transports?: { [name: string]: SMTPTransport | SMTPTransport.Options | string };
   template?: {
     dir?: string;
     adapter?: TemplateAdapter;

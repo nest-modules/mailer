@@ -1,5 +1,5 @@
 /** Dependencies **/
-import { CustomValue } from '@nestjs/core/injector/module';
+import { ValueProvider } from '@nestjs/common/interfaces';
 import { DynamicModule, Module, Global, Provider } from '@nestjs/common';
 
 /** Constants **/
@@ -17,8 +17,7 @@ import { MailerService } from './mailer.service';
 @Module({})
 export class MailerCoreModule {
   public static forRoot(options: MailerOptions): DynamicModule {
-    const MailerOptionsProvider: CustomValue = {
-      name: MAILER_OPTIONS,
+    const MailerOptionsProvider: ValueProvider<MailerOptions> = {
       provide: MAILER_OPTIONS,
       useValue: options,
     };
