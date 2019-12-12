@@ -36,22 +36,22 @@
   "homepage": "https://github.com/nest-modules/mailer#readme",
   "dependencies": {
     "css-inliner": "^1.1.4",
-    "handlebars": "^4.1.2",
-    "lodash": "^4.17.11",
-    "nodemailer": "^6.0.0",
-    "pug": "^2.0.3",
-    "rxjs": "^6.4.0"
+    "handlebars": "^4.5.3",
+    "lodash": "^4.17.15",
+    "nodemailer": "^6.4.2",
+    "pug": "^2.0.4",
+    "rxjs": "^6.5.3"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.123",
-    "@types/nodemailer": "^4.6.7",
+    "@types/lodash": "^4.14.149",
+    "@types/nodemailer": "^6.2.2",
     "@types/pug": "^2.0.4",
     "reflect-metadata": "^0.1.13",
     "standard-version": "^7.0.1",
-    "typescript": "^3.4.1"
+    "typescript": "^3.7.3"
   },
   "peerDependencies": {
-    "@nestjs/common": "^6.0.5",
-    "@nestjs/core": "^6.0.5"
+    "@nestjs/common": "^6.10.10",
+    "@nestjs/core": "^6.10.10"
   }
 }
