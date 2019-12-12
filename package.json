@@ -25,10 +25,11 @@
     "mailer",
     "nodejs"
   ],
-  "author": "Paweł Partyka <partyka95@icloud.com>",
+  "author": "Nest Modules TM",
   "contributors": [
     "Paweł Partyka <partyka95@icloud.com>",
-    "Cristiam Díaz <c.diaz@udla.edu.co>"
+    "Cristiam Díaz <c.diaz@udla.edu.co>",
+    "Juan Echeverry <e.juandav@gmail.com>"
   ],
   "license": "MIT",
   "bugs": {
@@ -44,13 +45,13 @@
     "rxjs": "^6.5.3"
   },
   "devDependencies": {
-    "@nestjs/testing": "^5.7.4",
-    "@types/jest": "^24.0.11",
-    "jest": "^24.5.0",
-    "prettier": "^1.16.4",
-    "ts-jest": "^24.0.0",
-    "@types/lodash": "^4.14.123",
-    "@types/nodemailer": "^4.6.7",
+    "@nestjs/testing": "^6.10.10",
+    "@types/jest": "^24.0.23",
+    "jest": "^24.9.0",
+    "prettier": "^1.19.1",
+    "ts-jest": "^24.2.0",
+    "@types/lodash": "^4.14.149",
+    "@types/nodemailer": "^6.2.2",
     "@types/pug": "^2.0.4",
     "reflect-metadata": "^0.1.13",
     "standard-version": "^7.0.1",
