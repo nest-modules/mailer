@@ -24,8 +24,7 @@ async function getMailerServiceForOptions(
     ]
   }).compile();
 
-  const service = module.get<MailerService>(MailerService);
-
+  const service =  module.get<MailerService>(MailerService);
   return service;
 }
 
@@ -46,6 +45,7 @@ function spyOnSmtpSend(onMail: (mail: MailMessage) => void) {
 }
 
 describe("MailerService", () => {
+
   it("should not be defined if a transport is not provided", async () => {
     await expect(getMailerServiceForOptions({})).rejects.toMatchInlineSnapshot(
       `[Error: Make sure to provide a nodemailer transport configuration object, connection url or a transport plugin instance.]`
@@ -156,13 +156,13 @@ describe("MailerService", () => {
       subject: 'Test',
       template: __dirname + '/test-templates/handlebars-template',
       context: {
-        world: 'World',
+        MAILER: 'Nest-modules TM',
       },
     });
 
     expect(send).toHaveBeenCalled();
     expect(lastMail.data.from).toBe('user1@example.test');
-    expect(lastMail.data.html).toBe('<p>Handlebars test template.</p>\n<p>Hello World!</p>\n');
+    expect(lastMail.data.html).toBe('<p>Handlebars test template. by Nest-modules TM</p>');
   });
 
   it('should compile template with the pug adapter', async () => {
