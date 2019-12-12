@@ -9,7 +9,7 @@
     "preversion": "rm -rf dist && tsc -p tsconfig.json",
     "version": "git add .",
     "postversion": "git push && git push --tags",
-    "test": "jest"
+    "test": "jest",
     "release": "standard-version",
     "patch": "npm run release -- --release-as patch",
     "minor": "npm run release -- --release-as minor",
@@ -44,10 +44,6 @@
     "rxjs": "^6.5.3"
   },
   "devDependencies": {
-<<<<<<< HEAD
-    "@types/lodash": "^4.14.149",
-    "@types/nodemailer": "^6.2.2",
-=======
     "@nestjs/testing": "^5.7.4",
     "@types/jest": "^24.0.11",
     "jest": "^24.5.0",
@@ -55,7 +51,6 @@
     "ts-jest": "^24.0.0",
     "@types/lodash": "^4.14.123",
     "@types/nodemailer": "^4.6.7",
->>>>>>> 7584e3c5170d51d5e21615ddca0523d47e28bc1a
     "@types/pug": "^2.0.4",
     "reflect-metadata": "^0.1.13",
     "standard-version": "^7.0.1",
