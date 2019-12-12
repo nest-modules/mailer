@@ -1,6 +1,6 @@
 {
   "name": "@nest-modules/mailer",
-  "version": "1.0.4",
+  "version": "1.1.4",
   "description": "A mailer module for Nest framework (node.js)",
   "main": "dist/index.js",
   "types": "dist/index",
@@ -10,6 +10,10 @@
     "version": "git add .",
     "postversion": "git push && git push --tags",
     "test": "jest"
+    "release": "standard-version",
+    "patch": "npm run release -- --release-as patch",
+    "minor": "npm run release -- --release-as minor",
+    "major": "npm run release -- --release-as major"
   },
   "repository": {
     "type": "git",
@@ -32,25 +36,28 @@
   },
   "homepage": "https://github.com/nest-modules/mailer#readme",
   "dependencies": {
-    "@nestjs/common": "^5.7.2",
-    "@nestjs/core": "^5.7.2",
-    "handlebars": "^4.1.0",
+    "css-inliner": "^1.1.4",
+    "handlebars": "^4.1.2",
     "lodash": "^4.17.11",
-    "nodemailer": "^4.7.0",
+    "nodemailer": "^6.0.0",
     "pug": "^2.0.3",
-    "rxjs": "^5.5.6",
-    "typescript": "^2.8.1"
+    "rxjs": "^6.4.0"
   },
   "devDependencies": {
     "@nestjs/testing": "^5.7.4",
     "@types/jest": "^24.0.11",
-    "@types/lodash": "^4.14.120",
-    "@types/nodemailer": "^4.6.5",
-    "@types/pug": "^2.0.4",
     "jest": "^24.5.0",
     "prettier": "^1.16.4",
-    "reflect-metadata": "^0.1.12",
     "ts-jest": "^24.0.0",
-    "ts-node": "^8.0.3"
+    "@types/lodash": "^4.14.123",
+    "@types/nodemailer": "^4.6.7",
+    "@types/pug": "^2.0.4",
+    "reflect-metadata": "^0.1.13",
+    "standard-version": "^7.0.1",
+    "typescript": "^3.4.1"
+  },
+  "peerDependencies": {
+    "@nestjs/common": "^6.0.5",
+    "@nestjs/core": "^6.0.5"
   }
 }

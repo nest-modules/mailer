@@ -13,7 +13,7 @@ export class MailerModule {
   public static forRoot(options?: MailerOptions): DynamicModule {
     return {
       module: MailerModule,
-      modules: [
+      imports: [
         /** Modules **/
         MailerCoreModule.forRoot(options),
       ],
