@@ -36,7 +36,7 @@ export class MailerService {
       });
     }
   }
-
+  
   public async sendMail(sendMailOptions: ISendMailOptions): Promise<SentMessageInfo> {
     return await this.transporter.sendMail(sendMailOptions);
   }
