@@ -2,6 +2,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as handlebars from 'handlebars';
+import * as CSSInliner from 'css-inliner';
 import { get } from 'lodash';
 
 /** Interfaces **/
@@ -27,8 +28,15 @@ export class HandlebarsAdapter implements TemplateAdapter {
       }
     }
 
-    mail.data.html = this.precompiledTemplates[templateName](mail.data.context);
+    const rendered = this.precompiledTemplates[templateName](mail.data.context);
 
-    return callback();
+    const { dir } = path.parse(templatePath);
+    const inliner = new CSSInliner({ directory: dir });
+
+    inliner.inlineCSSAsync(rendered).then((html) => {
+      mail.data.html = html;
+      return callback();
+    });
+
   }
 }
