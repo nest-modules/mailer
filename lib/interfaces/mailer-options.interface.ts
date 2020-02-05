@@ -35,4 +35,5 @@ export interface MailerOptions {
     adapter?: TemplateAdapter;
     options?: { [name: string]: any; };
   };
+  options?: { [name: string]: any; };
 }
