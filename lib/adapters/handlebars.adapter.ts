@@ -13,6 +13,13 @@ import { TemplateAdapter } from '../interfaces/template-adapter.interface';
 export class HandlebarsAdapter implements TemplateAdapter {
   private precompiledTemplates: { [name: string]: handlebars.TemplateDelegate } = {};
 
+  constructor() {
+    handlebars.registerHelper('concat', (...args) => {
+      args.pop();
+      return args.join('');
+    });
+  }
+
   public compile(mail: any, callback: any, mailerOptions: MailerOptions): void {
     const precompile = (template, callback, options) => {
       const templateExt = path.extname(template) || '.hbs';
@@ -25,17 +32,17 @@ export class HandlebarsAdapter implements TemplateAdapter {
           const template = fs.readFileSync(templatePath, 'UTF-8');
 
           this.precompiledTemplates[templateName] = handlebars.compile(template, get(options, 'options', {}));
-
-          return {
-            templateExt,
-            templateName,
-            templateDir,
-            templatePath,
-          };
         } catch (err) {
           return callback(err);
         }
       }
+
+      return {
+        templateExt,
+        templateName,
+        templateDir,
+        templatePath,
+      };
     };
 
     const {
@@ -43,18 +50,21 @@ export class HandlebarsAdapter implements TemplateAdapter {
       templatePath,
     } = precompile(mail.data.template, callback, mailerOptions.template);
 
-    const { partials } = get(mailerOptions, 'template.options', {
+    const runtimeOptions = get(mailerOptions, 'options', {
       partials: false,
+      data: {},
     })
 
-    if (partials) {
-      const files = glob.sync(path.join(partials.dir, '*.hbs'));
-      files.forEach((file: string) => {
-        precompile(file, () => {}, partials);  
-      });
+    if (runtimeOptions.partials) {
+      const files = glob.sync(path.join(runtimeOptions.partials.dir, '*.hbs'));
+      files.forEach(
+        (file) =>
+          precompile(file, () => { }, runtimeOptions.partials)
+      );
     }
 
     const rendered = this.precompiledTemplates[templateName](mail.data.context, {
+      ...runtimeOptions,
       partials: this.precompiledTemplates
     });
 
