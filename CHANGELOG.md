@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/nest-modules/mailer/compare/v1.2.0...v1.3.0) (2020-02-05)
+
+
+### Features
+
+* enable handlebars partials ([da4eb86](https://github.com/nest-modules/mailer/commit/da4eb86e7fc2546fd2ef2aff5b7824f97380a928))
+
 ## [1.2.0](https://github.com/nest-modules/mailer/compare/v1.1.4...v1.2.0) (2019-12-12)
 
 
