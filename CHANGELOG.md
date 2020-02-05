@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.2](https://github.com/nest-modules/mailer/compare/v1.3.0...v1.3.2) (2020-02-05)
+
+
+### Bug Fixes
+
+* load partials and set global variables ([ee62f27](https://github.com/nest-modules/mailer/commit/ee62f27aaf2323e29fe56c7701c4878c21dc5719))
+
 ## [1.3.0](https://github.com/nest-modules/mailer/compare/v1.2.0...v1.3.0) (2020-02-05)
 
 
