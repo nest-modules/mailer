@@ -9,9 +9,9 @@
 </p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/~nest-modules"><img src="https://img.shields.io/npm/v/@nestjs-modules/mailer.svg" alt="NPM Version" /></a>
-  <a href="https://www.npmjs.com/~nest-modules"><img src="https://img.shields.io/npm/l/@nestjs-modules/mailer.svg" alt="Package License" /></a>
-  <a href="https://www.npmjs.com/~nest-modules"><img src="https://img.shields.io/npm/dm/@nestjs-modules/mailer.svg" alt="NPM Downloads" /></a>
+  <a href="https://www.npmjs.com/org/nestjs-modules"><img src="https://img.shields.io/npm/v/@nestjs-modules/mailer.svg" alt="NPM Version" /></a>
+  <a href="https://www.npmjs.com/org/nestjs-modules"><img src="https://img.shields.io/npm/l/@nestjs-modules/mailer.svg" alt="Package License" /></a>
+  <a href="https://www.npmjs.com/org/nestjs-modules"><img src="https://img.shields.io/npm/dm/@nestjs-modules/mailer.svg" alt="NPM Downloads" /></a>
 </p>
 
 ### Installation
@@ -152,7 +152,7 @@ export class ExampleService {
 }
 ```
 
-whit handlebars adapter
+enable handlebars partials
 
 ```typescript
 import * as path from 'path';
