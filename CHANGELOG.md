@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.4](https://github.com/nest-modules/mailer/compare/v1.2.0...v1.3.4) (2020-02-25)
+
+
+### Features
+
+* enable handlebars partials ([da4eb86](https://github.com/nest-modules/mailer/commit/da4eb86e7fc2546fd2ef2aff5b7824f97380a928))
+
+
+### Bug Fixes
+
+* badges now have a correct url ([a3d336a](https://github.com/nest-modules/mailer/commit/a3d336a54f3d0a447713fc7525de156e38635158))
+* load partials and set global variables ([ee62f27](https://github.com/nest-modules/mailer/commit/ee62f27aaf2323e29fe56c7701c4878c21dc5719))
+
 ### 1.3.3
 
 * The module is in a new organization at npm.
