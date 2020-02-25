@@ -1,6 +1,6 @@
 {
-  "name": "@nest-modules/mailer",
-  "version": "1.2.0",
+  "name": "@veek/nestjs-modules-mailer",
+  "version": "1.3.2",
   "description": "A mailer module for Nest framework (node.js)",
   "main": "dist/index.js",
   "types": "dist/index",
@@ -29,7 +29,8 @@
   "contributors": [
     "Paweł Partyka <partyka95@icloud.com>",
     "Cristiam Díaz <c.diaz@udla.edu.co>",
-    "Juan Echeverry <e.juandav@gmail.com>"
+    "Juan Echeverry <e.juandav@gmail.com>",
+    "Eduardo Leal <eduardolleal@icloud.com>"
   ],
   "license": "MIT",
   "bugs": {
@@ -40,6 +41,7 @@
     "@nestjs/common": "^6.10.10",
     "@nestjs/core": "^6.10.10",
     "css-inliner": "^1.1.4",
+    "glob": "^7.1.6",
     "handlebars": "^4.5.3",
     "lodash": "^4.17.15",
     "nodemailer": "^6.4.2",
@@ -48,6 +50,7 @@
   },
   "devDependencies": {
     "@nestjs/testing": "^6.10.10",
+    "@types/glob": "^7.1.1",
     "@types/jest": "^24.0.23",
     "@types/lodash": "^4.14.149",
     "@types/nodemailer": "^6.2.2",

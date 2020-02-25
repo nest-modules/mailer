@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 npm version $1
-npm publish
+npm publish --access public
