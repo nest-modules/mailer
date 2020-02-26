@@ -8,7 +8,7 @@
   "scripts": {
     "build": "rm -rf dist && tsc -p tsconfig.json",
     "test": "jest",
-    "deploy": "./publish.sh",
+    "deploy": "sh ./publish.sh",
     "release": "standard-version",
     "patch": "npm run release -- --release-as patch",
     "minor": "npm run release -- --release-as minor",
