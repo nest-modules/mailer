@@ -27,7 +27,7 @@ Import the MailerModule into the root AppModule.
 ```javascript
 //app.module.ts
 import { Module } from '@nestjs/common';
-import { HandlebarsAdapter, MailerModule } from '@nest-modules/mailer';
+import { HandlebarsAdapter, MailerModule } from '@nestjs-modules/mailer';
 
 @Module({
   imports: [
@@ -54,7 +54,7 @@ Of course, it is possible to use an async configuration:
 ```typescript
 //app.module.ts
 import { Module } from '@nestjs/common';
-import { HandlebarsAdapter, MailerModule } from '@nest-modules/mailer';
+import { HandlebarsAdapter, MailerModule } from '@nestjs-modules/mailer';
 
 @Module({
   imports: [
@@ -82,7 +82,7 @@ Afterwards, MailerService will be available to inject across entire project (wit
 
 ```typescript
 import { Injectable } from '@nestjs/common';
-import { MailerService } from '@nest-modules/mailer';
+import { MailerService } from '@nestjs-modules/mailer';
 
 @Injectable()
 export class ExampleService {
@@ -96,7 +96,7 @@ MailerProvider exports the `sendMail()` function to which you can pass the messa
 
 ```typescript
 import { Injectable } from '@nestjs/common';
-import { MailerService } from '@nest-modules/mailer';
+import { MailerService } from '@nestjs-modules/mailer';
 
 @Injectable()
 export class ExampleService {
@@ -158,7 +158,7 @@ enable handlebars partials
 import * as path from 'path';
 import { Module } from '@nestjs/common';
 import { BullModule } from 'nest-bull';
-import { MailerModule, HandlebarsAdapter } from '@nest-modules/mailer';
+import { MailerModule, HandlebarsAdapter } from '@nestjs-modules/mailer';
 import { mailBullConfig } from '../../config/mail';
 import { MailService } from './mail.service';
 import { MailController } from './mail.controller';
