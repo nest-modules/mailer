@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.5](https://github.com/nest-modules/mailer/compare/v1.3.4...v1.3.5) (2020-02-26)
+
+
+### Bug Fixes
+
+* dependencies ([eaf1979](https://github.com/nest-modules/mailer/commit/eaf197976039257cefcf358bf6d588cf22761968))
+* fixed incorrect module call in documentation ([5d37026](https://github.com/nest-modules/mailer/commit/5d370266217c211de5dfd5eaeed00833b39506d1))
+* fixes deploy script ([2daf360](https://github.com/nest-modules/mailer/commit/2daf3603aa7ba1b1773fcb071e180ceda474e776))
+
 ### [1.3.4](https://github.com/nest-modules/mailer/compare/v1.2.0...v1.3.4) (2020-02-25)
 
 
