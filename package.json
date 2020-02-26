@@ -6,9 +6,7 @@
   "types": "dist/index",
   "private": false,
   "scripts": {
-    "preversion": "rm -rf dist && tsc -p tsconfig.json",
-    "version": "git add .",
-    "postversion": "git push && git push --tags",
+    "build": "rm -rf dist && tsc -p tsconfig.json",
     "test": "jest",
     "release": "standard-version",
     "patch": "npm run release -- --release-as patch",
