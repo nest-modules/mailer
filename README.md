@@ -196,6 +196,12 @@ const bullModule = BullModule.forRoot(mailBullConfig);
 export class MailModule {}
 ```
 
+### Starter kit
+
+- [Sending email-template with outlook](https://github.com/yanarp/nestjs-mailer) - Starter kit, nestjs mailer implementation on outlook smtp with email-template
+
+
+
 ### Contributing
 
 * [Paweł Partyka](https://github.com/partyka95)
