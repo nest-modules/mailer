@@ -2,6 +2,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as handlebars from 'handlebars';
+import * as CSSInliner from 'css-inliner';
+import * as glob from 'glob';
 import { get } from 'lodash';
 
 /** Interfaces **/
@@ -11,24 +13,67 @@ import { TemplateAdapter } from '../interfaces/template-adapter.interface';
 export class HandlebarsAdapter implements TemplateAdapter {
   private precompiledTemplates: { [name: string]: handlebars.TemplateDelegate } = {};
 
+  constructor() {
+    handlebars.registerHelper('concat', (...args) => {
+      args.pop();
+      return args.join('');
+    });
+  }
+
   public compile(mail: any, callback: any, mailerOptions: MailerOptions): void {
-    const templateExt = path.extname(mail.data.template) || '.hbs';
-    const templateName = path.basename(mail.data.template, path.extname(mail.data.template));
-    const templateDir = path.dirname(mail.data.template) !== '.' ? path.dirname(mail.data.template) : get(mailerOptions, 'template.dir', '');
-    const templatePath = path.join(templateDir, templateName + templateExt);
+    const precompile = (template, callback, options) => {
+      const templateExt = path.extname(template) || '.hbs';
+      const templateName = path.basename(template, path.extname(template));
+      const templateDir = path.dirname(template) !== '.' ? path.dirname(template) : get(options, 'dir', '');
+      const templatePath = path.join(templateDir, templateName + templateExt);
 
-    if (!this.precompiledTemplates[templateName]) {
-      try {
-        const template = fs.readFileSync(templatePath, 'UTF-8');
+      if (!this.precompiledTemplates[templateName]) {
+        try {
+          const template = fs.readFileSync(templatePath, 'UTF-8');
 
-        this.precompiledTemplates[templateName] = handlebars.compile(template, get(mailerOptions, 'template.options', {}));
-      } catch (err) {
-        return callback(err);
+          this.precompiledTemplates[templateName] = handlebars.compile(template, get(options, 'options', {}));
+        } catch (err) {
+          return callback(err);
+        }
       }
+
+      return {
+        templateExt,
+        templateName,
+        templateDir,
+        templatePath,
+      };
+    };
+
+    const {
+      templateName,
+      templatePath,
+    } = precompile(mail.data.template, callback, mailerOptions.template);
+
+    const runtimeOptions = get(mailerOptions, 'options', {
+      partials: false,
+      data: {},
+    })
+
+    if (runtimeOptions.partials) {
+      const files = glob.sync(path.join(runtimeOptions.partials.dir, '*.hbs'));
+      files.forEach(
+        (file) =>
+          precompile(file, () => { }, runtimeOptions.partials)
+      );
     }
 
-    mail.data.html = this.precompiledTemplates[templateName](mail.data.context);
+    const rendered = this.precompiledTemplates[templateName](mail.data.context, {
+      ...runtimeOptions,
+      partials: this.precompiledTemplates
+    });
 
-    return callback();
+    const { dir } = path.parse(templatePath);
+    const inliner = new CSSInliner({ directory: dir });
+
+    inliner.inlineCSSAsync(rendered).then((html) => {
+      mail.data.html = html;
+      return callback();
+    });
   }
 }

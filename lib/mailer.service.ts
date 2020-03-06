@@ -50,7 +50,7 @@ export class MailerService {
       this.initTemplateAdapter(templateAdapter, this.transporter);
     }
   }
-
+  
   public async sendMail(sendMailOptions: ISendMailOptions): Promise<SentMessageInfo> {
     if (sendMailOptions.transporterName) {
       if (this.transporters && this.transporters.get(sendMailOptions.transporterName)) {

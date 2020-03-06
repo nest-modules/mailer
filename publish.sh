@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 
-npm version $1
-npm publish
+git push --follow-tags origin master
+npm run build
+npm publish --access public
