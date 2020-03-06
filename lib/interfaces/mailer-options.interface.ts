@@ -30,6 +30,7 @@ type TransportType = Options
 export interface MailerOptions {
   defaults?: Options;
   transport?: TransportType;
+  transports?: { [name: string]: SMTPTransport | SMTPTransport.Options | string };
   template?: {
     dir?: string;
     adapter?: TemplateAdapter;

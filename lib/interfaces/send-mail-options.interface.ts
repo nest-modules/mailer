@@ -12,6 +12,7 @@ export interface ISendMailOptions extends SendMailOptions {
   context?: {
       [name: string]: any;
   };
+  transporterName?: string;
   attachments?: {
       filename: string,
       contents?: any,

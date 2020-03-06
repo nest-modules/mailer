@@ -1,4 +1,5 @@
 /** Dependencies **/
+import { ValueProvider } from '@nestjs/common/interfaces';
 import { DynamicModule, Module, Global, Provider } from '@nestjs/common';
 
 /** Constants **/
@@ -16,7 +17,8 @@ import { MailerService } from './mailer.service';
 @Module({})
 export class MailerCoreModule {
   public static forRoot(options: MailerOptions): DynamicModule {
-    const MailerOptionsProvider: Provider = {
+    
+    const MailerOptionsProvider: ValueProvider<MailerOptions> = {
       name: MAILER_OPTIONS,
       provide: MAILER_OPTIONS,
       useValue: options,
