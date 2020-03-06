@@ -37,13 +37,13 @@
   },
   "homepage": "https://github.com/nest-modules/mailer#readme",
   "dependencies": {
-    "@nestjs/common": "^6.11.8",
-    "@nestjs/core": "^6.11.8",
+    "@nestjs/common": "^6.11.11",
+    "@nestjs/core": "^6.11.11",
     "css-inliner": "^1.1.4",
     "glob": "^7.1.6",
     "handlebars": "^4.7.3",
     "lodash": "^4.17.15",
-    "nodemailer": "^6.4.3",
+    "nodemailer": "^6.4.4",
     "pug": "^2.0.4",
     "rxjs": "^6.5.4"
   },
