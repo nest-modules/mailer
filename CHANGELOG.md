@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.8](https://github.com/nest-modules/mailer/compare/v1.3.7...v1.3.8) (2020-03-06)
+
+
+### Bug Fixes
+
+* remove unused key ([cadc62a](https://github.com/nest-modules/mailer/commit/cadc62a26fa9013da9e734248514e17cf0615e9d))
+
 ### [1.3.7](https://github.com/nest-modules/mailer/compare/v1.3.6...v1.3.7) (2020-03-06)
 
 
