@@ -17,7 +17,6 @@ import { MailerService } from './mailer.service';
 @Module({})
 export class MailerCoreModule {
   public static forRoot(options: MailerOptions): DynamicModule {
-    
     const MailerOptionsProvider: ValueProvider<MailerOptions> = {
       provide: MAILER_OPTIONS,
       useValue: options,
@@ -60,9 +59,7 @@ export class MailerCoreModule {
   }
 
   private static createAsyncProviders(options: MailerAsyncOptions): Provider[] {
-    const providers: Provider[] = [
-      this.createAsyncOptionsProvider(options),
-    ];
+    const providers: Provider[] = [this.createAsyncOptionsProvider(options)];
 
     if (options.useClass) {
       providers.push({
@@ -74,7 +71,9 @@ export class MailerCoreModule {
     return providers;
   }
 
-  private static createAsyncOptionsProvider(options: MailerAsyncOptions): Provider {
+  private static createAsyncOptionsProvider(
+    options: MailerAsyncOptions,
+  ): Provider {
     if (options.useFactory) {
       return {
         name: MAILER_OPTIONS,

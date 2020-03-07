@@ -1,9 +1,9 @@
-import { Test, TestingModule } from "@nestjs/testing";
+import { Test, TestingModule } from '@nestjs/testing';
 import MailMessage = require('nodemailer/lib/mailer/mail-message');
 import SMTPTransport = require('nodemailer/lib/smtp-transport');
-import { MAILER_OPTIONS } from "./constants/mailer-options.constant";
-import { MailerOptions } from "./interfaces/mailer-options.interface";
-import { MailerService } from "./mailer.service";
+import { MAILER_OPTIONS } from './constants/mailer-options.constant';
+import { MailerOptions } from './interfaces/mailer-options.interface';
+import { MailerService } from './mailer.service';
 import { HandlebarsAdapter } from './adapters/handlebars.adapter';
 import { PugAdapter } from './adapters/pug.adapter';
 
@@ -11,20 +11,20 @@ import { PugAdapter } from './adapters/pug.adapter';
  * Common testing code for testing up a testing module and MailerService
  */
 async function getMailerServiceForOptions(
-  options: MailerOptions
+  options: MailerOptions,
 ): Promise<MailerService> {
   const module: TestingModule = await Test.createTestingModule({
     providers: [
       {
         name: MAILER_OPTIONS,
         provide: MAILER_OPTIONS,
-        useValue: options
+        useValue: options,
       },
-      MailerService
-    ]
+      MailerService,
+    ],
   }).compile();
 
-  const service =  module.get<MailerService>(MailerService);
+  const service = module.get<MailerService>(MailerService);
   return service;
 }
 
@@ -32,36 +32,45 @@ async function getMailerServiceForOptions(
  * Common testing code for spying on the SMTPTransport's send() implementation
  */
 function spyOnSmtpSend(onMail: (mail: MailMessage) => void) {
-  return jest.spyOn(SMTPTransport.prototype, 'send').mockImplementation(function (mail: MailMessage, callback: (err: Error | null, info: SMTPTransport.SentMessageInfo) => void): void {
-    onMail(mail);
-    callback(null, {
-      envelope: {
-        from: mail.data.from as string,
-        to: [mail.data.to as string]
-      },
-      messageId: 'ABCD'
+  return jest
+    .spyOn(SMTPTransport.prototype, 'send')
+    .mockImplementation(function(
+      mail: MailMessage,
+      callback: (
+        err: Error | null,
+        info: SMTPTransport.SentMessageInfo,
+      ) => void,
+    ): void {
+      onMail(mail);
+      callback(null, {
+        envelope: {
+          from: mail.data.from as string,
+          to: [mail.data.to as string],
+        },
+        messageId: 'ABCD',
+      });
     });
-  });
 }
 
-describe("MailerService", () => {
-
-  it("should not be defined if a transport is not provided", async () => {
+describe('MailerService', () => {
+  it('should not be defined if a transport is not provided', async () => {
     await expect(getMailerServiceForOptions({})).rejects.toMatchInlineSnapshot(
-      `[Error: Make sure to provide a nodemailer transport configuration object, connection url or a transport plugin instance.]`
+      `[Error: Make sure to provide a nodemailer transport configuration object, connection url or a transport plugin instance.]`,
     );
   });
 
-  it("should accept a smtp transport string", async () => {
+  it('should accept a smtp transport string', async () => {
     const service = await getMailerServiceForOptions({
-      transport: "smtps://user@domain.com:pass@smtp.domain.com"
+      transport: 'smtps://user@domain.com:pass@smtp.domain.com',
     });
 
     expect(service).toBeDefined();
-    expect((service as any).transporter.transporter).toBeInstanceOf(SMTPTransport);
+    expect((service as any).transporter.transporter).toBeInstanceOf(
+      SMTPTransport,
+    );
   });
 
-  it("should accept smtp transport options", async () => {
+  it('should accept smtp transport options', async () => {
     const service = await getMailerServiceForOptions({
       transport: {
         secure: true,
@@ -72,18 +81,19 @@ describe("MailerService", () => {
         options: {
           host: 'smtp.domain.com',
         },
-      }
+      },
     });
 
     expect(service).toBeDefined();
-    expect((service as any).transporter.transporter).toBeInstanceOf(SMTPTransport);
+    expect((service as any).transporter.transporter).toBeInstanceOf(
+      SMTPTransport,
+    );
   });
 
-
-  it("should accept a smtp transport instance", async () => {
-    const transport = new SMTPTransport({})
+  it('should accept a smtp transport instance', async () => {
+    const transport = new SMTPTransport({});
     const service = await getMailerServiceForOptions({
-      transport: transport
+      transport: transport,
     });
 
     expect(service).toBeDefined();
@@ -97,14 +107,14 @@ describe("MailerService", () => {
     });
 
     const service = await getMailerServiceForOptions({
-      transport: "smtps://user@domain.com:pass@smtp.domain.com"
+      transport: 'smtps://user@domain.com:pass@smtp.domain.com',
     });
 
     await service.sendMail({
       from: 'user1@example.test',
       to: 'user2@example.test',
       subject: 'Test',
-      html: 'This is test.'
+      html: 'This is test.',
     });
 
     expect(send).toHaveBeenCalled();
@@ -121,16 +131,16 @@ describe("MailerService", () => {
     });
 
     const service = await getMailerServiceForOptions({
-      transport: "smtps://user@domain.com:pass@smtp.domain.com",
+      transport: 'smtps://user@domain.com:pass@smtp.domain.com',
       defaults: {
-        from: 'user1@example.test'
-      }
+        from: 'user1@example.test',
+      },
     });
 
     await service.sendMail({
       to: 'user2@example.test',
       subject: 'Test',
-      html: 'This is test.'
+      html: 'This is test.',
     });
 
     expect(send).toHaveBeenCalled();
@@ -147,7 +157,7 @@ describe("MailerService", () => {
       transport: new SMTPTransport({}),
       template: {
         adapter: new HandlebarsAdapter(),
-      }
+      },
     });
 
     await service.sendMail({
@@ -162,7 +172,9 @@ describe("MailerService", () => {
 
     expect(send).toHaveBeenCalled();
     expect(lastMail.data.from).toBe('user1@example.test');
-    expect(lastMail.data.html).toBe('<p>Handlebars test template. by Nest-modules TM</p>');
+    expect(lastMail.data.html).toBe(
+      '<p>Handlebars test template. by Nest-modules TM</p>',
+    );
   });
 
   it('should compile template with the pug adapter', async () => {
@@ -175,7 +187,7 @@ describe("MailerService", () => {
       transport: new SMTPTransport({}),
       template: {
         adapter: new PugAdapter(),
-      }
+      },
     });
 
     await service.sendMail({
@@ -190,6 +202,8 @@ describe("MailerService", () => {
 
     expect(send).toHaveBeenCalled();
     expect(lastMail.data.from).toBe('user1@example.test');
-    expect(lastMail.data.html).toBe('<p>Pug test template.</p><p>Hello World!</p>');
+    expect(lastMail.data.html).toBe(
+      '<p>Pug test template.</p><p>Hello World!</p>',
+    );
   });
 });

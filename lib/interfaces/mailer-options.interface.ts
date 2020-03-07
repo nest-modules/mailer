@@ -9,7 +9,8 @@ import * as SESTransport from 'nodemailer/lib/ses-transport';
 
 import { TemplateAdapter } from './template-adapter.interface';
 
-type Options = SMTPTransport.Options
+type Options =
+  | SMTPTransport.Options
   | SMTPPool.Options
   | SendmailTransport.Options
   | StreamTransport.Options
@@ -17,7 +18,8 @@ type Options = SMTPTransport.Options
   | SESTransport.Options
   | TransportOptions;
 
-type TransportType = Options
+type TransportType =
+  | Options
   | SMTPTransport
   | SMTPPool
   | SendmailTransport
@@ -30,11 +32,13 @@ type TransportType = Options
 export interface MailerOptions {
   defaults?: Options;
   transport?: TransportType;
-  transports?: { [name: string]: SMTPTransport | SMTPTransport.Options | string };
+  transports?: {
+    [name: string]: SMTPTransport | SMTPTransport.Options | string;
+  };
   template?: {
     dir?: string;
     adapter?: TemplateAdapter;
-    options?: { [name: string]: any; };
+    options?: { [name: string]: any };
   };
-  options?: { [name: string]: any; };
+  options?: { [name: string]: any };
 }

@@ -200,14 +200,13 @@ export class MailModule {}
 
 - [Sending email-template with outlook](https://github.com/yanarp/nestjs-mailer) - Starter kit, nestjs mailer implementation on outlook smtp with email-template
 
-
-
 ### Contributing
 
-* [Paweł Partyka](https://github.com/partyka95)
 * [Cristiam Diaz](https://github.com/cdiaz)
+* [Eduardo Leal](https://github.com/eduardoleal)
+* [Juan Echeverry](https://github.com/juandav)
 * [Pat McGowan](https://github.com/p-mcgowan)
-* [juandav](https://github.com/juandav)
+* [Paweł Partyka](https://github.com/partyka95)
 
 ### License
 

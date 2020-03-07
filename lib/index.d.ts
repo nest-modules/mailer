@@ -14,7 +14,11 @@ declare class MailerService {
 }
 
 declare interface TemplateAdapter {
-  compile(mail: any, callback: (err?: any, body?: string) => any, options: MailerOptions): void;
+  compile(
+    mail: any,
+    callback: (err?: any, body?: string) => any,
+    options: MailerOptions,
+  ): void;
 }
 
 declare interface MailerOptionsFactory {
@@ -27,7 +31,7 @@ declare interface MailerOptions {
   template?: {
     dir?: string;
     adapter?: TemplateAdapter;
-    options?: { [name: string]: any; };
+    options?: { [name: string]: any };
   };
 }
 
@@ -38,7 +42,7 @@ declare interface MailerAsyncOptions {
   useFactory?: (...args: any[]) => Promise<MailerOptions> | MailerOptions;
 }
 
-declare interface ISendMailOptions extends SendMailOptions  {
-  template?: string,
-  context?: { [name: string]: any; }
+declare interface ISendMailOptions extends SendMailOptions {
+  template?: string;
+  context?: { [name: string]: any };
 }
