@@ -1,10 +1,6 @@
-## Nest mailer module 
+## Nest mailer site
 
-A mailer module for Nest framework (node.js)
-
-### People
-
-* Author - [Paweł Partyka](http://epartyka.com)
+Site for nest mailer
 
 ### License
 
