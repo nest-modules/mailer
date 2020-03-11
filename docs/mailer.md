@@ -9,9 +9,9 @@ Check this documentation for how to use ```@nestjs/mailer```.
 ## Install
 
 ```sh
-yarn add @nestjs/mailer
+yarn add @nest-modules/mailer
 #or
-npm install --save @nestjs/mailer
+npm install --save @nest-modules/mailer
 ```
 
 ## Module
