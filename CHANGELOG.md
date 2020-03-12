@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.9](https://github.com/nest-modules/mailer/compare/v1.3.8...v1.3.9) (2020-03-12)
+
+
+### Bug Fixes
+
+* inherits from nodemailer interface [#34](https://github.com/nest-modules/mailer/issues/34) ([923ba0f](https://github.com/nest-modules/mailer/commit/923ba0f270bc8c0dffe4256b98b91f403a0acd45))
+* **deps:** pin dependencies ([5545762](https://github.com/nest-modules/mailer/commit/5545762c113b80e22b45edfa76a7252dfdbde239))
+* **deps:** update dependency nodemailer to v6.4.5 ([b5ace5d](https://github.com/nest-modules/mailer/commit/b5ace5d774df18017e8d4923d733b5b1e17e0061))
+
 ### [1.3.8](https://github.com/nest-modules/mailer/compare/v1.3.7...v1.3.8) (2020-03-06)
 
 
