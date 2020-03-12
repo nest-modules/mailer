@@ -4,14 +4,14 @@ title: How to use?
 sidebar_label: How to use?
 ---
 
-Check this documentation for how to use ```@nestjs/mailer```.
+Check this documentation for how to use ```@nestjs-modules/mailer```.
 
 ## Install
 
 ```sh
-yarn add @nest-modules/mailer
+yarn add @nestjs-modules/mailer
 #or
-npm install --save @nest-modules/mailer
+npm install --save @nestjs-modules/mailer
 ```
 
 ## Module

@@ -64,9 +64,7 @@ class HomeSplash extends React.Component {
         <div className="inner">
           <ProjectTitle tagline={siteConfig.tagline} title={siteConfig.title} />
           <PromoSection>
-            <Button href="#try">Try It Out</Button>
-            <Button href={docUrl('doc1.html')}>Example Link</Button>
-            <Button href={docUrl('doc2.html')}>Example Link 2</Button>
+            <Button href={docUrl('mailer.html')}>Try It Out</Button>
           </PromoSection>
         </div>
       </SplashContainer>
@@ -149,16 +147,16 @@ class Index extends React.Component {
       <Block layout="fourColumn">
         {[
           {
-            content: 'This is the content of my feature',
-            image: `${baseUrl}img/undraw_react.svg`,
+            content: '<b>Mailer</b> is built based on the <b>Nodemailer</b> module',
+            image: `${baseUrl}img/undraw_note_list.svg`,
             imageAlign: 'top',
-            title: 'Feature One',
+            title: 'Nodemailer',
           },
           {
-            content: 'The content of my second feature',
+            content: 'Allows you to manage templates in pug and handlebars',
             image: `${baseUrl}img/undraw_operating_system.svg`,
             imageAlign: 'top',
-            title: 'Feature Two',
+            title: 'Tamplates',
           },
         ]}
       </Block>
@@ -198,11 +196,15 @@ class Index extends React.Component {
         <HomeSplash siteConfig={siteConfig} language={language} />
         <div className="mainContainer">
           <Features />
-          <FeatureCallout />
-          <LearnHow />
-          <TryOut />
-          <Description />
-          <Showcase />
+          {
+          /** 
+            <FeatureCallout />
+            <LearnHow />
+            <TryOut />
+            <Description />
+            <Showcase />
+          */
+          }
         </div>
       </div>
     );

@@ -1,10 +1,8 @@
 {
   "docs": {
-    "Mailer": ["mailer"],
-    "First Category": ["doc2"],
-    "Second Category": ["doc3"]
+    "Mailer": ["mailer"]
   },
   "docs-other": {
-    "First Category": ["doc4", "doc5"]
+    "First Category": ["mailer"]
   }
 }
