@@ -16,9 +16,15 @@
 
 ### Installation
 
-```
+```sh
 npm install --save @nestjs-modules/mailer
+#or
+yarn add @nestjs-modules/mailer
 ```
+
+### Documentation
+
+you can find all the documentation [here](https://nest-modules.github.io/mailer/) for the email module
 
 ### Starter kit
 
