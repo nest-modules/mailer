@@ -5,6 +5,8 @@ index.ts
 package-lock.json
 tsconfig.json
 .prettierrc
+docs
+website
 
 # misc
 .commitlintrc.json
