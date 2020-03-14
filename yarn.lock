@@ -343,20 +343,20 @@
     "@types/yargs" "^15.0.0"
     chalk "^3.0.0"
 
-"@nestjs/common@6.11.11":
-  version "6.11.11"
-  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-6.11.11.tgz#701da2462a15cc94d55ec863ddd9f2fb0bbd7136"
-  integrity sha512-K4wuK/V2M82AsoudtY0UYV+M1nYDSSb10t8AkMwFiP+AWMuxCJNtE8qLc9jUe2aTKMbhBiQUfsbZFmg/MRinPg==
+"@nestjs/common@7.0.1":
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-7.0.1.tgz#5d897c2a6949dbb5118b0e751a83ef61e3ff1040"
+  integrity sha512-1VcJpRsr3w+sPlOumFpwonxtZ6ywnU6ifYvDHzh2Kx9TlKoJzbAdEa1Xa0djQTN9QMxk7mmk1QEc+x1SaHjYmg==
   dependencies:
     axios "0.19.2"
     cli-color "2.0.0"
     tslib "1.11.1"
-    uuid "7.0.1"
+    uuid "7.0.2"
 
-"@nestjs/core@6.11.11":
-  version "6.11.11"
-  resolved "https://registry.yarnpkg.com/@nestjs/core/-/core-6.11.11.tgz#2b97a3e9c2a853f5693ed84daf81c1ee3b2782b4"
-  integrity sha512-ewUy2rjiRWi6SziI5gXZnlat7PfnVklL3tusnU1qqtUm74cPY1Zre+zDCJ27P/+B7sFJHbkFfpi0qQP2pQv9jQ==
+"@nestjs/core@7.0.1":
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/@nestjs/core/-/core-7.0.1.tgz#39b295c56d92377c5254b1b2dd62ec348dcdaca1"
+  integrity sha512-ATk6b087SV3338hpU/2HsxqOSDbcyJcru6JjZ6n47AShc3nycG77Kvqa5ieAZ+/pyCg6wk73pDJRYA6lo+mxtw==
   dependencies:
     "@nuxtjs/opencollective" "0.2.2"
     fast-safe-stringify "2.0.7"
@@ -364,12 +364,12 @@
     object-hash "2.0.3"
     path-to-regexp "3.2.0"
     tslib "1.11.1"
-    uuid "7.0.1"
+    uuid "7.0.2"
 
-"@nestjs/testing@6.11.11":
-  version "6.11.11"
-  resolved "https://registry.yarnpkg.com/@nestjs/testing/-/testing-6.11.11.tgz#c9858e6516cccf923289919764ed9039376d9b3c"
-  integrity sha512-Mqu4IWZhnLdIFfVfueAFFCm3jPfQoWg+YmDLBsFS2kpab3az5gsRCZQv9R9CCHGa1hHKYWqM1lMcz1IQc70kww==
+"@nestjs/testing@7.0.1":
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/@nestjs/testing/-/testing-7.0.1.tgz#07832d45f42636821232d693750dc400e304b046"
+  integrity sha512-I0an8kHUtDiaUmuA3aeMutz8g9b2Nhm8t5YYKIEPszRaLTU6CMhvR850RLX5gd9cb+RcforA6LjGtyeYPh7xgw==
   dependencies:
     optional "0.1.4"
     tslib "1.11.1"
@@ -5769,10 +5769,10 @@ util.promisify@^1.0.0:
     has-symbols "^1.0.1"
     object.getownpropertydescriptors "^2.1.0"
 
-uuid@7.0.1:
-  version "7.0.1"
-  resolved "https://registry.yarnpkg.com/uuid/-/uuid-7.0.1.tgz#95ed6ff3d8c881cbf85f0f05cc3915ef994818ef"
-  integrity sha512-yqjRXZzSJm9Dbl84H2VDHpM3zMjzSJQ+hn6C4zqd5ilW+7P4ZmLEEqwho9LjP+tGuZlF4xrHQXT0h9QZUS/pWA==
+uuid@7.0.2:
+  version "7.0.2"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-7.0.2.tgz#7ff5c203467e91f5e0d85cfcbaaf7d2ebbca9be6"
+  integrity sha512-vy9V/+pKG+5ZTYKf+VcphF5Oc6EFiu3W8Nv3P3zIh0EqVI80ZxOzuPfe9EHjkFNvf8+xuTHVeei4Drydlx4zjw==
 
 uuid@^3.0.0, uuid@^3.3.2:
   version "3.4.0"
