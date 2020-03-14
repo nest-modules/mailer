@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.10](https://github.com/nest-modules/mailer/compare/v1.3.9...v1.3.10) (2020-03-14)
+
+
+### Bug Fixes
+
+* fixes template in the email interface ([eb1f4b6](https://github.com/nest-modules/mailer/commit/eb1f4b673251bd8ef8f97a012b23cd928f7c3727))
+* **deps:** update nest monorepo to v7 ([7deaa3e](https://github.com/nest-modules/mailer/commit/7deaa3e0956e2ed2a04d4ab6f88960bc01c57f6b))
+
 ### [1.3.9](https://github.com/nest-modules/mailer/compare/v1.3.8...v1.3.9) (2020-03-12)
 
 
