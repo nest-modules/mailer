@@ -90,7 +90,6 @@ import { Module } from '@nestjs/common';
 import { PugAdapter, MailerModule } from '@nestjs-modules/mailer';
 
 @Module({
-
   imports: [
     MailerModule.forRootAsync({
       useFactory: () => ({
