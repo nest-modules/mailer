@@ -39,7 +39,7 @@
     "glob": "7.1.6",
     "handlebars": "4.7.3",
     "lodash": "4.17.15",
-    "nodemailer": "6.4.5",
+    "nodemailer": "6.4.6",
     "pug": "2.0.4",
     "rxjs": "6.5.4"
   },
