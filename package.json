@@ -54,7 +54,7 @@
     "@typescript-eslint/parser": "2.25.0",
     "husky": "4.2.3",
     "jest": "25.1.0",
-    "lint-staged": "10.0.8",
+    "lint-staged": "10.0.9",
     "prettier": "2.0.2",
     "reflect-metadata": "0.1.13",
     "rimraf": "3.0.2",
