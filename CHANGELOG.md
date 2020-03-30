@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.13](https://github.com/nest-modules/mailer/compare/v1.3.12...v1.3.13) (2020-03-30)
+
+
+### Bug Fixes
+
+* add interface 'attachment like object' [#104](https://github.com/nest-modules/mailer/issues/104) ([30de1f6](https://github.com/nest-modules/mailer/commit/30de1f64b1635237cd374237376497a5b0089253))
+* **deps:** update dependency nodemailer to v6.4.6 ([2230ca2](https://github.com/nest-modules/mailer/commit/2230ca24ad337a72c1d77babb7cc28e0d81d47e5))
+* **deps:** update nest monorepo to v7.0.5 ([b3b3ec9](https://github.com/nest-modules/mailer/commit/b3b3ec9a653766bdc12e6cd93dfd0263a2d32ea5))
+* **deps:** update nest monorepo to v7.0.6 ([3e8c04f](https://github.com/nest-modules/mailer/commit/3e8c04ff617afb94a5ce11c54f0b55b108408714))
+* **deps:** update nest monorepo to v7.0.7 ([3b9bc9a](https://github.com/nest-modules/mailer/commit/3b9bc9af1ab8866ba66de3d8f6b81f1412e828ef))
+
 ### [1.3.12](https://github.com/nest-modules/mailer/compare/v1.3.11...v1.3.12) (2020-03-19)
 
 
