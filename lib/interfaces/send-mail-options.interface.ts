@@ -10,6 +10,10 @@ export interface Address {
   address: string;
 }
 
+export interface AttachmentLikeObject {
+  path: string;
+}
+
 export interface ISendMailOptions extends SendMailOptions {
   to?: string | Address | Array<string | Address>;
   cc?: string | Address | Array<string | Address>;
@@ -17,7 +21,7 @@ export interface ISendMailOptions extends SendMailOptions {
   inReplyTo?: string | Address;
   from?: string | Address;
   subject?: string;
-  text?: string | Buffer;
+  text?: string | Buffer | AttachmentLikeObject;
   html?: string | Buffer;
   sender?: string | Address;
   raw?: string | Buffer;
