@@ -4,10 +4,7 @@
   "description": "NestJS - a mailer module (@mailer)",
   "author": "Nest Modules TM",
   "private": false,
-  "main": "./dist/index.js",
-  "files": [
-    "./dist"
-  ],
+  "main": "./index",
   "scripts": {
     "format": "prettier **/**/*.ts --ignore-path ./.prettierignore --write",
     "prebuild": "rimraf dist",
