@@ -38,11 +38,12 @@
     "@nestjs/core": "7.0.7",
     "css-inliner": "1.1.4",
     "glob": "7.1.6",
-    "handlebars": "4.7.3",
-    "lodash": "4.17.15",
     "nodemailer": "6.4.6",
-    "pug": "2.0.4",
     "rxjs": "6.5.4"
+  },
+  "optionalDependencies": {
+    "pug": "^2.0.4",
+    "handlebars": "4.7.3"
   },
   "devDependencies": {
     "@nestjs/testing": "7.0.7",
