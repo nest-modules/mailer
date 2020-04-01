@@ -43,7 +43,7 @@
   },
   "optionalDependencies": {
     "pug": "^2.0.4",
-    "handlebars": "4.7.3"
+    "handlebars": "4.7.4"
   },
   "devDependencies": {
     "@nestjs/testing": "7.0.7",
