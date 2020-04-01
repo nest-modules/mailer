@@ -40,6 +40,6 @@ export interface ISendMailOptions extends SendMailOptions {
     contents?: any;
     path?: string;
     contentType?: string;
-    cid: string;
+    cid?: string;
   }[];
 }
