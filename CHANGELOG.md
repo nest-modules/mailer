@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.17](https://github.com/nest-modules/mailer/compare/v1.3.16...v1.3.17) (2020-04-01)
+
+
+### Bug Fixes
+
+* optional key in atachments interface [#110](https://github.com/nest-modules/mailer/issues/110) ([0d951ae](https://github.com/nest-modules/mailer/commit/0d951aeb25c8fb25dec78789638f77ddeecd6a67))
+
 ### [1.3.16](https://github.com/nest-modules/mailer/compare/v1.3.15...v1.3.16) (2020-03-31)
 
 
