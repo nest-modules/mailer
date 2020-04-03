@@ -55,7 +55,7 @@
     "@typescript-eslint/eslint-plugin": "2.26.0",
     "@typescript-eslint/parser": "2.26.0",
     "husky": "4.2.3",
-    "jest": "25.2.6",
+    "jest": "25.2.7",
     "lint-staged": "10.1.1",
     "prettier": "2.0.2",
     "reflect-metadata": "0.1.13",
