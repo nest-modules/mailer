@@ -39,7 +39,7 @@
     "css-inliner": "1.1.4",
     "glob": "7.1.6",
     "nodemailer": "6.4.6",
-    "rxjs": "6.5.4"
+    "rxjs": "6.5.5"
   },
   "optionalDependencies": {
     "pug": "^2.0.4",
