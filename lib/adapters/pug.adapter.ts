@@ -32,7 +32,6 @@ export class PugAdapter implements TemplateAdapter {
       }
 
       inlineCss(body, { url: ' ' }).then((html) => {
-        console.log(html);
         mail.data.html = html;
         return callback();
       });

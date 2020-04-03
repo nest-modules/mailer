@@ -80,7 +80,6 @@ export class HandlebarsAdapter implements TemplateAdapter {
     );
 
     inlineCss(rendered, { url: ' ' }).then((html) => {
-      console.log(html);
       mail.data.html = html;
       return callback();
     });
