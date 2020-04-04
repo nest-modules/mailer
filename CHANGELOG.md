@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.18](https://github.com/nest-modules/mailer/compare/v1.3.17...v1.3.18) (2020-04-04)
+
+
+### Bug Fixes
+
+* now pug and handlebars are optional dependencies and nodemailer a peer dependency ([49b60a3](https://github.com/nest-modules/mailer/commit/49b60a3dee86f964746e2ede5da56007301f23b6))
+* **deps:** update dependency rxjs to v6.5.5 ([2ffd823](https://github.com/nest-modules/mailer/commit/2ffd82360817063552ec98edc6b104e7b102456c))
+
 ### [1.3.17](https://github.com/nest-modules/mailer/compare/v1.3.16...v1.3.17) (2020-04-01)
 
 
