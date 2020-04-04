@@ -9,9 +9,25 @@ Check this documentation for how to use ```@nestjs-modules/mailer```.
 ## Install
 
 ```sh
-yarn add @nestjs-modules/mailer
+yarn add @nestjs-modules/mailer nodemailer
 #or
-npm install --save @nestjs-modules/mailer
+npm install --save @nestjs-modules/mailer nodemailer
+```
+
+**Hint:** handlebars and pug is an optional dependency, if you want to use the template, you must install it.
+
+#### with npm
+```sh
+npm install --save handlebars
+#or
+npm install --save pug
+```
+
+#### with yarn
+```sh
+yarn add handlebars
+#or
+yarn add pug
 ```
 
 ## Module
