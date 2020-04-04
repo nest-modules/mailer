@@ -89,7 +89,7 @@ export class MailerCoreModule {
       useFactory: async (optionsFactory: MailerOptionsFactory) => {
         return optionsFactory.createMailerOptions();
       },
-      inject: [options.useExisting || options.useClass],
+      inject: [options.useExisting! || options.useClass! ],
     };
   }
 }

@@ -3,6 +3,7 @@ lib
 tests
 index.ts
 package-lock.json
+yarn.lock
 tsconfig.json
 .prettierrc
 docs

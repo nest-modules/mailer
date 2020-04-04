@@ -492,6 +492,11 @@
   dependencies:
     "@types/babel-types" "*"
 
+"@types/bluebird@*":
+  version "3.5.30"
+  resolved "https://registry.yarnpkg.com/@types/bluebird/-/bluebird-3.5.30.tgz#ee034a0eeea8b84ed868b1aa60d690b08a6cfbc5"
+  integrity sha512-8LhzvcjIoqoi1TghEkRMkbbmM+jhHnBokPGkJWjclMK+Ks0MxEBow3/p2/iFTZ+OIbJHQDSfpgdZEb+af3gfVw==
+
 "@types/color-name@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
@@ -515,6 +520,13 @@
     "@types/events" "*"
     "@types/minimatch" "*"
     "@types/node" "*"
+
+"@types/inline-css@^0.0.32":
+  version "0.0.32"
+  resolved "https://registry.yarnpkg.com/@types/inline-css/-/inline-css-0.0.32.tgz#edc99ba54c1d10cec343084ffea6e40435fa22ed"
+  integrity sha512-/QLPW0Tu2o5iq5B6fepkwT5J4xMPLaA/xnUi/jFDdRbT/ECVrpKB20X/4rM8BrIKkV/Z83anIBF8I4pbJhU1aw==
+  dependencies:
+    "@types/bluebird" "*"
 
 "@types/istanbul-lib-coverage@*", "@types/istanbul-lib-coverage@^2.0.0", "@types/istanbul-lib-coverage@^2.0.1":
   version "2.0.1"

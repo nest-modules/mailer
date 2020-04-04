@@ -2,20 +2,23 @@
   "compilerOptions": {
     "module": "commonjs",
     "declaration": true,
-    "noImplicitAny": false,
-    "noUnusedLocals": false,
-    "importHelpers": true,
+    "strict": true,
     "removeComments": true,
     "noLib": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es6",
     "sourceMap": false,
-    "allowJs": true,
     "outDir": "./dist",
     "rootDir": "./lib",
-    "lib": ["es7"]
+    "skipLibCheck": true
   },
-  "include": ["lib/**/*"],
-  "exclude": ["node_modules", "**/*.spec.ts"]
+  "include": [
+    "lib/**/*"
+  ],
+  "exclude": [
+    "node_modules", 
+    "**/*.spec.ts",
+    "tests"
+  ]
 }

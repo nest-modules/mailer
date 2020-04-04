@@ -15,7 +15,7 @@ export class MailerModule {
       module: MailerModule,
       imports: [
         /** Modules **/
-        MailerCoreModule.forRoot(options),
+        MailerCoreModule.forRoot(options!),
       ],
     };
   }

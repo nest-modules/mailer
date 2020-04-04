@@ -13,7 +13,7 @@ import { ISendMailOptions } from './interfaces/send-mail-options.interface';
 
 @Injectable()
 export class MailerService {
-  private transporter: Transporter;
+  private transporter!: Transporter;
   private transporters = new Map<string, Transporter>();
 
   private initTemplateAdapter(
@@ -56,11 +56,11 @@ export class MailerService {
         this.transporters.set(
           name,
           createTransport(
-            this.mailerOptions.transports[name],
+            this.mailerOptions.transports![name],
             this.mailerOptions.defaults,
           ),
         );
-        this.initTemplateAdapter(templateAdapter, this.transporters.get(name));
+        this.initTemplateAdapter(templateAdapter, this.transporters.get(name)!);
       });
     }
 
@@ -83,7 +83,7 @@ export class MailerService {
         this.transporters.get(sendMailOptions.transporterName)
       ) {
         return await this.transporters
-          .get(sendMailOptions.transporterName)
+          .get(sendMailOptions.transporterName)!
           .sendMail(sendMailOptions);
       } else {
         throw new ReferenceError(
