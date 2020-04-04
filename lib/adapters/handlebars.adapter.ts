@@ -53,7 +53,7 @@ export class HandlebarsAdapter implements TemplateAdapter {
       };
     };
 
-    const { templateName, templatePath } = precompile(
+    const { templateName } = precompile(
       mail.data.template,
       callback,
       mailerOptions.template,
