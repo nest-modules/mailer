@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.19](https://github.com/nest-modules/mailer/compare/v1.3.18...v1.3.19) (2020-04-04)
+
+
+### Bug Fixes
+
+* build ([24d0598](https://github.com/nest-modules/mailer/commit/24d0598c2447887caad9573d78bad58d65b0f8da))
+
 ### [1.3.18](https://github.com/nest-modules/mailer/compare/v1.3.17...v1.3.18) (2020-04-04)
 
 
