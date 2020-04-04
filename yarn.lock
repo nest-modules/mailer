@@ -521,7 +521,7 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
-"@types/inline-css@^0.0.32":
+"@types/inline-css@0.0.32":
   version "0.0.32"
   resolved "https://registry.yarnpkg.com/@types/inline-css/-/inline-css-0.0.32.tgz#edc99ba54c1d10cec343084ffea6e40435fa22ed"
   integrity sha512-/QLPW0Tu2o5iq5B6fepkwT5J4xMPLaA/xnUi/jFDdRbT/ECVrpKB20X/4rM8BrIKkV/Z83anIBF8I4pbJhU1aw==
