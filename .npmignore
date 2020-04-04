@@ -1,6 +1,7 @@
 # source
 lib
 tests
+sample
 index.ts
 package-lock.json
 yarn.lock
