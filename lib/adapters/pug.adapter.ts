@@ -2,7 +2,7 @@
 import * as path from 'path';
 import { get } from 'lodash';
 import { renderFile } from 'pug';
-import * as CSSInliner from 'css-inliner';
+import * as inlineCss from 'inline-css';
 
 /** Interfaces **/
 import { MailerOptions } from '../interfaces/mailer-options.interface';
@@ -31,10 +31,7 @@ export class PugAdapter implements TemplateAdapter {
         return callback(err);
       }
 
-      const { dir } = path.parse(templatePath);
-      const inliner = new CSSInliner({ directory: dir });
-
-      inliner.inlineCSSAsync(body).then(html => {
+      inlineCss(body, { url: ' ' }).then((html) => {
         mail.data.html = html;
         return callback();
       });

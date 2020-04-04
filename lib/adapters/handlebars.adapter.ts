@@ -2,7 +2,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as handlebars from 'handlebars';
-import * as CSSInliner from 'css-inliner';
+import * as inlineCss from 'inline-css';
 import * as glob from 'glob';
 import { get } from 'lodash';
 
@@ -66,7 +66,7 @@ export class HandlebarsAdapter implements TemplateAdapter {
 
     if (runtimeOptions.partials) {
       const files = glob.sync(path.join(runtimeOptions.partials.dir, '*.hbs'));
-      files.forEach(file =>
+      files.forEach((file) =>
         precompile(file, () => {}, runtimeOptions.partials),
       );
     }
@@ -79,10 +79,7 @@ export class HandlebarsAdapter implements TemplateAdapter {
       },
     );
 
-    const { dir } = path.parse(templatePath);
-    const inliner = new CSSInliner({ directory: dir });
-
-    inliner.inlineCSSAsync(rendered).then(html => {
+    inlineCss(rendered, { url: ' ' }).then((html) => {
       mail.data.html = html;
       return callback();
     });
