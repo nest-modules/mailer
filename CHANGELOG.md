@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/nest-modules/mailer/compare/v1.3.22...v1.4.0) (2020-04-07)
+
+
+### Features
+
+* **preview:** Pass options to preview-email ([d0009ce](https://github.com/nest-modules/mailer/commit/d0009ce1f57af0a48f74145ee63ba0761fb45b91))
+* **preview:** Show preview of emails in browser ([4a2c0d5](https://github.com/nest-modules/mailer/commit/4a2c0d5d6797bcf64a380f09ee836641fca8fe88))
+
+
+### Bug Fixes
+
+* **deps:** pin dependency preview-email to 2.0.1 ([e1206d6](https://github.com/nest-modules/mailer/commit/e1206d6fe0af42ac4edeb18186d2dfe4e46c5d49))
+
 ### [1.3.22](https://github.com/nest-modules/mailer/compare/v1.3.21...v1.3.22) (2020-04-07)
 
 
