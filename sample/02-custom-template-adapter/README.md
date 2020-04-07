@@ -1,75 +1,155 @@
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
+  <a href="http://nestjs.com/" target="blank">
+    <img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" />
+  </a>
 </p>
 
-[travis-image]: https://api.travis-ci.org/nestjs/nest.svg?branch=master
-[travis-url]: https://travis-ci.org/nestjs/nest
-[linux-image]: https://img.shields.io/travis/nestjs/nest/master.svg?label=linux
-[linux-url]: https://travis-ci.org/nestjs/nest
-  
-  <p align="center">A progressive <a href="http://nodejs.org" target="blank">Node.js</a> framework for building efficient and scalable server-side applications, heavily inspired by <a href="https://angular.io" target="blank">Angular</a>.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/dm/@nestjs/core.svg" alt="NPM Downloads" /></a>
-<a href="https://travis-ci.org/nestjs/nest"><img src="https://api.travis-ci.org/nestjs/nest.svg?branch=master" alt="Travis" /></a>
-<a href="https://travis-ci.org/nestjs/nest"><img src="https://img.shields.io/travis/nestjs/nest/master.svg?label=linux" alt="Linux" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#5" alt="Coverage" /></a>
-<a href="https://gitter.im/nestjs/nestjs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge"><img src="https://badges.gitter.im/nestjs/nestjs.svg" alt="Gitter" /></a>
-<a href="https://opencollective.com/nest#backer"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec"><img src="https://img.shields.io/badge/Donate-PayPal-dc3d53.svg"/></a>
-  <a href="https://twitter.com/nestframework"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
+<p align="center">
+  Demo implementation on the mailer modules for Nest framework (node.js) using <a href="https://nodemailer.com/">Nodemailer</a> library
 </p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+## Nestjs-mailer with custom template adapter
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+### Goals
 
-## Installation
+The main goal of this project is to be an example of how-to implement your custom adapter for any template engine aside from the officially provided.
 
-```bash
-$ npm install
+### Usage
+
+Create your custom adapter class and be sure to implements `TemplateAdapter` interface.
+
+```typescript
+// adapters/twing.adapter.ts
+import { MailerOptions, TemplateAdapter } from '@nestjs-modules/mailer';
+import * as inlineCSS from 'inline-css';
+import * as path from 'path';
+import { TwingEnvironment, TwingLoaderFilesystem, TwingTemplate } from 'twing';
+
+export class TwingAdapter implements TemplateAdapter {
+  private precompiledTemplates: Map<string, TwingTemplate> = new Map();
+
+  compile(
+    mail: any,
+    callback: (err?: any, body?: string) => any,
+    options: MailerOptions,
+  ): void {
+    const templateExt = path.extname(mail.data.template) || '.twig';
+    const templateName = path.basename(mail.data.template, templateExt);
+    const templateDir =
+      options.template?.dir ?? path.dirname(mail.data.template);
+    const loader = new TwingLoaderFilesystem(templateDir);
+    const twing = new TwingEnvironment(loader);
+
+    this.renderTemplate(twing, templateName + templateExt, mail.data.context)
+      .then((html) => {
+        mail.data.html = html;
+
+        return callback();
+      })
+      .catch(callback);
+  }
+
+  private async renderTemplate(
+    twing: TwingEnvironment,
+    template: string,
+    context: Record<string, any>,
+  ): Promise<string> {
+    if (!this.precompiledTemplates.has(template))
+      this.precompiledTemplates.set(template, await twing.load(template));
+
+    const rendered = await this.precompiledTemplates
+      .get(template)
+      .render(context);
+
+    return inlineCSS(rendered, { url: ' ' });
+  }
+}
 ```
 
-## Running the app
 
-```bash
-# development
-$ npm run start
+Import the MailerModule into the root AppModule
 
-# watch mode
-$ npm run start:dev
+Synchronous import
 
-# production mode
-$ npm run start:prod
+```typescript
+//app.module.ts
+import { Module } from '@nestjs/common';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { TwingAdapter } from './adapters/twing.adapter';
+
+@Module({
+  imports: [
+    MailerModule.forRoot({
+      transport: {
+        host: 'smtp.example.com',
+        port: 587,
+        secure: false // upgrade later with STARTTLS
+        auth: {
+          user: "username",
+          pass: "password",
+        },
+      },
+      defaults: {
+        from:'"nest-modules" <modules@nestjs.com>',
+      },
+      template: {
+        dir: `${process.cwd()}/templates/`,
+        adapter: new TwingAdapter(),
+      },
+    }),
+  ],
+})
+export class AppModule {}
 ```
 
-## Test
+After this, MailerService will be available to inject across entire project, for example in this way : 
 
-```bash
-# unit tests
-$ npm run test
+```typescript
+import { Injectable } from '@nestjs/common';
+import { MailerService } from '@nestjs-modules/mailer';
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+@Injectable()
+export class ExampleService {
+  constructor(private readonly mailerService: MailerService) {}
+}
 ```
 
-## Support
+MailerProvider exports the `sendMail()` function to which you can pass the message options (sender, email subject, recipient, body content, etc)
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+`sendMail()` accepts the same fields as [nodemailer email message](https://nodemailer.com/message/)
 
-## Stay in touch
+```typescript
+import { Injectable } from '@nestjs/common';
+import { MailerService } from '@nestjs-modules/mailer';
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+@Injectable()
+export class ExampleService {
+  constructor(private readonly mailerService: MailerService) {}
 
-## License
+  example() {
+    return this
+      .mailerService
+      .sendMail({
+        to: 'test@nestjs.com',
+        from: 'noreply@nestjs.com',
+        subject: 'Testing Nest Mailer module with template ✔',
+        template: 'index', // The `.twig` extension is appended automatically.
+        context: {  // Data to be sent to template engine.
+          code: 'cf1a3f828287',
+          username: 'john doe',
+        },
+      });
+  }
+}
+```
 
-  Nest is [MIT licensed](LICENSE).
+Make a `templates` named folder at the root level of the project and keep all the email-templates in the that folder with `.twig` extension.
+This implementation uses [Twing](https://nightlycommit.github.io/twing/) as a view-engine and smtp transporter.
+
+
+### Configuration
+
+Docker Compose is used to run MailDev as SMTP server for development purpose, so be sure to have Docker installed; then just run ``docker-compose up -d`` before start nest.js
+
+*Special thanks to https://github.com/leemunroe/responsive-html-email-template for providing email-templates*
+
