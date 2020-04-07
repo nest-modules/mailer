@@ -153,7 +153,7 @@ class Index extends React.Component {
             title: 'Nodemailer',
           },
           {
-            content: 'Allows you to manage templates in pug and handlebars',
+            content: 'Allows you to manage templates in pug, ejs and handlebars',
             image: `${baseUrl}img/undraw_operating_system.svg`,
             imageAlign: 'top',
             title: 'Tamplates',

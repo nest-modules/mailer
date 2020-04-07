@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config();
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -11,12 +11,12 @@ import { HandlebarsAdapter, MailerModule } from '@nestjs-modules/mailer';
         host: 'smtp.office365.com',
         port: 587,
         tls: {
-          ciphers: 'SSLv3'
+          ciphers: 'SSLv3',
         },
         secure: false, // true for 465, false for other ports
         auth: {
           user: process.env.EMAIL_ID, // generated ethereal user
-          pass: process.env.EMAIL_PASS // generated ethereal password
+          pass: process.env.EMAIL_PASS, // generated ethereal password
         },
       },
       defaults: {
@@ -24,7 +24,7 @@ import { HandlebarsAdapter, MailerModule } from '@nestjs-modules/mailer';
       },
       template: {
         dir: process.cwd() + '/template/',
-        adapter: new HandlebarsAdapter(), // or new PugAdapter()
+        adapter: new HandlebarsAdapter(), // or new PugAdapter() or new EjsAdapter()
         options: {
           strict: true,
         },
@@ -34,4 +34,4 @@ import { HandlebarsAdapter, MailerModule } from '@nestjs-modules/mailer';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}
