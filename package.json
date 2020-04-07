@@ -40,17 +40,11 @@
   "peerDependencies": {
     "@nestjs/common": "^6.7.0 || ^7.0.0",
     "@nestjs/core": "^6.7.0 || ^7.0.0",
-    "handlebars": "^4.0.0",
-    "nodemailer": "^6.0.0",
-    "pug": "^2.0.0"
+    "nodemailer": "^6.0.0"
   },
-  "peerDependenciesMeta": {
-    "handlebars": {
-      "optional": true
-    },
-    "pug": {
-      "optional": true
-    }
+  "optionalDependencies": {
+    "handlebars": "^4.0.0",
+    "pug": "^2.0.0"
   },
   "devDependencies": {
     "@nestjs/common": "7.0.7",
