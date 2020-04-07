@@ -21,7 +21,7 @@ export class HandlebarsAdapter implements TemplateAdapter {
       args.pop();
       return args.join('');
     });
-    Handlebars.registerHelper(helpers || {});
+    handlebars.registerHelper(helpers || {});
   }
 
   public compile(mail: any, callback: any, mailerOptions: MailerOptions): void {
