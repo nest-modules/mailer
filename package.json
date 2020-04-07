@@ -35,7 +35,8 @@
   "homepage": "https://github.com/nest-modules/mailer#readme",
   "dependencies": {
     "glob": "7.1.6",
-    "inline-css": "2.6.3"
+    "inline-css": "2.6.3",
+    "preview-email": "^2.0.1"
   },
   "peerDependencies": {
     "@nestjs/common": "^6.7.0 || ^7.0.0",

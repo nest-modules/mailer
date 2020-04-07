@@ -2,6 +2,7 @@
 import { get } from 'lodash';
 import { Injectable, Inject } from '@nestjs/common';
 import { createTransport, SentMessageInfo, Transporter } from 'nodemailer';
+import * as previewEmail from 'preview-email';
 
 /** Constants **/
 import { MAILER_OPTIONS } from './constants/mailer-options.constant';
@@ -28,6 +29,11 @@ export class MailerService {
 
         return templateAdapter.compile(mail, callback, this.mailerOptions);
       });
+      transporter.use('stream', (mail, callback) => {
+        return previewEmail(mail.data)
+          .then(() => callback())
+          .catch(callback);
+      });
     }
   }
 
@@ -52,7 +58,7 @@ export class MailerService {
 
     /** Transporters setup **/
     if (mailerOptions.transports) {
-      Object.keys(mailerOptions.transports).forEach(name => {
+      Object.keys(mailerOptions.transports).forEach((name) => {
         this.transporters.set(
           name,
           createTransport(
