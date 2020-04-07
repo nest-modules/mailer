@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 * **preview:** Pass options to preview-email ([d0009ce](https://github.com/nest-modules/mailer/commit/d0009ce1f57af0a48f74145ee63ba0761fb45b91))
 * **preview:** Show preview of emails in browser ([4a2c0d5](https://github.com/nest-modules/mailer/commit/4a2c0d5d6797bcf64a380f09ee836641fca8fe88))
+* add ejs adapter
 
 
 ### Bug Fixes
