@@ -5,6 +5,7 @@ import * as handlebars from 'handlebars';
 import * as inlineCss from 'inline-css';
 import * as glob from 'glob';
 import { get } from 'lodash';
+import { HelperDeclareSpec } from 'handlebars';
 
 /** Interfaces **/
 import { MailerOptions } from '../interfaces/mailer-options.interface';
@@ -15,11 +16,12 @@ export class HandlebarsAdapter implements TemplateAdapter {
     [name: string]: handlebars.TemplateDelegate;
   } = {};
 
-  constructor() {
+  constructor(helpers?: HelperDeclareSpec) {
     handlebars.registerHelper('concat', (...args) => {
       args.pop();
       return args.join('');
     });
+    Handlebars.registerHelper(helpers || {});
   }
 
   public compile(mail: any, callback: any, mailerOptions: MailerOptions): void {
