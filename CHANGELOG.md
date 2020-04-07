@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.1](https://github.com/nest-modules/mailer/compare/v1.4.0...v1.4.1) (2020-04-07)
+
+
+### Bug Fixes
+
+* fixed handlebars helpers ([bba3be6](https://github.com/nest-modules/mailer/commit/bba3be6f9712753557662024a6215bdf1139a3f5))
+
 ## [1.4.0](https://github.com/nest-modules/mailer/compare/v1.3.22...v1.4.0) (2020-04-07)
 
 
