@@ -1,7 +1,8 @@
 /** Dependencies **/
-import { get } from 'lodash';
+import { get, defaultsDeep } from 'lodash';
 import { Injectable, Inject } from '@nestjs/common';
 import { createTransport, SentMessageInfo, Transporter } from 'nodemailer';
+import * as previewEmail from 'preview-email';
 
 /** Constants **/
 import { MAILER_OPTIONS } from './constants/mailer-options.constant';
@@ -28,6 +29,14 @@ export class MailerService {
 
         return templateAdapter.compile(mail, callback, this.mailerOptions);
       });
+
+      if (this.mailerOptions.preview) {
+        transporter.use('stream', (mail, callback) => {
+          return previewEmail(mail.data, this.mailerOptions.preview)
+            .then(() => callback())
+            .catch(callback);
+        });
+      }
     }
   }
 
@@ -50,9 +59,21 @@ export class MailerService {
       'template.adapter',
     );
 
+    /*
+     * Preview setup
+     * THIS NEED TO RUN BEFORE ANY CALL TO `initTemplateAdapter`
+     */
+    if (this.mailerOptions.preview) {
+      const defaults = { open: { wait: false } };
+      this.mailerOptions.preview =
+        typeof this.mailerOptions.preview === 'boolean'
+          ? defaults
+          : defaultsDeep(this.mailerOptions.preview, defaults);
+    }
+
     /** Transporters setup **/
     if (mailerOptions.transports) {
-      Object.keys(mailerOptions.transports).forEach(name => {
+      Object.keys(mailerOptions.transports).forEach((name) => {
         this.transporters.set(
           name,
           createTransport(

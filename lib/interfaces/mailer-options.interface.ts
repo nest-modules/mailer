@@ -41,4 +41,23 @@ export interface MailerOptions {
     options?: { [name: string]: any };
   };
   options?: { [name: string]: any };
+  preview?:
+    | boolean
+    | Partial<{
+        /**
+         * a path to a directory for saving the generated email previews
+         * (defaults to os.tmpdir() from os)
+         *
+         * @see https://nodejs.org/api/os.html#os_os_tmpdir
+         * @type {string}
+         */
+        dir: string;
+        /**
+         * an options object that is passed to `open` (defaults to { wait: false })
+         *
+         * @see https://github.com/sindresorhus/open#options
+         * @type {(boolean | { wait: boolean; app: string | string[] })}
+         */
+        open: boolean | { wait: boolean; app: string | string[] };
+      }>;
 }
