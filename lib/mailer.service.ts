@@ -1,5 +1,5 @@
 /** Dependencies **/
-import { get } from 'lodash';
+import { get, defaultsDeep } from 'lodash';
 import { Injectable, Inject } from '@nestjs/common';
 import { createTransport, SentMessageInfo, Transporter } from 'nodemailer';
 import * as previewEmail from 'preview-email';
@@ -29,11 +29,14 @@ export class MailerService {
 
         return templateAdapter.compile(mail, callback, this.mailerOptions);
       });
-      transporter.use('stream', (mail, callback) => {
-        return previewEmail(mail.data)
-          .then(() => callback())
-          .catch(callback);
-      });
+
+      if (this.mailerOptions.preview) {
+        transporter.use('stream', (mail, callback) => {
+          return previewEmail(mail.data, this.mailerOptions.preview)
+            .then(() => callback())
+            .catch(callback);
+        });
+      }
     }
   }
 
@@ -55,6 +58,18 @@ export class MailerService {
       this.mailerOptions,
       'template.adapter',
     );
+
+    /*
+     * Preview setup
+     * THIS NEED TO RUN BEFORE ANY CALL TO `initTemplateAdapter`
+     */
+    if (this.mailerOptions.preview) {
+      const defaults = { open: { wait: false } };
+      this.mailerOptions.preview =
+        typeof this.mailerOptions.preview === 'boolean'
+          ? defaults
+          : defaultsDeep(this.mailerOptions.preview, defaults);
+    }
 
     /** Transporters setup **/
     if (mailerOptions.transports) {
