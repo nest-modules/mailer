@@ -14,13 +14,15 @@ yarn add @nestjs-modules/mailer nodemailer
 npm install --save @nestjs-modules/mailer nodemailer
 ```
 
-**Hint:** handlebars and pug is an optional dependency, if you want to use the template, you must install it.
+**Hint:** handlebars, pug and ejs is an optional dependency, if you want to use the template, you must install it.
 
 #### with npm
 ```sh
 npm install --save handlebars
 #or
 npm install --save pug
+#or
+npm install --save ejs
 ```
 
 #### with yarn
@@ -28,6 +30,8 @@ npm install --save pug
 yarn add handlebars
 #or
 yarn add pug
+#or
+yarn add ejs
 ```
 
 ## Module
@@ -259,7 +263,7 @@ export class ExampleService {
         to: 'test@nestjs.com',
         from: 'noreply@nestjs.com',
         subject: 'Testing Nest Mailermodule with template ✔',
-        template: 'welcome', // The `.pug` or `.hbs` extension is appended automatically.
+        template: 'welcome', // The `.pug`, `.ejs` or `.hbs` extension is appended automatically.
         context: {  // Data to be sent to template engine.
           code: 'cf1a3f828287',
           username: 'john doe',
@@ -288,7 +292,7 @@ export class ExampleService {
         to: 'test@nestjs.com',
         from: 'noreply@nestjs.com',
         subject: 'Testing Nest Mailermodule with template ✔',
-        template: __dirname + '/welcome', // The `.pug` or `.hbs` extension is appended automatically.
+        template: __dirname + '/welcome', // The `.pug`, `.ejs` or `.hbs` extension is appended automatically.
         context: {  // Data to be sent to template engine.
           code: 'cf1a3f828287',
           username: 'john doe',
