@@ -183,6 +183,58 @@ import { HandlebarsAdapter, MailerModule } from '@nestjs-modules/mailer';
 })
 export class AppModule {}
 ```
+<!--Handlebars with helpers-->
+```javascript
+//app.module.ts
+import { Module } from '@nestjs/common';
+import { HandlebarsAdapter, MailerModule } from '@nestjs-modules/mailer';
+import * as handlebars from 'handlebars';
+
+const helpers = { 
+  handlebarsIntl: function(value) {
+    let context = {
+      value: value
+    };
+
+    var intlData = {
+      locales: ['en-US'],
+    };
+
+    // use the formatNumber helper from handlebars-intl
+    const template = Handlebars.compile('{{formatNumber value}} is the final result!');
+
+    const compiled = template(context, {
+      data: {intl: intlData}
+    });
+
+    return compiled
+  }, 
+  otherHelper: function() {
+    ...
+  } 
+}
+
+@Module({
+  imports: [
+    MailerModule.forRootAsync({
+      useFactory: () => ({
+        transport: 'smtps://user@domain.com:pass@smtp.domain.com',
+        defaults: {
+          from:'"nest-modules" <modules@nestjs.com>',
+        },
+        template: {
+          dir: __dirname + '/templates',
+          adapter: new HandlebarsAdapter(helpers),
+          options: {
+            strict: true,
+          },
+        },
+      }),
+    }),
+  ],
+})
+export class AppModule {}
+```
 
 <!--END_DOCUSAURUS_CODE_TABS-->
 
