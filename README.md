@@ -29,6 +29,8 @@ yarn add @nestjs-modules/mailer nodemailer
 npm install --save handlebars
 #or
 npm install --save pug
+#or
+npm install --save ejs
 ```
 
 #### with yarn
@@ -36,6 +38,8 @@ npm install --save pug
 yarn add handlebars
 #or
 yarn add pug
+#or
+yarn add ejs
 ```
 
 ### Documentation
