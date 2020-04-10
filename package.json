@@ -61,7 +61,7 @@
     "@typescript-eslint/eslint-plugin": "2.27.0",
     "@typescript-eslint/parser": "2.27.0",
     "handlebars": "4.7.6",
-    "husky": "4.2.3",
+    "husky": "4.2.5",
     "jest": "25.2.7",
     "lint-staged": "10.1.2",
     "nodemailer": "6.4.6",
