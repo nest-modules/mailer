@@ -53,7 +53,7 @@
     "@nestjs/core": "7.0.7",
     "@nestjs/testing": "7.0.7",
     "@types/glob": "7.1.1",
-    "@types/inline-css": "0.0.32",
+    "@types/inline-css": "0.0.33",
     "@types/jest": "25.2.1",
     "@types/lodash": "4.14.149",
     "@types/nodemailer": "6.4.0",
