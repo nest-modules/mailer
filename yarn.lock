@@ -543,9 +543,10 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
-"@types/inline-css@0.0.32":
-  version "0.0.32"
-  resolved "https://registry.yarnpkg.com/@types/inline-css/-/inline-css-0.0.32.tgz#edc99ba54c1d10cec343084ffea6e40435fa22ed"
+"@types/inline-css@0.0.33":
+  version "0.0.33"
+  resolved "https://registry.yarnpkg.com/@types/inline-css/-/inline-css-0.0.33.tgz#a287ce24cb05ec7f68910439b45ec839990db07d"
+  integrity sha512-fgSqMPn3D7xx73c2/xZpc6PlKSawXXtyjuBmZQphAIT543w5FUpLoRMWOCJoJUcvHCvCgCQjGx3zbF8RFSAtcQ==
   dependencies:
     "@types/bluebird" "*"
 
