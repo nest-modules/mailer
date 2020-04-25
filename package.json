@@ -49,9 +49,9 @@
     "ejs": "^3.0.1"
   },
   "devDependencies": {
-    "@nestjs/common": "7.0.8",
-    "@nestjs/core": "7.0.8",
-    "@nestjs/testing": "7.0.8",
+    "@nestjs/common": "7.0.9",
+    "@nestjs/core": "7.0.9",
+    "@nestjs/testing": "7.0.9",
     "@types/glob": "7.1.1",
     "@types/inline-css": "0.0.33",
     "@types/jest": "25.2.1",
