@@ -48,7 +48,8 @@ Import the MailerModule into the root AppModule.
 ```javascript
 //app.module.ts
 import { Module } from '@nestjs/common';
-import { PugAdapter, MailerModule } from '@nestjs-modules/mailer';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
 
 @Module({
   imports: [
@@ -73,7 +74,8 @@ export class AppModule {}
 ```javascript
 //app.module.ts
 import { Module } from '@nestjs/common';
-import { HandlebarsAdapter, MailerModule } from '@nestjs-modules/mailer';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 
 @Module({
   imports: [
@@ -99,7 +101,8 @@ export class AppModule {}
 ```javascript
 //app.module.ts
 import { Module } from '@nestjs/common';
-import { EjsAdapter, MailerModule } from '@nestjs-modules/mailer';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter';
 
 @Module({
   imports: [
@@ -133,7 +136,8 @@ Of course, it is possible to use an async configuration:
 ```javascript
 //app.module.ts
 import { Module } from '@nestjs/common';
-import { PugAdapter, MailerModule } from '@nestjs-modules/mailer';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
 
 @Module({
   imports: [
@@ -160,7 +164,8 @@ export class AppModule {}
 ```javascript
 //app.module.ts
 import { Module } from '@nestjs/common';
-import { HandlebarsAdapter, MailerModule } from '@nestjs-modules/mailer';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 
 @Module({
   imports: [
@@ -187,7 +192,8 @@ export class AppModule {}
 ```javascript
 //app.module.ts
 import { Module } from '@nestjs/common';
-import { HandlebarsAdapter, MailerModule } from '@nestjs-modules/mailer';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import * as handlebars from 'handlebars';
 
 const helpers = { 
@@ -201,7 +207,7 @@ const helpers = {
     };
 
     // use the formatNumber helper from handlebars-intl
-    const template = Handlebars.compile('{{formatNumber value}} is the final result!');
+    const template = handlebars.compile('{{formatNumber value}} is the final result!');
 
     const compiled = template(context, {
       data: {intl: intlData}
@@ -244,7 +250,8 @@ export class AppModule {}
 import * as path from 'path';
 import { Module } from '@nestjs/common';
 import { BullModule } from 'nest-bull';
-import { MailerModule, HandlebarsAdapter } from '@nestjs-modules/mailer';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { mailBullConfig } from '../../config/mail';
 import { MailService } from './mail.service';
 import { MailController } from './mail.controller';
@@ -392,7 +399,8 @@ Use preview-email to open a preview of the email with the browser. This can be e
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { HandlebarsAdapter, MailerModule } from '@nestjs-modules/mailer';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 
 @Module({
   imports: [

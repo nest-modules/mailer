@@ -1,26 +1,24 @@
 {
   "name": "@nestjs-modules/mailer",
   "version": "1.4.2",
-  "description": "NestJS - a mailer module (@mailer)",
-  "author": "Nest Modules TM",
   "private": false,
-  "scripts": {
-    "prebuild": "rimraf dist",
-    "build": "tsc -p tsconfig.json",
-    "format": "prettier **/**/*.ts --ignore-path ./.prettierignore --write",
-    "test": "jest",
-    "release": "standard-version",
-    "patch": "npm run release -- --release-as patch",
-    "minor": "npm run release -- --release-as minor",
-    "major": "npm run release -- --release-as major",
-    "deploy": "sh ./publish.sh"
-  },
+  "description": "NestJS - a mailer module (@mailer)",
   "keywords": [
     "nest",
     "nodemailer",
     "mailer",
     "nodejs"
   ],
+  "homepage": "https://github.com/nest-modules/mailer#readme",
+  "bugs": {
+    "url": "https://github.com/nest-modules/mailer/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nest-modules/mailer.git"
+  },
+  "license": "MIT",
+  "author": "Nest Modules TM",
   "contributors": [
     "Cristiam Díaz <c.diaz@udla.edu.co>",
     "Eduardo Leal <eduardolleal@icloud.com>",
@@ -28,27 +26,43 @@
     "Paweł Partyka <partyka95@icloud.com>",
     "Yanarp"
   ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/nest-modules/mailer/issues"
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "tsc -p tsconfig.json",
+    "deploy": "sh ./publish.sh",
+    "format": "prettier **/**/*.ts --ignore-path ./.prettierignore --write",
+    "major": "npm run release -- --release-as major",
+    "minor": "npm run release -- --release-as minor",
+    "patch": "npm run release -- --release-as patch",
+    "release": "standard-version",
+    "test": "jest"
   },
-  "homepage": "https://github.com/nest-modules/mailer#readme",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -c .commitlintrc.json -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "lint-staged": {
+    "*.ts": [
+      "prettier --write"
+    ]
+  },
   "dependencies": {
     "glob": "7.1.6",
     "inline-css": "2.6.3",
     "preview-email": "2.0.1"
   },
-  "peerDependencies": {
-    "@nestjs/common": "^6.7.0 || ^7.0.0",
-    "@nestjs/core": "^6.7.0 || ^7.0.0",
-    "nodemailer": "^6.0.0"
-  },
   "optionalDependencies": {
-    "handlebars": "^4.0.0",
-    "pug": "^2.0.0",
-    "ejs": "^3.0.1"
+    "@types/ejs": "^3.0.2",
+    "@types/pug": "2.0.4",
+    "ejs": "^3.1.2",
+    "handlebars": "^4.7.6",
+    "pug": "^2.0.4"
   },
   "devDependencies": {
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-angular": "^8.3.4",
     "@nestjs/common": "7.0.9",
     "@nestjs/core": "7.0.9",
     "@nestjs/testing": "7.0.9",
@@ -57,17 +71,13 @@
     "@types/jest": "25.2.1",
     "@types/lodash": "4.14.150",
     "@types/nodemailer": "6.4.0",
-    "@types/pug": "2.0.4",
     "@typescript-eslint/eslint-plugin": "2.29.0",
     "@typescript-eslint/parser": "2.29.0",
-    "handlebars": "4.7.6",
     "husky": "4.2.5",
-    "lint-staged": "10.1.7",
     "jest": "25.4.0",
+    "lint-staged": "10.1.7",
     "nodemailer": "6.4.6",
     "prettier": "2.0.5",
-    "pug": "2.0.4",
-    "ejs": "3.1.2",
     "reflect-metadata": "0.1.13",
     "rimraf": "3.0.2",
     "standard-version": "7.1.0",
@@ -75,19 +85,14 @@
     "ts-node": "8.9.0",
     "typescript": "3.8.3"
   },
-  "lint-staged": {
-    "*.ts": [
-      "prettier --write"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -c .commitlintrc.json -E HUSKY_GIT_PARAMS",
-      "pre-commit": "lint-staged"
-    }
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nest-modules/mailer.git"
+  "peerDependencies": {
+    "@nestjs/common": "^6.7.0 || ^7.0.0",
+    "@nestjs/core": "^6.7.0 || ^7.0.0",
+    "@types/ejs": "^3.0.2",
+    "@types/pug": "2.0.4",
+    "ejs": "^3.1.2",
+    "handlebars": "^4.7.6",
+    "nodemailer": "^6.0.0",
+    "pug": "^2.0.4"
   }
 }

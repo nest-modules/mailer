@@ -46,9 +46,17 @@ export class EjsAdapter implements TemplateAdapter {
 
     const rendered = this.precompiledTemplates[templateName](mail.data.context);
 
-    inlineCss(rendered, { url: ' ' }).then((html) => {
-      mail.data.html = html;
-      return callback();
-    });
+    const render = (html: string) => {
+      inlineCss(html, { url: ' ' }).then((html) => {
+        mail.data.html = html;
+        return callback();
+      });
+    };
+
+    if (typeof rendered === 'string') {
+      render(rendered);
+    } else {
+      rendered.then(render);
+    }
   }
 }
