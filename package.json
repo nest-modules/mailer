@@ -63,7 +63,7 @@
     "handlebars": "4.7.6",
     "husky": "4.2.5",
     "lint-staged": "10.2.0",
-    "jest": "25.4.0",
+    "jest": "25.5.4",
     "nodemailer": "6.4.6",
     "prettier": "2.0.5",
     "pug": "2.0.4",
