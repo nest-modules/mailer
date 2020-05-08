@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.3](https://github.com/nest-modules/mailer/compare/v1.4.2...v1.4.3) (2020-05-08)
+
+
+### Bug Fixes
+
+* **adapters:** Make pug, handlebars and ejs truly optional dependencies ([981c6cf](https://github.com/nest-modules/mailer/commit/981c6cff9105b636bf60b4139681df557d2cf21c))
+* **deps:** update dependency twing to v4.0.6 ([090ee3f](https://github.com/nest-modules/mailer/commit/090ee3fc916a1d846fe72c0834ec121dd7041cb7))
+* **deps:** update nest monorepo to v7.0.8 ([04268b1](https://github.com/nest-modules/mailer/commit/04268b119ce03aa5587c948135fbcd14bd5f336d))
+* **deps:** update nest monorepo to v7.0.9 ([3daf8d2](https://github.com/nest-modules/mailer/commit/3daf8d2565a0669ba8cf0243fb01e0e5a34af7aa))
+
 ### [1.4.2](https://github.com/nest-modules/mailer/compare/v1.4.1...v1.4.2) (2020-04-07)
 
 * fix handlebars adapter type
