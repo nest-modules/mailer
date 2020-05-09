@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## [1.5.0](https://github.com/nest-modules/mailer/compare/v1.4.2...v1.5.0) (2020-05-09)
 
+### Features
+
+* added bcc to mailer service  ([887b216](https://github.com/nest-modules/mailer/commit/f2b1bfd560bfda36a6b75127abff2424248b6e02))
+
 
 ### Bug Fixes
 
