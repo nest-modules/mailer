@@ -612,37 +612,37 @@
     mkdirp "^0.5.1"
     rimraf "^2.5.2"
 
-"@nestjs/common@7.0.9":
-  version "7.0.9"
-  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-7.0.9.tgz#b2818b0ea4617a37525341fc0233de84abd3c36a"
-  integrity sha512-rmx955Oa5qXDuupYpOeT6wVcI5fS3A89Xzf7+yqIB9NFdWht1vdAhAviuBWtWskyGet3PyDiCOUY7LKSXaql5w==
+"@nestjs/common@7.0.11":
+  version "7.0.11"
+  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-7.0.11.tgz#aa082e2464a0243436d131afdc1c19331b56cabe"
+  integrity sha512-/Cae4gMfcrBKDnRFRR458MbNgbG/Y3iwZ4nGJ3fdE/1jdhyEdtkzjdcv25awaEY0EdKJ6UkdvYJ8/Gp77X3w9w==
   dependencies:
     axios "0.19.2"
     cli-color "2.0.0"
     iterare "1.2.0"
-    tslib "1.11.1"
-    uuid "7.0.3"
+    tslib "1.11.2"
+    uuid "8.0.0"
 
-"@nestjs/core@7.0.9":
-  version "7.0.9"
-  resolved "https://registry.yarnpkg.com/@nestjs/core/-/core-7.0.9.tgz#7b17c0f844225fc38a24543f3ca598eb266ccb35"
-  integrity sha512-+aK0ihzxWOLxUGssx61ogOOe6Jl/Oac+45q/7tAKNNcVvNwh+IJyCx5stA3S4m7yXPCIbI8kjhWd5ugGT4tyoA==
+"@nestjs/core@7.0.11":
+  version "7.0.11"
+  resolved "https://registry.yarnpkg.com/@nestjs/core/-/core-7.0.11.tgz#d0e95b335541c08a617a704faf8e3e2683d88f49"
+  integrity sha512-Vob5LokiHO9xAC8c0iKQK6Q8lO29ZCuA3971g+vpX49q92b9BPlhyCbtovZ6Olyy7TBSvetLLDsn+B5/JXgj4g==
   dependencies:
     "@nuxtjs/opencollective" "0.2.2"
     fast-safe-stringify "2.0.7"
     iterare "1.2.0"
     object-hash "2.0.3"
     path-to-regexp "3.2.0"
-    tslib "1.11.1"
-    uuid "7.0.3"
+    tslib "1.11.2"
+    uuid "8.0.0"
 
-"@nestjs/testing@7.0.9":
-  version "7.0.9"
-  resolved "https://registry.yarnpkg.com/@nestjs/testing/-/testing-7.0.9.tgz#c6b342dd34f060f18406bd7eb753edc5ecbb35c7"
-  integrity sha512-dbcnKV5QfYkdyxVXuvRb/435MB/vP+OPqC3h4o3wb/39cL0EU7duANoMzjHxfI0K4kQCsM9iIbeNGFOAOaEBDA==
+"@nestjs/testing@7.0.11":
+  version "7.0.11"
+  resolved "https://registry.yarnpkg.com/@nestjs/testing/-/testing-7.0.11.tgz#4f8d75d38d157d7c01872481dce0f950519415ec"
+  integrity sha512-BnGH/apFTN+yHBsT5uSlVWyeYgB5vwLa307ZbnaQL2KkebAEHPXXJp1JlQ3KWzqzXeCjVPTKwAMgpQTuN1k2tg==
   dependencies:
     optional "0.1.4"
-    tslib "1.11.1"
+    tslib "1.11.2"
 
 "@nuxtjs/opencollective@0.2.2":
   version "0.2.2"
@@ -6289,12 +6289,7 @@ ts-node@8.10.1:
     source-map-support "^0.5.17"
     yn "3.1.1"
 
-tslib@1.11.1:
-  version "1.11.1"
-  resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.11.1.tgz#eb15d128827fbee2841549e171f45ed338ac7e35"
-  integrity sha512-aZW88SY8kQbU7gpV19lN24LtXh/yD4ZZg6qieAJDDg+YBsJcSmLGK9QpnUjAKVG/xefmvJGd1WUmfpT/g6AJGA==
-
-tslib@^1.8.1, tslib@^1.9.0:
+tslib@1.11.2, tslib@^1.8.1, tslib@^1.9.0:
   version "1.11.2"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.11.2.tgz#9c79d83272c9a7aaf166f73915c9667ecdde3cc9"
   integrity sha512-tTSkux6IGPnUGUd1XAZHcpu85MOkIl5zX49pO+jfsie3eP0B6pyhOlLXm3cAC6T7s+euSDDUUV+Acop5WmtkVg==
@@ -6444,15 +6439,20 @@ util-deprecate@^1.0.1, util-deprecate@~1.0.1:
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
   integrity sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8=
 
-uuid@7.0.3, uuid@^7.0.2, uuid@^7.0.3:
-  version "7.0.3"
-  resolved "https://registry.yarnpkg.com/uuid/-/uuid-7.0.3.tgz#c5c9f2c8cf25dc0a372c4df1441c41f5bd0c680b"
-  integrity sha512-DPSke0pXhTZgoF/d+WSt2QaKMCFSfx7QegxEWT+JOuHF5aWrKEn0G+ztjuJg/gG8/ItK+rbPCD/yNv8yyih6Cg==
+uuid@8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.0.0.tgz#bc6ccf91b5ff0ac07bbcdbf1c7c4e150db4dbb6c"
+  integrity sha512-jOXGuXZAWdsTH7eZLtyXMqUb9EcWMGZNbL9YcGBJl4MH4nrxHmZJhEHvyLFrkxo+28uLb/NYRcStH48fnD0Vzw==
 
 uuid@^3.3.2, uuid@^3.3.3:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
   integrity sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
+
+uuid@^7.0.2, uuid@^7.0.3:
+  version "7.0.3"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-7.0.3.tgz#c5c9f2c8cf25dc0a372c4df1441c41f5bd0c680b"
+  integrity sha512-DPSke0pXhTZgoF/d+WSt2QaKMCFSfx7QegxEWT+JOuHF5aWrKEn0G+ztjuJg/gG8/ItK+rbPCD/yNv8yyih6Cg==
 
 v8-to-istanbul@^4.1.3:
   version "4.1.4"
