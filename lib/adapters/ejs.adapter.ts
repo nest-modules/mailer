@@ -37,7 +37,10 @@ export class EjsAdapter implements TemplateAdapter {
 
         this.precompiledTemplates[templateName] = compile(
           template,
-          get(mailerOptions, 'template.options', {}),
+          {
+            ...get(mailerOptions, 'template.options', {}),
+            filename: templatePath
+          },
         );
       } catch (err) {
         return callback(err);
