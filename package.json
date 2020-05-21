@@ -85,7 +85,7 @@
     "standard-version": "8.0.0",
     "ts-jest": "26.0.0",
     "ts-node": "8.10.1",
-    "typescript": "3.9.2"
+    "typescript": "3.9.3"
   },
   "peerDependencies": {
     "@nestjs/common": "^7.0.9",
