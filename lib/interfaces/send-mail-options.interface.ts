@@ -38,7 +38,7 @@ export interface ISendMailOptions extends SendMailOptions {
   template?: string;
   attachments?: {
     filename: string;
-    contents?: any;
+    content?: any;
     path?: string;
     contentType?: string;
     cid?: string;
