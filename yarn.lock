@@ -612,37 +612,37 @@
     mkdirp "^0.5.1"
     rimraf "^2.5.2"
 
-"@nestjs/common@7.0.13":
-  version "7.0.13"
-  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-7.0.13.tgz#7effc4c0a00307121151547fe8f7e9ea10d0c256"
-  integrity sha512-jSEBnmeuxzorYzG+RAjcQxhs9Sga2/LYelt+ZOwWqxeRVxlB1d4bMWzhCDrVQ3uep9xJD67TbKztchkDBomokA==
+"@nestjs/common@7.1.0":
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-7.1.0.tgz#4fe8bc15903ee23d458c429b5cf7579edb0ef3a3"
+  integrity sha512-8m3GtC4qq3fVt7Ly4L54AO/NHwJR3Dt6wd3IoVLB9qZREYRoZMycpQTbzOLXkZh7wjzvHfWTNg4e4tFCCQD1qg==
   dependencies:
     axios "0.19.2"
     cli-color "2.0.0"
     iterare "1.2.0"
-    tslib "1.11.2"
+    tslib "2.0.0"
     uuid "8.0.0"
 
-"@nestjs/core@7.0.13":
-  version "7.0.13"
-  resolved "https://registry.yarnpkg.com/@nestjs/core/-/core-7.0.13.tgz#bcb437a4b5fed109083d90534056d1744189f0a4"
-  integrity sha512-ZO2ywVP+KNoubX4jQf4rv/0G96LHJ0FFkff3NBxr7TxLVDEYctepIwViYvAvBr9SfTAaJeznGTDY1KO53GMlkQ==
+"@nestjs/core@7.1.0":
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/@nestjs/core/-/core-7.1.0.tgz#fbdd2388c2fc86c11d69ffd9c4ba8936491b4548"
+  integrity sha512-gnlQp+VmcEFwUVbwBOipdOKPHgk0CSAMEKiWrr+Jih2MXFPayAKphlRGzWQ0dFTmpMuZ1LhAfBLcejJXyBIj4g==
   dependencies:
     "@nuxtjs/opencollective" "0.2.2"
     fast-safe-stringify "2.0.7"
     iterare "1.2.0"
     object-hash "2.0.3"
     path-to-regexp "3.2.0"
-    tslib "1.11.2"
+    tslib "2.0.0"
     uuid "8.0.0"
 
-"@nestjs/testing@7.0.13":
-  version "7.0.13"
-  resolved "https://registry.yarnpkg.com/@nestjs/testing/-/testing-7.0.13.tgz#eba6ae7187af6da1c7e6a63f63b79198c5d6528d"
-  integrity sha512-Cc4yIGh5sKEFUsP02ToJX6/v57n+h4E43u5x6te3ocyUq6iJYae5tbshthEjNzieVIY80+dKu99EAB1P+psUCg==
+"@nestjs/testing@7.1.0":
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/@nestjs/testing/-/testing-7.1.0.tgz#5f5bc14ef41c09b09fffc47cf6f25cfb32996336"
+  integrity sha512-MWrs0+jfMvPLx2ZLGir0cILqCsPEkYWAEvIZexy5ipxIpwiNStid7mG8DhHuA8X7v/kvvl0I6YZggicwRnE7ng==
   dependencies:
     optional "0.1.4"
-    tslib "1.11.2"
+    tslib "2.0.0"
 
 "@nuxtjs/opencollective@0.2.2":
   version "0.2.2"
@@ -6311,7 +6311,12 @@ ts-node@8.10.1:
     source-map-support "^0.5.17"
     yn "3.1.1"
 
-tslib@1.11.2, tslib@^1.8.1, tslib@^1.9.0:
+tslib@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.0.0.tgz#18d13fc2dce04051e20f074cc8387fd8089ce4f3"
+  integrity sha512-lTqkx847PI7xEDYJntxZH89L2/aXInsyF2luSafe/+0fHOMjlBNXdH6th7f70qxLDhul7KZK0zC8V5ZIyHl0/g==
+
+tslib@^1.8.1, tslib@^1.9.0:
   version "1.11.2"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.11.2.tgz#9c79d83272c9a7aaf166f73915c9667ecdde3cc9"
   integrity sha512-tTSkux6IGPnUGUd1XAZHcpu85MOkIl5zX49pO+jfsie3eP0B6pyhOlLXm3cAC6T7s+euSDDUUV+Acop5WmtkVg==
