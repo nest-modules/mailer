@@ -5081,10 +5081,10 @@ pretty-format@^26.0.1:
     ansi-styles "^4.0.0"
     react-is "^16.12.0"
 
-preview-email@2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/preview-email/-/preview-email-2.0.1.tgz#da237848702778b5a2dca38ed5963aa854c1ac3e"
-  integrity sha512-KXmv0oKonf9slHXjZ1O+QvGsq7IKJs3IINB4b8XWZ3IwONyGiGqpXthCrTZuDzhLG1kPn6FKOOikdm21bturcQ==
+preview-email@2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/preview-email/-/preview-email-2.0.2.tgz#6cecec27ec91eb1ec1b0b67581d2f44f15c27b69"
+  integrity sha512-FADpJ1p5VX0F/V57gcxc8IoxX63JuyDOOMN4Y7tJwil8K1/lvN0HtO7mZHIP2kgwhMMehjYTxqnjFtSGg1/LXw==
   dependencies:
     "@babel/runtime" "^7.6.3"
     dayjs "^1.8.16"
