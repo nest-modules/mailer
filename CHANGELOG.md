@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.1](https://github.com/nest-modules/mailer/compare/v1.5.0...v1.5.1) (2020-06-02)
+
+
+### Bug Fixes
+
+* **deps:** update dependency nodemailer to v6.4.8 ([255056f](https://github.com/nest-modules/mailer/commit/255056f9b7730e82a8a94f3441e8651dee08ecab))
+* **deps:** update dependency preview-email to v2.0.2 ([1f9ca0a](https://github.com/nest-modules/mailer/commit/1f9ca0a558e5cf35a8b80255dab703e8441d744f))
+* **deps:** update dependency twing to v5 ([469b4c9](https://github.com/nest-modules/mailer/commit/469b4c954811ebacf4be66a7413ddd0923293d3c))
+* **deps:** update nest monorepo to v7.0.11 ([5a6f911](https://github.com/nest-modules/mailer/commit/5a6f9117959f9ecdf857b3bc6afaada11bca98e7))
+* **deps:** update nest monorepo to v7.0.13 ([4e5295b](https://github.com/nest-modules/mailer/commit/4e5295bda6ffe8e9b31c2d5de946cfc6deda01f3))
+* **deps:** update nest monorepo to v7.1.0 ([f761b95](https://github.com/nest-modules/mailer/commit/f761b95a15fe54db6c72b4f50d78d6813633c24f))
+* **deps:** update nest monorepo to v7.1.1 ([4331cce](https://github.com/nest-modules/mailer/commit/4331cce8eea0a8f233d4725361c5773eb2ce9018))
+* **send-mail-options:** change contents to content ([ecfbd5b](https://github.com/nest-modules/mailer/commit/ecfbd5b71208f17ff5fe2d5ea4f624614c72a9cf))
+
 ## [1.5.0](https://github.com/nest-modules/mailer/compare/v1.4.2...v1.5.0) (2020-05-09)
 
 ### Features
