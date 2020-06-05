@@ -1,4 +1,5 @@
 import { SendMailOptions } from 'nodemailer';
+import * as DKIM from 'nodemailer/lib/dkim';
 
 export type TextEncoding = 'quoted-printable' | 'base64';
 export type Headers =
@@ -43,4 +44,5 @@ export interface ISendMailOptions extends SendMailOptions {
     contentType?: string;
     cid?: string;
   }[];
+  dkim?: DKIM.Options;
 }
