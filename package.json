@@ -76,7 +76,7 @@
     "@typescript-eslint/parser": "3.3.0",
     "handlebars": "4.7.6",
     "husky": "4.2.5",
-    "lint-staged": "10.2.10",
+    "lint-staged": "10.2.11",
     "jest": "26.0.1",
     "nodemailer": "6.4.8",
     "prettier": "2.0.5",
