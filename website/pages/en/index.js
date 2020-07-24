@@ -156,7 +156,7 @@ class Index extends React.Component {
             content: 'Allows you to manage templates in pug, ejs and handlebars',
             image: `${baseUrl}img/undraw_operating_system.svg`,
             imageAlign: 'top',
-            title: 'Tamplates',
+            title: 'Templates',
           },
         ]}
       </Block>
