@@ -79,7 +79,7 @@
     "lint-staged": "10.2.11",
     "jest": "26.4.2",
     "nodemailer": "6.4.11",
-    "prettier": "2.0.5",
+    "prettier": "2.1.0",
     "reflect-metadata": "0.1.13",
     "rimraf": "3.0.2",
     "standard-version": "9.0.0",
