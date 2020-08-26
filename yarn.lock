@@ -4783,7 +4783,7 @@ node-notifier@^8.0.0:
     uuid "^8.3.0"
     which "^2.0.2"
 
-nodemailer-mock@^1.5.3:
+nodemailer-mock@1.5.3:
   version "1.5.3"
   resolved "https://registry.yarnpkg.com/nodemailer-mock/-/nodemailer-mock-1.5.3.tgz#449d8b99d9a3d5f49448744685e4f96e2142deb1"
   integrity sha512-Y0JYLFjx+HMNB1Y55uYj+6Vk7ZkJyMKH6GY85UgaSsaaWdH7BE7j0pH7Tp8H4qvQkWSycDh/76iWlHb4dEiWtg==
