@@ -3,7 +3,7 @@ import { ValueProvider } from '@nestjs/common/interfaces';
 import { DynamicModule, Module, Global, Provider } from '@nestjs/common';
 
 /** Constants **/
-import { MAILER_OPTIONS } from './constants/mailer-options.constant';
+import { MAILER_OPTIONS } from './constants/mailer.constant';
 
 /** Interfaces **/
 import { MailerOptions } from './interfaces/mailer-options.interface';
@@ -89,7 +89,7 @@ export class MailerCoreModule {
       useFactory: async (optionsFactory: MailerOptionsFactory) => {
         return optionsFactory.createMailerOptions();
       },
-      inject: [options.useExisting! || options.useClass! ],
+      inject: [options.useExisting! || options.useClass!],
     };
   }
 }
