@@ -78,7 +78,7 @@
     "lint-staged": "10.2.13",
     "jest": "26.4.2",
     "nodemailer": "6.4.11",
-    "nodemailer-mock": "^1.5.3",
+    "nodemailer-mock": "1.5.3",
     "prettier": "2.1.0",
     "reflect-metadata": "0.1.13",
     "rimraf": "3.0.2",
