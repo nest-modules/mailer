@@ -18,7 +18,7 @@ type Options =
   | SESTransport.Options
   | TransportOptions;
 
-type TransportType =
+export type TransportType =
   | Options
   | SMTPTransport
   | SMTPPool

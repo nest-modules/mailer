@@ -1,16 +1,21 @@
 /** Dependencies **/
 import { get, defaultsDeep } from 'lodash';
-import { Injectable, Inject } from '@nestjs/common';
-import { createTransport, SentMessageInfo, Transporter } from 'nodemailer';
+import { Injectable, Inject, Optional } from '@nestjs/common';
+import { SentMessageInfo, Transporter } from 'nodemailer';
 import * as previewEmail from 'preview-email';
 
 /** Constants **/
-import { MAILER_OPTIONS } from './constants/mailer-options.constant';
+import {
+  MAILER_OPTIONS,
+  MAILER_TRANSPORT_FACTORY,
+} from './constants/mailer.constant';
 
 /** Interfaces **/
 import { MailerOptions } from './interfaces/mailer-options.interface';
 import { TemplateAdapter } from './interfaces/template-adapter.interface';
 import { ISendMailOptions } from './interfaces/send-mail-options.interface';
+import { MailerTransportFactory as IMailerTransportFactory } from './interfaces/mailer-transport-factory.interface';
+import { MailerTransportFactory } from './mailer-transport.factory';
 
 @Injectable()
 export class MailerService {
@@ -42,7 +47,13 @@ export class MailerService {
 
   constructor(
     @Inject(MAILER_OPTIONS) private readonly mailerOptions: MailerOptions,
+    @Optional()
+    @Inject(MAILER_TRANSPORT_FACTORY)
+    private readonly transportFactory: IMailerTransportFactory,
   ) {
+    if (!transportFactory) {
+      this.transportFactory = new MailerTransportFactory(mailerOptions);
+    }
     if (
       (!mailerOptions.transport ||
         Object.keys(mailerOptions.transport).length <= 0) &&
@@ -76,9 +87,8 @@ export class MailerService {
       Object.keys(mailerOptions.transports).forEach((name) => {
         this.transporters.set(
           name,
-          createTransport(
+          this.transportFactory.createTransport(
             this.mailerOptions.transports![name],
-            this.mailerOptions.defaults,
           ),
         );
         this.initTemplateAdapter(templateAdapter, this.transporters.get(name)!);
@@ -87,10 +97,7 @@ export class MailerService {
 
     /** Transporter setup **/
     if (mailerOptions.transport) {
-      this.transporter = createTransport(
-        this.mailerOptions.transport,
-        this.mailerOptions.defaults,
-      );
+      this.transporter = this.transportFactory.createTransport();
       this.initTemplateAdapter(templateAdapter, this.transporter);
     }
   }

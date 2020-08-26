@@ -1,8 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import MailMessage = require('nodemailer/lib/mailer/mail-message');
 import SMTPTransport = require('nodemailer/lib/smtp-transport');
-import { MAILER_OPTIONS } from './constants/mailer-options.constant';
-import { MailerOptions } from './interfaces/mailer-options.interface';
+import * as nodemailerMock from 'nodemailer-mock';
+
+import {
+  MAILER_OPTIONS,
+  MAILER_TRANSPORT_FACTORY,
+} from './constants/mailer.constant';
+import {
+  MailerOptions,
+  TransportType,
+} from './interfaces/mailer-options.interface';
+import { MailerTransportFactory } from './interfaces/mailer-transport-factory.interface';
 import { MailerService } from './mailer.service';
 import { HandlebarsAdapter } from './adapters/handlebars.adapter';
 import { PugAdapter } from './adapters/pug.adapter';
@@ -51,6 +60,35 @@ function spyOnSmtpSend(onMail: (mail: MailMessage) => void) {
         messageId: 'ABCD',
       });
     });
+}
+
+async function getMailerServiceWithCustomTransport(
+  options: MailerOptions,
+): Promise<MailerService> {
+  class TestTransportFactory implements MailerTransportFactory {
+    createTransport(options?: TransportType) {
+      return nodemailerMock.createTransport({ host: 'localhost', port: -100 });
+    }
+  }
+  const module: TestingModule = await Test.createTestingModule({
+    providers: [
+      {
+        name: MAILER_OPTIONS,
+        provide: MAILER_OPTIONS,
+        useValue: options,
+      },
+      {
+        name: MAILER_TRANSPORT_FACTORY,
+        provide: MAILER_TRANSPORT_FACTORY,
+        useClass: TestTransportFactory,
+      },
+      MailerService,
+    ],
+  }).compile();
+  await module.init();
+
+  const service = module.get<MailerService>(MailerService);
+  return service;
 }
 
 describe('MailerService', () => {
@@ -236,5 +274,18 @@ describe('MailerService', () => {
     expect(lastMail.data.html).toBe(
       '<p>Ejs test template. by Nest-modules TM</p>',
     );
+  });
+
+  it('should use custom transport to send mail', async () => {
+    const service = await getMailerServiceWithCustomTransport({
+      transport: 'smtps://user@domain.com:pass@smtp.domain.com',
+    });
+    await service.sendMail({
+      to: 'user2@example.test',
+      subject: 'Test',
+      html: 'This is test.',
+    });
+
+    expect(nodemailerMock.mock.getSentMail().length).toEqual(1);
   });
 });
