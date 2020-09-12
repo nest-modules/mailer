@@ -4,7 +4,7 @@ title: How to use?
 sidebar_label: How to use?
 ---
 
-Check this documentation for how to use ```@nestjs-modules/mailer```.
+Check this documentation for how to use `@nestjs-modules/mailer`.
 
 ## Install
 
@@ -17,6 +17,7 @@ npm install --save @nestjs-modules/mailer nodemailer
 **Hint:** handlebars, pug and ejs is an optional dependency, if you want to use the template, you must install it.
 
 #### with npm
+
 ```sh
 npm install --save handlebars
 #or
@@ -26,6 +27,7 @@ npm install --save ejs
 ```
 
 #### with yarn
+
 ```sh
 yarn add handlebars
 #or
@@ -56,7 +58,7 @@ import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
     MailerModule.forRoot({
       transport: 'smtps://user@domain.com:pass@smtp.domain.com',
       defaults: {
-        from:'"nest-modules" <modules@nestjs.com>',
+        from: '"nest-modules" <modules@nestjs.com>',
       },
       template: {
         dir: __dirname + '/templates',
@@ -70,7 +72,9 @@ import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
 })
 export class AppModule {}
 ```
+
 <!--Handlebars-->
+
 ```javascript
 //app.module.ts
 import { Module } from '@nestjs/common';
@@ -82,7 +86,7 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
     MailerModule.forRoot({
       transport: 'smtps://user@domain.com:pass@smtp.domain.com',
       defaults: {
-        from:'"nest-modules" <modules@nestjs.com>',
+        from: '"nest-modules" <modules@nestjs.com>',
       },
       template: {
         dir: __dirname + '/templates',
@@ -98,6 +102,7 @@ export class AppModule {}
 ```
 
 <!--Ejs-->
+
 ```javascript
 //app.module.ts
 import { Module } from '@nestjs/common';
@@ -109,7 +114,7 @@ import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter';
     MailerModule.forRoot({
       transport: 'smtps://user@domain.com:pass@smtp.domain.com',
       defaults: {
-        from:'"nest-modules" <modules@nestjs.com>',
+        from: '"nest-modules" <modules@nestjs.com>',
       },
       template: {
         dir: __dirname + '/templates',
@@ -133,6 +138,7 @@ Of course, it is possible to use an async configuration:
 <!--DOCUSAURUS_CODE_TABS-->
 
 <!--Pug-->
+
 ```javascript
 //app.module.ts
 import { Module } from '@nestjs/common';
@@ -145,7 +151,7 @@ import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
       useFactory: () => ({
         transport: 'smtps://user@domain.com:pass@smtp.domain.com',
         defaults: {
-          from:'"nest-modules" <modules@nestjs.com>',
+          from: '"nest-modules" <modules@nestjs.com>',
         },
         template: {
           dir: __dirname + '/templates',
@@ -160,7 +166,9 @@ import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
 })
 export class AppModule {}
 ```
+
 <!--Handlebars-->
+
 ```javascript
 //app.module.ts
 import { Module } from '@nestjs/common';
@@ -173,7 +181,7 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
       useFactory: () => ({
         transport: 'smtps://user@domain.com:pass@smtp.domain.com',
         defaults: {
-          from:'"nest-modules" <modules@nestjs.com>',
+          from: '"nest-modules" <modules@nestjs.com>',
         },
         template: {
           dir: __dirname + '/templates',
@@ -188,7 +196,9 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
 })
 export class AppModule {}
 ```
+
 <!--Handlebars with helpers-->
+
 ```javascript
 //app.module.ts
 import { Module } from '@nestjs/common';
@@ -196,7 +206,7 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import * as handlebars from 'handlebars';
 
-const helpers = { 
+const helpers = {
   handlebarsIntl: function(value) {
     let context = {
       value: value
@@ -214,10 +224,10 @@ const helpers = {
     });
 
     return compiled
-  }, 
+  },
   otherHelper: function() {
     ...
-  } 
+  }
 }
 
 @Module({
@@ -278,8 +288,8 @@ const bullModule = BullModule.forRoot(mailBullConfig);
           options: {
             strict: true,
           },
-        }
-      }
+        },
+      },
     }),
   ],
   controllers: [MailController],
@@ -287,6 +297,31 @@ const bullModule = BullModule.forRoot(mailBullConfig);
   exports: [bullModule],
 })
 export class MailModule {}
+```
+
+### Control over inline-css in default adapters
+
+It is possible to change `inline-css` options or even disable it in default adapters.
+Just provide config object in constructor.
+
+```typescript
+new HandlebarsAdapter(/* helpers */ undefined, {
+  inlineCssEnabled: true,
+  /** See https://www.npmjs.com/package/inline-css#api */
+  inlineCssOptions: {
+    url: ' ',
+    preserveMediaQueries: true,
+  },
+});
+
+new PugAdapter({
+  inlineCssEnabled: true,
+  inlineCssOptions: { url: ' ' },
+});
+
+new EjsAdapter({
+  inlineCssEnabled: false,
+});
 ```
 
 ## Service
@@ -307,6 +342,7 @@ MailerProvider exports the `sendMail()` function to which you can pass the messa
 
 <!--DOCUSAURUS_CODE_TABS-->
 <!--Example 1-->
+
 ```typescript
 import { Injectable } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer';
@@ -314,10 +350,9 @@ import { MailerService } from '@nestjs-modules/mailer';
 @Injectable()
 export class ExampleService {
   constructor(private readonly mailerService: MailerService) {}
-  
+
   public example(): void {
-    this
-      .mailerService
+    this.mailerService
       .sendMail({
         to: 'test@nestjs.com', // list of receivers
         from: 'noreply@nestjs.com', // sender address
@@ -328,11 +363,11 @@ export class ExampleService {
       .then(() => {})
       .catch(() => {});
   }
-  
 }
 ```
 
 <!--Example 2-->
+
 ```typescript
 import { Injectable } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer';
@@ -340,16 +375,16 @@ import { MailerService } from '@nestjs-modules/mailer';
 @Injectable()
 export class ExampleService {
   constructor(private readonly mailerService: MailerService) {}
-  
+
   public example(): void {
-    this
-      .mailerService
+    this.mailerService
       .sendMail({
         to: 'test@nestjs.com',
         from: 'noreply@nestjs.com',
         subject: 'Testing Nest Mailermodule with template ✔',
         template: 'welcome', // The `.pug`, `.ejs` or `.hbs` extension is appended automatically.
-        context: {  // Data to be sent to template engine.
+        context: {
+          // Data to be sent to template engine.
           code: 'cf1a3f828287',
           username: 'john doe',
         },
@@ -357,11 +392,11 @@ export class ExampleService {
       .then(() => {})
       .catch(() => {});
   }
-    
 }
 ```
 
 <!--Example 3-->
+
 ```typescript
 import { Injectable } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer';
@@ -369,16 +404,16 @@ import { MailerService } from '@nestjs-modules/mailer';
 @Injectable()
 export class ExampleService {
   constructor(private readonly mailerService: MailerService) {}
-  
+
   public example(): void {
-    this
-      .mailerService
+    this.mailerService
       .sendMail({
         to: 'test@nestjs.com',
         from: 'noreply@nestjs.com',
         subject: 'Testing Nest Mailermodule with template ✔',
         template: __dirname + '/welcome', // The `.pug`, `.ejs` or `.hbs` extension is appended automatically.
-        context: {  // Data to be sent to template engine.
+        context: {
+          // Data to be sent to template engine.
           code: 'cf1a3f828287',
           username: 'john doe',
         },
@@ -432,5 +467,4 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
   providers: [AppService],
 })
 export class AppModule {}
-
 ```

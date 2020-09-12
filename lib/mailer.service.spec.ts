@@ -216,6 +216,75 @@ describe('MailerService', () => {
     );
   });
 
+  it('should compile template with the handlebars adapter with disabled inline-css', async () => {
+    let lastMail: MailMessage;
+    const send = spyOnSmtpSend((mail: MailMessage) => {
+      lastMail = mail;
+    });
+
+    const service = await getMailerServiceForOptions({
+      transport: new SMTPTransport({}),
+      template: {
+        adapter: new HandlebarsAdapter(undefined, { inlineCssEnabled: false }),
+      },
+    });
+
+    await service.sendMail({
+      from: 'user1@example.test',
+      to: 'user2@example.test',
+      subject: 'Test',
+      template: __dirname + '/test-templates/handlebars-template-media-query',
+      context: {
+        MAILER: 'Nest-modules TM',
+      },
+    });
+
+    expect(send).toHaveBeenCalled();
+    expect(lastMail.data.from).toBe('user1@example.test');
+    expect(lastMail.data.html).toContain(
+      '@media only screen and (max-width:350px)',
+    );
+    expect(lastMail.data.html).toContain(
+      '<p>Handlebars test template. by Nest-modules TM</p>',
+    );
+  });
+
+  it('should compile template with the handlebars adapter with enabled inline-css and media query', async () => {
+    let lastMail: MailMessage;
+    const send = spyOnSmtpSend((mail: MailMessage) => {
+      lastMail = mail;
+    });
+
+    const service = await getMailerServiceForOptions({
+      transport: new SMTPTransport({}),
+      template: {
+        adapter: new HandlebarsAdapter(undefined, {
+          inlineCssEnabled: true,
+          inlineCssOptions: { url: ' ', preserveMediaQueries: true },
+        }),
+      },
+    });
+
+    await service.sendMail({
+      from: 'user1@example.test',
+      to: 'user2@example.test',
+      subject: 'Test',
+      template: __dirname + '/test-templates/handlebars-template-media-query',
+      context: {
+        MAILER: 'Nest-modules TM',
+      },
+    });
+
+    expect(send).toHaveBeenCalled();
+    expect(lastMail.data.from).toBe('user1@example.test');
+    expect(lastMail.data.html).toContain(
+      '@media only screen and (max-width:350px)',
+    );
+    expect(lastMail.data.html).toContain(
+      '<p>Handlebars test template. by Nest-modules TM</p>',
+    );
+  });
+
   it('should compile template with the pug adapter', async () => {
     let lastMail: MailMessage;
     const send = spyOnSmtpSend((mail: MailMessage) => {
