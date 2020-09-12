@@ -10,18 +10,25 @@ import { HelperDeclareSpec } from 'handlebars';
 /** Interfaces **/
 import { MailerOptions } from '../interfaces/mailer-options.interface';
 import { TemplateAdapter } from '../interfaces/template-adapter.interface';
+import { TemplateAdapterConfig } from '../interfaces/template-adapter-config.interface';
 
 export class HandlebarsAdapter implements TemplateAdapter {
   private precompiledTemplates: {
     [name: string]: handlebars.TemplateDelegate;
   } = {};
 
-  constructor(helpers?: HelperDeclareSpec) {
+  private config: TemplateAdapterConfig = {
+    inlineCssOptions: { url: ' ' },
+    inlineCssEnabled: true,
+  };
+
+  constructor(helpers?: HelperDeclareSpec, config?: TemplateAdapterConfig) {
     handlebars.registerHelper('concat', (...args) => {
       args.pop();
       return args.join('');
     });
     handlebars.registerHelper(helpers || {});
+    Object.assign(this.config, config);
   }
 
   public compile(mail: any, callback: any, mailerOptions: MailerOptions): void {
@@ -81,9 +88,14 @@ export class HandlebarsAdapter implements TemplateAdapter {
       },
     );
 
-    inlineCss(rendered, { url: ' ' }).then((html) => {
-      mail.data.html = html;
+    if (this.config.inlineCssEnabled) {
+      inlineCss(rendered, this.config.inlineCssOptions).then((html) => {
+        mail.data.html = html;
+        return callback();
+      });
+    } else {
+      mail.data.html = rendered;
       return callback();
-    });
+    }
   }
 }

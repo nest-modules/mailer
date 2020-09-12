@@ -7,8 +7,18 @@ import * as inlineCss from 'inline-css';
 /** Interfaces **/
 import { MailerOptions } from '../interfaces/mailer-options.interface';
 import { TemplateAdapter } from '../interfaces/template-adapter.interface';
+import { TemplateAdapterConfig } from '../interfaces/template-adapter-config.interface';
 
 export class PugAdapter implements TemplateAdapter {
+  private config: TemplateAdapterConfig = {
+    inlineCssOptions: { url: ' ' },
+    inlineCssEnabled: true,
+  };
+
+  constructor(config?: TemplateAdapterConfig) {
+    Object.assign(this.config, config);
+  }
+
   public compile(mail: any, callback: any, mailerOptions: MailerOptions): void {
     const templateExt = path.extname(mail.data.template) || '.pug';
     const templateName = path.basename(
@@ -31,10 +41,15 @@ export class PugAdapter implements TemplateAdapter {
         return callback(err);
       }
 
-      inlineCss(body, { url: ' ' }).then((html) => {
-        mail.data.html = html;
+      if (this.config.inlineCssEnabled) {
+        inlineCss(body, this.config.inlineCssOptions).then((html) => {
+          mail.data.html = html;
+          return callback();
+        });
+      } else {
+        mail.data.html = body;
         return callback();
-      });
+      }
     });
   }
 }
