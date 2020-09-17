@@ -75,7 +75,7 @@
     "@typescript-eslint/eslint-plugin": "4.1.1",
     "@typescript-eslint/parser": "4.1.1",
     "husky": "4.3.0",
-    "lint-staged": "10.3.0",
+    "lint-staged": "10.4.0",
     "jest": "26.4.2",
     "nodemailer": "6.4.11",
     "nodemailer-mock": "1.5.3",
