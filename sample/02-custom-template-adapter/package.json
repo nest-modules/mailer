@@ -41,7 +41,7 @@
     "@types/supertest": "2.0.10",
     "@typescript-eslint/eslint-plugin": "4.3.0",
     "@typescript-eslint/parser": "4.3.0",
-    "eslint": "7.9.0",
+    "eslint": "7.10.0",
     "eslint-config-prettier": "6.12.0",
     "eslint-plugin-import": "2.22.0",
     "jest": "26.4.2",
