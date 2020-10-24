@@ -50,7 +50,7 @@
   },
   "dependencies": {
     "glob": "7.1.6",
-    "inline-css": "2.6.3",
+    "inline-css": "3.0.0",
     "preview-email": "2.0.2"
   },
   "optionalDependencies": {
