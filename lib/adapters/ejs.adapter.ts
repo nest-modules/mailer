@@ -36,7 +36,7 @@ export class EjsAdapter implements TemplateAdapter {
       path.extname(mail.data.template),
     );
     const templateDir =
-      path.dirname(mail.data.template).startsWith('.')
+      mail.data.template.startsWith('./')
         ? get(mailerOptions, 'template.dir', '')
         : path.dirname(mail.data.template);
     const templatePath = path.join(templateDir, templateName + templateExt);
