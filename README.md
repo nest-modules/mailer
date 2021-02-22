@@ -19,8 +19,10 @@
 
 ```sh
 npm install --save @nestjs-modules/mailer nodemailer
+npm install --save-dev @types/nodemailer
 #or
 yarn add @nestjs-modules/mailer nodemailer
+yarn add -D @types/nodemailer
 ```
 
 **Hint:** handlebars and pug is an optional dependency, if you want to use the template, you must install it.
