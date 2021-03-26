@@ -51,7 +51,7 @@
   "dependencies": {
     "glob": "7.1.6",
     "inline-css": "3.0.0",
-    "preview-email": "3.0.3"
+    "preview-email": "3.0.4"
   },
   "optionalDependencies": {
     "@types/ejs": "^3.0.3",
