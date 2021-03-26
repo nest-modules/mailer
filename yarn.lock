@@ -674,20 +674,20 @@
   resolved "https://registry.yarnpkg.com/@jonkemp/package-utils/-/package-utils-1.0.6.tgz#94d55258e0ca1b70684632edbfdeb4601c958f64"
   integrity sha512-/xb8uaOiW6C/QKCDfSJzFUThPRpwerxvthKnzxkoB29u/CSIBY1Vp9mkbl8DwTx4dx9jnhSV2bS3tWL0pPHuAg==
 
-"@nestjs/common@7.6.12":
-  version "7.6.12"
-  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-7.6.12.tgz#6d94553c6489dde8cd09aa4972b16b0ceae0d60f"
-  integrity sha512-DXW1BaiDTYuDq3jHkps1DN00atUN7HOB8tzeyVZO1DPmQHjGNMm3qBQ+Du4HnWb+J1YdIUmIkBcGIe61S+uWAA==
+"@nestjs/common@7.6.15":
+  version "7.6.15"
+  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-7.6.15.tgz#ae96f18cb6209a21724ffa7ed1a182be1e4fd0af"
+  integrity sha512-H/3Nk7M02Fc4YN9St05i34gZKVuzE54gd5eXAX6WwisqU5fQ00kss1pYGbltjb2QGu3A/fpO1MdYEwOA18Z/VQ==
   dependencies:
     axios "0.21.1"
     iterare "1.2.1"
     tslib "2.1.0"
     uuid "8.3.2"
 
-"@nestjs/core@7.6.12":
-  version "7.6.12"
-  resolved "https://registry.yarnpkg.com/@nestjs/core/-/core-7.6.12.tgz#231486b2eda74ccad5a0ceeb2a6e8ee7535c3cbd"
-  integrity sha512-hxgWjkKyqA0XJsjs3wlXlh/NbOk03NF8uzGxIUM/HIogu0TaC+4BWpNAvmruduPVioIisCJCKWuFKsjm7S0A1A==
+"@nestjs/core@7.6.15":
+  version "7.6.15"
+  resolved "https://registry.yarnpkg.com/@nestjs/core/-/core-7.6.15.tgz#dfcc5a7804c10d07f81dde514804b484b909d08a"
+  integrity sha512-8CrL/iY5Gt4HJfyDg1PgPalhT7tVRT643f2mGMgPum/P/e94uuwEYBNIgsMEVOJUrOAWZkNIN60uEf8JkH6GWw==
   dependencies:
     "@nuxtjs/opencollective" "0.3.2"
     fast-safe-stringify "2.0.7"
@@ -697,10 +697,10 @@
     tslib "2.1.0"
     uuid "8.3.2"
 
-"@nestjs/testing@7.6.12":
-  version "7.6.12"
-  resolved "https://registry.yarnpkg.com/@nestjs/testing/-/testing-7.6.12.tgz#89ef6feb1bfbeb57069664a911d65c152a576a08"
-  integrity sha512-P9iuUo2f3sshbD0Vao+vnIg/tgb7uQ9Y3QSghmIfH1AcjDgGh/V4BdiB0/00F/rcKEPKnHdDBf7pUtzazQawuA==
+"@nestjs/testing@7.6.15":
+  version "7.6.15"
+  resolved "https://registry.yarnpkg.com/@nestjs/testing/-/testing-7.6.15.tgz#eed34846a8b2b5ddb0ff6bd74cdcb4344c364c40"
+  integrity sha512-AWr8stnRoS0yCU/EotAJKveYXm1XSB4ZT+ReqFDXhPyqC1ppOfU+zZuCjQlQHorMzidsVHsAstK5/rUsXnrZUQ==
   dependencies:
     optional "0.1.4"
     tslib "2.1.0"
