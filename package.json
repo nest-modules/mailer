@@ -90,9 +90,9 @@
   "peerDependencies": {
     "@nestjs/common": "^7.0.9",
     "@nestjs/core": "^7.0.9",
-    "@types/ejs": "^3.0.3",
+    "@types/ejs": "^3.0.3 || ^3.0.3",
     "@types/pug": "2.0.4",
-    "ejs": "^3.1.2",
+    "ejs": "^3.1.2 || ^3.1.2",
     "handlebars": "^4.7.6",
     "nodemailer": "^6.4.6",
     "pug": "^2.0.4 || ^3.0.0"
