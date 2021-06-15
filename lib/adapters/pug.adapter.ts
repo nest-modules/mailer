@@ -25,10 +25,9 @@ export class PugAdapter implements TemplateAdapter {
       mail.data.template,
       path.extname(mail.data.template),
     );
-    const templateDir =
-      mail.data.template.startsWith('./')
-        ? get(mailerOptions, 'template.dir', '')
-        : path.dirname(mail.data.template);
+    const templateDir = mail.data.template.startsWith('./')
+      ? path.dirname(mail.data.template)
+      : get(mailerOptions, 'template.dir', '');
     const templatePath = path.join(templateDir, templateName + templateExt);
 
     const options = {
