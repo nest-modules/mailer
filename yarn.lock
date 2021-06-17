@@ -4777,10 +4777,10 @@ node-notifier@^8.0.0:
     uuid "^8.3.0"
     which "^2.0.2"
 
-nodemailer-mock@1.5.8:
-  version "1.5.8"
-  resolved "https://registry.yarnpkg.com/nodemailer-mock/-/nodemailer-mock-1.5.8.tgz#22e3d54db735f426fc590a0f975ded3a8cbd6b12"
-  integrity sha512-yA7dAwOd7vIcE4YYhWsH0M0ORxHBTdkk54TiuHBHVH8EtMDlb0CsMA7pQHSkay0KfdAi7MySkw2SY8r95+hL6A==
+nodemailer-mock@1.5.9:
+  version "1.5.9"
+  resolved "https://registry.yarnpkg.com/nodemailer-mock/-/nodemailer-mock-1.5.9.tgz#4d58d741e3d5d17c5d0365733a5e853d71d10d0f"
+  integrity sha512-BuD991fR5cgu334/yC3yWrjSYBI92+D6jkDvegLdNyOQNJI/djl676y7gtqvheNV1LD8e7NJOhFs+HaKJjOQgw==
   dependencies:
     debug "^4.3.1"
     nodemailer "^6.x"
