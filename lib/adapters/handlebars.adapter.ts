@@ -35,10 +35,9 @@ export class HandlebarsAdapter implements TemplateAdapter {
     const precompile = (template: any, callback: any, options: any) => {
       const templateExt = path.extname(template) || '.hbs';
       const templateName = path.basename(template, path.extname(template));
-      const templateDir =
-        template.startsWith('./')
-          ? get(options, 'dir', '')
-          : path.dirname(template);
+      const templateDir = template.startsWith('./')
+        ? path.dirname(template)
+        : get(options, 'dir', '');
       const templatePath = path.join(templateDir, templateName + templateExt);
 
       if (!this.precompiledTemplates[templateName]) {
