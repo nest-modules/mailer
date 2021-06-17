@@ -28,7 +28,7 @@
     "nodemailer": "6.6.1",
     "reflect-metadata": "0.1.13",
     "rimraf": "3.0.2",
-    "rxjs": "6.6.7",
+    "rxjs": "7.1.0",
     "twing": "5.0.2"
   },
   "devDependencies": {
