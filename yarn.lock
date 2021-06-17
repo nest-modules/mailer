@@ -790,10 +790,12 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
-"@types/bluebird@*":
-  version "3.5.30"
-  resolved "https://registry.yarnpkg.com/@types/bluebird/-/bluebird-3.5.30.tgz#ee034a0eeea8b84ed868b1aa60d690b08a6cfbc5"
-  integrity sha512-8LhzvcjIoqoi1TghEkRMkbbmM+jhHnBokPGkJWjclMK+Ks0MxEBow3/p2/iFTZ+OIbJHQDSfpgdZEb+af3gfVw==
+"@types/cheerio@*":
+  version "0.22.28"
+  resolved "https://registry.yarnpkg.com/@types/cheerio/-/cheerio-0.22.28.tgz#90808aabb44fec40fa2950f4c72351e3e4eb065b"
+  integrity sha512-ehUMGSW5IeDxJjbru4awKYMlKGmo1wSSGUVqXtYwlgmUM8X1a0PZttEIm6yEY7vHsY/hh6iPnklF213G0UColw==
+  dependencies:
+    "@types/node" "*"
 
 "@types/color-name@^1.1.1":
   version "1.1.1"
@@ -820,12 +822,12 @@
   dependencies:
     "@types/node" "*"
 
-"@types/inline-css@0.0.33":
-  version "0.0.33"
-  resolved "https://registry.yarnpkg.com/@types/inline-css/-/inline-css-0.0.33.tgz#a287ce24cb05ec7f68910439b45ec839990db07d"
-  integrity sha512-fgSqMPn3D7xx73c2/xZpc6PlKSawXXtyjuBmZQphAIT543w5FUpLoRMWOCJoJUcvHCvCgCQjGx3zbF8RFSAtcQ==
+"@types/inline-css@3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@types/inline-css/-/inline-css-3.0.0.tgz#3c88a80b736bb6bd8331e3374d840f9b45f9a088"
+  integrity sha512-pS6mlpXGqNgnTfjy60kjK3OlN3MJjFaDxJ0XFMEFyBMsXywyMR9aASomows6sBkDWuqBcClwbzHp7DRIDJmvCg==
   dependencies:
-    "@types/bluebird" "*"
+    "@types/cheerio" "*"
 
 "@types/istanbul-lib-coverage@*", "@types/istanbul-lib-coverage@^2.0.0", "@types/istanbul-lib-coverage@^2.0.1":
   version "2.0.1"
