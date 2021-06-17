@@ -1612,15 +1612,15 @@ browser-process-hrtime@^1.0.0:
   integrity sha512-9o5UecI3GhkpM6DrXr69PblIuWxPKk9Y0jHBRhdocZ2y7YECBFCsHm79Pr3OyR2AvjhDkabFJaDJMYRazHgsow==
 
 browserslist@^4.14.5:
-  version "4.14.7"
-  resolved "https://registry.yarnpkg.com/browserslist/-/browserslist-4.14.7.tgz#c071c1b3622c1c2e790799a37bb09473a4351cb6"
-  integrity sha512-BSVRLCeG3Xt/j/1cCGj1019Wbty0H+Yvu2AOuZSuoaUWn3RatbL33Cxk+Q4jRMRAbOm0p7SLravLjpnT6s0vzQ==
+  version "4.16.6"
+  resolved "https://registry.yarnpkg.com/browserslist/-/browserslist-4.16.6.tgz#d7901277a5a88e554ed305b183ec9b0c08f66fa2"
+  integrity sha512-Wspk/PqO+4W9qp5iUTJsa1B/QrYn1keNCcEP5OvP7WBwT4KaDly0uONYmC6Xa3Z5IqnUgS0KcgLYu1l74x0ZXQ==
   dependencies:
-    caniuse-lite "^1.0.30001157"
-    colorette "^1.2.1"
-    electron-to-chromium "^1.3.591"
+    caniuse-lite "^1.0.30001219"
+    colorette "^1.2.2"
+    electron-to-chromium "^1.3.723"
     escalade "^3.1.1"
-    node-releases "^1.1.66"
+    node-releases "^1.1.71"
 
 bs-logger@0.x:
   version "0.2.6"
@@ -1697,10 +1697,10 @@ camelcase@^6.0.0:
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-6.0.0.tgz#5259f7c30e35e278f1bdc2a4d91230b37cad981e"
   integrity sha512-8KMDF1Vz2gzOq54ONPJS65IvTUaB1cHJ2DMM7MbPmLZljDH1qpzzLsWdiN9pHh6qvkRVDTi/07+eNGch/oLU4w==
 
-caniuse-lite@^1.0.30001157:
-  version "1.0.30001159"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001159.tgz#bebde28f893fa9594dadcaa7d6b8e2aa0299df20"
-  integrity sha512-w9Ph56jOsS8RL20K9cLND3u/+5WASWdhC/PPrf+V3/HsM3uHOavWOR1Xzakbv4Puo/srmPHudkmCRWM7Aq+/UA==
+caniuse-lite@^1.0.30001219:
+  version "1.0.30001237"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001237.tgz#4b7783661515b8e7151fc6376cfd97f0e427b9e5"
+  integrity sha512-pDHgRndit6p1NR2GhzMbQ6CkRrp4VKuSsqbcLeOQppYPKOYkKT/6ZvZDvKJUqcmtyWIAHuZq3SVS2vc1egCZzw==
 
 capitalize@^1.0.0:
   version "1.0.0"
@@ -1894,10 +1894,10 @@ color-name@~1.1.4:
   resolved "https://registry.yarnpkg.com/color-name/-/color-name-1.1.4.tgz#c2a09a87acbde69543de6f63fa3995c826c536a2"
   integrity sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==
 
-colorette@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/colorette/-/colorette-1.2.1.tgz#4d0b921325c14faf92633086a536db6e89564b1b"
-  integrity sha512-puCDz0CzydiSYOrnXpz/PKd69zRrribezjtE9yd4zvytoRc8+RY/KJPvtPFKZS3E3wP6neGyMe0vOTlHO5L3Pw==
+colorette@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/colorette/-/colorette-1.2.2.tgz#cbcc79d5e99caea2dbf10eb3a26fd8b3e6acfa94"
+  integrity sha512-MKGMzyfeuutC/ZJ1cba9NqcNpfeqMUcYmyF1ZFY6/Cn7CNSAKx6a+s48sqLqyAiZuaP2TcqMhoo+dlwFnVxT9w==
 
 colors@^1.1.2:
   version "1.4.0"
@@ -2241,10 +2241,10 @@ ee-first@1.1.1:
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
 
-electron-to-chromium@^1.3.591:
-  version "1.3.598"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.598.tgz#8f757018902ab6190323a8c5f6124d854893a35b"
-  integrity sha512-G5Ztk23/ubLYVPxPXnB1uu105uzIPd4xB/D8ld8x1GaSC9+vU9NZL16nYZya8H77/7CCKKN7dArzJL3pBs8N7A==
+electron-to-chromium@^1.3.723:
+  version "1.3.752"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.752.tgz#0728587f1b9b970ec9ffad932496429aef750d09"
+  integrity sha512-2Tg+7jSl3oPxgsBsWKh5H83QazTkmWG/cnNwJplmyZc7KcN61+I10oUgaXSVk/NwfvN3BdkKDR4FYuRBQQ2v0A==
 
 emittery@^0.7.1:
   version "0.7.1"
@@ -4615,10 +4615,10 @@ node-notifier@^8.0.0:
     uuid "^8.3.0"
     which "^2.0.2"
 
-node-releases@^1.1.66:
-  version "1.1.67"
-  resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-1.1.67.tgz#28ebfcccd0baa6aad8e8d4d8fe4cbc49ae239c12"
-  integrity sha512-V5QF9noGFl3EymEwUYzO+3NTDpGfQB4ve6Qfnzf3UNydMhjQRVPR1DZTuvWiLzaFJYw2fmDwAfnRNEVb64hSIg==
+node-releases@^1.1.71:
+  version "1.1.73"
+  resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-1.1.73.tgz#dd4e81ddd5277ff846b80b52bb40c49edf7a7b20"
+  integrity sha512-uW7fodD6pyW2FZNZnp/Z3hvWKeEW1Y8R1+1CnErE8cXFXzl5blBOoVB41CvMer6P6Q0S5FXDwcHgFd1Wj0U9zg==
 
 nodemailer@6.6.1:
   version "6.6.1"
