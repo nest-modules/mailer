@@ -2129,6 +2129,13 @@ debug@^4.3.1:
   dependencies:
     ms "2.1.2"
 
+debug@^4.3.2:
+  version "4.3.2"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-4.3.2.tgz#f0a49c18ac8779e31d4a0c6029dfb76873c7428b"
+  integrity sha512-mOp8wKcvj7XxC78zLgw/ZA+6TSgkoE2C/ienthhRD298T7UNwAg9diBpLRxC0mOezLl4B0xV7M0cCO6P/O0Xhw==
+  dependencies:
+    ms "2.1.2"
+
 decamelize-keys@^1.0.0, decamelize-keys@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/decamelize-keys/-/decamelize-keys-1.1.0.tgz#d171a87933252807eb3cb61dc1c1445d078df2d9"
@@ -4410,12 +4417,12 @@ node-releases@^1.1.71:
   resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-1.1.73.tgz#dd4e81ddd5277ff846b80b52bb40c49edf7a7b20"
   integrity sha512-uW7fodD6pyW2FZNZnp/Z3hvWKeEW1Y8R1+1CnErE8cXFXzl5blBOoVB41CvMer6P6Q0S5FXDwcHgFd1Wj0U9zg==
 
-nodemailer-mock@1.5.9:
-  version "1.5.9"
-  resolved "https://registry.yarnpkg.com/nodemailer-mock/-/nodemailer-mock-1.5.9.tgz#4d58d741e3d5d17c5d0365733a5e853d71d10d0f"
-  integrity sha512-BuD991fR5cgu334/yC3yWrjSYBI92+D6jkDvegLdNyOQNJI/djl676y7gtqvheNV1LD8e7NJOhFs+HaKJjOQgw==
+nodemailer-mock@1.5.10:
+  version "1.5.10"
+  resolved "https://registry.yarnpkg.com/nodemailer-mock/-/nodemailer-mock-1.5.10.tgz#bafa7737e3a5203b294186ad209635abe05f8069"
+  integrity sha512-m8MAtcWa/s+de9Fo9pjhjt3mFA1FcxkmB0sknyz0dy9Y7fTmfNXycC2IDMRNmYFrJnd17KRGDJaKzWOhhp9R5g==
   dependencies:
-    debug "^4.3.1"
+    debug "^4.3.2"
     nodemailer "^6.x"
 
 nodemailer@6.4.18:
