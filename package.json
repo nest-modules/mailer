@@ -69,7 +69,7 @@
     "@types/glob": "7.1.4",
     "@types/inline-css": "3.0.1",
     "@types/jest": "26.0.23",
-    "@types/lodash": "4.14.171",
+    "@types/lodash": "4.14.172",
     "@types/nodemailer": "6.4.4",
     "@types/pug": "2.0.4",
     "@typescript-eslint/eslint-plugin": "4.28.1",
