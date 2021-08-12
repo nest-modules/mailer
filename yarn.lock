@@ -4411,10 +4411,10 @@ node-releases@^1.1.71:
   resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-1.1.73.tgz#dd4e81ddd5277ff846b80b52bb40c49edf7a7b20"
   integrity sha512-uW7fodD6pyW2FZNZnp/Z3hvWKeEW1Y8R1+1CnErE8cXFXzl5blBOoVB41CvMer6P6Q0S5FXDwcHgFd1Wj0U9zg==
 
-nodemailer-mock@1.5.10:
-  version "1.5.10"
-  resolved "https://registry.yarnpkg.com/nodemailer-mock/-/nodemailer-mock-1.5.10.tgz#bafa7737e3a5203b294186ad209635abe05f8069"
-  integrity sha512-m8MAtcWa/s+de9Fo9pjhjt3mFA1FcxkmB0sknyz0dy9Y7fTmfNXycC2IDMRNmYFrJnd17KRGDJaKzWOhhp9R5g==
+nodemailer-mock@1.5.11:
+  version "1.5.11"
+  resolved "https://registry.yarnpkg.com/nodemailer-mock/-/nodemailer-mock-1.5.11.tgz#1bb6b9af44e9007380191d32e33555ea136a819f"
+  integrity sha512-RbqkppKkptTgSzry3q8u/YD8pxulln/hYQ30O5brFRki8gEKv7KoAYGwfErZM2VsI7nGNBYRo5IOLnMW3NXBcw==
   dependencies:
     debug "^4.3.2"
     nodemailer "^6.x"
