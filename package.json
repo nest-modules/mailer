@@ -74,7 +74,7 @@
     "@types/pug": "2.0.4",
     "@typescript-eslint/eslint-plugin": "4.28.1",
     "@typescript-eslint/parser": "4.28.1",
-    "husky": "7.0.1",
+    "husky": "7.0.2",
     "lint-staged": "11.1.2",
     "jest": "27.0.6",
     "nodemailer": "6.6.2",
