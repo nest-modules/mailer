@@ -58,6 +58,10 @@ function spyOnSmtpSend(onMail: (mail: MailMessage) => void) {
           to: [mail.data.to as string],
         },
         messageId: 'ABCD',
+        accepted: [],
+        rejected: [],
+        pending: [],
+        response: 'ok'
       });
     });
 }
