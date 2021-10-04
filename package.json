@@ -55,7 +55,7 @@
   },
   "optionalDependencies": {
     "@types/ejs": "^3.0.3",
-    "@types/pug": "2.0.4",
+    "@types/pug": "2.0.5",
     "ejs": "^3.1.2",
     "handlebars": "^4.7.6",
     "pug": "^3.0.1"
@@ -71,7 +71,7 @@
     "@types/jest": "26.0.23",
     "@types/lodash": "4.14.175",
     "@types/nodemailer": "6.4.4",
-    "@types/pug": "2.0.4",
+    "@types/pug": "2.0.5",
     "@typescript-eslint/eslint-plugin": "4.31.1",
     "@typescript-eslint/parser": "4.31.1",
     "husky": "7.0.2",
@@ -92,7 +92,7 @@
     "@nestjs/common": "^7.0.9 || ^8.0.0",
     "@nestjs/core": "^7.0.9 || ^8.0.0",
     "@types/ejs": "^3.0.3",
-    "@types/pug": "2.0.4",
+    "@types/pug": "2.0.5",
     "ejs": "^3.1.2",
     "handlebars": "^4.7.6",
     "nodemailer": "^6.4.6",
