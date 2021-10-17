@@ -74,9 +74,17 @@ export class HandlebarsAdapter implements TemplateAdapter {
 
     if (runtimeOptions.partials) {
       const files = glob.sync(path.join(runtimeOptions.partials.dir, '*.hbs'));
-      files.forEach((file) =>
-        precompile(file, () => {}, runtimeOptions.partials),
-      );
+      files.forEach((file) => {
+        const { templateName, templatePath } = precompile(
+          file,
+          () => {},
+          runtimeOptions.partials,
+        );
+        handlebars.registerPartial(
+          templateName,
+          fs.readFileSync(templatePath, 'utf-8'),
+        );
+      });
     }
 
     const rendered = this.precompiledTemplates[templateName](
