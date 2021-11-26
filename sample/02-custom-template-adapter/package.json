@@ -25,7 +25,7 @@
     "@nestjs/common": "8.0.10",
     "@nestjs/core": "8.0.10",
     "@nestjs/platform-express": "8.0.10",
-    "nodemailer": "6.6.5",
+    "nodemailer": "6.7.2",
     "reflect-metadata": "0.1.13",
     "rimraf": "3.0.2",
     "rxjs": "7.3.1",
