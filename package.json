@@ -79,7 +79,7 @@
     "jest": "27.0.6",
     "nodemailer": "6.6.5",
     "nodemailer-mock": "1.5.11",
-    "prettier": "2.3.2",
+    "prettier": "2.5.1",
     "reflect-metadata": "0.1.13",
     "rimraf": "3.0.2",
     "standard-version": "9.3.2",
