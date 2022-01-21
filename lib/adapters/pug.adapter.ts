@@ -41,10 +41,12 @@ export class PugAdapter implements TemplateAdapter {
       }
 
       if (this.config.inlineCssEnabled) {
-        inlineCss(body, this.config.inlineCssOptions).then((html) => {
-          mail.data.html = html;
-          return callback();
-        });
+        inlineCss(body, this.config.inlineCssOptions)
+          .then((html) => {
+            mail.data.html = html;
+            return callback();
+          })
+          .catch(callback);
       } else {
         mail.data.html = body;
         return callback();
