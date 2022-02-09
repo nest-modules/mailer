@@ -30,7 +30,7 @@ export class EjsAdapter implements TemplateAdapter {
   }
 
   public compile(mail: any, callback: any, mailerOptions: MailerOptions): void {
-    const template = mail.data.template;
+    const { context, template } = mail.data;
     const templateExt = path.extname(template) || '.ejs';
     const templateName = path.basename(template, path.extname(template));
     const templateDir = path.isAbsolute(template)
@@ -54,7 +54,7 @@ export class EjsAdapter implements TemplateAdapter {
       }
     }
 
-    const rendered = this.precompiledTemplates[templateName](mail.data.context);
+    const rendered = this.precompiledTemplates[templateName](context);
 
     const render = (html: string) => {
       if (this.config.inlineCssEnabled) {

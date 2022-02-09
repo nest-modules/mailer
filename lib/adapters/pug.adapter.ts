@@ -20,7 +20,7 @@ export class PugAdapter implements TemplateAdapter {
   }
 
   public compile(mail: any, callback: any, mailerOptions: MailerOptions): void {
-    const template = mail.data.template;
+    const { context, template } = mail.data;
     const templateExt = path.extname(template) || '.pug';
     const templateName = path.basename(template, path.extname(template));
     const templateDir = path.isAbsolute(template)
@@ -32,7 +32,7 @@ export class PugAdapter implements TemplateAdapter {
     const templatePath = path.join(templateDir, templateName + templateExt);
 
     const options = {
-      ...mail.data.context,
+      ...context,
       ...get(mailerOptions, 'template.options', {}),
     };
 
