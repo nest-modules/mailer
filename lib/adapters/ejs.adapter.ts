@@ -43,7 +43,7 @@ export class EjsAdapter implements TemplateAdapter {
 
     if (!this.precompiledTemplates[templateName]) {
       try {
-        const template = fs.readFileSync(templatePath, 'UTF-8');
+        const template = fs.readFileSync(templatePath, 'utf-8');
 
         this.precompiledTemplates[templateName] = compile(template, {
           ...get(mailerOptions, 'template.options', {}),
