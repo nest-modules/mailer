@@ -19,3 +19,8 @@ renovate.json
 .prettierignore
 .prettierrc
 publish.sh
+.github
+.dockerignore
+docker-compose.yml
+Dockerfile
+jest.config.js
