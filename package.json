@@ -1,6 +1,6 @@
 {
   "name": "@nestjs-modules/mailer",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "private": false,
   "description": "NestJS - a mailer module (@mailer)",
   "keywords": [
@@ -49,7 +49,7 @@
     ]
   },
   "dependencies": {
-    "glob": "7.1.7",
+    "glob": "7.2.0",
     "inline-css": "3.0.0",
     "preview-email": "3.0.4"
   },
@@ -66,27 +66,27 @@
     "@nestjs/common": "8.2.4",
     "@nestjs/core": "8.2.4",
     "@nestjs/testing": "8.2.4",
-    "@types/glob": "7.1.4",
+    "@types/glob": "7.2.0",
     "@types/inline-css": "3.0.1",
     "@types/jest": "26.0.24",
     "@types/lodash": "4.14.176",
     "@types/nodemailer": "6.4.4",
     "@types/pug": "2.0.5",
-    "@typescript-eslint/eslint-plugin": "4.31.1",
-    "@typescript-eslint/parser": "4.31.1",
+    "@typescript-eslint/eslint-plugin": "4.33.0",
+    "@typescript-eslint/parser": "4.33.0",
     "husky": "7.0.4",
-    "lint-staged": "11.2.4",
+    "lint-staged": "11.2.6",
     "jest": "27.0.6",
-    "nodemailer": "6.6.5",
+    "nodemailer": "6.7.2",
     "nodemailer-mock": "1.5.11",
     "prettier": "2.3.2",
     "reflect-metadata": "0.1.13",
     "rimraf": "3.0.2",
     "standard-version": "9.3.2",
-    "ts-jest": "27.0.5",
+    "ts-jest": "27.1.2",
     "ts-node": "10.2.1",
     "typescript": "4.3.5",
-    "rxjs": "7.3.1"
+    "rxjs": "7.4.0"
   },
   "peerDependencies": {
     "@nestjs/common": "^7.0.9 || ^8.0.0",
@@ -96,6 +96,6 @@
     "ejs": "^3.1.2",
     "handlebars": "^4.7.6",
     "nodemailer": "^6.4.6",
-    "pug": "^2.0.4"
+    "pug": "^3.0.1"
   }
 }
