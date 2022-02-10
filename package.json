@@ -63,9 +63,9 @@
   "devDependencies": {
     "@commitlint/cli": "13.2.1",
     "@commitlint/config-angular": "13.2.0",
-    "@nestjs/common": "8.0.10",
-    "@nestjs/core": "8.0.10",
-    "@nestjs/testing": "8.0.10",
+    "@nestjs/common": "8.2.4",
+    "@nestjs/core": "8.2.4",
+    "@nestjs/testing": "8.2.4",
     "@types/glob": "7.2.0",
     "@types/inline-css": "3.0.1",
     "@types/jest": "26.0.24",
