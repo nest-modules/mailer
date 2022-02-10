@@ -74,9 +74,17 @@ export class HandlebarsAdapter implements TemplateAdapter {
 
     if (runtimeOptions.partials) {
       const files = glob.sync(path.join(runtimeOptions.partials.dir, '*.hbs'));
-      files.forEach((file) =>
-        precompile(file, () => {}, runtimeOptions.partials),
-      );
+      files.forEach((file) => {
+        const { templateName, templatePath } = precompile(
+          file,
+          () => {},
+          runtimeOptions.partials,
+        );
+        handlebars.registerPartial(
+          templateName,
+          fs.readFileSync(templatePath, 'utf-8'),
+        );
+      });
     }
 
     const rendered = this.precompiledTemplates[templateName](
@@ -88,10 +96,12 @@ export class HandlebarsAdapter implements TemplateAdapter {
     );
 
     if (this.config.inlineCssEnabled) {
-      inlineCss(rendered, this.config.inlineCssOptions).then((html) => {
-        mail.data.html = html;
-        return callback();
-      });
+      inlineCss(rendered, this.config.inlineCssOptions)
+        .then((html) => {
+          mail.data.html = html;
+          return callback();
+        })
+        .catch(callback);
     } else {
       mail.data.html = rendered;
       return callback();
