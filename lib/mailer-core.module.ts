@@ -49,6 +49,9 @@ export class MailerCoreModule {
 
         /** Services **/
         MailerService,
+        
+        /** Extra providers **/
+        ...(options.extraProviders || []),
       ],
       imports: options.imports,
       exports: [
