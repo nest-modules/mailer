@@ -44,10 +44,7 @@ export interface ISendMailOptions extends SendMailOptions {
     contentType?: string;
     cid?: string;
     encoding?: string;
-    contentDisposition?: string;
-    href?: string;
-    encoding?: string;
-    contentDisposition?: 'attachment' | 'inline' | string | undefined;
+    contentDisposition?: 'attachment' | 'inline' | undefined;
     href?: string;
   }[];
   dkim?: DKIM.Options;
