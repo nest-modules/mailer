@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.7.0](https://github.com/nest-modules/mailer/compare/v1.6.0...v1.7.0) (2022-06-19)
+
+
+### Features
+
+* Add possibility to specify extra providers ([#762](https://github.com/nest-modules/mailer/issues/762)) ([680c67f](https://github.com/nest-modules/mailer/commit/680c67fd5618909b6705eb1c73bd55d6b94ac76c))
+
+
+### Bug Fixes
+
+* **adapters:** resolving correct templateDir ([9bee48b](https://github.com/nest-modules/mailer/commit/9bee48b0e630c71c3702b83747dc41152670947e))
+* **deps:** update dependency dotenv to v10 ([8dcb4e0](https://github.com/nest-modules/mailer/commit/8dcb4e0b563461d0d1b8ab90419992e434197bd9))
+* **deps:** update dependency dotenv to v8.6.0 ([8cd1094](https://github.com/nest-modules/mailer/commit/8cd10947722a4c74ec841814118dcc535024e042))
+* **deps:** update dependency glob to v7.1.7 ([cba34c6](https://github.com/nest-modules/mailer/commit/cba34c682992331895c43224fdc3686daa29c05e))
+* **deps:** update dependency glob to v7.2.0 ([222e701](https://github.com/nest-modules/mailer/commit/222e701642b93d5d90d023307a4c0bdf0a533944))
+* **deps:** update dependency nodemailer to v6.6.1 ([ec1eec9](https://github.com/nest-modules/mailer/commit/ec1eec95696c958eff8f02ad6a210f771ffdf624))
+* **deps:** update dependency nodemailer to v6.6.2 ([fc92ddd](https://github.com/nest-modules/mailer/commit/fc92ddd9852876306a3a5c87649f3d27806b7853))
+* **deps:** update dependency nodemailer to v6.6.5 ([d68d341](https://github.com/nest-modules/mailer/commit/d68d34120fd7028f260e8b914d455859e0469f88))
+* **deps:** update dependency nodemailer to v6.7.2 ([7638b01](https://github.com/nest-modules/mailer/commit/7638b01f9ec8bcded5b320766be65477adab024d))
+* **deps:** update dependency rxjs to v7 ([efcc64e](https://github.com/nest-modules/mailer/commit/efcc64e3eb8d8b110a2aa0fa4b352c34d9e6154f))
+* **deps:** update dependency rxjs to v7.3.1 ([a5aa0ae](https://github.com/nest-modules/mailer/commit/a5aa0ae646395db2d87c74130bf25c9214624c43))
+* **deps:** update dependency rxjs to v7.4.0 ([8fb17f1](https://github.com/nest-modules/mailer/commit/8fb17f17f7ab0253f3c0620fe91c6dbbd578d9f2))
+* **deps:** update dependency twing to v5.1.0 ([7d45c53](https://github.com/nest-modules/mailer/commit/7d45c53132c5d81e5042887db782fe0878973d1b))
+* **deps:** update nest monorepo to v7.6.18 ([6f7bdf8](https://github.com/nest-modules/mailer/commit/6f7bdf8ce793821888e22ee12c73cd204619cbd8))
+* no error handling for inlineCss ([c232e75](https://github.com/nest-modules/mailer/commit/c232e752d77c521076583a489a7ccc214df13803))
+* register partials in handlebars ([#715](https://github.com/nest-modules/mailer/issues/715)) ([7f2cbae](https://github.com/nest-modules/mailer/commit/7f2cbae49858f88e686534e43dd45ec63d2256ca))
+
 ### [1.6.1](https://github.com/nest-modules/mailer/compare/v1.6.0...v1.6.1) (2021-12-30)
 
 
