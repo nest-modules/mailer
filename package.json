@@ -31,6 +31,9 @@
     "build": "tsc -p tsconfig.json",
     "deploy": "sh ./publish.sh",
     "format": "prettier **/**/*.ts --ignore-path ./.prettierignore --write",
+    "audit:convert": "yarn-audit-fix --flow=convert",
+    "audit:patch": "yarn-audit-fix --flow=patch",
+    "audit:fix": "npx yarn-audit-fix --package-lock-only=false --force --legacy-peer-deps --flow=convert",
     "major": "npm run release -- --release-as major",
     "minor": "npm run release -- --release-as minor",
     "patch": "npm run release -- --release-as patch",
@@ -70,7 +73,7 @@
     "@types/glob": "7.2.0",
     "@types/inline-css": "3.0.1",
     "@types/jest": "26.0.24",
-    "@types/lodash": "4.14.176",
+    "@types/lodash": "4.14.182",
     "@types/nodemailer": "6.4.4",
     "@types/pug": "2.0.5",
     "@typescript-eslint/eslint-plugin": "5.28.0",
@@ -78,7 +81,7 @@
     "husky": "7.0.4",
     "jest": "27.0.6",
     "lint-staged": "13.0.2",
-    "nodemailer": "6.7.2",
+    "nodemailer": "6.7.5",
     "nodemailer-mock": "1.5.12",
     "prettier": "2.7.1",
     "reflect-metadata": "0.1.13",
@@ -87,7 +90,8 @@
     "standard-version": "9.3.2",
     "ts-jest": "27.1.2",
     "ts-node": "10.8.1",
-    "typescript": "4.7.4"
+    "typescript": "4.7.4",
+    "yarn-audit-fix": "^9.3.2"
   },
   "peerDependencies": {
     "@nestjs/common": "^7.0.9 || ^8.0.0",
