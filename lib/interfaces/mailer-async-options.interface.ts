@@ -1,6 +1,6 @@
 /** Dependencies **/
 import { ModuleMetadata, Type } from '@nestjs/common/interfaces';
-import { Provider } from "@nestjs/common";
+import { Provider } from '@nestjs/common';
 
 /** Interfaces **/
 import { MailerOptions } from './mailer-options.interface';

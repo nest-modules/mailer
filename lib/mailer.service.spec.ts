@@ -61,7 +61,7 @@ function spyOnSmtpSend(onMail: (mail: MailMessage) => void) {
         accepted: [],
         rejected: [],
         pending: [],
-        response: 'ok'
+        response: 'ok',
       });
     });
 }
