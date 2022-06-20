@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.7.1](https://github.com/nest-modules/mailer/compare/v1.7.0...v1.7.1) (2022-06-20)
+
+
+### Bug Fixes
+
+* corrects dependency with security problems ([6076fca](https://github.com/nest-modules/mailer/commit/6076fca3b9992e7d2bbf373717de4332070b7900))
+
 ## [1.7.0](https://github.com/nest-modules/mailer/compare/v1.6.0...v1.7.0) (2022-06-19)
 
 
