@@ -52,7 +52,7 @@
     "glob": "7.2.0",
     "inline-css": "3.0.0",
     "mjml": "^4.12.0",
-    "preview-email": "3.0.4"
+    "preview-email": "3.0.5"
   },
   "optionalDependencies": {
     "@types/ejs": "^3.0.3",
