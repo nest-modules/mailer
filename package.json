@@ -66,7 +66,7 @@
     "@commitlint/config-angular": "13.2.0",
     "@nestjs/common": "8.2.4",
     "@nestjs/core": "8.4.7",
-    "@nestjs/testing": "8.2.4",
+    "@nestjs/testing": "8.4.7",
     "@types/glob": "7.2.0",
     "@types/inline-css": "3.0.1",
     "@types/jest": "26.0.24",
