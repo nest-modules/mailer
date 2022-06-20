@@ -80,7 +80,7 @@
     "lint-staged": "11.2.6",
     "nodemailer": "6.7.2",
     "nodemailer-mock": "1.5.11",
-    "prettier": "2.3.2",
+    "prettier": "2.7.1",
     "reflect-metadata": "0.1.13",
     "rimraf": "3.0.2",
     "rxjs": "7.4.0",
