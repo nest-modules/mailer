@@ -65,7 +65,7 @@
     "pug": "^3.0.1"
   },
   "devDependencies": {
-    "@commitlint/cli": "13.2.1",
+    "@commitlint/cli": "17.0.2",
     "@commitlint/config-angular": "17.0.0",
     "@nestjs/common": "8.4.7",
     "@nestjs/core": "8.4.7",
