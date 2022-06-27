@@ -80,7 +80,7 @@
     "@typescript-eslint/parser": "5.29.0",
     "husky": "8.0.1",
     "jest": "27.0.6",
-    "lint-staged": "13.0.2",
+    "lint-staged": "13.0.3",
     "nodemailer": "6.7.5",
     "nodemailer-mock": "1.5.12",
     "prettier": "2.7.1",
