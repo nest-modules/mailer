@@ -67,9 +67,9 @@
   "devDependencies": {
     "@commitlint/cli": "17.0.3",
     "@commitlint/config-angular": "17.0.0",
-    "@nestjs/common": "8.4.7",
-    "@nestjs/core": "8.4.7",
-    "@nestjs/testing": "8.4.7",
+    "@nestjs/common": "^9.0.1",
+    "@nestjs/core": "^9.0.1",
+    "@nestjs/testing": "^9.0.1",
     "@types/glob": "7.2.0",
     "@types/inline-css": "3.0.1",
     "@types/jest": "26.0.24",
@@ -94,8 +94,8 @@
     "yarn-audit-fix": "^9.3.2"
   },
   "peerDependencies": {
-    "@nestjs/common": "^7.0.9 || ^8.0.0",
-    "@nestjs/core": "^7.0.9 || ^8.0.0",
+    "@nestjs/common": "^7.0.9 || ^8.0.0 || ^9.0.0",
+    "@nestjs/core": "^7.0.9 || ^8.0.0 || ^9.0.0",
     "@types/ejs": "^3.0.3",
     "@types/pug": "2.0.6",
     "ejs": "^3.1.2",
