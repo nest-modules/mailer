@@ -3,6 +3,7 @@ import { get, defaultsDeep } from 'lodash';
 import { Injectable, Inject, Optional } from '@nestjs/common';
 import { SentMessageInfo, Transporter } from 'nodemailer';
 import * as previewEmail from 'preview-email';
+import * as smtpTransport from 'nodemailer/lib/smtp-transport';
 
 /** Constants **/
 import {
@@ -16,7 +17,6 @@ import { TemplateAdapter } from './interfaces/template-adapter.interface';
 import { ISendMailOptions } from './interfaces/send-mail-options.interface';
 import { MailerTransportFactory as IMailerTransportFactory } from './interfaces/mailer-transport-factory.interface';
 import { MailerTransportFactory } from './mailer-transport.factory';
-import SMTPTransport = require('nodemailer/lib/smtp-transport');
 
 @Injectable()
 export class MailerService {
@@ -128,7 +128,7 @@ export class MailerService {
     }
   }
 
-  addTransporter(transporterName: string, config: string | SMTPTransport | SMTPTransport.Options): string {
+  addTransporter(transporterName: string, config: string | smtpTransport.SMTPTransport | smtpTransport.SMTPTransport.Options): string {
     this.transporters.set(
       transporterName,
       this.transportFactory.createTransport(config),
