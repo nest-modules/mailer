@@ -3,6 +3,7 @@ import { get, defaultsDeep } from 'lodash';
 import { Injectable, Inject, Optional } from '@nestjs/common';
 import { SentMessageInfo, Transporter } from 'nodemailer';
 import * as previewEmail from 'preview-email';
+import * as smtpTransport from 'nodemailer/lib/smtp-transport';
 
 /** Constants **/
 import {
@@ -21,7 +22,7 @@ import { MailerTransportFactory } from './mailer-transport.factory';
 export class MailerService {
   private transporter!: Transporter;
   private transporters = new Map<string, Transporter>();
-
+  private templateAdapter: TemplateAdapter;
   private initTemplateAdapter(
     templateAdapter: TemplateAdapter,
     transporter: Transporter,
@@ -65,7 +66,7 @@ export class MailerService {
     }
 
     /** Adapter setup **/
-    const templateAdapter: TemplateAdapter = get(
+    this.templateAdapter = get(
       this.mailerOptions,
       'template.adapter',
     );
@@ -91,14 +92,14 @@ export class MailerService {
             this.mailerOptions.transports![name],
           ),
         );
-        this.initTemplateAdapter(templateAdapter, this.transporters.get(name)!);
+        this.initTemplateAdapter(this.templateAdapter, this.transporters.get(name)!);
       });
     }
 
     /** Transporter setup **/
     if (mailerOptions.transport) {
       this.transporter = this.transportFactory.createTransport();
-      this.initTemplateAdapter(templateAdapter, this.transporter);
+      this.initTemplateAdapter(this.templateAdapter, this.transporter);
     }
   }
 
@@ -125,5 +126,14 @@ export class MailerService {
         throw new ReferenceError(`Transporter object undefined`);
       }
     }
+  }
+
+  addTransporter(transporterName: string, config: string | smtpTransport.SMTPTransport | smtpTransport.SMTPTransport.Options): string {
+    this.transporters.set(
+      transporterName,
+      this.transportFactory.createTransport(config),
+    );
+    this.initTemplateAdapter(this.templateAdapter, this.transporters.get(transporterName)!);
+    return transporterName;
   }
 }
