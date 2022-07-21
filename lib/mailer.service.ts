@@ -128,7 +128,7 @@ export class MailerService {
     }
   }
 
-  addTransporter(transporterName: string, config: string | smtpTransport.SMTPTransport | smtpTransport.SMTPTransport.Options): string {
+  addTransporter(transporterName: string, config: string | smtpTransport | smtpTransport.Options): string {
     this.transporters.set(
       transporterName,
       this.transportFactory.createTransport(config),
