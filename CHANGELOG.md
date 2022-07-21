@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.8.1](https://github.com/nest-modules/mailer/compare/v1.8.0...v1.8.1) (2022-07-21)
+
+
+### Bug Fixes
+
+* fixes a bad call to smtp options and broken unit tests ([1ef2d80](https://github.com/nest-modules/mailer/commit/1ef2d8090480b7500baf704c127723e796a34697))
+
 ## [1.8.0](https://github.com/nest-modules/mailer/compare/v1.7.1...v1.8.0) (2022-07-19)
 
 ### [1.7.1](https://github.com/nest-modules/mailer/compare/v1.7.0...v1.7.1) (2022-06-20)
