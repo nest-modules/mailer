@@ -711,9 +711,9 @@
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
 "@nestjs/common@^9.0.1":
-  version "9.0.5"
-  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-9.0.5.tgz#cc082a0ef24c2693cf637f2758a357b4db2b6489"
-  integrity sha512-13mncUq4JDSluI5IGvusDZANUfNYCIyPamxlPXJOLawGp8JjqRLHGn9ppNJp7W9mN/B/SmpvW9NFEYFIrKYj9g==
+  version "9.0.6"
+  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-9.0.6.tgz#d3051d74175985318414f69e150564d2cb57fa56"
+  integrity sha512-8eEpdvXmTrS8MVM6VIASmey+jQAwGcoyb8J4mFdDA5UdDfvKNAZ3PN0eoBiphsZIn49WGubdFCmg4CcvoninbA==
   dependencies:
     iterare "1.2.1"
     tslib "2.4.0"
