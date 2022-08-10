@@ -12,7 +12,7 @@ import {
 } from './constants/mailer.constant';
 
 /** Interfaces **/
-import { MailerOptions } from './interfaces/mailer-options.interface';
+import { MailerOptions, TransportType } from './interfaces/mailer-options.interface';
 import { TemplateAdapter } from './interfaces/template-adapter.interface';
 import { ISendMailOptions } from './interfaces/send-mail-options.interface';
 import { MailerTransportFactory as IMailerTransportFactory } from './interfaces/mailer-transport-factory.interface';
@@ -128,7 +128,7 @@ export class MailerService {
     }
   }
 
-  addTransporter(transporterName: string, config: string | smtpTransport | smtpTransport.Options): string {
+  addTransporter(transporterName: string, config: TransportType): string {
     this.transporters.set(
       transporterName,
       this.transportFactory.createTransport(config),
