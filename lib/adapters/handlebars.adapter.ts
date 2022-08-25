@@ -49,7 +49,8 @@ export class HandlebarsAdapter implements TemplateAdapter {
             get(options, 'options', {}),
           );
         } catch (err) {
-          return callback(err);
+          callback(err);
+          return null;
         }
       }
 
@@ -61,12 +62,16 @@ export class HandlebarsAdapter implements TemplateAdapter {
       };
     };
 
-    const { templateName } = precompile(
+    const precompiledData = precompile(
       mail.data.template,
       callback,
       mailerOptions.template,
     );
+    if (precompiledData === null) {
+      return;
+    }
 
+    const { templateName } = precompiledData;
     const runtimeOptions = get(mailerOptions, 'options', {
       partials: false,
       data: {},
@@ -77,11 +82,16 @@ export class HandlebarsAdapter implements TemplateAdapter {
         path.join(runtimeOptions.partials.dir, '**', '*.hbs'),
       );
       files.forEach((file) => {
-        const { templateName, templatePath } = precompile(
+        const precompiledData = precompile(
           file,
           () => {},
           runtimeOptions.partials,
         );
+        if (precompiledData === null) {
+          return;
+        }
+
+        const { templateName, templatePath } = precompiledData;
         const templateDir = path.relative(
           runtimeOptions.partials.dir,
           path.dirname(templatePath),
