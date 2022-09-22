@@ -733,9 +733,9 @@
     uuid "8.3.2"
 
 "@nestjs/testing@^9.0.1":
-  version "9.0.5"
-  resolved "https://registry.yarnpkg.com/@nestjs/testing/-/testing-9.0.5.tgz#970c2977475aed67102362d1b2477432f16b863d"
-  integrity sha512-/RwWhOBz0rPZzoMiKXsuyCr8FkQrtMxPUHwS+SFnZBsNa/jb56GswgUD7/UnTATU15sjcv0fFtFT3rlu6KK5Ew==
+  version "9.1.2"
+  resolved "https://registry.yarnpkg.com/@nestjs/testing/-/testing-9.1.2.tgz#98925cafab0cc92e0492d37ec17a6a7739b46a21"
+  integrity sha512-BfwERdTppE4oz6qxCNJVo0kaRH2FO7mipooedT2nDtYW3krGZ8978odmGdpVgNz1xwqKDH3Y/68frs5oW2CTZw==
   dependencies:
     tslib "2.4.0"
 
