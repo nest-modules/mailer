@@ -76,7 +76,7 @@
     "@types/lodash": "4.14.182",
     "@types/nodemailer": "6.4.4",
     "@types/pug": "2.0.6",
-    "@typescript-eslint/eslint-plugin": "5.30.7",
+    "@typescript-eslint/eslint-plugin": "5.38.1",
     "@typescript-eslint/parser": "5.34.0",
     "husky": "8.0.1",
     "jest": "27.0.6",
