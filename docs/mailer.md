@@ -468,3 +468,21 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
 })
 export class AppModule {}
 ```
+
+## Copy templates to the dist folder
+
+If you are storing the templates inside of an `src` folder, make sure to add your template files as assets into `nest-cli.json`. Otherwise the templates would not be copied while compilation.
+
+Use `.pug`, `.ejs` or `.hbs` depending on the template engine you use:
+
+```json
+{
+  "$schema": "https://json.schemastore.org/nest-cli",
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "src",
+  "compilerOptions": {
+    "assets": ["**/*.hbs"]
+  }
+}
+```
+
