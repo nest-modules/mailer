@@ -1,5 +1,6 @@
 import { SendMailOptions } from 'nodemailer';
 import * as DKIM from 'nodemailer/lib/dkim';
+import { Attachment } from 'nodemailer/lib/mailer';
 
 export type TextEncoding = 'quoted-printable' | 'base64';
 export type Headers =
@@ -37,15 +38,6 @@ export interface ISendMailOptions extends SendMailOptions {
   };
   transporterName?: string;
   template?: string;
-  attachments?: {
-    filename: string;
-    content?: any;
-    path?: string;
-    contentType?: string;
-    cid?: string;
-    encoding?: string;
-    contentDisposition?: 'attachment' | 'inline' | undefined;
-    href?: string;
-  }[];
+  attachments?: Attachment[];
   dkim?: DKIM.Options;
 }
