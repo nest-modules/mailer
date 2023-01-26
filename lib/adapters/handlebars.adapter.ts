@@ -33,12 +33,14 @@ export class HandlebarsAdapter implements TemplateAdapter {
 
   public compile(mail: any, callback: any, mailerOptions: MailerOptions): void {
     const precompile = (template: any, callback: any, options: any) => {
+      const templateBaseDir = get(options, 'dir', '');
       const templateExt = path.extname(template) || '.hbs';
-      const templateName = path.basename(template, path.extname(template));
+      let templateName = path.basename(template, path.extname(template));
       const templateDir = path.isAbsolute(template)
         ? path.dirname(template)
-        : path.join(get(options, 'dir', ''), path.dirname(template));
+        : path.join(templateBaseDir, path.dirname(template));
       const templatePath = path.join(templateDir, templateName + templateExt);
+      templateName = path.relative(templateBaseDir, templatePath).replace(templateExt, '');
 
       if (!this.precompiledTemplates[templateName]) {
         try {

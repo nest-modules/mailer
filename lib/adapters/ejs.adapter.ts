@@ -31,15 +31,14 @@ export class EjsAdapter implements TemplateAdapter {
 
   public compile(mail: any, callback: any, mailerOptions: MailerOptions): void {
     const { context, template } = mail.data;
+    const templateBaseDir = get(mailerOptions, 'template.dir', '');
     const templateExt = path.extname(template) || '.ejs';
-    const templateName = path.basename(template, path.extname(template));
+    let templateName = path.basename(template, path.extname(template));
     const templateDir = path.isAbsolute(template)
       ? path.dirname(template)
-      : path.join(
-          get(mailerOptions, 'template.dir', ''),
-          path.dirname(template),
-        );
+      : path.join(templateBaseDir, path.dirname(template));
     const templatePath = path.join(templateDir, templateName + templateExt);
+    templateName = path.relative(templateBaseDir, templatePath).replace(templateExt, '');
 
     if (!this.precompiledTemplates[templateName]) {
       try {
