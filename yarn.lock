@@ -327,9 +327,9 @@
   integrity sha512-qbmfOfVqQHMKfc6CxS0A9b7+EFsOyEBoh4+i8Qa05uk8YhT/zY1CeIXK5V3wwemMDcHUegyL/ZnwCvWD7g8GxA==
 
 "@commitlint/config-angular@^17.3.0":
-  version "17.4.2"
-  resolved "https://registry.yarnpkg.com/@commitlint/config-angular/-/config-angular-17.4.2.tgz#26265570fb9324eeceb642e4e803a922a77e0336"
-  integrity sha512-14gEwTZ6wcpbdE0lNkJVeeafZd72occHwG9Fi6JEVQQ/nOi9XBiJRFWPRQObXlb8UZCh0q9xgIqeJTue6toypQ==
+  version "17.4.4"
+  resolved "https://registry.yarnpkg.com/@commitlint/config-angular/-/config-angular-17.4.4.tgz#6d9f2fd55287fb20ac20168a7e51312989710228"
+  integrity sha512-ulCgBc1sDWwwW0HKGQDurcfWbWw1PZjwOFzeL2PZq3jcOgPfOzEHqE3dIjycB5DKlWNx4kUMcgwMWaX/zUtBNg==
   dependencies:
     "@commitlint/config-angular-type-enum" "^17.4.0"
 
