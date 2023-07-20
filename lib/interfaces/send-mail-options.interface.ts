@@ -20,7 +20,7 @@ export interface ISendMailOptions extends SendMailOptions {
   to?: string | Address | Array<string | Address>;
   cc?: string | Address | Array<string | Address>;
   bcc?: string | Address | Array<string | Address>;
-  replyTo?: string | Address;
+  replyTo?: string | Address | Array<string | Address>;
   inReplyTo?: string | Address;
   from?: string | Address;
   subject?: string;
