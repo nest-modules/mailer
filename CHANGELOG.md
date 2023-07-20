@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.9.0](https://github.com/nest-modules/mailer/compare/v1.8.1...v1.9.0) (2023-07-20)
+
+
+### Bug Fixes
+
+* fix partial not found error on Windows ([fb1fcda](https://github.com/nest-modules/mailer/commit/fb1fcdaba04c4b4f6ccbf2492dc0f34565b198e1))
+* mjml import statement ([00abe2b](https://github.com/nest-modules/mailer/commit/00abe2b3215a41407fafbc134a56d97cb0b2ded8))
+* update dependencies by newer version ([f1d4fba](https://github.com/nest-modules/mailer/commit/f1d4fba6b9d8a0cc50ffe2ae1e3439552e327d0b))
+
 ### [1.8.2](https://github.com/nest-modules/mailer/compare/v1.8.1...v1.8.2) (2022-12-22)
 
 
