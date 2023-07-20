@@ -23,7 +23,8 @@ Synchronous import
 ```javascript
 //app.module.ts
 import { Module } from '@nestjs/common';
-import { HandlebarsAdapter, MailerModule } from '@nestjs-modules/mailer';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/adapters/handlebars.adapter';
 
 @Module({
   imports: [
