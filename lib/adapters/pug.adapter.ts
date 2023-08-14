@@ -2,7 +2,7 @@
 import * as path from 'path';
 import { get } from 'lodash';
 import { renderFile } from 'pug';
-import * as inlineCss from 'inline-css';
+import { inline } from 'css-inline';
 
 /** Interfaces **/
 import { MailerOptions } from '../interfaces/mailer-options.interface';
@@ -11,7 +11,7 @@ import { TemplateAdapterConfig } from '../interfaces/template-adapter-config.int
 
 export class PugAdapter implements TemplateAdapter {
   private config: TemplateAdapterConfig = {
-    inlineCssOptions: { url: ' ' },
+    inlineCssOptions: {},
     inlineCssEnabled: true,
   };
 
@@ -42,16 +42,13 @@ export class PugAdapter implements TemplateAdapter {
       }
 
       if (this.config.inlineCssEnabled) {
-        inlineCss(body, this.config.inlineCssOptions)
-          .then((html) => {
-            mail.data.html = html;
-            return callback();
-          })
-          .catch(callback);
+        try {
+          mail.data.html = inline(body, this.config.inlineCssOptions);
+        } catch (e) {}
       } else {
         mail.data.html = body;
-        return callback();
       }
+      return callback();
     });
   }
 }

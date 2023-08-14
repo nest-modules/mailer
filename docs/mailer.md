@@ -299,24 +299,21 @@ const bullModule = BullModule.forRoot(mailBullConfig);
 export class MailModule {}
 ```
 
-### Control over inline-css in default adapters
+### Control over css-inline in default adapters
 
-It is possible to change `inline-css` options or even disable it in default adapters.
+It is possible to change `css-online` options or even disable it in default adapters.
 Just provide config object in constructor.
 
 ```typescript
 new HandlebarsAdapter(/* helpers */ undefined, {
   inlineCssEnabled: true,
-  /** See https://www.npmjs.com/package/inline-css#api */
-  inlineCssOptions: {
-    url: ' ',
-    preserveMediaQueries: true,
-  },
+  /** See https://www.npmjs.com/package/css-inline#configuration */
+  inlineCssOptions: {},
 });
 
 new PugAdapter({
   inlineCssEnabled: true,
-  inlineCssOptions: { url: ' ' },
+  inlineCssOptions: {},
 });
 
 new EjsAdapter({

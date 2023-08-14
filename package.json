@@ -52,8 +52,8 @@
     ]
   },
   "dependencies": {
+    "css-inline": "^0.10.4",
     "glob": "10.3.3",
-    "inline-css": "4.0.2",
     "mjml": "^4.14.1",
     "preview-email": "3.0.19"
   },
@@ -71,7 +71,6 @@
     "@nestjs/core": "^10.1.3",
     "@nestjs/testing": "^10.1.3",
     "@types/glob": "^8.1.0",
-    "@types/inline-css": "3.0.1",
     "@types/jest": "^29.5.3",
     "@types/lodash": "^4.14.197",
     "@types/nodemailer": "^6.4.9",
