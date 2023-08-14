@@ -101,8 +101,5 @@
     "handlebars": "^4.7.6",
     "nodemailer": "^6.4.6",
     "pug": "^3.0.1"
-  },
-  "resolutions": {
-    "vm2": "isolated-vm"
   }
 }
