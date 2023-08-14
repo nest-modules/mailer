@@ -40,7 +40,9 @@ export class HandlebarsAdapter implements TemplateAdapter {
         ? path.dirname(template)
         : path.join(templateBaseDir, path.dirname(template));
       const templatePath = path.join(templateDir, templateName + templateExt);
-      templateName = path.relative(templateBaseDir, templatePath).replace(templateExt, '');
+      templateName = path
+        .relative(templateBaseDir, templatePath)
+        .replace(templateExt, '');
 
       if (!this.precompiledTemplates[templateName]) {
         try {
@@ -75,10 +77,12 @@ export class HandlebarsAdapter implements TemplateAdapter {
     });
 
     if (runtimeOptions.partials) {
-      const partialPath = path.join(runtimeOptions.partials.dir, '**', '*.hbs').replace(/\\/g,'/');
+      const partialPath = path
+        .join(runtimeOptions.partials.dir, '**', '*.hbs')
+        .replace(/\\/g, '/');
 
       const files = glob.sync(partialPath);
-      
+
       files.forEach((file) => {
         const { templateName, templatePath } = precompile(
           file,

@@ -38,7 +38,9 @@ export class EjsAdapter implements TemplateAdapter {
       ? path.dirname(template)
       : path.join(templateBaseDir, path.dirname(template));
     const templatePath = path.join(templateDir, templateName + templateExt);
-    templateName = path.relative(templateBaseDir, templatePath).replace(templateExt, '');
+    templateName = path
+      .relative(templateBaseDir, templatePath)
+      .replace(templateExt, '');
 
     if (!this.precompiledTemplates[templateName]) {
       try {
