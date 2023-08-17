@@ -301,7 +301,7 @@ export class MailModule {}
 
 ### Control over css-inline in default adapters
 
-It is possible to change `css-online` options or even disable it in default adapters.
+It is possible to change `css-inline` options or even disable it in default adapters.
 Just provide config object in constructor.
 
 ```typescript
