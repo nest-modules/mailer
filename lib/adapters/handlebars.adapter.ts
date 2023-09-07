@@ -2,7 +2,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as handlebars from 'handlebars';
-import * as inlineCss from 'inline-css';
+import { inline } from 'css-inline';
 import * as glob from 'glob';
 import { get } from 'lodash';
 import { HelperDeclareSpec } from 'handlebars';
@@ -18,7 +18,7 @@ export class HandlebarsAdapter implements TemplateAdapter {
   } = {};
 
   private config: TemplateAdapterConfig = {
-    inlineCssOptions: { url: ' ' },
+    inlineCssOptions: {},
     inlineCssEnabled: true,
   };
 
@@ -40,7 +40,9 @@ export class HandlebarsAdapter implements TemplateAdapter {
         ? path.dirname(template)
         : path.join(templateBaseDir, path.dirname(template));
       const templatePath = path.join(templateDir, templateName + templateExt);
-      templateName = path.relative(templateBaseDir, templatePath).replace(templateExt, '');
+      templateName = path
+        .relative(templateBaseDir, templatePath)
+        .replace(templateExt, '');
 
       if (!this.precompiledTemplates[templateName]) {
         try {
@@ -75,10 +77,12 @@ export class HandlebarsAdapter implements TemplateAdapter {
     });
 
     if (runtimeOptions.partials) {
-      const partialPath = path.join(runtimeOptions.partials.dir, '**', '*.hbs').replace(/\\/g,'/');
+      const partialPath = path
+        .join(runtimeOptions.partials.dir, '**', '*.hbs')
+        .replace(/\\/g, '/');
 
       const files = glob.sync(partialPath);
-      
+
       files.forEach((file) => {
         const { templateName, templatePath } = precompile(
           file,
@@ -105,15 +109,12 @@ export class HandlebarsAdapter implements TemplateAdapter {
     );
 
     if (this.config.inlineCssEnabled) {
-      inlineCss(rendered, this.config.inlineCssOptions)
-        .then((html) => {
-          mail.data.html = html;
-          return callback();
-        })
-        .catch(callback);
+      try {
+        mail.data.html = inline(rendered, this.config.inlineCssOptions);
+      } catch (e) {}
     } else {
       mail.data.html = rendered;
-      return callback();
     }
+    return callback();
   }
 }

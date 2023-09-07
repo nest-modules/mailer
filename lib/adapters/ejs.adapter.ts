@@ -8,7 +8,7 @@ import {
 import { get } from 'lodash';
 import * as fs from 'fs';
 import * as path from 'path';
-import * as inlineCss from 'inline-css';
+import { inline } from 'css-inline';
 
 /** Interfaces **/
 import { MailerOptions } from '../interfaces/mailer-options.interface';
@@ -21,7 +21,7 @@ export class EjsAdapter implements TemplateAdapter {
   } = {};
 
   private config: TemplateAdapterConfig = {
-    inlineCssOptions: { url: ' ' },
+    inlineCssOptions: {},
     inlineCssEnabled: true,
   };
 
@@ -38,7 +38,9 @@ export class EjsAdapter implements TemplateAdapter {
       ? path.dirname(template)
       : path.join(templateBaseDir, path.dirname(template));
     const templatePath = path.join(templateDir, templateName + templateExt);
-    templateName = path.relative(templateBaseDir, templatePath).replace(templateExt, '');
+    templateName = path
+      .relative(templateBaseDir, templatePath)
+      .replace(templateExt, '');
 
     if (!this.precompiledTemplates[templateName]) {
       try {
@@ -57,16 +59,13 @@ export class EjsAdapter implements TemplateAdapter {
 
     const render = (html: string) => {
       if (this.config.inlineCssEnabled) {
-        inlineCss(html, this.config.inlineCssOptions)
-          .then((html) => {
-            mail.data.html = html;
-            return callback();
-          })
-          .catch(callback);
+        try {
+          mail.data.html = inline(html, this.config.inlineCssOptions);
+        } catch (e) {}
       } else {
         mail.data.html = html;
-        return callback();
       }
+      return callback();
     };
 
     if (typeof rendered === 'string') {
