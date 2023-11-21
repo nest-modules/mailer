@@ -483,3 +483,108 @@ Use `.pug`, `.ejs` or `.hbs` depending on the template engine you use:
 }
 ```
 
+### Using MJML
+
+You can use [mjml](https://mjml.io/) to create responsive emails with the `MjmlAdapter` adapter. The templates themselves still need to be pre-rendered with pug, handlebars or ejs.
+
+For all 3 template engines you have to use the `inlineCssEnabled` option to disable css inlining. For handlebars you also have to pass in a helpers object to the `handlebar` option.
+
+<!--DOCUSAURUS_CODE_TABS-->
+<!--Pug-->
+
+```javascript
+//app.module.ts
+import { Module } from '@nestjs/common';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { MjmlAdapter } from "@nestjs-modules/mailer/dist/adapters/mjml.adapter";
+
+@Module({
+  imports: [
+    MailerModule.forRoot({
+      transport: {
+        host: 'localhost',
+        port: 1025,
+        ignoreTLS: true,
+        secure: false,
+      },
+      defaults: {
+        from: '"nest-modules" <noreply@localhost>',
+      },
+      preview: true,
+      template: {
+        dir: process.cwd() + '/src/template/',
+        adapter: new MjmlAdapter('pug', { inlineCssEnabled: false }),
+      },
+    }),
+  ],
+})
+export class AppModule {}
+```
+
+<!--Handlebars-->
+
+```javascript
+//app.module.ts
+import { Module } from '@nestjs/common';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { MjmlAdapter } from "@nestjs-modules/mailer/dist/adapters/mjml.adapter";
+
+@Module({
+  imports: [
+    MailerModule.forRoot({
+      transport: {
+        host: 'localhost',
+        port: 1025,
+        ignoreTLS: true,
+        secure: false,
+      },
+      defaults: {
+        from: '"nest-modules" <noreply@localhost>',
+      },
+      preview: true,
+      template: {
+        dir: process.cwd() + '/src/template/',
+        adapter: new MjmlAdapter(
+          'handlebars',
+          { inlineCssEnabled: false },
+          { handlebar: { helper: {} } },
+        ),
+      },
+    }),
+  ],
+})
+export class AppModule {}
+```
+
+<!--Ejs-->
+
+```javascript
+//app.module.ts
+import { Module } from '@nestjs/common';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { MjmlAdapter } from "@nestjs-modules/mailer/dist/adapters/mjml.adapter";
+
+@Module({
+  imports: [
+    MailerModule.forRoot({
+      transport: {
+        host: 'localhost',
+        port: 1025,
+        ignoreTLS: true,
+        secure: false,
+      },
+      defaults: {
+        from: '"nest-modules" <noreply@localhost>',
+      },
+      preview: true,
+      template: {
+        dir: process.cwd() + '/src/template/',
+        adapter: new MjmlAdapter('ejs', { inlineCssEnabled: false }),
+      },
+    }),
+  ],
+})
+export class AppModule {}
+```
+
+<!--END_DOCUSAURUS_CODE_TABS-->
