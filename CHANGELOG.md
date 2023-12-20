@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.10.3](https://github.com/nest-modules/mailer/compare/v1.10.2...v1.10.3) (2023-12-20)
+
+
+### Bug Fixes
+
+* add tslib ([36f3aca](https://github.com/nest-modules/mailer/commit/36f3aca0ffac5943fa1dcd927cce7200dbcdb8df))
+
 ### [1.10.2](https://github.com/nest-modules/mailer/compare/v1.10.0...v1.10.2) (2023-12-20)
 
 
