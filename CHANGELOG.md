@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.10.1](https://github.com/nest-modules/mailer/compare/v1.10.0...v1.10.1) (2023-12-20)
+
+
+### Bug Fixes
+
+* allows you to handle peer dependencies greater than or equal to ([9885780](https://github.com/nest-modules/mailer/commit/988578099fe9975ca96c3e245bfc1b709d9be28a))
+
 ## [1.10.0](https://github.com/nest-modules/mailer/compare/v1.9.1...v1.10.0) (2023-12-20)
 
 ### [1.9.1](https://github.com/nest-modules/mailer/compare/v1.9.0...v1.9.1) (2023-07-20)
