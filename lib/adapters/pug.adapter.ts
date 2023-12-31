@@ -2,7 +2,7 @@
 import * as path from 'path';
 import { get } from 'lodash';
 import { renderFile } from 'pug';
-import { inline } from 'css-inline';
+import { inline } from '@css-inline/css-inline';
 
 /** Interfaces **/
 import { MailerOptions } from '../interfaces/mailer-options.interface';

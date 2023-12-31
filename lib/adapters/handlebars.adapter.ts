@@ -2,7 +2,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as handlebars from 'handlebars';
-import { inline } from 'css-inline';
+import { inline } from '@css-inline/css-inline';
 import * as glob from 'glob';
 import { get } from 'lodash';
 import { HelperDeclareSpec } from 'handlebars';

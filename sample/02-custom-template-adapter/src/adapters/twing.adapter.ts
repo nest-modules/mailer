@@ -1,5 +1,5 @@
 import { MailerOptions, TemplateAdapter } from '@nestjs-modules/mailer';
-import { inline } from 'css-inline';
+import { inline } from '@css-inline/css-inline';
 import * as path from 'path';
 import { TwingEnvironment, TwingLoaderFilesystem, TwingTemplate } from 'twing';
 

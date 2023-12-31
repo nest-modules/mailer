@@ -307,7 +307,7 @@ Just provide config object in constructor.
 ```typescript
 new HandlebarsAdapter(/* helpers */ undefined, {
   inlineCssEnabled: true,
-  /** See https://www.npmjs.com/package/css-inline#configuration */
+  /** See https://www.npmjs.com/package/@css-inline/css-inline#configuration */
   inlineCssOptions: {},
 });
 
