@@ -1,6 +1,6 @@
-import { InlineOptions } from 'css-inline';
+import { Options } from '@css-inline/css-inline';
 
 export interface TemplateAdapterConfig {
-  inlineCssOptions?: InlineOptions;
+  inlineCssOptions?: Options;
   inlineCssEnabled?: boolean;
 }

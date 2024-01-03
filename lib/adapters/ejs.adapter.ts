@@ -8,7 +8,7 @@ import {
 import { get } from 'lodash';
 import * as fs from 'fs';
 import * as path from 'path';
-import { inline } from 'css-inline';
+import { inline } from '@css-inline/css-inline';
 
 /** Interfaces **/
 import { MailerOptions } from '../interfaces/mailer-options.interface';
