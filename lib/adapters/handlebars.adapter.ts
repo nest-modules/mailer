@@ -111,7 +111,9 @@ export class HandlebarsAdapter implements TemplateAdapter {
     if (this.config.inlineCssEnabled) {
       try {
         mail.data.html = inline(rendered, this.config.inlineCssOptions);
-      } catch (e) {}
+      } catch (e) {
+        callback(e);
+      }
     } else {
       mail.data.html = rendered;
     }

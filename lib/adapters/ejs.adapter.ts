@@ -61,7 +61,9 @@ export class EjsAdapter implements TemplateAdapter {
       if (this.config.inlineCssEnabled) {
         try {
           mail.data.html = inline(html, this.config.inlineCssOptions);
-        } catch (e) {}
+        } catch (e) {
+          callback(e);
+        }
       } else {
         mail.data.html = html;
       }
