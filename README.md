@@ -60,6 +60,7 @@ you can find all the documentation [here](https://nest-modules.github.io/mailer/
 * [Juan Echeverry](https://github.com/juandav)
 * [Pat McGowan](https://github.com/p-mcgowan)
 * [Paweł Partyka](https://github.com/partyka95)
+* [Wasutan Kitijerapat](https://github.com/kitimark)
 
 ### License
 
