@@ -286,7 +286,7 @@ describe('MailerService', () => {
       '@media only screen and (max-width:350px)',
     );
     expect(lastMail.data.html?.toString().replace(/\n/g, '')).toContain(
-      `<html><head><style type=\"text/css\">@media only screen and (max-width:350px) {  p {    font-size: 20px;  }}</style></head><body><p>Handlebars test template. by Nest-modules TM</p></body></html>`.replace(/\n/g, ''),
+      `<html><head><style data-css-inline=\"keep\" type=\"text/css\">  @media only screen and (max-width:350px) { p { font-size: 20px; } }</style></head><body><p>Handlebars test template. by Nest-modules TM</p></body></html>`
     );
   });
 
