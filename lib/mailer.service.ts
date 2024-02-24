@@ -1,6 +1,6 @@
 /** Dependencies **/
 import { get, defaultsDeep } from 'lodash';
-import { Injectable, Inject, Optional } from '@nestjs/common';
+import { Injectable, Inject, Optional, Logger } from '@nestjs/common';
 import { SentMessageInfo, Transporter } from 'nodemailer';
 import * as previewEmail from 'preview-email';
 import * as smtpTransport from 'nodemailer/lib/smtp-transport';
@@ -46,6 +46,8 @@ export class MailerService {
     }
   }
 
+  private readonly mailerLogger = new Logger(MailerService.name);
+
   constructor(
     @Inject(MAILER_OPTIONS) private readonly mailerOptions: MailerOptions,
     @Optional()
@@ -86,21 +88,26 @@ export class MailerService {
     /** Transporters setup **/
     if (mailerOptions.transports) {
       Object.keys(mailerOptions.transports).forEach((name) => {
-        this.transporters.set(
-          name,
-          this.transportFactory.createTransport(
-            this.mailerOptions.transports![name],
-          ),
-        );
-        this.initTemplateAdapter(this.templateAdapter, this.transporters.get(name)!);
+        const transporter = this.transportFactory.createTransport(this.mailerOptions.transports![name])
+        this.transporters.set(name, transporter);
+        this.verifyTransporter(transporter, name);
+        this.initTemplateAdapter(this.templateAdapter, transporter);
       });
     }
 
     /** Transporter setup **/
     if (mailerOptions.transport) {
       this.transporter = this.transportFactory.createTransport();
+      this.verifyTransporter(this.transporter);
       this.initTemplateAdapter(this.templateAdapter, this.transporter);
     }
+  }
+
+  private verifyTransporter(transporter: Transporter, name?: string): void {
+    const transporterName = name ? ` '${name}'` : '';
+    transporter.verify()
+      .then(() => this.mailerLogger.error(`Transporter${transporterName} is ready`))
+      .catch((error) => this.mailerLogger.error(`Error occurred while verifying the transporter${transporterName}}: ${error.message}`));
   }
 
   public async sendMail(
