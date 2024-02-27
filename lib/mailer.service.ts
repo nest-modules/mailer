@@ -106,8 +106,14 @@ export class MailerService {
   private verifyTransporter(transporter: Transporter, name?: string): void {
     const transporterName = name ? ` '${name}'` : '';
     transporter.verify()
-      .then(() => this.mailerLogger.error(`Transporter${transporterName} is ready`))
-      .catch((error) => this.mailerLogger.error(`Error occurred while verifying the transporter${transporterName}}: ${error.message}`));
+      .then(() => this.mailerLogger.debug(`Transporter${transporterName} is ready`))
+      .catch((error) => this.mailerLogger.error(`Error occurred while verifying the transporter${transporterName}: ${error.message}`));
+  }
+
+  public async verifyAllTransporters() {
+    const transporters = [...this.transporters.values(), this.transporter];
+    const transportersVerified = await Promise.all(transporters.map(transporter => transporter.verify().catch(() => false)));
+    return transportersVerified.every(verified => verified);
   }
 
   public async sendMail(
