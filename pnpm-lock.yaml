@@ -79,11 +79,11 @@ devDependencies:
     specifier: 15.2.2
     version: 15.2.2
   nodemailer:
-    specifier: 6.9.10
-    version: 6.9.10
+    specifier: 6.9.11
+    version: 6.9.11
   nodemailer-mock:
     specifier: 2.0.4
-    version: 2.0.4(nodemailer@6.9.10)
+    version: 2.0.4(nodemailer@6.9.11)
   prettier:
     specifier: 3.2.5
     version: 3.2.5
@@ -5800,21 +5800,21 @@ packages:
     resolution: {integrity: sha512-y10wOWt8yZpqXmOgRo77WaHEmhYQYGNA6y421PKsKYWEK8aW+cqAphborZDhqfyKrbZEN92CN1X2KbafY2s7Yw==}
     dev: true
 
-  /nodemailer-mock@2.0.4(nodemailer@6.9.10):
+  /nodemailer-mock@2.0.4(nodemailer@6.9.11):
     resolution: {integrity: sha512-6oP5oV7uPepMtP62FzMK2Og9Flslk+QHyt2sOGId8QWjxRxla8TShbMLNQAYmWYfFeUSkMrv7VqAQMk9yPHsyA==}
     peerDependencies:
       nodemailer: ^6.x
     dependencies:
       debug: 4.3.4
-      nodemailer: 6.9.10
+      nodemailer: 6.9.11
       npm-check-updates: 16.14.12
     transitivePeerDependencies:
       - bluebird
       - supports-color
     dev: true
 
-  /nodemailer@6.9.10:
-    resolution: {integrity: sha512-qtoKfGFhvIFW5kLfrkw2R6Nm6Ur4LNUMykyqu6n9BRKJuyQrqEGwdXXUAbwWEKt33dlWUGXb7rzmJP/p4+O+CA==}
+  /nodemailer@6.9.11:
+    resolution: {integrity: sha512-UiAkgiERuG94kl/3bKfE8o10epvDnl0vokNEtZDPTq9BWzIl6EFT9336SbIT4oaTBD8NmmUTLsQyXHV82eXSWg==}
     engines: {node: '>=6.0.0'}
 
   /nodemailer@6.9.3:
@@ -6379,7 +6379,7 @@ packages:
       fixpack: 4.0.0
       get-port: 5.1.1
       mailparser: 3.6.5
-      nodemailer: 6.9.10
+      nodemailer: 6.9.11
       open: 7.4.2
       p-event: 4.2.0
       p-wait-for: 3.2.0
