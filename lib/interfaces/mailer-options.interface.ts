@@ -60,4 +60,5 @@ export interface MailerOptions {
          */
         open: boolean | { wait: boolean; app: string | string[] };
       }>;
+  verifyTransporters?: boolean;
 }
