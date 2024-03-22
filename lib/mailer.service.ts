@@ -108,8 +108,8 @@ export class MailerService {
 
     // wrap value in a promise to ensure then is always defined
     new Promise(()=>transporter?.verify())
-            ?.then(() => this.mailerLogger.log(`Transporter${transporterName} is ready`))
-            ?.catch((error) => this.mailerLogger.log(`Error occurred while verifying the transporter${transporterName}}: ${error.message}`));
+            .then(() => this.mailerLogger.log(`Transporter${transporterName} is ready`))
+            .catch((error) => this.mailerLogger.log(`Error occurred while verifying the transporter${transporterName}}: ${error.message}`));
   }
 
   public async verifyAllTransporters() {
