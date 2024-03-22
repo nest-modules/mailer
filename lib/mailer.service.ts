@@ -105,10 +105,10 @@ export class MailerService {
 
   private verifyTransporter(transporter: Transporter, name?: string): void {
     const transporterName = name ? ` '${name}'` : '';
-    !transporter.verify ? this.mailerLogger.debug(`Transporter${transporterName} is ready`) :
-      transporter.verify()
-        .then(() => this.mailerLogger.debug(`Transporter${transporterName} is ready`))
-        .catch((error) => this.mailerLogger.error(`Error occurred while verifying the transporter${transporterName}: ${error.message}`));
+     
+    transporter.verify()
+        .?then(() => this.mailerLogger.debug(`Transporter${transporterName} is ready`))
+        .?catch((error) => this.mailerLogger.error(`Error occurred while verifying the transporter${transporterName}: ${error.message}`));
   }
 
   public async verifyAllTransporters() {
