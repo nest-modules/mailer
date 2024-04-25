@@ -25,7 +25,8 @@
     "Juan Echeverry <e.juandav@gmail.com>",
     "Paweł Partyka <partyka95@icloud.com>",
     "Alexandre TITEUX <alexandretiteux@gmail.com>",
-    "Yanarp"
+    "Yanarp",
+    "Joao vitor FREZYN <00001097715413SP@al.educacao.sp.gov.br>" 
   ],
   "scripts": {
     "prebuild": "rimraf dist",
