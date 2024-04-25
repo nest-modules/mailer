@@ -74,7 +74,7 @@
     "@nestjs/testing": "10.3.3",
     "@types/glob": "8.1.0",
     "@types/jest": "29.5.12",
-    "@types/lodash": "4.14.202",
+    "@types/lodash": "4.17.0",
     "@types/nodemailer": "6.4.14",
     "@types/pug": "2.0.10",
     "@typescript-eslint/eslint-plugin": "7.1.0",
