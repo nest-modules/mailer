@@ -56,7 +56,6 @@
   "dependencies": {
     "@css-inline/css-inline": "0.13.0",
     "glob": "10.3.10",
-    "mjml": "4.15.3",
     "preview-email": "3.0.19"
   },
   "optionalDependencies": {
@@ -64,6 +63,7 @@
     "@types/pug": "^2.0.10",
     "ejs": "^3.1.9",
     "handlebars": "^4.7.8",
+    "mjml": "^4.15.3",
     "pug": "^3.0.2"
   },
   "devDependencies": {
@@ -102,6 +102,7 @@
     "@types/pug": ">=2.0.6",
     "ejs": ">=3.1.2",
     "handlebars": ">=4.7.6",
+    "mjml": ">=4.15.3",
     "nodemailer": ">=6.4.6",
     "pug": ">=3.0.1"
   }
