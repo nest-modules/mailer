@@ -25,7 +25,8 @@
     "Juan Echeverry <e.juandav@gmail.com>",
     "Paweł Partyka <partyka95@icloud.com>",
     "Alexandre TITEUX <alexandretiteux@gmail.com>",
-    "Yanarp"
+    "Yanarp",
+    "Joao vitor FREZYN <00001097715413SP@al.educacao.sp.gov.br>" 
   ],
   "scripts": {
     "prebuild": "rimraf dist",
@@ -55,7 +56,6 @@
   "dependencies": {
     "@css-inline/css-inline": "0.13.0",
     "glob": "10.3.10",
-    "mjml": "4.15.3",
     "preview-email": "3.0.19"
   },
   "optionalDependencies": {
@@ -63,6 +63,7 @@
     "@types/pug": "^2.0.10",
     "ejs": "^3.1.9",
     "handlebars": "^4.7.8",
+    "mjml": "^4.15.3",
     "pug": "^3.0.2"
   },
   "devDependencies": {
@@ -73,15 +74,15 @@
     "@nestjs/testing": "10.3.3",
     "@types/glob": "8.1.0",
     "@types/jest": "29.5.12",
-    "@types/lodash": "4.14.202",
+    "@types/lodash": "4.17.0",
     "@types/nodemailer": "6.4.14",
     "@types/pug": "2.0.10",
-    "@typescript-eslint/eslint-plugin": "7.1.0",
-    "@typescript-eslint/parser": "7.1.0",
+    "@typescript-eslint/eslint-plugin": "7.7.1",
+    "@typescript-eslint/parser": "7.7.1",
     "husky": "9.0.11",
     "jest": "29.7.0",
     "lint-staged": "15.2.2",
-    "nodemailer": "6.9.11",
+    "nodemailer": "6.9.13",
     "nodemailer-mock": "2.0.4",
     "prettier": "3.2.5",
     "reflect-metadata": "0.2.1",
@@ -91,7 +92,7 @@
     "ts-jest": "29.1.2",
     "ts-node": "10.9.2",
     "tslib": "2.6.2",
-    "typescript": "5.3.3",
+    "typescript": "5.4.5",
     "yarn-audit-fix": "10.0.7"
   },
   "peerDependencies": {
@@ -101,7 +102,9 @@
     "@types/pug": ">=2.0.6",
     "ejs": ">=3.1.2",
     "handlebars": ">=4.7.6",
+    "mjml": ">=4.15.3",
     "nodemailer": ">=6.4.6",
-    "pug": ">=3.0.1"
+    "pug": ">=3.0.1",
+    "liquidjs": "^10.8.2"
   }
 }

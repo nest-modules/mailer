@@ -34,6 +34,8 @@ npm install --save handlebars
 npm install --save pug
 #or
 npm install --save ejs
+#or
+npm install --save mjml
 ```
 
 #### with yarn
@@ -43,6 +45,8 @@ yarn add handlebars
 yarn add pug
 #or
 yarn add ejs
+#or
+yarn add mjml
 ```
 
 ### Documentation

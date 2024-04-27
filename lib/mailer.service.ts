@@ -90,7 +90,7 @@ export class MailerService {
       Object.keys(mailerOptions.transports).forEach((name) => {
         const transporter = this.transportFactory.createTransport(this.mailerOptions.transports![name])
         this.transporters.set(name, transporter);
-        this.verifyTransporter(transporter, name);
+        if (mailerOptions.verifyTransporters) this.verifyTransporter(transporter, name);
         this.initTemplateAdapter(this.templateAdapter, transporter);
       });
     }
@@ -98,13 +98,14 @@ export class MailerService {
     /** Transporter setup **/
     if (mailerOptions.transport) {
       this.transporter = this.transportFactory.createTransport();
-      this.verifyTransporter(this.transporter);
+      if (mailerOptions.verifyTransporters) this.verifyTransporter(this.transporter);
       this.initTemplateAdapter(this.templateAdapter, this.transporter);
     }
   }
 
   private verifyTransporter(transporter: Transporter, name?: string): void {
     const transporterName = name ? ` '${name}'` : '';
+    if (!transporter.verify) return;
     Promise.resolve(transporter.verify())
       .then(() => this.mailerLogger.debug(`Transporter${transporterName} is ready`))
       .catch((error) => this.mailerLogger.error(`Error occurred while verifying the transporter${transporterName}: ${error.message}`));
@@ -112,7 +113,10 @@ export class MailerService {
 
   public async verifyAllTransporters() {
     const transporters = [...this.transporters.values(), this.transporter];
-    const transportersVerified = await Promise.all(transporters.map(transporter => Promise.resolve(transporter.verify()).then(() => true).catch(() => false)));
+    const transportersVerified = await Promise.all(transporters.map(transporter => {
+      if (!transporter.verify) return true; // Can't verify with nodemailer-sendgrid, so assume it's verified
+      return Promise.resolve(transporter.verify()).then(() => true).catch(() => false);
+    }));
     return transportersVerified.every(verified => verified);
   }
 
