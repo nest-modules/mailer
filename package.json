@@ -54,7 +54,7 @@
     ]
   },
   "dependencies": {
-    "@css-inline/css-inline": "0.13.0",
+    "@css-inline/css-inline": "0.14.0",
     "glob": "10.3.10",
     "preview-email": "3.0.19"
   },
