@@ -2,7 +2,6 @@
 import { get, defaultsDeep } from 'lodash';
 import { Injectable, Inject, Optional, Logger } from '@nestjs/common';
 import { SentMessageInfo, Transporter } from 'nodemailer';
-import * as previewEmail from 'preview-email';
 import * as smtpTransport from 'nodemailer/lib/smtp-transport';
 
 /** Constants **/
@@ -36,13 +35,26 @@ export class MailerService {
         return templateAdapter.compile(mail, callback, this.mailerOptions);
       });
 
-      if (this.mailerOptions.preview) {
-        transporter.use('stream', (mail, callback) => {
+      let previewEmail;
+
+      try {
+        previewEmail = require('preview-email');
+      } catch (err) {
+        this.mailerLogger.warn('preview-email is not installed. This is an optional dependency. Install it if you want to preview emails in the development environment. You can install it using npm (npm install preview-email), yarn (yarn add preview-email), or pnpm (pnpm add preview-email).');
+      }
+
+    if (this.mailerOptions.preview) {
+      transporter.use('stream', (mail, callback) => {
+        if (typeof previewEmail !== 'undefined') {
           return previewEmail(mail.data, this.mailerOptions.preview)
             .then(() => callback())
             .catch(callback);
-        });
-      }
+        } else {
+          this.mailerLogger.warn('previewEmail is not available. Skipping preview.');
+          return callback();
+        }
+      });
+    }
     }
   }
 
@@ -57,15 +69,8 @@ export class MailerService {
     if (!transportFactory) {
       this.transportFactory = new MailerTransportFactory(mailerOptions);
     }
-    if (
-      (!mailerOptions.transport ||
-        Object.keys(mailerOptions.transport).length <= 0) &&
-      !mailerOptions.transports
-    ) {
-      throw new Error(
-        'Make sure to provide a nodemailer transport configuration object, connection url or a transport plugin instance.',
-      );
-    }
+
+    this.validateTransportOptions();
 
     /** Adapter setup **/
     this.templateAdapter = get(
@@ -86,20 +91,38 @@ export class MailerService {
     }
 
     /** Transporters setup **/
-    if (mailerOptions.transports) {
-      Object.keys(mailerOptions.transports).forEach((name) => {
-        const transporter = this.transportFactory.createTransport(this.mailerOptions.transports![name])
+    this.setupTransporters();
+  }
+
+  private validateTransportOptions(): void {
+    if (
+      (!this.mailerOptions.transport ||
+        Object.keys(this.mailerOptions.transport).length <= 0) &&
+      !this.mailerOptions.transports
+    ) {
+      throw new Error(
+        'Make sure to provide a nodemailer transport configuration object, connection url or a transport plugin instance.',
+      );
+    }
+  }
+
+  private createTransporter(config: string | smtpTransport | smtpTransport.Options, name?: string): Transporter {
+    const transporter = this.transportFactory.createTransport(config);
+    if (this.mailerOptions.verifyTransporters) this.verifyTransporter(transporter, name);
+    this.initTemplateAdapter(this.templateAdapter, transporter);
+    return transporter;
+  }
+
+  private setupTransporters(): void {
+    if (this.mailerOptions.transports) {
+      Object.keys(this.mailerOptions.transports).forEach((name) => {
+        const transporter = this.createTransporter(this.mailerOptions.transports![name], name);
         this.transporters.set(name, transporter);
-        if (mailerOptions.verifyTransporters) this.verifyTransporter(transporter, name);
-        this.initTemplateAdapter(this.templateAdapter, transporter);
       });
     }
 
-    /** Transporter setup **/
-    if (mailerOptions.transport) {
-      this.transporter = this.transportFactory.createTransport();
-      if (mailerOptions.verifyTransporters) this.verifyTransporter(this.transporter);
-      this.initTemplateAdapter(this.templateAdapter, this.transporter);
+    if (this.mailerOptions.transport) {
+      this.transporter = this.createTransporter(this.mailerOptions.transport);
     }
   }
 
