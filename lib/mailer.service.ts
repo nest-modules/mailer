@@ -106,8 +106,8 @@ export class MailerService {
   private verifyTransporter(transporter: Transporter, name?: string): void {
     const transporterName = name ? ` '${name}'` : '';
     if (!transporter.verify) return;
-    transporter.verify()
-      .then(() => this.mailerLogger.log(`Transporter${transporterName} is ready`))
+    Promise.resolve(transporter.verify())
+      .then(() => this.mailerLogger.debug(`Transporter${transporterName} is ready`))
       .catch((error) => this.mailerLogger.error(`Error occurred while verifying the transporter${transporterName}: ${error.message}`));
   }
 
@@ -115,7 +115,7 @@ export class MailerService {
     const transporters = [...this.transporters.values(), this.transporter];
     const transportersVerified = await Promise.all(transporters.map(transporter => {
       if (!transporter.verify) return true; // Can't verify with nodemailer-sendgrid, so assume it's verified
-      transporter.verify().catch(() => false);
+      return Promise.resolve(transporter.verify()).then(() => true).catch(() => false);
     }));
     return transportersVerified.every(verified => verified);
   }
