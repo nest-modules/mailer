@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/nest-modules/mailer/compare/v1.11.2...v2.0.0) (2024-04-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* **mailer.service:** The usage of  in  has been refactored. This could potentially alter the way configurations are merged in the application. Update your configurations if necessary to accommodate this change.
+
+### Features
+
+* **mailer.service:** refactor usage of defaultsDeep ([3506885](https://github.com/nest-modules/mailer/commit/350688518e72d1fa347a11c2b1ed84988dbcc55a))
+
 ### [1.11.2](https://github.com/nest-modules/mailer/compare/v1.11.0...v1.11.2) (2024-02-27)
 
 ### [1.11.1](https://github.com/nest-modules/mailer/compare/v1.11.0...v1.11.1) (2024-02-27)
