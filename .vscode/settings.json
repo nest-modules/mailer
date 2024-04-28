@@ -1,0 +1,55 @@
+{
+  "files.exclude": {
+    "**/.git": false,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/.classpath": true,
+    "**/.factorypath": true,
+    "**/.project": true,
+    "**/.settings": true,
+    "dist/": true,
+    "lib/": true,
+    "node_modules/": false,
+    "coverage/": true,
+    "**/node_modules/": false,
+    "**/.turbo": true,
+    "**/dist": true,
+    ".turbo-cache": true,
+    "pruned": true,
+    "**/node_modules": true,
+    "node_modules": true
+  },
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "*.js": "$(capture).js.map, $(capture).min.js, $(capture).d.ts",
+    "*.ts": "$(capture).js, $(capture).*.ts",
+    "package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml, pnpm-workspace.yaml, prettier.config.*,.eslintrc.*,.lintstagedrc.*,.eslintignore, .gitattributes, .editorconfig, .commitlintrc.*, .eslintcache,.gitignore,.npmrc,.prettierignore,.yarnrc.yml, turbo.json, jest.config.*, CODEOWNERS, .prettierrc, .nvmrc, publish.sh, renovate.json",
+  },
+  "explorerExclude.backup": {},
+  "yaml.schemas": {
+    "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json": "untitled:Untitled-1"
+  },
+  "cSpell.words": [
+    "Alexandre",
+    "commitlint",
+    "commitlintrc",
+    "Cristiam",
+    "Díaz",
+    "Echeverry",
+    "Frezyn",
+    "Joao",
+    "Kitijerapat",
+    "liquidjs",
+    "mjml",
+    "nestjs",
+    "Partyka",
+    "Paweł",
+    "Titeux",
+    "vitor",
+    "Wasutan",
+    "Yanarp"
+  ]
+}

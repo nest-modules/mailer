@@ -1,5 +1,18 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
+# environmets
+.env
+.env.local
+.env.development
+.env.test
+.env.staging
+.env.production
+.env.local.*
+.env.development.*
+.env.test.*
+.env.staging.*
+.env.production.*
+
 # compiled output
 /dist
 /tmp

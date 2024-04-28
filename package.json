@@ -24,23 +24,21 @@
     "Eduardo Leal <eduardolleal@icloud.com>",
     "Juan Echeverry <e.juandav@gmail.com>",
     "Paweł Partyka <partyka95@icloud.com>",
-    "Alexandre TITEUX <alexandretiteux@gmail.com>",
+    "Alexandre Titeux <alexandretiteux@gmail.com>",
     "Yanarp",
-    "Joao vitor FREZYN <00001097715413SP@al.educacao.sp.gov.br>"
+    "Joao vitor Frezyn <00001097715413SP@al.educacao.sp.gov.br>"
   ],
   "scripts": {
-    "prebuild": "rimraf dist",
-    "build": "tsc -p tsconfig.json",
+    "clean": "rm -rf node_modules && rm -rf packages/*/node_modules && rm -rf packages/*/dist && rm -rf apps/*/node_modules && rm -rf apps/*/dist",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
     "deploy": "sh ./publish.sh",
-    "format": "prettier **/**/*.ts --ignore-path ./.prettierignore --write",
-    "audit:convert": "yarn-audit-fix --flow=convert",
-    "audit:patch": "yarn-audit-fix --flow=patch",
-    "audit:fix": "npx yarn-audit-fix --package-lock-only=false --force --legacy-peer-deps --flow=convert",
+    "format": "prettier --write \"packages/**/*.ts\"",
     "major": "npm run release -- --release-as major",
     "minor": "npm run release -- --release-as minor",
     "patch": "npm run release -- --release-as patch",
-    "release": "standard-version",
-    "test": "jest"
+    "release": "standard-version"
   },
   "husky": {
     "hooks": {
@@ -52,20 +50,6 @@
     "*.ts": [
       "prettier --write"
     ]
-  },
-  "dependencies": {
-    "@css-inline/css-inline": "0.14.1",
-    "glob": "10.3.12"
-  },
-  "optionalDependencies": {
-    "@types/ejs": "^3.1.5",
-    "@types/pug": "^2.0.10",
-    "@types/mjml": "^4.7.4",
-    "ejs": "^3.1.10",
-    "handlebars": "^4.7.8",
-    "mjml": "^4.15.3",
-    "pug": "^3.0.2",
-    "liquidjs": "^10.11.1"
   },
   "devDependencies": {
     "@commitlint/cli": "19.3.0",
@@ -96,18 +80,5 @@
     "tslib": "2.6.2",
     "typescript": "5.4.5",
     "yarn-audit-fix": "10.0.7"
-  },
-  "peerDependencies": {
-    "@nestjs/common": ">=7.0.9",
-    "@nestjs/core": ">=7.0.9",
-    "@types/ejs": ">=3.0.3",
-    "@types/pug": ">=2.0.6",
-    "@types/mjml": ">=4.7.4",
-    "nodemailer": ">=6.4.6",
-    "ejs": ">=3.1.2",
-    "handlebars": ">=4.7.6",
-    "mjml": ">=4.15.3",
-    "pug": ">=3.0.1",
-    "liquidjs": ">=10.8.2"
   }
 }

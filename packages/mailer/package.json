@@ -1,0 +1,75 @@
+{
+  "name": "@nestjs-modules/mailer",
+  "version": "2.0.0",
+  "private": false,
+  "description": "NestJS - a mailer module (@mailer)",
+  "keywords": [
+    "nest",
+    "nodemailer",
+    "mailer",
+    "nodejs"
+  ],
+  "homepage": "https://github.com/nest-modules/mailer#readme",
+  "bugs": {
+    "url": "https://github.com/nest-modules/mailer/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nest-modules/mailer.git"
+  },
+  "license": "MIT",
+  "author": "Nest Modules TM",
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "tsc -p tsconfig.json",
+    "deploy": "sh ./publish.sh",
+    "format": "prettier **/**/*.ts --ignore-path ./.prettierignore --write",
+    "audit:convert": "yarn-audit-fix --flow=convert",
+    "audit:patch": "yarn-audit-fix --flow=patch",
+    "audit:fix": "npx yarn-audit-fix --package-lock-only=false --force --legacy-peer-deps --flow=convert",
+    "major": "npm run release -- --release-as major",
+    "minor": "npm run release -- --release-as minor",
+    "patch": "npm run release -- --release-as patch",
+    "release": "standard-version",
+    "test": "jest"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -c .commitlintrc.json -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "lint-staged": {
+    "*.ts": [
+      "prettier --write"
+    ]
+  },
+  "dependencies": {
+    "@css-inline/css-inline": "0.14.1",
+    "glob": "10.3.12"
+  },
+  "optionalDependencies": {
+    "@types/ejs": "^3.1.5",
+    "@types/mjml": "^4.7.4",
+    "@types/pug": "^2.0.10",
+    "ejs": "^3.1.10",
+    "handlebars": "^4.7.8",
+    "liquidjs": "^10.11.1",
+    "mjml": "^4.15.3",
+    "pug": "^3.0.2"
+  },
+  "peerDependencies": {
+    "@nestjs/common": ">=7.0.9",
+    "@nestjs/core": ">=7.0.9",
+    "@types/ejs": ">=3.0.3",
+    "@types/mjml": ">=4.7.4",
+    "@types/pug": ">=2.0.6",
+    "ejs": ">=3.1.2",
+    "handlebars": ">=4.7.6",
+    "liquidjs": ">=10.8.2",
+    "lodash": ">=4.17.21",
+    "mjml": ">=4.15.3",
+    "nodemailer": ">=6.4.6",
+    "pug": ">=3.0.1"
+  }
+}
