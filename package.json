@@ -65,7 +65,8 @@
     "handlebars": "^4.7.8",
     "mjml": "^4.15.3",
     "pug": "^3.0.2",
-    "liquidjs": "^10.11.1"
+    "liquidjs": "^10.11.1",
+    "preview-email": "^3.0.19"
   },
   "devDependencies": {
     "@commitlint/cli": "19.3.0",
@@ -108,6 +109,7 @@
     "handlebars": ">=4.7.6",
     "mjml": ">=4.15.3",
     "pug": ">=3.0.1",
-    "liquidjs": ">=10.8.2"
+    "liquidjs": ">=10.8.2",
+    "preview-email": ">=3.0.19"
   }
 }
