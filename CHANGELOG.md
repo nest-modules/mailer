@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.2](https://github.com/nest-modules/mailer/compare/v2.0.1...v2.0.2) (2024-04-30)
+
+
+### Bug Fixes
+
+* preview-email ([4280d29](https://github.com/nest-modules/mailer/commit/4280d29abfe78c37957d3751c1249b9807642e79))
+
 ### [2.0.1](https://github.com/nest-modules/mailer/compare/v2.0.0...v2.0.1) (2024-04-30)
 
 ## [2.0.0](https://github.com/nest-modules/mailer/compare/v1.11.2...v2.0.0) (2024-04-27)
