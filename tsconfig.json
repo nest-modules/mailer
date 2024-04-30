@@ -10,9 +10,9 @@
     "noLib": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "esModuleInterop": true,
     "target": "es6",
     "sourceMap": false,
-    "outDir": "./dist",
     "lib": ["es7", "DOM"]
   },
   "exclude": ["node_modules", "**/*.spec.ts"]

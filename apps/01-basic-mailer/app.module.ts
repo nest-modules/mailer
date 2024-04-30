@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 import { Module } from '@nestjs/common';
-import { MailerModule } from '@nestjs-modules/mailer/mailer.module';
+import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/adapters/handlebars.adapter';
 
 import { AppController } from './app.controller';

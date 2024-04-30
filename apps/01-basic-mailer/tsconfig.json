@@ -1,9 +1,9 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "rootDir": ".",
-    "outDir": "./dist"
+    "outDir": "dist",
   },
-  "include": ["**/*"],
-  "exclude": ["node_modules", "**/*.spec.ts"]
+  "include": ["**/*.ts", "node_modules/**/*.d.ts"],
+  "exclude": ["node_modules", ".turbo", "dist", "**/*.spec.ts"],
+  "moduleResolution": "node"
 }

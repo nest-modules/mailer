@@ -3,6 +3,23 @@
   "version": "2.0.0",
   "private": false,
   "description": "NestJS - a mailer module (@mailer)",
+  "author": "Nest Modules TM",
+  "types": "dist/index.d.ts",
+  "main": "index.ts",
+  "scripts": {
+    "tsc": "tsc -p tsconfig.json",
+    "build": "tsup",
+    "deploy": "sh ./publish.sh",
+    "format": "prettier **/**/*.ts --ignore-path ./.prettierignore --write",
+    "audit:convert": "yarn-audit-fix --flow=convert",
+    "audit:patch": "yarn-audit-fix --flow=patch",
+    "audit:fix": "npx yarn-audit-fix --package-lock-only=false --force --legacy-peer-deps --flow=convert",
+    "major": "npm run release -- --release-as major",
+    "minor": "npm run release -- --release-as minor",
+    "patch": "npm run release -- --release-as patch",
+    "release": "standard-version",
+    "test": "jest"
+  },
   "keywords": [
     "nest",
     "nodemailer",
@@ -18,21 +35,6 @@
     "url": "git+https://github.com/nest-modules/mailer.git"
   },
   "license": "MIT",
-  "author": "Nest Modules TM",
-  "scripts": {
-    "prebuild": "rimraf dist",
-    "build": "tsc -p tsconfig.json",
-    "deploy": "sh ./publish.sh",
-    "format": "prettier **/**/*.ts --ignore-path ./.prettierignore --write",
-    "audit:convert": "yarn-audit-fix --flow=convert",
-    "audit:patch": "yarn-audit-fix --flow=patch",
-    "audit:fix": "npx yarn-audit-fix --package-lock-only=false --force --legacy-peer-deps --flow=convert",
-    "major": "npm run release -- --release-as major",
-    "minor": "npm run release -- --release-as minor",
-    "patch": "npm run release -- --release-as patch",
-    "release": "standard-version",
-    "test": "jest"
-  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
@@ -71,5 +73,9 @@
     "mjml": ">=4.15.3",
     "nodemailer": ">=6.4.6",
     "pug": ">=3.0.1"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "10.3.2",
+    "tsup": "8.0.2"
   }
 }
