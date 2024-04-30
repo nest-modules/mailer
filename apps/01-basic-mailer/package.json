@@ -1,0 +1,30 @@
+{
+  "name": "@nestjs-modules/01-basic-mailer",
+  "version": "0.0.1",
+  "description": "Nestjs mailer module sample implementation",
+  "author": "Juandav <e.juandav@gmail.com>",
+  "types": "dist/index.d.ts",
+  "main": "index.ts",
+  "scripts": {
+    "tsc": "tsc -p tsconfig.json",
+    "build": "tsup",
+    "dev": "nest start --watch",
+    "debug": "nest start --debug --watch",
+    "start": "nest start"
+  },
+  "dependencies": {
+    "@nestjs-modules/mailer": "workspace:*",
+    "@nestjs/common": "10.3.8",
+    "@nestjs/core": "10.3.8",
+    "@nestjs/platform-express": "10.3.8",
+    "dotenv": "16.4.5",
+    "nodemailer": "6.9.13",
+    "reflect-metadata": "0.2.2",
+    "rimraf": "5.0.5",
+    "rxjs": "7.8.1"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "10.3.2",
+    "tsup": "8.0.2"
+  }
+}

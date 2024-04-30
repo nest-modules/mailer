@@ -1,21 +1,21 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "allowSyntheticDefaultImports": true,
+    "target": "ES2017",
+    "module": "CommonJS",
+    "lib": ["ESNext"],
     "declaration": true,
-    "noImplicitAny": false,
-    "noUnusedLocals": false,
-    "importHelpers": true,
-    "removeComments": true,
-    "noLib": false,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "target": "es6",
-    "sourceMap": false,
     "outDir": "./dist",
-    "rootDir": "./lib",
-    "lib": ["es7", "DOM"]
+    "rootDir": ".",
+    "strict": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true
   },
-  "include": ["lib/**/*"],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }

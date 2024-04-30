@@ -1,14 +1,31 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
-# compiled output
-/dist
+# Environments
+.env
+.env.local
+.env.development
+.env.test
+.env.staging
+.env.production
+.env.local.*
+.env.development.*
+.env.test.*
+.env.staging.*
+.env.production.*
+
+# Compiled output
+**/dist
 /tmp
 /out-tsc
 
-# dependencies
-/node_modules
+# Dependencies
+**/node_modules
+.pnpm
 
-# profiling files
+# TurboRepo
+.turbo
+
+# Profiling files
 chrome-profiler-events.json
 speed-measure-plugin.json
 
@@ -28,7 +45,7 @@ speed-measure-plugin.json
 !.vscode/launch.json
 !.vscode/extensions.json
 
-# misc
+# Misc
 /.sass-cache
 /connect.lock
 /coverage
@@ -50,3 +67,6 @@ website/build/
 website/yarn.lock
 website/node_modules
 website/i18n/*
+
+# Logs
+*.log

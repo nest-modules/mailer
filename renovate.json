@@ -2,7 +2,7 @@
   "semanticCommits": true,
   "packageRules": [{
     "depTypeList": ["devDependencies"],
-    "automerge": true
+    "automate": true
   }],
   "extends": [
     "config:base"

@@ -1,3 +1,6 @@
+<!-- markdownlint-disable no-inline-html -->
+<!-- markdownlint-disable first-line-heading -->
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank">
     <img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" />
@@ -18,6 +21,9 @@
 ### Installation
 
 ```sh
+pnpm add @nestjs-modules/mailer nodemailer
+pnpm add -D @types/nodemailer
+#or
 npm install --save @nestjs-modules/mailer nodemailer
 npm install --save-dev @types/nodemailer
 #or
@@ -27,7 +33,20 @@ yarn add -D @types/nodemailer
 
 **Hint:** handlebars and pug is an optional dependency, if you want to use the template, you must install it.
 
+#### with pnpm
+
+```sh
+pnpm i handlebars
+#or
+pnpm i pug
+#or
+pnpm i ejs
+#or
+pnpm i mjml
+```
+
 #### with npm
+
 ```sh
 npm install --save handlebars
 #or
@@ -39,6 +58,7 @@ npm install --save mjml
 ```
 
 #### with yarn
+
 ```sh
 yarn add handlebars
 #or
@@ -59,13 +79,13 @@ you can find all the documentation [here](https://nest-modules.github.io/mailer/
 
 ### Contributing
 
-* [Cristiam Diaz](https://github.com/cdiaz)
-* [Eduardo Leal](https://github.com/eduardoleal)
-* [Juan Echeverry](https://github.com/juandav)
-* [Pat McGowan](https://github.com/p-mcgowan)
-* [Paweł Partyka](https://github.com/partyka95)
-* [Wasutan Kitijerapat](https://github.com/kitimark)
-* [Alexandre Titeux](https://github.com/GFoniX)
+- [Cristiam Diaz](https://github.com/cdiaz)
+- [Eduardo Leal](https://github.com/eduardoleal)
+- [Juan Echeverry](https://github.com/juandav)
+- [Pat McGowan](https://github.com/p-mcgowan)
+- [Paweł Partyka](https://github.com/partyka95)
+- [Wasutan Kitijerapat](https://github.com/kitimark)
+- [Alexandre Titeux](https://github.com/GFoniX)
 
 ### License
 
