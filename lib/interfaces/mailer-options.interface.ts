@@ -33,7 +33,7 @@ export interface MailerOptions {
   defaults?: Options;
   transport?: TransportType;
   transports?: {
-    [name: string]: SMTPTransport | SMTPTransport.Options | string;
+    [name: string]: TransportType;
   };
   template?: {
     dir?: string;
