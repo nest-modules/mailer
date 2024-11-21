@@ -63,7 +63,7 @@
     "@types/mjml": "^4.7.4",
     "ejs": "^3.1.10",
     "handlebars": "^4.7.8",
-    "mjml": "^4.15.3",
+    "mjml": "^5.0.0-alpha.4",
     "pug": "^3.0.2",
     "liquidjs": "^10.11.1",
     "preview-email": "^3.0.19"
