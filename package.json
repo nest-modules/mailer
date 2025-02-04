@@ -54,7 +54,7 @@
     ]
   },
   "dependencies": {
-    "@css-inline/css-inline": "0.14.1",
+    "@css-inline/css-inline": "0.14.3",
     "glob": "10.3.12"
   },
   "optionalDependencies": {
