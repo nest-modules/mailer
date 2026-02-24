@@ -8,7 +8,6 @@ import {
 import { get } from 'lodash';
 import * as fs from 'fs';
 import * as path from 'path';
-import { inline } from '@css-inline/css-inline';
 
 /** Interfaces **/
 import { MailerOptions } from '../interfaces/mailer-options.interface';
@@ -60,6 +59,7 @@ export class EjsAdapter implements TemplateAdapter {
     const render = (html: string) => {
       if (this.config.inlineCssEnabled) {
         try {
+          const { inline } = require('@css-inline/css-inline');
           mail.data.html = inline(html, this.config.inlineCssOptions);
         } catch (e) {
           callback(e);

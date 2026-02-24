@@ -111,5 +111,34 @@
     "pug": ">=3.0.1",
     "liquidjs": ">=10.8.2",
     "preview-email": ">=3.0.19"
+  },
+  "peerDependenciesMeta": {
+    "@types/ejs": {
+      "optional": true
+    },
+    "@types/pug": {
+      "optional": true
+    },
+    "@types/mjml": {
+      "optional": true
+    },
+    "ejs": {
+      "optional": true
+    },
+    "handlebars": {
+      "optional": true
+    },
+    "mjml": {
+      "optional": true
+    },
+    "pug": {
+      "optional": true
+    },
+    "liquidjs": {
+      "optional": true
+    },
+    "preview-email": {
+      "optional": true
+    }
   }
 }

@@ -2,7 +2,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as handlebars from 'handlebars';
-import { inline } from '@css-inline/css-inline';
 import * as glob from 'glob';
 import { get } from 'lodash';
 import { HelperDeclareSpec } from 'handlebars';
@@ -110,6 +109,7 @@ export class HandlebarsAdapter implements TemplateAdapter {
 
     if (this.config.inlineCssEnabled) {
       try {
+        const { inline } = require('@css-inline/css-inline');
         mail.data.html = inline(rendered, this.config.inlineCssOptions);
       } catch (e) {
         callback(e);

@@ -2,7 +2,6 @@
 import * as path from 'path';
 import { get } from 'lodash';
 import { renderFile } from 'pug';
-import { inline } from '@css-inline/css-inline';
 
 /** Interfaces **/
 import { MailerOptions } from '../interfaces/mailer-options.interface';
@@ -43,6 +42,7 @@ export class PugAdapter implements TemplateAdapter {
 
       if (this.config.inlineCssEnabled) {
         try {
+          const { inline } = require('@css-inline/css-inline');
           mail.data.html = inline(body, this.config.inlineCssOptions);
         } catch (e) {
           callback(e);

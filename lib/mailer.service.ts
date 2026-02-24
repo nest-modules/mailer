@@ -130,7 +130,7 @@ export class MailerService {
     const transporterName = name ? ` '${name}'` : '';
     if (!transporter.verify) return;
     Promise.resolve(transporter.verify())
-      .then(() => this.mailerLogger.debug(`Transporter${transporterName} is ready`))
+      .then(() => this.mailerLogger.log(`Transporter${transporterName} is ready`))
       .catch((error) => this.mailerLogger.error(`Error occurred while verifying the transporter${transporterName}: ${error.message}`));
   }
 
@@ -171,9 +171,8 @@ export class MailerService {
   addTransporter(transporterName: string, config: string | smtpTransport | smtpTransport.Options): string {
     this.transporters.set(
       transporterName,
-      this.transportFactory.createTransport(config),
+      this.createTransporter(config, transporterName),
     );
-    this.initTemplateAdapter(this.templateAdapter, this.transporters.get(transporterName)!);
     return transporterName;
   }
 }

@@ -487,7 +487,11 @@ Use `.pug`, `.ejs` or `.hbs` depending on the template engine you use:
 
 You can use [mjml](https://mjml.io/) to create responsive emails with the `MjmlAdapter` adapter. The templates themselves still need to be pre-rendered with pug, handlebars or ejs.
 
-For all 3 template engines you have to use the `inlineCssEnabled` option to disable css inlining. For handlebars you also have to pass in a helpers object to the `handlebar` option.
+**Important:** When using MJML, you **must** set `inlineCssEnabled: false` in the adapter config. This is because MJML handles its own CSS inlining internally, and having both MJML and the `@css-inline/css-inline` module process the HTML would result in duplicated or broken styles.
+
+For handlebars you also have to pass in a helpers object to the `handlebar` option.
+
+> **Note:** Handlebars partials can be used with MJML by configuring the `options.partials` setting in `MailerOptions`. However, the partials must be valid MJML markup since MJML will process the final compiled output.
 
 <!--DOCUSAURUS_CODE_TABS-->
 <!--Pug-->
