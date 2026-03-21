@@ -64,3 +64,23 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create GitHub Release
+        if: steps.changesets.outputs.published == 'true'
+        run: |
+          PACKAGES='${{ steps.changesets.outputs.publishedPackages }}'
+          echo "$PACKAGES" | jq -c '.[]' | while read -r pkg; do
+            NAME=$(echo "$pkg" | jq -r '.name')
+            VERSION=$(echo "$pkg" | jq -r '.version')
+            TAG="v${VERSION}"
+
+            git tag "$TAG" || true
+            git push origin "$TAG" || true
+
+            gh release create "$TAG" \
+              --title "$TAG" \
+              --generate-notes \
+              --latest || echo "Release $TAG already exists"
+          done
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
