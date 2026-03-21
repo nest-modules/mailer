@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.1.5
+
+### Patch Changes
+
+- Auto-release patch version with latest changes.
+
 ## 2.1.4
 
 ### Patch Changes
