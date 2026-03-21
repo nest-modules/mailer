@@ -1,10 +1,14 @@
+import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { inline } from '@css-inline/css-inline';
 import { MailerOptions, TemplateAdapter } from '@nestjs-modules/mailer';
-import { TwingEnvironment, TwingLoaderFilesystem, TwingTemplate } from 'twing';
+import {
+  createEnvironment,
+  createFilesystemLoader,
+  type TwingEnvironment,
+} from 'twing';
 
 export class TwingAdapter implements TemplateAdapter {
-  private precompiledTemplates: Map<string, TwingTemplate> = new Map();
+  private environments: Map<string, TwingEnvironment> = new Map();
 
   compile(
     mail: any,
@@ -15,30 +19,22 @@ export class TwingAdapter implements TemplateAdapter {
     const templateName = path.basename(mail.data.template, templateExt);
     const templateDir =
       options.template?.dir ?? path.dirname(mail.data.template);
-    const loader = new TwingLoaderFilesystem(templateDir);
-    const twing = new TwingEnvironment(loader);
 
-    this.renderTemplate(twing, templateName + templateExt, mail.data.context)
+    if (!this.environments.has(templateDir)) {
+      const loader = createFilesystemLoader(fs);
+      loader.addPath(templateDir);
+      const env = createEnvironment(loader);
+      this.environments.set(templateDir, env);
+    }
+
+    const env = this.environments.get(templateDir)!;
+
+    env
+      .render(templateName + templateExt, mail.data.context || {})
       .then((html) => {
         mail.data.html = html;
-
         return callback();
       })
       .catch(callback);
-  }
-
-  private async renderTemplate(
-    twing: TwingEnvironment,
-    template: string,
-    context: Record<string, any>,
-  ): Promise<string> {
-    if (!this.precompiledTemplates.has(template))
-      this.precompiledTemplates.set(template, await twing.load(template));
-
-    const rendered = await this.precompiledTemplates
-      .get(template)
-      .render(context);
-
-    return inline(rendered, {});
   }
 }
