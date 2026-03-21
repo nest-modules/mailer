@@ -11,12 +11,15 @@
     "lint": "turbo run lint",
     "check": "turbo run check",
     "format": "biome format --write .",
-    "check:fix": "biome check --write ."
+    "check:fix": "biome check --write .",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "turbo run build --filter=@nestjs-modules/mailer && changeset publish"
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.8",
-    "@commitlint/cli": "20.5.0",
-    "@commitlint/config-angular": "20.5.0",
+    "@changesets/changelog-github": "^0.6.0",
+    "@changesets/cli": "^2.30.0",
     "turbo": "2.8.20"
   }
 }

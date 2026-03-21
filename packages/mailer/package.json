@@ -32,7 +32,9 @@
   },
   "typesVersions": {
     "*": {
-      "adapters/*": ["./dist/adapters/*"]
+      "adapters/*": [
+        "./dist/adapters/*"
+      ]
     }
   },
   "author": "Nest Modules TM",
@@ -48,12 +50,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "tsc -p tsconfig.json",
-    "deploy": "sh ./publish.sh",
     "check": "biome check .",
-    "major": "pnpm run release -- --release-as major",
-    "minor": "pnpm run release -- --release-as minor",
-    "patch": "pnpm run release -- --release-as patch",
-    "release": "standard-version",
     "test": "jest"
   },
   "dependencies": {
@@ -88,7 +85,6 @@
     "reflect-metadata": "0.2.2",
     "rimraf": "6.1.3",
     "rxjs": "7.8.2",
-    "standard-version": "9.5.0",
     "ts-jest": "29.4.6",
     "ts-node": "10.9.2",
     "typescript": "5.9.3"
