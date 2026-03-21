@@ -38,14 +38,17 @@ jobs:
       - name: Run tests
         run: pnpm run test --filter=@nestjs-modules/mailer
 
-      - name: Create Release Pull Request or Publish
+      - name: Create Release Pull Request
         id: changesets
         uses: changesets/action@v1
         with:
-          publish: pnpm run release
           version: pnpm run version-packages
           title: 'chore(release): version packages'
           commit: 'chore(release): version packages'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_CONFIG_PROVENANCE: true
+
+      - name: Publish to npm
+        if: steps.changesets.outputs.hasChangesets == 'false'
+        working-directory: packages/mailer
+        run: npm publish --provenance --access public
