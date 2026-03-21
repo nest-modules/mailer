@@ -1,20 +1,30 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, Optional } from '@nestjs/common';
+import { MAILER_OPTIONS } from './constants/mailer.constant';
 import {
   BatchItemResult,
   BatchMailOptions,
   BatchResult,
 } from './interfaces/batch-options.interface';
+import { MailerOptions } from './interfaces/mailer-options.interface';
+import { ISendMailOptions } from './interfaces/send-mail-options.interface';
 import { MailerService } from './mailer.service';
 
 /**
- * Service for sending emails in batches with concurrency control.
+ * Service for sending emails in batches with concurrency control and rate limiting.
  */
 @Injectable()
 export class MailerBatchService {
-  constructor(private readonly mailerService: MailerService) {}
+  private sendTimestamps: number[] = [];
+
+  constructor(
+    private readonly mailerService: MailerService,
+    @Optional()
+    @Inject(MAILER_OPTIONS)
+    private readonly mailerOptions?: MailerOptions,
+  ) {}
 
   /**
-   * Send multiple emails with concurrency control.
+   * Send multiple emails with concurrency control and optional rate limiting.
    */
   async sendBatch(options: BatchMailOptions): Promise<BatchResult> {
     const { messages, concurrency = 5, stopOnError = false } = options;
@@ -36,6 +46,9 @@ export class MailerBatchService {
         failed++;
         continue;
       }
+
+      // Feature 8: Rate limiting
+      await this.waitForRateLimit();
 
       const task = this.sendOne(messages[i], i).then((result) => {
         results.push(result);
@@ -70,8 +83,35 @@ export class MailerBatchService {
     };
   }
 
+  /** Rate-limit aware wait */
+  private async waitForRateLimit(): Promise<void> {
+    const rateLimit = this.mailerOptions?.rateLimit;
+    if (!rateLimit) return;
+
+    const period = rateLimit.period || 1000;
+    const now = Date.now();
+
+    // Remove timestamps outside the current window
+    this.sendTimestamps = this.sendTimestamps.filter((t) => now - t < period);
+
+    if (this.sendTimestamps.length >= rateLimit.maxMessages) {
+      const oldestInWindow = this.sendTimestamps[0];
+      const waitTime = period - (now - oldestInWindow);
+      if (waitTime > 0) {
+        await new Promise((resolve) => setTimeout(resolve, waitTime));
+      }
+      // Clean up again after waiting
+      const newNow = Date.now();
+      this.sendTimestamps = this.sendTimestamps.filter(
+        (t) => newNow - t < period,
+      );
+    }
+
+    this.sendTimestamps.push(Date.now());
+  }
+
   private async sendOne(
-    mailOptions: any,
+    mailOptions: ISendMailOptions,
     index: number,
   ): Promise<BatchItemResult> {
     try {

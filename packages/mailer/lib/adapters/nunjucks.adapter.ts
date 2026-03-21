@@ -24,11 +24,7 @@ export class NunjucksAdapter implements TemplateAdapter {
     Object.assign(this.config, config);
   }
 
-  public compile(
-    mail: any,
-    callback: any,
-    mailerOptions: MailerOptions,
-  ): void {
+  public compile(mail: any, callback: any, mailerOptions: MailerOptions): void {
     const { context, template } = mail.data;
     const templateBaseDir = get(mailerOptions, 'template.dir', '');
     const templateExt = path.extname(template) || '.njk';

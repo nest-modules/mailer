@@ -38,10 +38,29 @@ export class EjsAdapter implements TemplateAdapter {
     const templateDir = path.isAbsolute(template)
       ? path.dirname(template)
       : path.join(templateBaseDir, path.dirname(template));
-    const templatePath = path.join(templateDir, templateName + templateExt);
+    let templatePath = path.join(templateDir, templateName + templateExt);
     templateName = path
       .relative(templateBaseDir, templatePath)
       .replace(templateExt, '');
+
+    // Feature 10: Search in additional template directories
+    if (!fs.existsSync(templatePath) && mailerOptions.template?.dirs) {
+      for (const dir of mailerOptions.template.dirs) {
+        const altPath = path.join(
+          dir,
+          path.dirname(template),
+          path.basename(template, path.extname(template)) + templateExt,
+        );
+        if (fs.existsSync(altPath)) {
+          templatePath = path.join(
+            dir,
+            path.dirname(template),
+            templateName + templateExt,
+          );
+          break;
+        }
+      }
+    }
 
     if (!this.precompiledTemplates[templateName]) {
       try {
@@ -59,6 +78,9 @@ export class EjsAdapter implements TemplateAdapter {
     const rendered = this.precompiledTemplates[templateName](context);
 
     const render = (html: string) => {
+      // Feature 16: Resolve external CSS <link> tags
+      html = this.resolveExternalCss(html, mailerOptions);
+
       if (this.config.inlineCssEnabled) {
         try {
           mail.data.html = inline(html, this.config.inlineCssOptions);
@@ -76,5 +98,35 @@ export class EjsAdapter implements TemplateAdapter {
     } else {
       rendered.then(render);
     }
+  }
+
+  private resolveExternalCss(
+    html: string,
+    mailerOptions: MailerOptions,
+  ): string {
+    const baseDir =
+      this.config.cssBaseUrl || get(mailerOptions, 'template.dir', '');
+
+    if (!baseDir) return html;
+
+    return html.replace(
+      /<link\s+[^>]*rel=["']stylesheet["'][^>]*href=["']([^"']+)["'][^>]*\/?>/gi,
+      (match, href) => {
+        if (
+          href.startsWith('http://') ||
+          href.startsWith('https://') ||
+          href.startsWith('//')
+        ) {
+          return match;
+        }
+        const cssPath = path.resolve(baseDir, href);
+        try {
+          const cssContent = fs.readFileSync(cssPath, 'utf-8');
+          return `<style>${cssContent}</style>`;
+        } catch {
+          return match;
+        }
+      },
+    );
   }
 }

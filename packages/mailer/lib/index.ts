@@ -1,43 +1,49 @@
 /** Modules **/
-export { MailerModule } from './mailer.module';
-export { MailerQueueModule } from './mailer-queue.module';
 
 /** Constants **/
 export {
   MAILER_OPTIONS,
-  MAILER_TRANSPORT_FACTORY,
-  MAILER_TEMPLATE_RESOLVER,
   MAILER_QUEUE_OPTIONS,
+  MAILER_TEMPLATE_RESOLVER,
+  MAILER_TRANSPORT_FACTORY,
 } from './constants/mailer.constant';
-
-/** Interfaces **/
-export { MailerOptions } from './interfaces/mailer-options.interface';
-export { MailerOptionsFactory } from './interfaces/mailer-options-factory.interface';
-export { MailerTransportFactory } from './interfaces/mailer-transport-factory.interface';
-export { ISendMailOptions } from './interfaces/send-mail-options.interface';
-export { TemplateAdapter } from './interfaces/template-adapter.interface';
-export { TemplateAdapterConfig } from './interfaces/template-adapter-config.interface';
+/** Health **/
+export { MailerHealthIndicator } from './health/mailer.health-indicator';
 export {
-  TemplateResolver,
-  ResolvedTemplate,
-} from './interfaces/template-resolver.interface';
+  BatchItemResult,
+  BatchMailOptions,
+  BatchResult,
+} from './interfaces/batch-options.interface';
 export { I18nOptions } from './interfaces/i18n-options.interface';
 export {
   MailerEvent,
   MailerEventPayload,
 } from './interfaces/mailer-events.interface';
+/** Interfaces **/
 export {
-  BatchMailOptions,
-  BatchResult,
-  BatchItemResult,
-} from './interfaces/batch-options.interface';
+  MailerOptions,
+  MailerPlugin,
+  RateLimitOptions,
+} from './interfaces/mailer-options.interface';
+export { MailerOptionsFactory } from './interfaces/mailer-options-factory.interface';
+export { MailerTransportFactory } from './interfaces/mailer-transport-factory.interface';
 export { MailerQueueOptions } from './interfaces/queue-options.interface';
-
+export {
+  DsnOptions,
+  ICalOptions,
+  ISendMailOptions,
+} from './interfaces/send-mail-options.interface';
+export { TemplateAdapter } from './interfaces/template-adapter.interface';
+export { TemplateAdapterConfig } from './interfaces/template-adapter-config.interface';
+export {
+  ResolvedTemplate,
+  TemplateResolver,
+} from './interfaces/template-resolver.interface';
+export { MailerModule } from './mailer.module';
 /** Services **/
 export { MailerService } from './mailer.service';
 export { MailerBatchService } from './mailer-batch.service';
 export { MailerEventService } from './mailer-event.service';
+export { MailerQueueModule } from './mailer-queue.module';
 export { MailerQueueService } from './mailer-queue.service';
-
-/** Health **/
-export { MailerHealthIndicator } from './health/mailer.health-indicator';
+export { MailerTestModule } from './testing/mailer-test.module';

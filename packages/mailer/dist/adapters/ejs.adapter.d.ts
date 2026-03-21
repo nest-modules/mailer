@@ -6,4 +6,5 @@ export declare class EjsAdapter implements TemplateAdapter {
     private config;
     constructor(config?: TemplateAdapterConfig);
     compile(mail: any, callback: any, mailerOptions: MailerOptions): void;
+    private resolveExternalCss;
 }

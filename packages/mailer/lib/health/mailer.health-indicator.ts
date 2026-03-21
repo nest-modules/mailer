@@ -1,6 +1,6 @@
 import { Injectable, Optional } from '@nestjs/common';
-import { MailerQueueService } from '../mailer-queue.service';
 import { MailerService } from '../mailer.service';
+import { MailerQueueService } from '../mailer-queue.service';
 
 /**
  * Health indicator for @nestjs/terminus.

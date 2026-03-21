@@ -1,10 +1,15 @@
-import { Injectable, Logger, OnModuleInit, Optional } from '@nestjs/common';
-import { Inject } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  Logger,
+  OnModuleInit,
+  Optional,
+} from '@nestjs/common';
 import { MAILER_QUEUE_OPTIONS } from './constants/mailer.constant';
 import { MailerEvent } from './interfaces/mailer-events.interface';
 import { MailerQueueOptions } from './interfaces/queue-options.interface';
-import { MailerEventService } from './mailer-event.service';
 import { MailerService } from './mailer.service';
+import { MailerEventService } from './mailer-event.service';
 
 /**
  * BullMQ worker that processes queued emails.
@@ -38,9 +43,7 @@ export class MailerQueueProcessor implements OnModuleInit {
       );
 
       this.worker.on('failed', (job: any, error: Error) => {
-        this.logger.error(
-          `Email job ${job?.id} failed: ${error.message}`,
-        );
+        this.logger.error(`Email job ${job?.id} failed: ${error.message}`);
         this.eventService?.emit(MailerEvent.QUEUE_FAILED, {
           mailOptions: job?.data,
           error,

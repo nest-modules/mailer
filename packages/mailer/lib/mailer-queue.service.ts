@@ -1,4 +1,11 @@
-import { Inject, Injectable, Logger, OnModuleDestroy, OnModuleInit, Optional } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  Logger,
+  OnModuleDestroy,
+  OnModuleInit,
+  Optional,
+} from '@nestjs/common';
 import { MAILER_QUEUE_OPTIONS } from './constants/mailer.constant';
 import { MailerEvent } from './interfaces/mailer-events.interface';
 import { MailerQueueOptions } from './interfaces/queue-options.interface';

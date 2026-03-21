@@ -1,7 +1,5 @@
 import { DynamicModule, Module, Provider } from '@nestjs/common';
-import {
-  MAILER_QUEUE_OPTIONS,
-} from './constants/mailer.constant';
+import { MAILER_QUEUE_OPTIONS } from './constants/mailer.constant';
 import { MailerQueueOptions } from './interfaces/queue-options.interface';
 import { MailerQueueProcessor } from './mailer-queue.processor';
 import { MailerQueueService } from './mailer-queue.service';

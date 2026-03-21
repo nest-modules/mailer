@@ -5,18 +5,16 @@ import { ValueProvider } from '@nestjs/common/interfaces';
 
 /** Constants **/
 import { MAILER_OPTIONS } from './constants/mailer.constant';
+/** Health **/
+import { MailerHealthIndicator } from './health/mailer.health-indicator';
 import { MailerAsyncOptions } from './interfaces/mailer-async-options.interface';
 /** Interfaces **/
 import { MailerOptions } from './interfaces/mailer-options.interface';
 import { MailerOptionsFactory } from './interfaces/mailer-options-factory.interface';
-
+import { MailerService } from './mailer.service';
 /** Services **/
 import { MailerBatchService } from './mailer-batch.service';
 import { MailerEventService } from './mailer-event.service';
-import { MailerService } from './mailer.service';
-
-/** Health **/
-import { MailerHealthIndicator } from './health/mailer.health-indicator';
 
 @Global()
 @Module({})

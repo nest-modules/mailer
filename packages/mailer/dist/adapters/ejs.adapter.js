@@ -17,6 +17,7 @@ class EjsAdapter {
         Object.assign(this.config, config);
     }
     compile(mail, callback, mailerOptions) {
+        var _a;
         const { context, template } = mail.data;
         const templateBaseDir = (0, lodash_1.get)(mailerOptions, 'template.dir', '');
         const templateExt = path.extname(template) || '.ejs';
@@ -24,10 +25,19 @@ class EjsAdapter {
         const templateDir = path.isAbsolute(template)
             ? path.dirname(template)
             : path.join(templateBaseDir, path.dirname(template));
-        const templatePath = path.join(templateDir, templateName + templateExt);
+        let templatePath = path.join(templateDir, templateName + templateExt);
         templateName = path
             .relative(templateBaseDir, templatePath)
             .replace(templateExt, '');
+        if (!fs.existsSync(templatePath) && ((_a = mailerOptions.template) === null || _a === void 0 ? void 0 : _a.dirs)) {
+            for (const dir of mailerOptions.template.dirs) {
+                const altPath = path.join(dir, path.dirname(template), path.basename(template, path.extname(template)) + templateExt);
+                if (fs.existsSync(altPath)) {
+                    templatePath = path.join(dir, path.dirname(template), templateName + templateExt);
+                    break;
+                }
+            }
+        }
         if (!this.precompiledTemplates[templateName]) {
             try {
                 const template = fs.readFileSync(templatePath, 'utf-8');
@@ -39,6 +49,7 @@ class EjsAdapter {
         }
         const rendered = this.precompiledTemplates[templateName](context);
         const render = (html) => {
+            html = this.resolveExternalCss(html, mailerOptions);
             if (this.config.inlineCssEnabled) {
                 try {
                     mail.data.html = (0, css_inline_1.inline)(html, this.config.inlineCssOptions);
@@ -58,6 +69,26 @@ class EjsAdapter {
         else {
             rendered.then(render);
         }
+    }
+    resolveExternalCss(html, mailerOptions) {
+        const baseDir = this.config.cssBaseUrl || (0, lodash_1.get)(mailerOptions, 'template.dir', '');
+        if (!baseDir)
+            return html;
+        return html.replace(/<link\s+[^>]*rel=["']stylesheet["'][^>]*href=["']([^"']+)["'][^>]*\/?>/gi, (match, href) => {
+            if (href.startsWith('http://') ||
+                href.startsWith('https://') ||
+                href.startsWith('//')) {
+                return match;
+            }
+            const cssPath = path.resolve(baseDir, href);
+            try {
+                const cssContent = fs.readFileSync(cssPath, 'utf-8');
+                return `<style>${cssContent}</style>`;
+            }
+            catch (_a) {
+                return match;
+            }
+        });
     }
 }
 exports.EjsAdapter = EjsAdapter;

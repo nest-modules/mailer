@@ -31,6 +31,22 @@ export type TransportType =
   | Transport
   | string;
 
+/** Nodemailer plugin definition */
+export interface MailerPlugin {
+  /** The step at which the plugin runs: 'compile' or 'stream' */
+  step: 'compile' | 'stream';
+  /** The plugin function */
+  plugin: (mail: any, callback: (err?: Error | null) => void) => void;
+}
+
+/** Rate limiting options */
+export interface RateLimitOptions {
+  /** Max number of messages per period */
+  maxMessages: number;
+  /** Period in milliseconds (default: 1000 = 1 second) */
+  period?: number;
+}
+
 export interface MailerOptions {
   defaults?: Options;
   transport?: TransportType;
@@ -39,6 +55,8 @@ export interface MailerOptions {
   };
   template?: {
     dir?: string;
+    /** Additional template directories to search */
+    dirs?: string[];
     adapter?: TemplateAdapter;
     options?: { [name: string]: any };
     /** Custom template resolver for loading templates from DB, S3, etc. */
@@ -67,4 +85,10 @@ export interface MailerOptions {
         open: boolean | { wait: boolean; app: string | string[] };
       }>;
   verifyTransporters?: boolean;
+  /** Nodemailer plugins to register on all transporters */
+  plugins?: MailerPlugin[];
+  /** Global send timeout in milliseconds */
+  sendTimeout?: number;
+  /** Rate limiting options for email sending */
+  rateLimit?: RateLimitOptions;
 }

@@ -7,4 +7,5 @@ export declare class HandlebarsAdapter implements TemplateAdapter {
     private config;
     constructor(helpers?: HelperDeclareSpec, config?: TemplateAdapterConfig);
     compile(mail: any, callback: any, mailerOptions: MailerOptions): void;
+    private resolveExternalCss;
 }

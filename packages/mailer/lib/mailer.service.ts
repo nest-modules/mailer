@@ -2,7 +2,13 @@
 
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { Inject, Injectable, Logger, Optional } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  Logger,
+  OnModuleDestroy,
+  Optional,
+} from '@nestjs/common';
 import { defaultsDeep, get } from 'lodash';
 import { SentMessageInfo, Transporter } from 'nodemailer';
 /** Constants **/
@@ -24,7 +30,7 @@ import { MailerEventService } from './mailer-event.service';
 import { MailerTransportFactory } from './mailer-transport.factory';
 
 @Injectable()
-export class MailerService {
+export class MailerService implements OnModuleDestroy {
   private transporter!: Transporter;
   private transporters = new Map<string, Transporter>();
   private templateAdapter: TemplateAdapter;
@@ -66,6 +72,13 @@ export class MailerService {
         });
       }
     }
+
+    // Register user-defined nodemailer plugins
+    if (this.mailerOptions.plugins) {
+      for (const plugin of this.mailerOptions.plugins) {
+        transporter.use(plugin.step, plugin.plugin);
+      }
+    }
   }
 
   private readonly mailerLogger = new Logger(MailerService.name);
@@ -103,6 +116,33 @@ export class MailerService {
     this.setupTransporters();
   }
 
+  /** Feature 7: Auto-close transporter connections on module destroy */
+  async onModuleDestroy(): Promise<void> {
+    const closePromises: Promise<void>[] = [];
+
+    if (this.transporter) {
+      closePromises.push(this.closeTransporter(this.transporter));
+    }
+
+    for (const [, transporter] of this.transporters) {
+      closePromises.push(this.closeTransporter(transporter));
+    }
+
+    await Promise.allSettled(closePromises);
+  }
+
+  private async closeTransporter(transporter: Transporter): Promise<void> {
+    try {
+      if (typeof transporter.close === 'function') {
+        transporter.close();
+      }
+    } catch (error) {
+      this.mailerLogger.warn(
+        `Error closing transporter: ${(error as Error).message}`,
+      );
+    }
+  }
+
   private validateTransportOptions(): void {
     if (
       (!this.mailerOptions.transport ||
@@ -115,10 +155,7 @@ export class MailerService {
     }
   }
 
-  private createTransporter(
-    config: TransportType,
-    name?: string,
-  ): Transporter {
+  private createTransporter(config: TransportType, name?: string): Transporter {
     const transporter = this.transportFactory.createTransport(config);
     if (this.mailerOptions.verifyTransporters)
       this.verifyTransporter(transporter, name);
@@ -169,11 +206,82 @@ export class MailerService {
     return transportersVerified.every((verified) => verified);
   }
 
+  /** Feature 1: Interpolate subject with template context */
+  private interpolateSubject(
+    subject: string,
+    context?: Record<string, any>,
+  ): string {
+    if (!context || !subject) return subject;
+    return subject.replace(/\{\{([^}]+)\}\}/g, (_, key) => {
+      const trimmed = key.trim();
+      return context[trimmed] !== undefined
+        ? String(context[trimmed])
+        : `{{${trimmed}}}`;
+    });
+  }
+
+  /** Feature 3: Compile inline HTML string with template context */
+  private interpolateHtml(html: string, context?: Record<string, any>): string {
+    if (!context || !html) return html;
+    return html.replace(/\{\{([^}]+)\}\}/g, (_, key) => {
+      const trimmed = key.trim();
+      return context[trimmed] !== undefined
+        ? String(context[trimmed])
+        : `{{${trimmed}}}`;
+    });
+  }
+
   public async sendMail(
     sendMailOptions: ISendMailOptions,
   ): Promise<SentMessageInfo> {
+    // Feature 1: Subject template parsing
+    if (sendMailOptions.subject && sendMailOptions.context) {
+      sendMailOptions = {
+        ...sendMailOptions,
+        subject: this.interpolateSubject(
+          sendMailOptions.subject,
+          sendMailOptions.context,
+        ),
+      };
+    }
+
+    // Feature 3: HTML string interpolation (when no file-based template)
+    if (
+      sendMailOptions.html &&
+      typeof sendMailOptions.html === 'string' &&
+      sendMailOptions.context &&
+      !sendMailOptions.template
+    ) {
+      sendMailOptions = {
+        ...sendMailOptions,
+        html: this.interpolateHtml(
+          sendMailOptions.html as string,
+          sendMailOptions.context,
+        ),
+      };
+    }
+
+    // Feature 4: Text/plain fallback template
+    if (
+      sendMailOptions.textTemplate &&
+      sendMailOptions.context &&
+      this.mailerOptions.template?.dir
+    ) {
+      sendMailOptions = {
+        ...sendMailOptions,
+        text: await this.compileTextTemplate(
+          sendMailOptions.textTemplate,
+          sendMailOptions.context,
+        ),
+      };
+    }
+
     // i18n: resolve locale-specific template path
-    if (sendMailOptions.template && sendMailOptions.locale && this.mailerOptions.i18n) {
+    if (
+      sendMailOptions.template &&
+      sendMailOptions.locale &&
+      this.mailerOptions.i18n
+    ) {
       sendMailOptions = {
         ...sendMailOptions,
         template: this.resolveI18nTemplate(
@@ -209,25 +317,17 @@ export class MailerService {
       timestamp: new Date(),
     });
 
+    // Feature 9: Send timeout
+    const timeout = sendMailOptions.timeout ?? this.mailerOptions.sendTimeout;
+
     try {
       let result: SentMessageInfo;
+      const sendPromise = this.executeSend(sendMailOptions);
 
-      if (sendMailOptions.transporterName) {
-        if (this.transporters?.get(sendMailOptions.transporterName)) {
-          result = await this.transporters
-            .get(sendMailOptions.transporterName)!
-            .sendMail(sendMailOptions);
-        } else {
-          throw new ReferenceError(
-            `Transporters object doesn't have ${sendMailOptions.transporterName} key`,
-          );
-        }
+      if (timeout && timeout > 0) {
+        result = await this.withTimeout(sendPromise, timeout);
       } else {
-        if (this.transporter) {
-          result = await this.transporter.sendMail(sendMailOptions);
-        } else {
-          throw new ReferenceError(`Transporter object undefined`);
-        }
+        result = await sendPromise;
       }
 
       // Emit after_send event
@@ -246,6 +346,77 @@ export class MailerService {
         timestamp: new Date(),
       });
       throw error;
+    }
+  }
+
+  /** Execute the actual send via the appropriate transporter */
+  private async executeSend(
+    sendMailOptions: ISendMailOptions,
+  ): Promise<SentMessageInfo> {
+    if (sendMailOptions.transporterName) {
+      if (this.transporters?.get(sendMailOptions.transporterName)) {
+        return this.transporters
+          .get(sendMailOptions.transporterName)!
+          .sendMail(sendMailOptions);
+      }
+      throw new ReferenceError(
+        `Transporters object doesn't have ${sendMailOptions.transporterName} key`,
+      );
+    }
+    if (this.transporter) {
+      return this.transporter.sendMail(sendMailOptions);
+    }
+    throw new ReferenceError('Transporter object undefined');
+  }
+
+  /** Feature 9: Timeout wrapper */
+  private withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
+    return new Promise<T>((resolve, reject) => {
+      const timer = setTimeout(() => {
+        reject(new Error(`Send mail timed out after ${ms}ms`));
+      }, ms);
+
+      promise
+        .then((result) => {
+          clearTimeout(timer);
+          resolve(result);
+        })
+        .catch((err) => {
+          clearTimeout(timer);
+          reject(err);
+        });
+    });
+  }
+
+  /** Feature 4: Compile a plain text template file */
+  private async compileTextTemplate(
+    templatePath: string,
+    context: Record<string, any>,
+  ): Promise<string> {
+    const templateDir = get(this.mailerOptions, 'template.dir', '');
+    const ext = path.extname(templatePath) || '.txt';
+    const name = path.basename(templatePath, path.extname(templatePath));
+    const fullPath = path.join(
+      templateDir,
+      path.dirname(templatePath),
+      name + ext,
+    );
+
+    try {
+      let content = fs.readFileSync(fullPath, 'utf-8');
+      // Simple interpolation for text templates
+      content = content.replace(/\{\{([^}]+)\}\}/g, (_, key) => {
+        const trimmed = key.trim();
+        return context[trimmed] !== undefined
+          ? String(context[trimmed])
+          : `{{${trimmed}}}`;
+      });
+      return content;
+    } catch {
+      this.mailerLogger.warn(
+        `Text template "${fullPath}" not found, skipping text fallback.`,
+      );
+      return '';
     }
   }
 
@@ -290,12 +461,33 @@ export class MailerService {
     return localizedTemplate;
   }
 
-  addTransporter(
-    transporterName: string,
-    config: TransportType,
-  ): string {
+  /** Get the default transporter (for advanced use cases) */
+  public getTransporter(name?: string): Transporter {
+    if (name) {
+      const transporter = this.transporters.get(name);
+      if (!transporter) {
+        throw new ReferenceError(
+          `Transporters object doesn't have ${name} key`,
+        );
+      }
+      return transporter;
+    }
+    return this.transporter;
+  }
+
+  addTransporter(transporterName: string, config: TransportType): string {
     const transporter = this.createTransporter(config, transporterName);
     this.transporters.set(transporterName, transporter);
     return transporterName;
+  }
+
+  /** Remove and close a named transporter */
+  removeTransporter(transporterName: string): boolean {
+    const transporter = this.transporters.get(transporterName);
+    if (transporter) {
+      this.closeTransporter(transporter);
+      return this.transporters.delete(transporterName);
+    }
+    return false;
   }
 }

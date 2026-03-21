@@ -18,6 +18,19 @@ export interface Address {
 export interface AttachmentLikeObject {
     path: string;
 }
+export interface DsnOptions {
+    ret?: 'FULL' | 'HDRS';
+    envid?: string;
+    notify?: Array<'NEVER' | 'SUCCESS' | 'FAILURE' | 'DELAY'>;
+    orcpt?: string;
+}
+export interface ICalOptions {
+    filename?: string;
+    method?: string;
+    content?: string | Buffer;
+    path?: string;
+    encoding?: string;
+}
 export interface ISendMailOptions extends SendMailOptions {
     to?: string | Address | Array<string | Address>;
     cc?: string | Address | Array<string | Address>;
@@ -41,6 +54,10 @@ export interface ISendMailOptions extends SendMailOptions {
     transporterName?: string;
     template?: string;
     locale?: string;
+    textTemplate?: string;
     attachments?: Attachment[];
     dkim?: DKIM.Options;
+    dsn?: DsnOptions;
+    icalEvent?: ICalOptions;
+    timeout?: number;
 }

@@ -10,6 +10,14 @@ import { TemplateAdapter } from './template-adapter.interface';
 import { TemplateResolver } from './template-resolver.interface';
 type Options = SMTPTransport.Options | SMTPPool.Options | SendmailTransport.Options | StreamTransport.Options | JSONTransport.Options | SESTransport.Options | TransportOptions;
 export type TransportType = Options | SMTPTransport | SMTPPool | SendmailTransport | StreamTransport | JSONTransport | SESTransport | Transport | string;
+export interface MailerPlugin {
+    step: 'compile' | 'stream';
+    plugin: (mail: any, callback: (err?: Error | null) => void) => void;
+}
+export interface RateLimitOptions {
+    maxMessages: number;
+    period?: number;
+}
 export interface MailerOptions {
     defaults?: Options;
     transport?: TransportType;
@@ -18,6 +26,7 @@ export interface MailerOptions {
     };
     template?: {
         dir?: string;
+        dirs?: string[];
         adapter?: TemplateAdapter;
         options?: {
             [name: string]: any;
@@ -36,5 +45,8 @@ export interface MailerOptions {
         };
     }>;
     verifyTransporters?: boolean;
+    plugins?: MailerPlugin[];
+    sendTimeout?: number;
+    rateLimit?: RateLimitOptions;
 }
 export {};
