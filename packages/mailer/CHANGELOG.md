@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.1.2
+
+### Patch Changes
+
+- [`27137db`](https://github.com/nest-modules/mailer/commit/27137dbc165038d2c8b97b610eb646f2f2c5bffc) Thanks [@juandav](https://github.com/juandav)! - Include README.md in published npm package.
+
 ## 2.1.1
 
 ### Patch Changes
