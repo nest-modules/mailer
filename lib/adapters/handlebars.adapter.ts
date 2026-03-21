@@ -1,11 +1,12 @@
 /** Dependencies **/
-import * as fs from 'fs';
-import * as path from 'path';
-import * as handlebars from 'handlebars';
+
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 import { inline } from '@css-inline/css-inline';
 import * as glob from 'glob';
-import { get } from 'lodash';
+import * as handlebars from 'handlebars';
 import { HelperDeclareSpec } from 'handlebars';
+import { get } from 'lodash';
 
 /** Interfaces **/
 import { MailerOptions } from '../interfaces/mailer-options.interface';

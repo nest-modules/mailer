@@ -1,9 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import MailMessage from 'nodemailer/lib/mailer/mail-message';
 import SMTPTransport from 'nodemailer/lib/smtp-transport';
 import * as nodemailerMock from 'nodemailer-mock';
-
-import MailMessage from 'nodemailer/lib/mailer/mail-message';
-
+import { EjsAdapter } from './adapters/ejs.adapter';
+import { HandlebarsAdapter } from './adapters/handlebars.adapter';
+import { PugAdapter } from './adapters/pug.adapter';
 import {
   MAILER_OPTIONS,
   MAILER_TRANSPORT_FACTORY,
@@ -14,9 +15,6 @@ import {
 } from './interfaces/mailer-options.interface';
 import { MailerTransportFactory } from './interfaces/mailer-transport-factory.interface';
 import { MailerService } from './mailer.service';
-import { HandlebarsAdapter } from './adapters/handlebars.adapter';
-import { PugAdapter } from './adapters/pug.adapter';
-import { EjsAdapter } from './adapters/ejs.adapter';
 
 /**
  * Common testing code for testing up a testing module and MailerService
@@ -45,33 +43,35 @@ async function getMailerServiceForOptions(
 function spyOnSmtpSend(onMail: (mail: MailMessage) => void) {
   return jest
     .spyOn(SMTPTransport.prototype, 'send')
-    .mockImplementation(function (
-      mail: MailMessage,
-      callback: (
-        err: Error | null,
-        info: SMTPTransport.SentMessageInfo,
-      ) => void,
-    ): void {
-      onMail(mail);
-      callback(null, {
-        envelope: {
-          from: mail.data.from as string,
-          to: [mail.data.to as string],
-        },
-        messageId: 'ABCD',
-        accepted: [],
-        rejected: [],
-        pending: [],
-        response: 'ok',
-      });
-    });
+    .mockImplementation(
+      (
+        mail: MailMessage,
+        callback: (
+          err: Error | null,
+          info: SMTPTransport.SentMessageInfo,
+        ) => void,
+      ): void => {
+        onMail(mail);
+        callback(null, {
+          envelope: {
+            from: mail.data.from as string,
+            to: [mail.data.to as string],
+          },
+          messageId: 'ABCD',
+          accepted: [],
+          rejected: [],
+          pending: [],
+          response: 'ok',
+        });
+      },
+    );
 }
 
 async function getMailerServiceWithCustomTransport(
   options: MailerOptions,
 ): Promise<MailerService> {
   class TestTransportFactory implements MailerTransportFactory {
-    createTransport(options?: TransportType): any {
+    createTransport(_options?: TransportType): any {
       return nodemailerMock.createTransport({ host: 'localhost', port: -100 });
     }
   }
@@ -208,7 +208,7 @@ describe('MailerService', () => {
       from: 'user1@example.test',
       to: 'user2@example.test',
       subject: 'Test',
-      template: __dirname + '/test-templates/handlebars-template',
+      template: `${__dirname}/test-templates/handlebars-template`,
       context: {
         MAILER: 'Nest-modules TM',
       },
@@ -238,7 +238,7 @@ describe('MailerService', () => {
       from: 'user1@example.test',
       to: 'user2@example.test',
       subject: 'Test',
-      template: __dirname + '/test-templates/handlebars-template-media-query',
+      template: `${__dirname}/test-templates/handlebars-template-media-query`,
       context: {
         MAILER: 'Nest-modules TM',
       },
@@ -265,7 +265,7 @@ describe('MailerService', () => {
       template: {
         adapter: new HandlebarsAdapter(undefined, {
           inlineCssEnabled: true,
-          inlineCssOptions: { },
+          inlineCssOptions: {},
         }),
       },
     });
@@ -274,7 +274,7 @@ describe('MailerService', () => {
       from: 'user1@example.test',
       to: 'user2@example.test',
       subject: 'Test',
-      template: __dirname + '/test-templates/handlebars-template-media-query',
+      template: `${__dirname}/test-templates/handlebars-template-media-query`,
       context: {
         MAILER: 'Nest-modules TM',
       },
@@ -286,7 +286,7 @@ describe('MailerService', () => {
       '@media only screen and (max-width:350px)',
     );
     expect(lastMail.data.html?.toString().replace(/\n/g, '')).toContain(
-      `<html><head><style data-css-inline=\"keep\" type=\"text/css\">  @media only screen and (max-width:350px) { p { font-size: 20px; } }</style></head><body><p>Handlebars test template. by Nest-modules TM</p></body></html>`
+      `<html><head><style data-css-inline="keep" type="text/css">  @media only screen and (max-width:350px) { p { font-size: 20px; } }</style></head><body><p>Handlebars test template. by Nest-modules TM</p></body></html>`,
     );
   });
 
@@ -307,7 +307,7 @@ describe('MailerService', () => {
       from: 'user1@example.test',
       to: 'user2@example.test',
       subject: 'Test',
-      template: __dirname + '/test-templates/pug-template',
+      template: `${__dirname}/test-templates/pug-template`,
       context: {
         world: 'World',
       },
@@ -337,7 +337,7 @@ describe('MailerService', () => {
       from: 'user1@example.test',
       to: 'user2@example.test',
       subject: 'Test',
-      template: __dirname + '/test-templates/ejs-template',
+      template: `${__dirname}/test-templates/ejs-template`,
       context: {
         MAILER: 'Nest-modules TM',
       },

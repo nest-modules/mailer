@@ -1,6 +1,5 @@
-import { MailerTransportFactory } from './mailer-transport.factory';
-import { MAILER_OPTIONS } from './constants/mailer.constant';
 import { MailerOptions } from './interfaces/mailer-options.interface';
+import { MailerTransportFactory } from './mailer-transport.factory';
 
 describe('MailerTransportFactory', () => {
   it('should create a transporter from options.transport', () => {

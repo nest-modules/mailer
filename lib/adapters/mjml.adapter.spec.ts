@@ -1,8 +1,8 @@
+import { MailerOptions } from '../interfaces/mailer-options.interface';
+import { TemplateAdapter } from '../interfaces/template-adapter.interface';
+import { EjsAdapter } from './ejs.adapter';
 import { HandlebarsAdapter } from './handlebars.adapter';
 import { PugAdapter } from './pug.adapter';
-import { EjsAdapter } from './ejs.adapter';
-import { TemplateAdapter } from '../interfaces/template-adapter.interface';
-import { MailerOptions } from '../interfaces/mailer-options.interface';
 
 // Mock mjml since v5 alpha uses prettier which requires ESM dynamic imports
 jest.mock('mjml', () => {
@@ -54,7 +54,9 @@ describe('MjmlAdapter', () => {
   });
 
   it('should handle undefined others parameter for handlebars', () => {
-    expect(() => new MjmlAdapter('handlebars', undefined, undefined)).not.toThrow();
+    expect(
+      () => new MjmlAdapter('handlebars', undefined, undefined),
+    ).not.toThrow();
   });
 
   it('should set engine to empty string for empty string input', () => {
@@ -73,11 +75,15 @@ describe('MjmlAdapter', () => {
     const adapter = new MjmlAdapter(mockEngine);
     const mail = { data: { html: undefined as string | undefined } };
 
-    adapter.compile(mail, () => {
-      expect(mail.data.html).toContain('Hello');
-      expect(mail.data.html).toContain('<html>');
-      done();
-    }, { transport: { host: 'localhost', port: 25 } });
+    adapter.compile(
+      mail,
+      () => {
+        expect(mail.data.html).toContain('Hello');
+        expect(mail.data.html).toContain('<html>');
+        done();
+      },
+      { transport: { host: 'localhost', port: 25 } },
+    );
   });
 
   it('should pass config to pug engine', () => {

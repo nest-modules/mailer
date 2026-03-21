@@ -1,13 +1,13 @@
 /** Dependencies **/
+
+import { DynamicModule, Global, Module, Provider } from '@nestjs/common';
 import { ValueProvider } from '@nestjs/common/interfaces';
-import { DynamicModule, Module, Global, Provider } from '@nestjs/common';
 
 /** Constants **/
 import { MAILER_OPTIONS } from './constants/mailer.constant';
-
+import { MailerAsyncOptions } from './interfaces/mailer-async-options.interface';
 /** Interfaces **/
 import { MailerOptions } from './interfaces/mailer-options.interface';
-import { MailerAsyncOptions } from './interfaces/mailer-async-options.interface';
 import { MailerOptionsFactory } from './interfaces/mailer-options-factory.interface';
 
 /** Services **/
@@ -39,7 +39,8 @@ export class MailerCoreModule {
   }
 
   public static forRootAsync(options: MailerAsyncOptions): DynamicModule {
-    const providers: Provider[] = this.createAsyncProviders(options);
+    const providers: Provider[] =
+      MailerCoreModule.createAsyncProviders(options);
 
     return {
       module: MailerCoreModule,
@@ -49,7 +50,7 @@ export class MailerCoreModule {
 
         /** Services **/
         MailerService,
-        
+
         /** Extra providers **/
         ...(options.extraProviders || []),
       ],
@@ -62,7 +63,9 @@ export class MailerCoreModule {
   }
 
   private static createAsyncProviders(options: MailerAsyncOptions): Provider[] {
-    const providers: Provider[] = [this.createAsyncOptionsProvider(options)];
+    const providers: Provider[] = [
+      MailerCoreModule.createAsyncOptionsProvider(options),
+    ];
 
     if (options.useClass) {
       providers.push({

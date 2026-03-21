@@ -1,12 +1,11 @@
 /** Dependencies **/
 import { DynamicModule, Module } from '@nestjs/common';
-
-/** Modules **/
-import { MailerCoreModule } from './mailer-core.module';
+import { MailerAsyncOptions } from './interfaces/mailer-async-options.interface';
 
 /** Interfaces **/
 import { MailerOptions } from './interfaces/mailer-options.interface';
-import { MailerAsyncOptions } from './interfaces/mailer-async-options.interface';
+/** Modules **/
+import { MailerCoreModule } from './mailer-core.module';
 
 @Module({})
 export class MailerModule {

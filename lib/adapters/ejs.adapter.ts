@@ -1,4 +1,8 @@
 /** Dependencies **/
+
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import { inline } from '@css-inline/css-inline';
 import {
   AsyncTemplateFunction,
   ClientFunction,
@@ -6,9 +10,6 @@ import {
   TemplateFunction,
 } from 'ejs';
 import { get } from 'lodash';
-import * as fs from 'fs';
-import * as path from 'path';
-import { inline } from '@css-inline/css-inline';
 
 /** Interfaces **/
 import { MailerOptions } from '../interfaces/mailer-options.interface';

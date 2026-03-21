@@ -1,8 +1,9 @@
 /** Dependencies **/
-import * as path from 'path';
+
+import * as path from 'node:path';
+import { inline } from '@css-inline/css-inline';
 import { get } from 'lodash';
 import { renderFile } from 'pug';
-import { inline } from '@css-inline/css-inline';
 
 /** Interfaces **/
 import { MailerOptions } from '../interfaces/mailer-options.interface';

@@ -1,9 +1,9 @@
+import { Injectable, Module } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { MailerModule } from './mailer.module';
-import { MailerService } from './mailer.service';
 import { MailerOptions } from './interfaces/mailer-options.interface';
 import { MailerOptionsFactory } from './interfaces/mailer-options-factory.interface';
-import { Injectable, Module } from '@nestjs/common';
+import { MailerModule } from './mailer.module';
+import { MailerService } from './mailer.service';
 
 describe('MailerModule', () => {
   describe('forRoot', () => {
@@ -152,7 +152,10 @@ describe('MailerModule', () => {
             }),
             inject: [CONFIG_TOKEN],
             extraProviders: [
-              { provide: CONFIG_TOKEN, useValue: 'smtps://user@domain.com:pass@smtp.domain.com' },
+              {
+                provide: CONFIG_TOKEN,
+                useValue: 'smtps://user@domain.com:pass@smtp.domain.com',
+              },
             ],
           }),
         ],

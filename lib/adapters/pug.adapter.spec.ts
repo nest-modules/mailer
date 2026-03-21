@@ -1,6 +1,6 @@
-import * as path from 'path';
-import { PugAdapter } from './pug.adapter';
+import * as path from 'node:path';
 import { MailerOptions } from '../interfaces/mailer-options.interface';
+import { PugAdapter } from './pug.adapter';
 
 const templateDir = path.join(__dirname, '..', 'test-templates');
 
@@ -14,10 +14,14 @@ function compileAsync(
   options: MailerOptions,
 ): Promise<string> {
   return new Promise((resolve, reject) => {
-    adapter.compile(mail, (err?: any) => {
-      if (err) return reject(err);
-      resolve(mail.data.html);
-    }, options);
+    adapter.compile(
+      mail,
+      (err?: any) => {
+        if (err) return reject(err);
+        resolve(mail.data.html);
+      },
+      options,
+    );
   });
 }
 

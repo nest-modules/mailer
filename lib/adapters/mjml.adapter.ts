@@ -1,11 +1,12 @@
 /** Dependencies **/
-import { HandlebarsAdapter } from './handlebars.adapter';
-import { EjsAdapter } from './ejs.adapter';
-import { TemplateAdapterConfig } from '../interfaces/template-adapter-config.interface';
-import { PugAdapter } from './pug.adapter';
-import { TemplateAdapter } from '../interfaces/template-adapter.interface';
-import { MailerOptions } from '../interfaces/mailer-options.interface';
+
 import mjml2html from 'mjml';
+import { MailerOptions } from '../interfaces/mailer-options.interface';
+import { TemplateAdapter } from '../interfaces/template-adapter.interface';
+import { TemplateAdapterConfig } from '../interfaces/template-adapter-config.interface';
+import { EjsAdapter } from './ejs.adapter';
+import { HandlebarsAdapter } from './handlebars.adapter';
+import { PugAdapter } from './pug.adapter';
 
 export class MjmlAdapter implements TemplateAdapter {
   private engine: TemplateAdapter | null;
@@ -21,7 +22,7 @@ export class MjmlAdapter implements TemplateAdapter {
   ) {
     this.engine = engine as TemplateAdapter;
 
-    if (typeof engine == 'string') {
+    if (typeof engine === 'string') {
       if (engine === 'pug') {
         this.engine = new PugAdapter(config);
       } else if (engine === 'handlebars') {

@@ -1,6 +1,6 @@
-import * as path from 'path';
-import { HandlebarsAdapter } from './handlebars.adapter';
+import * as path from 'node:path';
 import { MailerOptions } from '../interfaces/mailer-options.interface';
+import { HandlebarsAdapter } from './handlebars.adapter';
 
 const templateDir = path.join(__dirname, '..', 'test-templates');
 
@@ -14,10 +14,14 @@ function compileAsync(
   options: MailerOptions,
 ): Promise<string> {
   return new Promise((resolve, reject) => {
-    adapter.compile(mail, (err?: any) => {
-      if (err) return reject(err);
-      resolve(mail.data.html);
-    }, options);
+    adapter.compile(
+      mail,
+      (err?: any) => {
+        if (err) return reject(err);
+        resolve(mail.data.html);
+      },
+      options,
+    );
   });
 }
 
@@ -48,7 +52,9 @@ describe('HandlebarsAdapter', () => {
   });
 
   it('should not inline CSS when disabled', async () => {
-    const adapter = new HandlebarsAdapter(undefined, { inlineCssEnabled: false });
+    const adapter = new HandlebarsAdapter(undefined, {
+      inlineCssEnabled: false,
+    });
     const mail = createMail('handlebars-template', { MAILER: 'TestMailer' });
 
     const html = await compileAsync(adapter, mail, baseOptions);
@@ -62,7 +68,9 @@ describe('HandlebarsAdapter', () => {
       inlineCssEnabled: true,
       inlineCssOptions: {},
     });
-    const mail = createMail('handlebars-template-media-query', { MAILER: 'TestMailer' });
+    const mail = createMail('handlebars-template-media-query', {
+      MAILER: 'TestMailer',
+    });
 
     const html = await compileAsync(adapter, mail, baseOptions);
 
@@ -82,7 +90,9 @@ describe('HandlebarsAdapter', () => {
   });
 
   it('should cache compiled templates', async () => {
-    const adapter = new HandlebarsAdapter(undefined, { inlineCssEnabled: false });
+    const adapter = new HandlebarsAdapter(undefined, {
+      inlineCssEnabled: false,
+    });
     const mail1 = createMail('handlebars-template', { MAILER: 'First' });
     const mail2 = createMail('handlebars-template', { MAILER: 'Second' });
 
@@ -94,7 +104,9 @@ describe('HandlebarsAdapter', () => {
   });
 
   it('should handle absolute template paths', async () => {
-    const adapter = new HandlebarsAdapter(undefined, { inlineCssEnabled: false });
+    const adapter = new HandlebarsAdapter(undefined, {
+      inlineCssEnabled: false,
+    });
     const absPath = path.join(templateDir, 'handlebars-template');
     const mail = createMail(absPath, { MAILER: 'AbsPath' });
 
@@ -114,7 +126,9 @@ describe('HandlebarsAdapter', () => {
   });
 
   it('should compile partials when configured', async () => {
-    const adapter = new HandlebarsAdapter(undefined, { inlineCssEnabled: false });
+    const adapter = new HandlebarsAdapter(undefined, {
+      inlineCssEnabled: false,
+    });
     const mail = createMail('handlebars-template', { MAILER: 'Partials' });
 
     const options: MailerOptions = {

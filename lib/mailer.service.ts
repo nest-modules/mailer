@@ -1,6 +1,7 @@
 /** Dependencies **/
-import { get, defaultsDeep } from 'lodash';
-import { Injectable, Inject, Optional, Logger } from '@nestjs/common';
+
+import { Inject, Injectable, Logger, Optional } from '@nestjs/common';
+import { defaultsDeep, get } from 'lodash';
 import { SentMessageInfo, Transporter } from 'nodemailer';
 import * as smtpTransport from 'nodemailer/lib/smtp-transport';
 
@@ -12,9 +13,9 @@ import {
 
 /** Interfaces **/
 import { MailerOptions } from './interfaces/mailer-options.interface';
-import { TemplateAdapter } from './interfaces/template-adapter.interface';
-import { ISendMailOptions } from './interfaces/send-mail-options.interface';
 import { MailerTransportFactory as IMailerTransportFactory } from './interfaces/mailer-transport-factory.interface';
+import { ISendMailOptions } from './interfaces/send-mail-options.interface';
+import { TemplateAdapter } from './interfaces/template-adapter.interface';
 import { MailerTransportFactory } from './mailer-transport.factory';
 
 @Injectable()
@@ -39,22 +40,26 @@ export class MailerService {
 
       try {
         previewEmail = require('preview-email');
-      } catch (err) {
-        this.mailerLogger.warn('preview-email is not installed. This is an optional dependency. Install it if you want to preview emails in the development environment. You can install it using npm (npm install preview-email), yarn (yarn add preview-email), or pnpm (pnpm add preview-email).');
+      } catch (_err) {
+        this.mailerLogger.warn(
+          'preview-email is not installed. This is an optional dependency. Install it if you want to preview emails in the development environment. You can install it using npm (npm install preview-email), yarn (yarn add preview-email), or pnpm (pnpm add preview-email).',
+        );
       }
 
-    if (this.mailerOptions.preview) {
-      transporter.use('stream', (mail, callback) => {
-        if (typeof previewEmail !== 'undefined') {
-          return previewEmail(mail.data, this.mailerOptions.preview)
-            .then(() => callback())
-            .catch(callback);
-        } else {
-          this.mailerLogger.warn('previewEmail is not available. Skipping preview.');
-          return callback();
-        }
-      });
-    }
+      if (this.mailerOptions.preview) {
+        transporter.use('stream', (mail, callback) => {
+          if (typeof previewEmail !== 'undefined') {
+            return previewEmail(mail.data, this.mailerOptions.preview)
+              .then(() => callback())
+              .catch(callback);
+          } else {
+            this.mailerLogger.warn(
+              'previewEmail is not available. Skipping preview.',
+            );
+            return callback();
+          }
+        });
+      }
     }
   }
 
@@ -73,10 +78,7 @@ export class MailerService {
     this.validateTransportOptions();
 
     /** Adapter setup **/
-    this.templateAdapter = get(
-      this.mailerOptions,
-      'template.adapter',
-    );
+    this.templateAdapter = get(this.mailerOptions, 'template.adapter');
 
     /*
      * Preview setup
@@ -106,9 +108,13 @@ export class MailerService {
     }
   }
 
-  private createTransporter(config: string | smtpTransport | smtpTransport.Options, name?: string): Transporter {
+  private createTransporter(
+    config: string | smtpTransport | smtpTransport.Options,
+    name?: string,
+  ): Transporter {
     const transporter = this.transportFactory.createTransport(config);
-    if (this.mailerOptions.verifyTransporters) this.verifyTransporter(transporter, name);
+    if (this.mailerOptions.verifyTransporters)
+      this.verifyTransporter(transporter, name);
     this.initTemplateAdapter(this.templateAdapter, transporter);
     return transporter;
   }
@@ -116,7 +122,10 @@ export class MailerService {
   private setupTransporters(): void {
     if (this.mailerOptions.transports) {
       Object.keys(this.mailerOptions.transports).forEach((name) => {
-        const transporter = this.createTransporter(this.mailerOptions.transports![name], name);
+        const transporter = this.createTransporter(
+          this.mailerOptions.transports![name],
+          name,
+        );
         this.transporters.set(name, transporter);
       });
     }
@@ -130,27 +139,34 @@ export class MailerService {
     const transporterName = name ? ` '${name}'` : '';
     if (!transporter.verify) return;
     Promise.resolve(transporter.verify())
-      .then(() => this.mailerLogger.log(`Transporter${transporterName} is ready`))
-      .catch((error) => this.mailerLogger.error(`Error occurred while verifying the transporter${transporterName}: ${error.message}`));
+      .then(() =>
+        this.mailerLogger.log(`Transporter${transporterName} is ready`),
+      )
+      .catch((error) =>
+        this.mailerLogger.error(
+          `Error occurred while verifying the transporter${transporterName}: ${error.message}`,
+        ),
+      );
   }
 
   public async verifyAllTransporters() {
     const transporters = [...this.transporters.values(), this.transporter];
-    const transportersVerified = await Promise.all(transporters.map(transporter => {
-      if (!transporter.verify) return true; // Can't verify with nodemailer-sendgrid, so assume it's verified
-      return Promise.resolve(transporter.verify()).then(() => true).catch(() => false);
-    }));
-    return transportersVerified.every(verified => verified);
+    const transportersVerified = await Promise.all(
+      transporters.map((transporter) => {
+        if (!transporter.verify) return true; // Can't verify with nodemailer-sendgrid, so assume it's verified
+        return Promise.resolve(transporter.verify())
+          .then(() => true)
+          .catch(() => false);
+      }),
+    );
+    return transportersVerified.every((verified) => verified);
   }
 
   public async sendMail(
     sendMailOptions: ISendMailOptions,
   ): Promise<SentMessageInfo> {
     if (sendMailOptions.transporterName) {
-      if (
-        this.transporters &&
-        this.transporters.get(sendMailOptions.transporterName)
-      ) {
+      if (this.transporters?.get(sendMailOptions.transporterName)) {
         return await this.transporters
           .get(sendMailOptions.transporterName)!
           .sendMail(sendMailOptions);
@@ -168,7 +184,10 @@ export class MailerService {
     }
   }
 
-  addTransporter(transporterName: string, config: string | smtpTransport | smtpTransport.Options): string {
+  addTransporter(
+    transporterName: string,
+    config: string | smtpTransport | smtpTransport.Options,
+  ): string {
     const transporter = this.createTransporter(config, transporterName);
     this.transporters.set(transporterName, transporter);
     return transporterName;
