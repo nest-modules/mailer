@@ -1,6 +1,6 @@
 {
   "name": "@nestjs-modules/mailer",
-  "version": "2.1.16",
+  "version": "2.1.17",
   "private": false,
   "description": "NestJS - a mailer module (@mailer)",
   "keywords": [
