@@ -8,10 +8,12 @@ import { TemplateAdapter } from '../interfaces/template-adapter.interface';
 import { Liquid } from 'liquidjs';
 
 export class LiquidAdapter implements TemplateAdapter {
-	private config: Partial<Liquid['options']>;
+	private config: Partial<Liquid['options']> = {};
 
 	constructor(config?: Partial<Liquid['options']>) {
-		Object.assign(this.config, config);
+		if (config) {
+			Object.assign(this.config, config);
+		}
 	}
 
 	public compile(mail: any, callback: any, mailerOptions: MailerOptions): void {

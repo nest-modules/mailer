@@ -25,7 +25,7 @@ yarn add @nestjs-modules/mailer nodemailer
 yarn add -D @types/nodemailer
 ```
 
-**Hint:** handlebars and pug is an optional dependency, if you want to use the template, you must install it.
+**Hint:** Template engines are optional peer dependencies. Install only the one(s) you need:
 
 #### with npm
 ```sh
@@ -34,6 +34,8 @@ npm install --save handlebars
 npm install --save pug
 #or
 npm install --save ejs
+#or
+npm install --save liquidjs
 #or
 npm install --save mjml
 ```
@@ -46,7 +48,22 @@ yarn add pug
 #or
 yarn add ejs
 #or
+yarn add liquidjs
+#or
 yarn add mjml
+```
+
+#### with pnpm
+```sh
+pnpm add handlebars
+#or
+pnpm add pug
+#or
+pnpm add ejs
+#or
+pnpm add liquidjs
+#or
+pnpm add mjml
 ```
 
 ### Documentation
