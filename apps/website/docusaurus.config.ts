@@ -55,6 +55,7 @@ const config: Config = {
           label: 'Documentation',
         },
         { to: '/blog', label: 'Blog', position: 'left' },
+        { to: '/preview', label: 'Preview', position: 'left' },
         {
           href: 'https://github.com/nest-modules/mailer',
           label: 'GitHub',

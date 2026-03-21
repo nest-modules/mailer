@@ -41,6 +41,9 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      handlebars:
+        specifier: ^4.7.8
+        version: 4.7.8
       prism-react-renderer:
         specifier: ^2.4.1
         version: 2.4.1(react@19.2.4)
