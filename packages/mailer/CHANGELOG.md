@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.1.1
+
+### Patch Changes
+
+- [`4950285`](https://github.com/nest-modules/mailer/commit/4950285da0fd017d5dce506f766594a91f6c69ef) Thanks [@juandav](https://github.com/juandav)! - Update README with features, quick start guide, and documentation website link.
+
 ## 2.1.0
 
 ### Minor Changes
