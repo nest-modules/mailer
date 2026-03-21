@@ -16,6 +16,14 @@
     "version-packages": "changeset version",
     "release": "turbo run build --filter=@nestjs-modules/mailer && changeset publish"
   },
+  "pnpm": {
+    "overrides": {
+      "locutus": ">=3.0.14",
+      "serialize-javascript": ">=7.0.3",
+      "webpack": ">=5.104.1",
+      "ajv": ">=8.18.0"
+    }
+  },
   "devDependencies": {
     "@biomejs/biome": "2.4.8",
     "@changesets/changelog-github": "^0.6.0",
