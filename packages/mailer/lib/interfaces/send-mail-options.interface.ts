@@ -38,6 +38,8 @@ export interface ISendMailOptions extends SendMailOptions {
   };
   transporterName?: string;
   template?: string;
+  /** Locale for i18n template resolution (e.g., 'es', 'fr') */
+  locale?: string;
   attachments?: Attachment[];
   dkim?: DKIM.Options;
 }

@@ -7,6 +7,12 @@ const sidebars: SidebarsConfig = {
     'adapters',
     'sending-emails',
     'advanced',
+    'i18n',
+    'events',
+    'batch-sending',
+    'queue',
+    'health-check',
+    'template-resolver',
   ],
 };
 

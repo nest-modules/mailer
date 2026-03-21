@@ -11,7 +11,12 @@ import { MailerOptions } from './interfaces/mailer-options.interface';
 import { MailerOptionsFactory } from './interfaces/mailer-options-factory.interface';
 
 /** Services **/
+import { MailerBatchService } from './mailer-batch.service';
+import { MailerEventService } from './mailer-event.service';
 import { MailerService } from './mailer.service';
+
+/** Health **/
+import { MailerHealthIndicator } from './health/mailer.health-indicator';
 
 @Global()
 @Module({})
@@ -29,11 +34,17 @@ export class MailerCoreModule {
         MailerOptionsProvider,
 
         /** Services **/
+        MailerEventService,
         MailerService,
+        MailerBatchService,
+        MailerHealthIndicator,
       ],
       exports: [
         /** Services **/
         MailerService,
+        MailerBatchService,
+        MailerEventService,
+        MailerHealthIndicator,
       ],
     };
   }
@@ -49,7 +60,10 @@ export class MailerCoreModule {
         ...providers,
 
         /** Services **/
+        MailerEventService,
         MailerService,
+        MailerBatchService,
+        MailerHealthIndicator,
 
         /** Extra providers **/
         ...(options.extraProviders || []),
@@ -58,6 +72,9 @@ export class MailerCoreModule {
       exports: [
         /** Services **/
         MailerService,
+        MailerBatchService,
+        MailerEventService,
+        MailerHealthIndicator,
       ],
     };
   }

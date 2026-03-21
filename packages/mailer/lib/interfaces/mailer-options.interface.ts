@@ -7,7 +7,9 @@ import * as SMTPPool from 'nodemailer/lib/smtp-pool';
 import * as SMTPTransport from 'nodemailer/lib/smtp-transport';
 import * as StreamTransport from 'nodemailer/lib/stream-transport';
 
+import { I18nOptions } from './i18n-options.interface';
 import { TemplateAdapter } from './template-adapter.interface';
+import { TemplateResolver } from './template-resolver.interface';
 
 type Options =
   | SMTPTransport.Options
@@ -39,7 +41,11 @@ export interface MailerOptions {
     dir?: string;
     adapter?: TemplateAdapter;
     options?: { [name: string]: any };
+    /** Custom template resolver for loading templates from DB, S3, etc. */
+    resolver?: TemplateResolver;
   };
+  /** Internationalization options for locale-aware templates */
+  i18n?: I18nOptions;
   options?: { [name: string]: any };
   preview?:
     | boolean

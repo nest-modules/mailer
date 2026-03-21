@@ -1,5 +1,7 @@
 /** Dependencies **/
 
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 import { Inject, Injectable, Logger, Optional } from '@nestjs/common';
 import { defaultsDeep, get } from 'lodash';
 import { SentMessageInfo, Transporter } from 'nodemailer';
@@ -10,6 +12,7 @@ import {
 } from './constants/mailer.constant';
 
 /** Interfaces **/
+import { MailerEvent } from './interfaces/mailer-events.interface';
 import {
   MailerOptions,
   TransportType,
@@ -17,6 +20,7 @@ import {
 import { MailerTransportFactory as IMailerTransportFactory } from './interfaces/mailer-transport-factory.interface';
 import { ISendMailOptions } from './interfaces/send-mail-options.interface';
 import { TemplateAdapter } from './interfaces/template-adapter.interface';
+import { MailerEventService } from './mailer-event.service';
 import { MailerTransportFactory } from './mailer-transport.factory';
 
 @Injectable()
@@ -71,6 +75,8 @@ export class MailerService {
     @Optional()
     @Inject(MAILER_TRANSPORT_FACTORY)
     private readonly transportFactory: IMailerTransportFactory,
+    @Optional()
+    private readonly eventService?: MailerEventService,
   ) {
     if (!transportFactory) {
       this.transportFactory = new MailerTransportFactory(mailerOptions);
@@ -166,23 +172,122 @@ export class MailerService {
   public async sendMail(
     sendMailOptions: ISendMailOptions,
   ): Promise<SentMessageInfo> {
-    if (sendMailOptions.transporterName) {
-      if (this.transporters?.get(sendMailOptions.transporterName)) {
-        return await this.transporters
-          .get(sendMailOptions.transporterName)!
-          .sendMail(sendMailOptions);
+    // i18n: resolve locale-specific template path
+    if (sendMailOptions.template && sendMailOptions.locale && this.mailerOptions.i18n) {
+      sendMailOptions = {
+        ...sendMailOptions,
+        template: this.resolveI18nTemplate(
+          sendMailOptions.template,
+          sendMailOptions.locale,
+        ),
+      };
+    }
+
+    // Template resolver: load template from external source
+    if (
+      sendMailOptions.template &&
+      this.mailerOptions.template?.resolver &&
+      !sendMailOptions.html
+    ) {
+      const resolved = await this.mailerOptions.template.resolver.resolve(
+        sendMailOptions.template,
+        sendMailOptions.context,
+      );
+      sendMailOptions = {
+        ...sendMailOptions,
+        html: resolved.content as any,
+        // Apply metadata (e.g., subject from template)
+        ...(resolved.metadata?.subject && !sendMailOptions.subject
+          ? { subject: resolved.metadata.subject }
+          : {}),
+      };
+    }
+
+    // Emit before_send event
+    this.eventService?.emit(MailerEvent.BEFORE_SEND, {
+      mailOptions: sendMailOptions,
+      timestamp: new Date(),
+    });
+
+    try {
+      let result: SentMessageInfo;
+
+      if (sendMailOptions.transporterName) {
+        if (this.transporters?.get(sendMailOptions.transporterName)) {
+          result = await this.transporters
+            .get(sendMailOptions.transporterName)!
+            .sendMail(sendMailOptions);
+        } else {
+          throw new ReferenceError(
+            `Transporters object doesn't have ${sendMailOptions.transporterName} key`,
+          );
+        }
       } else {
-        throw new ReferenceError(
-          `Transporters object doesn't have ${sendMailOptions.transporterName} key`,
-        );
+        if (this.transporter) {
+          result = await this.transporter.sendMail(sendMailOptions);
+        } else {
+          throw new ReferenceError(`Transporter object undefined`);
+        }
       }
-    } else {
-      if (this.transporter) {
-        return await this.transporter.sendMail(sendMailOptions);
-      } else {
-        throw new ReferenceError(`Transporter object undefined`);
+
+      // Emit after_send event
+      this.eventService?.emit(MailerEvent.AFTER_SEND, {
+        mailOptions: sendMailOptions,
+        result,
+        timestamp: new Date(),
+      });
+
+      return result;
+    } catch (error) {
+      // Emit send_error event
+      this.eventService?.emit(MailerEvent.SEND_ERROR, {
+        mailOptions: sendMailOptions,
+        error: error as Error,
+        timestamp: new Date(),
+      });
+      throw error;
+    }
+  }
+
+  /**
+   * Resolve a locale-specific template path.
+   * Checks if the locale-specific template exists, falls back to default locale.
+   */
+  private resolveI18nTemplate(template: string, locale: string): string {
+    const i18n = this.mailerOptions.i18n!;
+    const pattern = i18n.templateDirPattern || '{{locale}}/';
+    const templateDir = get(this.mailerOptions, 'template.dir', '');
+    const localizedPrefix = pattern.replace('{{locale}}', locale);
+    const localizedTemplate = path.join(localizedPrefix, template);
+
+    // Check if the localized template file exists
+    if (templateDir) {
+      const ext = ['.hbs', '.pug', '.ejs', '.njk', '.liquid', '.html'];
+      const basePath = path.join(templateDir, localizedTemplate);
+      const exists = ext.some((e) => {
+        try {
+          fs.accessSync(basePath + e);
+          return true;
+        } catch {
+          return false;
+        }
+      });
+
+      if (exists) {
+        return localizedTemplate;
       }
     }
+
+    // Fallback to default locale
+    if (i18n.fallback !== false && locale !== i18n.defaultLocale) {
+      this.mailerLogger.debug(
+        `Template "${localizedTemplate}" not found for locale "${locale}", falling back to "${i18n.defaultLocale}"`,
+      );
+      const fallbackPrefix = pattern.replace('{{locale}}', i18n.defaultLocale);
+      return path.join(fallbackPrefix, template);
+    }
+
+    return localizedTemplate;
   }
 
   addTransporter(

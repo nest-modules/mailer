@@ -40,6 +40,7 @@ export interface ISendMailOptions extends SendMailOptions {
     };
     transporterName?: string;
     template?: string;
+    locale?: string;
     attachments?: Attachment[];
     dkim?: DKIM.Options;
 }
