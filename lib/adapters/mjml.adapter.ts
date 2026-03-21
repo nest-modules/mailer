@@ -25,7 +25,7 @@ export class MjmlAdapter implements TemplateAdapter {
       if (engine === 'pug') {
         this.engine = new PugAdapter(config);
       } else if (engine === 'handlebars') {
-        this.engine = new HandlebarsAdapter(others.handlebar.helper, config);
+        this.engine = new HandlebarsAdapter(others?.handlebar?.helper, config);
       } else if (engine === 'ejs') {
         this.engine = new EjsAdapter(config);
       } else if (engine === '') {

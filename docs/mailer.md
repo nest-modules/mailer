@@ -12,9 +12,17 @@ Check this documentation for how to use `@nestjs-modules/mailer`.
 yarn add @nestjs-modules/mailer nodemailer
 #or
 npm install --save @nestjs-modules/mailer nodemailer
+#or
+pnpm add @nestjs-modules/mailer nodemailer
 ```
 
-**Hint:** handlebars, pug and ejs is an optional dependency, if you want to use the template, you must install it.
+You will also want the TypeScript types for nodemailer:
+
+```sh
+npm install --save-dev @types/nodemailer
+```
+
+**Hint:** Template engines are optional peer dependencies. Install only the one(s) you plan to use:
 
 #### with npm
 
@@ -24,6 +32,10 @@ npm install --save handlebars
 npm install --save pug
 #or
 npm install --save ejs
+#or
+npm install --save liquidjs
+#or
+npm install --save mjml
 ```
 
 #### with yarn
@@ -34,6 +46,24 @@ yarn add handlebars
 yarn add pug
 #or
 yarn add ejs
+#or
+yarn add liquidjs
+#or
+yarn add mjml
+```
+
+#### with pnpm
+
+```sh
+pnpm add handlebars
+#or
+pnpm add pug
+#or
+pnpm add ejs
+#or
+pnpm add liquidjs
+#or
+pnpm add mjml
 ```
 
 ## Module
@@ -122,6 +152,31 @@ import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter';
         options: {
           strict: true,
         },
+      },
+    }),
+  ],
+})
+export class AppModule {}
+```
+
+<!--Liquid-->
+
+```javascript
+//app.module.ts
+import { Module } from '@nestjs/common';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { LiquidAdapter } from '@nestjs-modules/mailer/dist/adapters/liquid.adapter';
+
+@Module({
+  imports: [
+    MailerModule.forRoot({
+      transport: 'smtps://user@domain.com:pass@smtp.domain.com',
+      defaults: {
+        from: '"nest-modules" <modules@nestjs.com>',
+      },
+      template: {
+        dir: __dirname + '/templates',
+        adapter: new LiquidAdapter(),
       },
     }),
   ],
@@ -423,6 +478,70 @@ export class ExampleService {
 
 <!--END_DOCUSAURUS_CODE_TABS-->
 
+### Multiple transporters
+
+You can configure multiple transporters to send emails through different SMTP servers:
+
+```typescript
+MailerModule.forRoot({
+  transports: {
+    primary: 'smtps://user@domain.com:pass@smtp.domain.com',
+    secondary: {
+      host: 'smtp.other.com',
+      port: 587,
+      auth: { user: 'user', pass: 'pass' },
+    },
+  },
+  defaults: {
+    from: '"No Reply" <noreply@example.com>',
+  },
+  template: {
+    dir: __dirname + '/templates',
+    adapter: new HandlebarsAdapter(),
+  },
+});
+```
+
+Then specify which transporter to use when sending:
+
+```typescript
+await this.mailerService.sendMail({
+  transporterName: 'secondary',
+  to: 'user@example.com',
+  subject: 'Hello',
+  html: '<b>Hello</b>',
+});
+```
+
+### Dynamic transporters
+
+You can add transporters at runtime using `addTransporter()`:
+
+```typescript
+this.mailerService.addTransporter('custom', {
+  host: 'smtp.custom.com',
+  port: 587,
+  auth: { user: 'user', pass: 'pass' },
+});
+```
+
+### Verify transporters
+
+You can enable automatic transporter verification on startup:
+
+```typescript
+MailerModule.forRoot({
+  transport: 'smtps://user@domain.com:pass@smtp.domain.com',
+  verifyTransporters: true,
+});
+```
+
+Or verify programmatically:
+
+```typescript
+const allReady = await this.mailerService.verifyAllTransporters();
+```
+
 ## Preview Email
 
 Use preview-email to open a preview of the email with the browser. This can be enabled or disabled.
@@ -485,9 +604,11 @@ Use `.pug`, `.ejs` or `.hbs` depending on the template engine you use:
 
 ### Using MJML
 
-You can use [mjml](https://mjml.io/) to create responsive emails with the `MjmlAdapter` adapter. The templates themselves still need to be pre-rendered with pug, handlebars or ejs.
+You can use [mjml](https://mjml.io/) to create responsive emails with the `MjmlAdapter` adapter. The `MjmlAdapter` wraps another template adapter (Pug, Handlebars, or EJS) to first compile your template, then convert the output through MJML into responsive HTML.
 
-For all 3 template engines you have to use the `inlineCssEnabled` option to disable css inlining. For handlebars you also have to pass in a helpers object to the `handlebar` option.
+**Important:** You must set `inlineCssEnabled: false` in the adapter config, because MJML handles its own CSS inlining internally. Using both will produce broken output.
+
+For Handlebars, you may optionally pass a helpers object via the `handlebar` option (the `others` parameter is optional — omitting it is safe).
 
 <!--DOCUSAURUS_CODE_TABS-->
 <!--Pug-->
