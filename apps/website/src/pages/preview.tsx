@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import Layout from '@theme/Layout';
+import { Highlight, themes } from 'prism-react-renderer';
 import * as Handlebars from 'handlebars';
 import styles from './preview.module.css';
 
@@ -360,6 +361,58 @@ function compileTemplate(
   }
 }
 
+const adapterToLanguage: Record<Adapter, string> = {
+  handlebars: 'handlebars',
+  ejs: 'markup',
+  pug: 'pug',
+};
+
+function HighlightedEditor({
+  value,
+  onChange,
+  language,
+}: {
+  value: string;
+  onChange: (val: string) => void;
+  language: string;
+}) {
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const preRef = useRef<HTMLPreElement>(null);
+
+  const handleScroll = () => {
+    if (textareaRef.current && preRef.current) {
+      preRef.current.scrollTop = textareaRef.current.scrollTop;
+      preRef.current.scrollLeft = textareaRef.current.scrollLeft;
+    }
+  };
+
+  return (
+    <div className={styles.editorWrapper}>
+      <Highlight theme={themes.dracula} code={value} language={language}>
+        {({ tokens, getLineProps, getTokenProps }) => (
+          <pre ref={preRef} className={styles.editorHighlight}>
+            {tokens.map((line, i) => (
+              <div key={i} {...getLineProps({ line })}>
+                {line.map((token, key) => (
+                  <span key={key} {...getTokenProps({ token })} />
+                ))}
+              </div>
+            ))}
+          </pre>
+        )}
+      </Highlight>
+      <textarea
+        ref={textareaRef}
+        className={styles.editorTextarea}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        onScroll={handleScroll}
+        spellCheck={false}
+      />
+    </div>
+  );
+}
+
 export default function Preview(): JSX.Element {
   const [adapter, setAdapter] = useState<Adapter>('handlebars');
   const [template, setTemplate] = useState(adapters.handlebars.defaultTemplate);
@@ -432,11 +485,10 @@ export default function Preview(): JSX.Element {
               <span>Template</span>
               <span className={styles.badge}>{adapters[adapter].label}</span>
             </div>
-            <textarea
-              className={styles.editor}
+            <HighlightedEditor
               value={template}
-              onChange={(e) => setTemplate(e.target.value)}
-              spellCheck={false}
+              onChange={setTemplate}
+              language={adapterToLanguage[adapter]}
             />
             {showContext && (
               <textarea
