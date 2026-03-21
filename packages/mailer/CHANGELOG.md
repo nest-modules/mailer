@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.2.0
+
+### Minor Changes
+
+- Auto-release minor version with latest changes.
+
 ## 2.1.19
 
 ### Patch Changes
