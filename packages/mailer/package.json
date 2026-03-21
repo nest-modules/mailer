@@ -48,7 +48,7 @@
     "Joao vitor FREZYN <00001097715413SP@al.educacao.sp.gov.br>"
   ],
   "scripts": {
-    "prebuild": "rimraf dist",
+    "prebuild": "rimraf dist && cp ../../README.md .",
     "build": "tsc -p tsconfig.json",
     "check": "biome check .",
     "test": "jest"
