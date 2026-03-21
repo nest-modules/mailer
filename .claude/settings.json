@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(pnpm audit:*)",
-      "Bash(npm view:*)"
+      "Bash(npm view:*)",
+      "Bash(gh run:*)",
+      "Bash(gh release:*)"
     ]
   }
 }
