@@ -1,6 +1,29 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import Layout from '@theme/Layout';
-import { Highlight, themes } from 'prism-react-renderer';
+import { Highlight, themes, Prism } from 'prism-react-renderer';
+
+// Register Pug language with Prism
+(Prism as any).languages.pug = {
+  comment: { pattern: /\/\/.*/, greedy: true },
+  'template-string': {
+    pattern: /#\{[^}]+\}/,
+    greedy: true,
+    inside: { punctuation: /^#\{|\}$/, variable: /[\s\S]+/ },
+  },
+  'inline-tag': {
+    pattern: /#\[[^\]]+\]/,
+    greedy: true,
+    inside: { punctuation: /^#\[|\]$/, rest: null as any },
+  },
+  keyword: /\b(?:doctype|each|if|else|unless|case|when|default|block|extends|include|mixin|yield)\b/,
+  tag: /^\s*[a-zA-Z][a-zA-Z0-9-]*/m,
+  'class-name': /\.[a-zA-Z][a-zA-Z0-9_-]*/,
+  'attr-name': /\b[a-zA-Z_-]+(?=\s*=)/,
+  'attr-value': { pattern: /=\s*(?:"[^"]*"|'[^']*'|[^\s),]+)/, inside: { punctuation: /^=/, string: /(?:"[^"]*"|'[^']*')/ } },
+  id: /#[a-zA-Z][a-zA-Z0-9_-]*/,
+  punctuation: /[(),.]/,
+  string: { pattern: /(["'])(?:(?!\1).)*\1/, greedy: true },
+};
 import * as Handlebars from 'handlebars';
 import styles from './preview.module.css';
 
@@ -361,13 +384,10 @@ function compileTemplate(
   }
 }
 
-// prism-react-renderer only bundles a subset of Prism languages.
-// 'handlebars' and 'pug' are not included, so we use 'markup' (HTML)
-// for all adapters since the templates are HTML-based.
 const adapterToLanguage: Record<Adapter, string> = {
   handlebars: 'markup',
   ejs: 'markup',
-  pug: 'markup',
+  pug: 'pug',
 };
 
 function HighlightedEditor({
