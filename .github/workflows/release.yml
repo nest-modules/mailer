@@ -38,19 +38,29 @@ jobs:
       - name: Run tests
         run: pnpm run test --filter=@nestjs-modules/mailer
 
-      - name: Create Release Pull Request
+      - name: Auto-create changeset if none exists
+        run: |
+          CHANGESETS=$(ls .changeset/*.md 2>/dev/null | grep -v README.md || true)
+          if [ -z "$CHANGESETS" ]; then
+            echo "No changesets found, creating auto patch changeset..."
+            cat > .changeset/auto-release.md << 'CHANGESET'
+          ---
+          '@nestjs-modules/mailer': patch
+          ---
+
+          Auto-release patch version with latest changes.
+          CHANGESET
+          fi
+
+      - name: Create Release Pull Request or Publish
         id: changesets
         uses: changesets/action@v1
         with:
+          publish: pnpm run release
           version: pnpm run version-packages
           title: 'chore(release): version packages'
           commit: 'chore(release): version packages'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Publish to npm
-        if: steps.changesets.outputs.hasChangesets == 'false'
-        working-directory: packages/mailer
-        run: npm publish --provenance --access public
-        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -51,6 +51,30 @@ MailerModule.forRoot({
 })
 ```
 
+## OAuth2 Authentication
+
+Use Gmail or other providers with OAuth2:
+
+```typescript
+MailerModule.forRoot({
+  transport: {
+    service: 'gmail',
+    auth: {
+      type: 'OAuth2',
+      user: 'your-email@gmail.com',
+      clientId: 'CLIENT_ID',
+      clientSecret: 'CLIENT_SECRET',
+      refreshToken: 'REFRESH_TOKEN',
+    },
+  },
+  defaults: {
+    from: '"App Name" <your-email@gmail.com>',
+  },
+})
+```
+
+See [Nodemailer OAuth2 docs](https://nodemailer.com/smtp/oauth2/) for details on setting up OAuth2 credentials.
+
 ## Async Configuration
 
 Use `forRootAsync()` to load config from environment or external services:
@@ -92,16 +116,23 @@ export class AppModule {}
 
 ## Multiple Transporters
 
-Configure multiple SMTP servers and switch between them per message:
+Configure multiple SMTP servers with different credentials and switch between them per message:
 
 ```typescript
 MailerModule.forRoot({
   transports: {
-    primary: 'smtps://user@domain.com:pass@smtp.domain.com',
+    primary: {
+      host: 'smtp.example.com',
+      port: 587,
+      auth: { user: 'primary@example.com', pass: 'pass1' },
+    },
     secondary: {
       host: 'smtp.other.com',
       port: 587,
-      auth: { user: 'user', pass: 'pass' },
+      auth: { user: 'secondary@other.com', pass: 'pass2' },
+    },
+    ses: {
+      SES: { /* AWS SES config */ },
     },
   },
   defaults: {
@@ -125,6 +156,8 @@ await this.mailerService.sendMail({
 });
 ```
 
+All transport types are supported for additional transporters: SMTP, SES, Sendmail, Stream, JSON, and custom transports.
+
 ## Dynamic Transporters
 
 Add transporters at runtime using `addTransporter()`:
@@ -134,6 +167,14 @@ this.mailerService.addTransporter('custom', {
   host: 'smtp.custom.com',
   port: 587,
   auth: { user: 'user', pass: 'pass' },
+});
+
+// Use immediately
+await this.mailerService.sendMail({
+  transporterName: 'custom',
+  to: 'user@example.com',
+  subject: 'Hello',
+  html: '<p>Hello!</p>',
 });
 ```
 
@@ -148,6 +189,8 @@ MailerModule.forRoot({
 })
 ```
 
+This checks SMTP connectivity when the module initializes. If verification fails, a warning is logged but the application continues to start.
+
 Or verify programmatically:
 
 ```typescript
@@ -157,6 +200,10 @@ const allReady = await this.mailerService.verifyAllTransporters();
 ## Preview Emails
 
 Use `preview-email` to open a preview in the browser during development:
+
+```bash
+pnpm add preview-email
+```
 
 ```typescript
 MailerModule.forRoot({
@@ -177,6 +224,13 @@ MailerModule.forRoot({
 })
 ```
 
+:::note
+- `preview-email` is an **optional** dependency. Install it only if you use this feature.
+- Preview does **not** prevent the email from being sent — it runs alongside sending.
+- Preview may not work in headless environments (Docker, CI servers).
+- You can pass options: `preview: { open: { wait: false } }`.
+:::
+
 ## Copy Templates to `dist`
 
 If your templates are inside `src/`, add them as assets in `nest-cli.json`:
@@ -193,3 +247,7 @@ If your templates are inside `src/`, add them as assets in `nest-cli.json`:
 ```
 
 Use the appropriate extension (`.hbs`, `.pug`, `.ejs`) for your template engine.
+
+:::warning
+Templates are **not** compiled by TypeScript. If you reference templates with `__dirname`, make sure they exist in the `dist` folder at runtime.
+:::

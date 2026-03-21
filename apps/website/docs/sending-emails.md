@@ -64,6 +64,97 @@ await this.mailerService.sendMail({
 });
 ```
 
+:::tip
+When using absolute paths, make sure template files are copied to the `dist` folder at build time. See [Copy Templates to dist](/docs/configuration#copy-templates-to-dist).
+:::
+
+## Attachments
+
+Send emails with file attachments:
+
+```typescript
+await this.mailerService.sendMail({
+  to: 'user@example.com',
+  subject: 'Invoice',
+  html: '<p>Please find your invoice attached.</p>',
+  attachments: [
+    {
+      filename: 'invoice.pdf',
+      path: '/absolute/path/to/invoice.pdf',
+    },
+  ],
+});
+```
+
+### Multiple Attachments
+
+```typescript
+await this.mailerService.sendMail({
+  to: 'user@example.com',
+  subject: 'Report',
+  template: 'report',
+  context: { title: 'Monthly Report' },
+  attachments: [
+    // File from disk
+    { filename: 'report.pdf', path: '/path/to/report.pdf' },
+    // Buffer
+    { filename: 'data.csv', content: Buffer.from('id,name\n1,John') },
+    // String content
+    { filename: 'notes.txt', content: 'Some notes here' },
+    // URL (nodemailer will fetch it)
+    { filename: 'logo.png', path: 'https://example.com/logo.png' },
+  ],
+});
+```
+
+### Inline Images (Embedded)
+
+Embed images directly in the HTML using `cid`:
+
+```typescript
+await this.mailerService.sendMail({
+  to: 'user@example.com',
+  subject: 'Newsletter',
+  html: '<img src="cid:logo" alt="Logo" />',
+  attachments: [
+    {
+      filename: 'logo.png',
+      path: '/path/to/logo.png',
+      cid: 'logo',
+    },
+  ],
+});
+```
+
+See [Nodemailer attachments docs](https://nodemailer.com/message/attachments/) for all options.
+
+## Custom Headers
+
+```typescript
+await this.mailerService.sendMail({
+  to: 'user@example.com',
+  subject: 'Hello',
+  html: '<p>Hello!</p>',
+  headers: {
+    'X-Custom-Header': 'custom-value',
+    'X-Priority': '1',
+  },
+});
+```
+
+## Reply-To and Threading
+
+```typescript
+await this.mailerService.sendMail({
+  to: 'user@example.com',
+  replyTo: 'support@example.com',
+  subject: 'Re: Your ticket',
+  html: '<p>We received your request.</p>',
+  inReplyTo: '<original-message-id@example.com>',
+  references: ['<original-message-id@example.com>'],
+});
+```
+
 ## Using a Specific Transporter
 
 When you have multiple transporters configured, specify which one to use:
@@ -76,3 +167,5 @@ await this.mailerService.sendMail({
   html: '<p>Hello!</p>',
 });
 ```
+
+See [Multiple Transporters](/docs/configuration#multiple-transporters) for setup instructions.
