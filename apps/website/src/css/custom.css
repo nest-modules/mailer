@@ -24,15 +24,18 @@
 .hero {
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
   padding: 4rem 0;
+  color: #ffffff;
 }
 
 .hero__title {
   font-size: 3rem;
+  color: #ffffff;
 }
 
 .hero__subtitle {
   font-size: 1.3rem;
   opacity: 0.9;
+  color: #ffffff;
 }
 
 .feature-card {
