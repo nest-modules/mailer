@@ -45,6 +45,10 @@
     }
   },
   "files": {
-    "includes": ["lib/**/*.ts"]
+    "includes": [
+      "packages/*/lib/**/*.ts",
+      "apps/*/src/**/*.ts",
+      "samples/*/src/**/*.ts"
+    ]
   }
 }

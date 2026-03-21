@@ -1,0 +1,46 @@
+:root {
+  --ifm-color-primary: #e0234e;
+  --ifm-color-primary-dark: #d01543;
+  --ifm-color-primary-darker: #c5143f;
+  --ifm-color-primary-darkest: #a21034;
+  --ifm-color-primary-light: #e43a60;
+  --ifm-color-primary-lighter: #e64567;
+  --ifm-color-primary-lightest: #eb6e89;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='dark'] {
+  --ifm-color-primary: #e0234e;
+  --ifm-color-primary-dark: #d01543;
+  --ifm-color-primary-darker: #c5143f;
+  --ifm-color-primary-darkest: #a21034;
+  --ifm-color-primary-light: #e43a60;
+  --ifm-color-primary-lighter: #e64567;
+  --ifm-color-primary-lightest: #eb6e89;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  padding: 4rem 0;
+}
+
+.hero__title {
+  font-size: 3rem;
+}
+
+.hero__subtitle {
+  font-size: 1.3rem;
+  opacity: 0.9;
+}
+
+.feature-card {
+  padding: 1.5rem;
+  border-radius: 8px;
+  transition: transform 0.2s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+}

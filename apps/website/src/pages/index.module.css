@@ -1,0 +1,32 @@
+.heroBanner {
+  padding: 4rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.features {
+  display: flex;
+  align-items: center;
+  padding: 3rem 0;
+}
+
+.quickInstall {
+  padding: 3rem 0;
+  background: var(--ifm-color-emphasis-100);
+}
+
+.installCode {
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  text-align: center;
+}
