@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.1.3
+
+### Patch Changes
+
+- [`292a0f4`](https://github.com/nest-modules/mailer/commit/292a0f41aa147e7cb508d48a012b6645f8be26f5) Thanks [@juandav](https://github.com/juandav)! - Allow all transport types for additional transports and addTransporter method.
+
 ## 2.1.2
 
 ### Patch Changes
