@@ -38,11 +38,32 @@ jobs:
       - name: Run tests
         run: pnpm run test --filter=@nestjs-modules/mailer
 
-      - name: Auto-create changeset if none exists
+      - name: Auto-create changeset if source code changed
         run: |
+          # Skip if this push is a changesets version commit (prevents infinite loop)
+          COMMIT_MSG=$(git log -1 --pretty=%s)
+          if echo "$COMMIT_MSG" | grep -q "^chore(release)"; then
+            echo "Skipping: this is a changesets version commit"
+            exit 0
+          fi
+
+          # Skip if changesets already exist
           CHANGESETS=$(ls .changeset/*.md 2>/dev/null | grep -v README.md || true)
-          if [ -z "$CHANGESETS" ]; then
-            echo "No changesets found, creating auto patch changeset..."
+          if [ -n "$CHANGESETS" ]; then
+            echo "Skipping: changesets already exist"
+            exit 0
+          fi
+
+          # Check if there are actual changes in packages/ or apps/ since last tag
+          LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+          if [ -n "$LAST_TAG" ]; then
+            CHANGES=$(git diff --name-only "$LAST_TAG"..HEAD -- packages/ apps/ | head -1)
+          else
+            CHANGES="first-release"
+          fi
+
+          if [ -n "$CHANGES" ]; then
+            echo "Source changes detected, creating auto changeset..."
             cat > .changeset/auto-release.md << 'CHANGESET'
           ---
           '@nestjs-modules/mailer': patch
@@ -50,6 +71,8 @@ jobs:
 
           Auto-release patch version with latest changes.
           CHANGESET
+          else
+            echo "No source changes detected, skipping changeset creation"
           fi
 
       - name: Create Release Pull Request or Publish
