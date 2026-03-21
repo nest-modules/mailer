@@ -63,13 +63,43 @@ jobs:
           fi
 
           if [ -n "$CHANGES" ]; then
-            echo "Source changes detected, creating auto changeset..."
-            cat > .changeset/auto-release.md << 'CHANGESET'
+            echo "Source changes detected, determining version bump..."
+
+            # Analyze commits since last tag to determine bump type
+            if [ -n "$LAST_TAG" ]; then
+              COMMITS=$(git log "$LAST_TAG"..HEAD --pretty=%s -- packages/ apps/)
+            else
+              COMMITS=$(git log --pretty=%s -- packages/ apps/)
+            fi
+
+            BUMP="patch"
+
+            # Check for minor: feat(...) or feat:
+            if echo "$COMMITS" | grep -qiE "^feat(\(.*\))?:"; then
+              BUMP="minor"
+            fi
+
+            # Check for major: feat!(...), fix!(...), BREAKING CHANGE in body, or !: convention
+            if echo "$COMMITS" | grep -qiE "^[a-z]+(\(.*\))?!:"; then
+              BUMP="major"
+            fi
+            if [ -n "$LAST_TAG" ]; then
+              BODIES=$(git log "$LAST_TAG"..HEAD --pretty=%b -- packages/ apps/)
+            else
+              BODIES=$(git log --pretty=%b -- packages/ apps/)
+            fi
+            if echo "$BODIES" | grep -q "BREAKING CHANGE"; then
+              BUMP="major"
+            fi
+
+            echo "Detected bump type: $BUMP"
+
+            cat > .changeset/auto-release.md << CHANGESET
           ---
-          '@nestjs-modules/mailer': patch
+          '@nestjs-modules/mailer': ${BUMP}
           ---
 
-          Auto-release patch version with latest changes.
+          Auto-release ${BUMP} version with latest changes.
           CHANGESET
           else
             echo "No source changes detected, skipping changeset creation"
