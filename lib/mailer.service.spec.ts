@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import * as SMTPTransport from 'nodemailer/lib/smtp-transport';
+import SMTPTransport from 'nodemailer/lib/smtp-transport';
 import * as nodemailerMock from 'nodemailer-mock';
 
 import MailMessage from 'nodemailer/lib/mailer/mail-message';
@@ -71,7 +71,7 @@ async function getMailerServiceWithCustomTransport(
   options: MailerOptions,
 ): Promise<MailerService> {
   class TestTransportFactory implements MailerTransportFactory {
-    createTransport(options?: TransportType) {
+    createTransport(options?: TransportType): any {
       return nodemailerMock.createTransport({ host: 'localhost', port: -100 });
     }
   }
@@ -361,5 +361,178 @@ describe('MailerService', () => {
     });
 
     expect(nodemailerMock.mock.getSentMail().length).toEqual(1);
+  });
+
+  describe('multiple transporters', () => {
+    it('should setup multiple named transporters', async () => {
+      const service = await getMailerServiceForOptions({
+        transports: {
+          smtp1: 'smtps://user1@domain.com:pass@smtp1.domain.com',
+          smtp2: 'smtps://user2@domain.com:pass@smtp2.domain.com',
+        },
+      });
+
+      expect(service).toBeDefined();
+      expect((service as any).transporters.size).toBe(2);
+      expect((service as any).transporters.has('smtp1')).toBe(true);
+      expect((service as any).transporters.has('smtp2')).toBe(true);
+    });
+
+    it('should send mail via a named transporter', async () => {
+      let lastMail: MailMessage;
+      const send = spyOnSmtpSend((mail: MailMessage) => {
+        lastMail = mail;
+      });
+
+      const service = await getMailerServiceForOptions({
+        transports: {
+          primary: 'smtps://user@domain.com:pass@smtp.domain.com',
+        },
+      });
+
+      await service.sendMail({
+        transporterName: 'primary',
+        from: 'user1@example.test',
+        to: 'user2@example.test',
+        subject: 'Named transport test',
+        html: 'Test content.',
+      });
+
+      expect(send).toHaveBeenCalled();
+      expect(lastMail!.data.subject).toBe('Named transport test');
+    });
+
+    it('should throw ReferenceError for non-existent named transporter', async () => {
+      const service = await getMailerServiceForOptions({
+        transport: 'smtps://user@domain.com:pass@smtp.domain.com',
+      });
+
+      await expect(
+        service.sendMail({
+          transporterName: 'nonexistent',
+          to: 'user@example.test',
+          html: 'Test',
+        }),
+      ).rejects.toThrow(ReferenceError);
+      await expect(
+        service.sendMail({
+          transporterName: 'nonexistent',
+          to: 'user@example.test',
+          html: 'Test',
+        }),
+      ).rejects.toThrow("Transporters object doesn't have nonexistent key");
+    });
+
+    it('should throw ReferenceError when no default transporter and no transporterName', async () => {
+      const service = await getMailerServiceForOptions({
+        transports: {
+          named: 'smtps://user@domain.com:pass@smtp.domain.com',
+        },
+      });
+
+      await expect(
+        service.sendMail({
+          to: 'user@example.test',
+          html: 'Test',
+        }),
+      ).rejects.toThrow('Transporter object undefined');
+    });
+  });
+
+  describe('addTransporter', () => {
+    it('should add a new transporter at runtime', async () => {
+      const service = await getMailerServiceForOptions({
+        transport: 'smtps://user@domain.com:pass@smtp.domain.com',
+      });
+
+      const name = service.addTransporter(
+        'dynamic',
+        'smtps://dynamic@domain.com:pass@smtp.domain.com',
+      );
+
+      expect(name).toBe('dynamic');
+      expect((service as any).transporters.has('dynamic')).toBe(true);
+    });
+
+    it('should allow sending via dynamically added transporter', async () => {
+      let lastMail: MailMessage;
+      const send = spyOnSmtpSend((mail: MailMessage) => {
+        lastMail = mail;
+      });
+
+      const service = await getMailerServiceForOptions({
+        transport: 'smtps://user@domain.com:pass@smtp.domain.com',
+      });
+
+      service.addTransporter(
+        'dynamic',
+        'smtps://dynamic@domain.com:pass@smtp.domain.com',
+      );
+
+      await service.sendMail({
+        transporterName: 'dynamic',
+        from: 'dynamic@example.test',
+        to: 'user@example.test',
+        subject: 'Dynamic',
+        html: 'Dynamic transport.',
+      });
+
+      expect(send).toHaveBeenCalled();
+      expect(lastMail!.data.from).toBe('dynamic@example.test');
+    });
+  });
+
+  describe('verifyAllTransporters', () => {
+    it('should return true when all transporters verify successfully', async () => {
+      const service = await getMailerServiceWithCustomTransport({
+        transport: 'smtps://user@domain.com:pass@smtp.domain.com',
+      });
+
+      const result = await service.verifyAllTransporters();
+
+      // nodemailer-mock transport doesn't have verify, so it returns true
+      expect(result).toBe(true);
+    });
+  });
+
+  describe('skip template compilation when html is provided', () => {
+    it('should not compile template when html is already set', async () => {
+      let lastMail: MailMessage;
+      const send = spyOnSmtpSend((mail: MailMessage) => {
+        lastMail = mail;
+      });
+
+      const service = await getMailerServiceForOptions({
+        transport: new SMTPTransport({}),
+        template: {
+          adapter: new HandlebarsAdapter(),
+        },
+      });
+
+      await service.sendMail({
+        from: 'user1@example.test',
+        to: 'user2@example.test',
+        subject: 'Test',
+        html: '<p>Pre-rendered HTML</p>',
+      });
+
+      expect(send).toHaveBeenCalled();
+      expect(lastMail!.data.html).toBe('<p>Pre-rendered HTML</p>');
+    });
+  });
+
+  describe('both transport and transports configured', () => {
+    it('should setup both default and named transporters', async () => {
+      const service = await getMailerServiceForOptions({
+        transport: 'smtps://default@domain.com:pass@smtp.domain.com',
+        transports: {
+          secondary: 'smtps://secondary@domain.com:pass@smtp2.domain.com',
+        },
+      });
+
+      expect(service).toBeDefined();
+      expect((service as any).transporter).toBeDefined();
+      expect((service as any).transporters.has('secondary')).toBe(true);
+    });
   });
 });

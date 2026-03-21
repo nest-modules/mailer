@@ -8,10 +8,9 @@ module.exports = {
   ],
   'rootDir': 'lib',
   'testRegex': '/lib/.*\\.spec\\.(ts|js)$',
-  'globals': {
-    'ts-jest': {
-      'tsConfig': 'tsconfig.json'
-    }
+  'transform': {
+    '^.+\\.ts$': ['ts-jest', {
+      tsconfig: 'tsconfig.json',
+    }],
   },
-  'preset': 'ts-jest',
 };

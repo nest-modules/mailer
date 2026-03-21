@@ -19,6 +19,6 @@ export class MailerTransportFactory implements IMailerTransportFactory {
     return createTransport(
       opts || this.options.transport,
       this.options.defaults,
-    );
+    ) as any;
   }
 }
