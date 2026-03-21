@@ -361,10 +361,13 @@ function compileTemplate(
   }
 }
 
+// prism-react-renderer only bundles a subset of Prism languages.
+// 'handlebars' and 'pug' are not included, so we use 'markup' (HTML)
+// for all adapters since the templates are HTML-based.
 const adapterToLanguage: Record<Adapter, string> = {
-  handlebars: 'handlebars',
+  handlebars: 'markup',
   ejs: 'markup',
-  pug: 'pug',
+  pug: 'markup',
 };
 
 function HighlightedEditor({
