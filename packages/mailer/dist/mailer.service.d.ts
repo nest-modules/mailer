@@ -1,6 +1,5 @@
 import { SentMessageInfo } from 'nodemailer';
-import * as smtpTransport from 'nodemailer/lib/smtp-transport';
-import { MailerOptions } from './interfaces/mailer-options.interface';
+import { MailerOptions, TransportType } from './interfaces/mailer-options.interface';
 import { MailerTransportFactory as IMailerTransportFactory } from './interfaces/mailer-transport-factory.interface';
 import { ISendMailOptions } from './interfaces/send-mail-options.interface';
 export declare class MailerService {
@@ -18,5 +17,5 @@ export declare class MailerService {
     private verifyTransporter;
     verifyAllTransporters(): Promise<boolean>;
     sendMail(sendMailOptions: ISendMailOptions): Promise<SentMessageInfo>;
-    addTransporter(transporterName: string, config: string | smtpTransport | smtpTransport.Options): string;
+    addTransporter(transporterName: string, config: TransportType): string;
 }
