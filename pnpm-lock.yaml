@@ -31,10 +31,10 @@ importers:
     dependencies:
       '@docusaurus/core':
         specifier: 3.9.2
-        version: 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
+        version: 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)
       '@docusaurus/preset-classic':
         specifier: 3.9.2
-        version: 3.9.2(@algolia/client-search@5.49.2)(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(search-insights@2.17.3)(typescript@5.9.3)
+        version: 3.9.2(@algolia/client-search@5.49.2)(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(search-insights@2.17.3)(typescript@6.0.2)
       '@mdx-js/react':
         specifier: ^3.1.1
         version: 3.1.1(@types/react@19.2.14)(react@19.2.4)
@@ -61,8 +61,8 @@ importers:
         specifier: 3.9.2
         version: 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       typescript:
-        specifier: 5.9.3
-        version: 5.9.3
+        specifier: 6.0.2
+        version: 6.0.2
 
   packages/mailer:
     dependencies:
@@ -108,7 +108,7 @@ importers:
         version: 7.0.11
       jest:
         specifier: 30.3.0
-        version: 30.3.0(@types/node@25.5.0)(ts-node@10.9.2(@types/node@25.5.0)(typescript@5.9.3))
+        version: 30.3.0(@types/node@25.5.0)(ts-node@10.9.2(@types/node@25.5.0)(typescript@6.0.2))
       nodemailer:
         specifier: 8.0.3
         version: 8.0.3
@@ -126,13 +126,13 @@ importers:
         version: 7.8.2
       ts-jest:
         specifier: 29.4.6
-        version: 29.4.6(@babel/core@7.29.0)(@jest/transform@30.3.0)(@jest/types@30.3.0)(babel-jest@30.3.0(@babel/core@7.29.0))(jest-util@30.3.0)(jest@30.3.0(@types/node@25.5.0)(ts-node@10.9.2(@types/node@25.5.0)(typescript@5.9.3)))(typescript@5.9.3)
+        version: 29.4.6(@babel/core@7.29.0)(@jest/transform@30.3.0)(@jest/types@30.3.0)(babel-jest@30.3.0(@babel/core@7.29.0))(jest-util@30.3.0)(jest@30.3.0(@types/node@25.5.0)(ts-node@10.9.2(@types/node@25.5.0)(typescript@6.0.2)))(typescript@6.0.2)
       ts-node:
         specifier: 10.9.2
-        version: 10.9.2(@types/node@25.5.0)(typescript@5.9.3)
+        version: 10.9.2(@types/node@25.5.0)(typescript@6.0.2)
       typescript:
-        specifier: 5.9.3
-        version: 5.9.3
+        specifier: 6.0.2
+        version: 6.0.2
     optionalDependencies:
       '@types/ejs':
         specifier: ^3.1.5
@@ -154,7 +154,7 @@ importers:
         version: 10.25.0
       mjml:
         specifier: ^5.0.0-alpha.4
-        version: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
+        version: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
       nunjucks:
         specifier: ^3.2.4
         version: 3.2.4(chokidar@3.6.0)
@@ -200,7 +200,7 @@ importers:
         version: 11.0.16(@types/node@22.16.0)
       '@nestjs/schematics':
         specifier: 11.0.9
-        version: 11.0.9(chokidar@4.0.3)(typescript@5.9.3)
+        version: 11.0.9(chokidar@4.0.3)(typescript@6.0.2)
       '@nestjs/testing':
         specifier: 11.1.17
         version: 11.1.17(@nestjs/common@11.1.17(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.17)(@nestjs/platform-express@11.1.17)
@@ -218,25 +218,25 @@ importers:
         version: 7.2.0
       jest:
         specifier: 30.3.0
-        version: 30.3.0(@types/node@22.16.0)(ts-node@10.9.2(@types/node@22.16.0)(typescript@5.9.3))
+        version: 30.3.0(@types/node@22.16.0)(ts-node@10.9.2(@types/node@22.16.0)(typescript@6.0.2))
       supertest:
         specifier: 7.2.2
         version: 7.2.2
       ts-jest:
         specifier: 29.4.6
-        version: 29.4.6(@babel/core@7.29.0)(@jest/transform@30.3.0)(@jest/types@30.3.0)(babel-jest@30.3.0(@babel/core@7.29.0))(jest-util@30.3.0)(jest@30.3.0(@types/node@22.16.0)(ts-node@10.9.2(@types/node@22.16.0)(typescript@5.9.3)))(typescript@5.9.3)
+        version: 29.4.6(@babel/core@7.29.0)(@jest/transform@30.3.0)(@jest/types@30.3.0)(babel-jest@30.3.0(@babel/core@7.29.0))(jest-util@30.3.0)(jest@30.3.0(@types/node@22.16.0)(ts-node@10.9.2(@types/node@22.16.0)(typescript@6.0.2)))(typescript@6.0.2)
       ts-loader:
         specifier: 9.5.4
-        version: 9.5.4(typescript@5.9.3)(webpack@5.104.1)
+        version: 9.5.4(typescript@6.0.2)(webpack@5.104.1)
       ts-node:
         specifier: 10.9.2
-        version: 10.9.2(@types/node@22.16.0)(typescript@5.9.3)
+        version: 10.9.2(@types/node@22.16.0)(typescript@6.0.2)
       tsconfig-paths:
         specifier: 4.2.0
         version: 4.2.0
       typescript:
-        specifier: 5.9.3
-        version: 5.9.3
+        specifier: 6.0.2
+        version: 6.0.2
 
   samples/custom-template-adapter:
     dependencies:
@@ -273,7 +273,7 @@ importers:
         version: 11.0.16(@types/node@22.16.0)
       '@nestjs/schematics':
         specifier: 11.0.9
-        version: 11.0.9(chokidar@4.0.3)(typescript@5.9.3)
+        version: 11.0.9(chokidar@4.0.3)(typescript@6.0.2)
       '@nestjs/testing':
         specifier: 11.1.17
         version: 11.1.17(@nestjs/common@11.1.17(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.17)(@nestjs/platform-express@11.1.17)
@@ -291,25 +291,25 @@ importers:
         version: 7.2.0
       jest:
         specifier: 30.3.0
-        version: 30.3.0(@types/node@22.16.0)(ts-node@10.9.2(@types/node@22.16.0)(typescript@5.9.3))
+        version: 30.3.0(@types/node@22.16.0)(ts-node@10.9.2(@types/node@22.16.0)(typescript@6.0.2))
       supertest:
         specifier: 7.2.2
         version: 7.2.2
       ts-jest:
         specifier: 29.4.6
-        version: 29.4.6(@babel/core@7.29.0)(@jest/transform@30.3.0)(@jest/types@30.3.0)(babel-jest@30.3.0(@babel/core@7.29.0))(jest-util@30.3.0)(jest@30.3.0(@types/node@22.16.0)(ts-node@10.9.2(@types/node@22.16.0)(typescript@5.9.3)))(typescript@5.9.3)
+        version: 29.4.6(@babel/core@7.29.0)(@jest/transform@30.3.0)(@jest/types@30.3.0)(babel-jest@30.3.0(@babel/core@7.29.0))(jest-util@30.3.0)(jest@30.3.0(@types/node@22.16.0)(ts-node@10.9.2(@types/node@22.16.0)(typescript@6.0.2)))(typescript@6.0.2)
       ts-loader:
         specifier: 9.5.4
-        version: 9.5.4(typescript@5.9.3)(webpack@5.104.1)
+        version: 9.5.4(typescript@6.0.2)(webpack@5.104.1)
       ts-node:
         specifier: 10.9.2
-        version: 10.9.2(@types/node@22.16.0)(typescript@5.9.3)
+        version: 10.9.2(@types/node@22.16.0)(typescript@6.0.2)
       tsconfig-paths:
         specifier: 4.2.0
         version: 4.2.0
       typescript:
-        specifier: 5.9.3
-        version: 5.9.3
+        specifier: 6.0.2
+        version: 6.0.2
 
 packages:
 
@@ -7780,6 +7780,11 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
+  typescript@6.0.2:
+    resolution: {integrity: sha512-bGdAIrZ0wiGDo5l8c++HWtbaNCWTS4UTv7RaTH/ThVIgjkveJt83m74bBHMJkuCbslY8ixgLBVZJIOiQlQTjfQ==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+
   uc.micro@2.1.0:
     resolution: {integrity: sha512-ARDJmphmdvUk6Glw7y9DQ2bFkKBHwQHLi2lsaH6PPmz/Ka9sFOBsBluozhDltWmnv9u/cF6Rt87znRTPV+yp/A==}
 
@@ -9761,7 +9766,7 @@ snapshots:
       - uglify-js
       - webpack-cli
 
-  '@docusaurus/bundler@3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)':
+  '@docusaurus/bundler@3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)':
     dependencies:
       '@babel/core': 7.29.0
       '@docusaurus/babel': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -9780,7 +9785,7 @@ snapshots:
       mini-css-extract-plugin: 2.10.1(webpack@5.104.1)
       null-loader: 4.0.1(webpack@5.104.1)
       postcss: 8.5.8
-      postcss-loader: 7.3.4(postcss@8.5.8)(typescript@5.9.3)(webpack@5.104.1)
+      postcss-loader: 7.3.4(postcss@8.5.8)(typescript@6.0.2)(webpack@5.104.1)
       postcss-preset-env: 10.6.1(postcss@8.5.8)
       terser-webpack-plugin: 5.4.0(webpack@5.104.1)
       tslib: 2.8.1
@@ -9802,10 +9807,10 @@ snapshots:
       - uglify-js
       - webpack-cli
 
-  '@docusaurus/core@3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)':
+  '@docusaurus/core@3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)':
     dependencies:
       '@docusaurus/babel': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      '@docusaurus/bundler': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
+      '@docusaurus/bundler': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)
       '@docusaurus/logger': 3.9.2
       '@docusaurus/mdx-loader': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@docusaurus/utils': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -9931,13 +9936,13 @@ snapshots:
       - uglify-js
       - webpack-cli
 
-  '@docusaurus/plugin-content-blog@3.9.2(@docusaurus/plugin-content-docs@3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3))(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)':
+  '@docusaurus/plugin-content-blog@3.9.2(@docusaurus/plugin-content-docs@3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2))(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)':
     dependencies:
-      '@docusaurus/core': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
+      '@docusaurus/core': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)
       '@docusaurus/logger': 3.9.2
       '@docusaurus/mdx-loader': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      '@docusaurus/plugin-content-docs': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
-      '@docusaurus/theme-common': 3.9.2(@docusaurus/plugin-content-docs@3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@docusaurus/plugin-content-docs': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)
+      '@docusaurus/theme-common': 3.9.2(@docusaurus/plugin-content-docs@3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@docusaurus/types': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@docusaurus/utils': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@docusaurus/utils-common': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -9972,13 +9977,13 @@ snapshots:
       - utf-8-validate
       - webpack-cli
 
-  '@docusaurus/plugin-content-docs@3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)':
+  '@docusaurus/plugin-content-docs@3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)':
     dependencies:
-      '@docusaurus/core': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
+      '@docusaurus/core': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)
       '@docusaurus/logger': 3.9.2
       '@docusaurus/mdx-loader': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@docusaurus/module-type-aliases': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      '@docusaurus/theme-common': 3.9.2(@docusaurus/plugin-content-docs@3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@docusaurus/theme-common': 3.9.2(@docusaurus/plugin-content-docs@3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@docusaurus/types': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@docusaurus/utils': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@docusaurus/utils-common': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -10012,9 +10017,9 @@ snapshots:
       - utf-8-validate
       - webpack-cli
 
-  '@docusaurus/plugin-content-pages@3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)':
+  '@docusaurus/plugin-content-pages@3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)':
     dependencies:
-      '@docusaurus/core': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
+      '@docusaurus/core': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)
       '@docusaurus/mdx-loader': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@docusaurus/types': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@docusaurus/utils': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -10042,9 +10047,9 @@ snapshots:
       - utf-8-validate
       - webpack-cli
 
-  '@docusaurus/plugin-css-cascade-layers@3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)':
+  '@docusaurus/plugin-css-cascade-layers@3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)':
     dependencies:
-      '@docusaurus/core': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
+      '@docusaurus/core': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)
       '@docusaurus/types': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@docusaurus/utils': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@docusaurus/utils-validation': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -10069,9 +10074,9 @@ snapshots:
       - utf-8-validate
       - webpack-cli
 
-  '@docusaurus/plugin-debug@3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)':
+  '@docusaurus/plugin-debug@3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)':
     dependencies:
-      '@docusaurus/core': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
+      '@docusaurus/core': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)
       '@docusaurus/types': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@docusaurus/utils': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       fs-extra: 11.3.4
@@ -10097,9 +10102,9 @@ snapshots:
       - utf-8-validate
       - webpack-cli
 
-  '@docusaurus/plugin-google-analytics@3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)':
+  '@docusaurus/plugin-google-analytics@3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)':
     dependencies:
-      '@docusaurus/core': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
+      '@docusaurus/core': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)
       '@docusaurus/types': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@docusaurus/utils-validation': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       react: 19.2.4
@@ -10123,9 +10128,9 @@ snapshots:
       - utf-8-validate
       - webpack-cli
 
-  '@docusaurus/plugin-google-gtag@3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)':
+  '@docusaurus/plugin-google-gtag@3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)':
     dependencies:
-      '@docusaurus/core': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
+      '@docusaurus/core': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)
       '@docusaurus/types': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@docusaurus/utils-validation': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@types/gtag.js': 0.0.12
@@ -10150,9 +10155,9 @@ snapshots:
       - utf-8-validate
       - webpack-cli
 
-  '@docusaurus/plugin-google-tag-manager@3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)':
+  '@docusaurus/plugin-google-tag-manager@3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)':
     dependencies:
-      '@docusaurus/core': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
+      '@docusaurus/core': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)
       '@docusaurus/types': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@docusaurus/utils-validation': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       react: 19.2.4
@@ -10176,9 +10181,9 @@ snapshots:
       - utf-8-validate
       - webpack-cli
 
-  '@docusaurus/plugin-sitemap@3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)':
+  '@docusaurus/plugin-sitemap@3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)':
     dependencies:
-      '@docusaurus/core': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
+      '@docusaurus/core': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)
       '@docusaurus/logger': 3.9.2
       '@docusaurus/types': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@docusaurus/utils': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -10207,14 +10212,14 @@ snapshots:
       - utf-8-validate
       - webpack-cli
 
-  '@docusaurus/plugin-svgr@3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)':
+  '@docusaurus/plugin-svgr@3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)':
     dependencies:
-      '@docusaurus/core': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
+      '@docusaurus/core': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)
       '@docusaurus/types': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@docusaurus/utils': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@docusaurus/utils-validation': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      '@svgr/core': 8.1.0(typescript@5.9.3)
-      '@svgr/webpack': 8.1.0(typescript@5.9.3)
+      '@svgr/core': 8.1.0(typescript@6.0.2)
+      '@svgr/webpack': 8.1.0(typescript@6.0.2)
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
       tslib: 2.8.1
@@ -10237,22 +10242,22 @@ snapshots:
       - utf-8-validate
       - webpack-cli
 
-  '@docusaurus/preset-classic@3.9.2(@algolia/client-search@5.49.2)(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(search-insights@2.17.3)(typescript@5.9.3)':
+  '@docusaurus/preset-classic@3.9.2(@algolia/client-search@5.49.2)(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(search-insights@2.17.3)(typescript@6.0.2)':
     dependencies:
-      '@docusaurus/core': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
-      '@docusaurus/plugin-content-blog': 3.9.2(@docusaurus/plugin-content-docs@3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3))(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
-      '@docusaurus/plugin-content-docs': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
-      '@docusaurus/plugin-content-pages': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
-      '@docusaurus/plugin-css-cascade-layers': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
-      '@docusaurus/plugin-debug': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
-      '@docusaurus/plugin-google-analytics': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
-      '@docusaurus/plugin-google-gtag': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
-      '@docusaurus/plugin-google-tag-manager': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
-      '@docusaurus/plugin-sitemap': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
-      '@docusaurus/plugin-svgr': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
-      '@docusaurus/theme-classic': 3.9.2(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
-      '@docusaurus/theme-common': 3.9.2(@docusaurus/plugin-content-docs@3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      '@docusaurus/theme-search-algolia': 3.9.2(@algolia/client-search@5.49.2)(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(search-insights@2.17.3)(typescript@5.9.3)
+      '@docusaurus/core': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)
+      '@docusaurus/plugin-content-blog': 3.9.2(@docusaurus/plugin-content-docs@3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2))(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)
+      '@docusaurus/plugin-content-docs': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)
+      '@docusaurus/plugin-content-pages': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)
+      '@docusaurus/plugin-css-cascade-layers': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)
+      '@docusaurus/plugin-debug': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)
+      '@docusaurus/plugin-google-analytics': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)
+      '@docusaurus/plugin-google-gtag': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)
+      '@docusaurus/plugin-google-tag-manager': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)
+      '@docusaurus/plugin-sitemap': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)
+      '@docusaurus/plugin-svgr': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)
+      '@docusaurus/theme-classic': 3.9.2(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)
+      '@docusaurus/theme-common': 3.9.2(@docusaurus/plugin-content-docs@3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@docusaurus/theme-search-algolia': 3.9.2(@algolia/client-search@5.49.2)(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(search-insights@2.17.3)(typescript@6.0.2)
       '@docusaurus/types': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
@@ -10282,16 +10287,16 @@ snapshots:
       '@types/react': 19.2.14
       react: 19.2.4
 
-  '@docusaurus/theme-classic@3.9.2(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)':
+  '@docusaurus/theme-classic@3.9.2(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)':
     dependencies:
-      '@docusaurus/core': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
+      '@docusaurus/core': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)
       '@docusaurus/logger': 3.9.2
       '@docusaurus/mdx-loader': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@docusaurus/module-type-aliases': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      '@docusaurus/plugin-content-blog': 3.9.2(@docusaurus/plugin-content-docs@3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3))(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
-      '@docusaurus/plugin-content-docs': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
-      '@docusaurus/plugin-content-pages': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
-      '@docusaurus/theme-common': 3.9.2(@docusaurus/plugin-content-docs@3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@docusaurus/plugin-content-blog': 3.9.2(@docusaurus/plugin-content-docs@3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2))(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)
+      '@docusaurus/plugin-content-docs': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)
+      '@docusaurus/plugin-content-pages': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)
+      '@docusaurus/theme-common': 3.9.2(@docusaurus/plugin-content-docs@3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@docusaurus/theme-translations': 3.9.2
       '@docusaurus/types': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@docusaurus/utils': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -10329,11 +10334,11 @@ snapshots:
       - utf-8-validate
       - webpack-cli
 
-  '@docusaurus/theme-common@3.9.2(@docusaurus/plugin-content-docs@3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+  '@docusaurus/theme-common@3.9.2(@docusaurus/plugin-content-docs@3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
       '@docusaurus/mdx-loader': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@docusaurus/module-type-aliases': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      '@docusaurus/plugin-content-docs': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
+      '@docusaurus/plugin-content-docs': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)
       '@docusaurus/utils': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@docusaurus/utils-common': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@types/history': 4.7.11
@@ -10353,13 +10358,13 @@ snapshots:
       - uglify-js
       - webpack-cli
 
-  '@docusaurus/theme-search-algolia@3.9.2(@algolia/client-search@5.49.2)(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(search-insights@2.17.3)(typescript@5.9.3)':
+  '@docusaurus/theme-search-algolia@3.9.2(@algolia/client-search@5.49.2)(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(search-insights@2.17.3)(typescript@6.0.2)':
     dependencies:
       '@docsearch/react': 3.9.0(@algolia/client-search@5.49.2)(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(search-insights@2.17.3)
-      '@docusaurus/core': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
+      '@docusaurus/core': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)
       '@docusaurus/logger': 3.9.2
-      '@docusaurus/plugin-content-docs': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
-      '@docusaurus/theme-common': 3.9.2(@docusaurus/plugin-content-docs@3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@docusaurus/plugin-content-docs': 3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2)
+      '@docusaurus/theme-common': 3.9.2(@docusaurus/plugin-content-docs@3.9.2(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@docusaurus/theme-translations': 3.9.2
       '@docusaurus/utils': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@docusaurus/utils-validation': 3.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -10683,7 +10688,7 @@ snapshots:
       jest-util: 30.3.0
       slash: 3.0.0
 
-  '@jest/core@30.3.0(ts-node@10.9.2(@types/node@22.16.0)(typescript@5.9.3))':
+  '@jest/core@30.3.0(ts-node@10.9.2(@types/node@22.16.0)(typescript@6.0.2))':
     dependencies:
       '@jest/console': 30.3.0
       '@jest/pattern': 30.0.1
@@ -10698,7 +10703,7 @@ snapshots:
       exit-x: 0.2.2
       graceful-fs: 4.2.11
       jest-changed-files: 30.3.0
-      jest-config: 30.3.0(@types/node@22.16.0)(ts-node@10.9.2(@types/node@22.16.0)(typescript@5.9.3))
+      jest-config: 30.3.0(@types/node@22.16.0)(ts-node@10.9.2(@types/node@22.16.0)(typescript@6.0.2))
       jest-haste-map: 30.3.0
       jest-message-util: 30.3.0
       jest-regex-util: 30.0.1
@@ -10718,7 +10723,7 @@ snapshots:
       - supports-color
       - ts-node
 
-  '@jest/core@30.3.0(ts-node@10.9.2(@types/node@25.5.0)(typescript@5.9.3))':
+  '@jest/core@30.3.0(ts-node@10.9.2(@types/node@25.5.0)(typescript@6.0.2))':
     dependencies:
       '@jest/console': 30.3.0
       '@jest/pattern': 30.0.1
@@ -10733,7 +10738,7 @@ snapshots:
       exit-x: 0.2.2
       graceful-fs: 4.2.11
       jest-changed-files: 30.3.0
-      jest-config: 30.3.0(@types/node@22.16.0)(ts-node@10.9.2(@types/node@25.5.0)(typescript@5.9.3))
+      jest-config: 30.3.0(@types/node@22.16.0)(ts-node@10.9.2(@types/node@25.5.0)(typescript@6.0.2))
       jest-haste-map: 30.3.0
       jest-message-util: 30.3.0
       jest-regex-util: 30.0.1
@@ -11217,6 +11222,17 @@ snapshots:
     transitivePeerDependencies:
       - chokidar
 
+  '@nestjs/schematics@11.0.9(chokidar@4.0.3)(typescript@6.0.2)':
+    dependencies:
+      '@angular-devkit/core': 19.2.17(chokidar@4.0.3)
+      '@angular-devkit/schematics': 19.2.17(chokidar@4.0.3)
+      comment-json: 4.4.1
+      jsonc-parser: 3.3.1
+      pluralize: 8.0.0
+      typescript: 6.0.2
+    transitivePeerDependencies:
+      - chokidar
+
   '@nestjs/terminus@11.1.1(@nestjs/common@11.1.17(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.17)(reflect-metadata@0.2.2)(rxjs@7.8.2)':
     dependencies:
       '@nestjs/common': 11.1.17(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -11457,12 +11473,12 @@ snapshots:
       '@svgr/babel-plugin-transform-react-native-svg': 8.1.0(@babel/core@7.29.0)
       '@svgr/babel-plugin-transform-svg-component': 8.0.0(@babel/core@7.29.0)
 
-  '@svgr/core@8.1.0(typescript@5.9.3)':
+  '@svgr/core@8.1.0(typescript@6.0.2)':
     dependencies:
       '@babel/core': 7.29.0
       '@svgr/babel-preset': 8.1.0(@babel/core@7.29.0)
       camelcase: 6.3.0
-      cosmiconfig: 8.3.6(typescript@5.9.3)
+      cosmiconfig: 8.3.6(typescript@6.0.2)
       snake-case: 3.0.4
     transitivePeerDependencies:
       - supports-color
@@ -11473,35 +11489,35 @@ snapshots:
       '@babel/types': 7.29.0
       entities: 4.5.0
 
-  '@svgr/plugin-jsx@8.1.0(@svgr/core@8.1.0(typescript@5.9.3))':
+  '@svgr/plugin-jsx@8.1.0(@svgr/core@8.1.0(typescript@6.0.2))':
     dependencies:
       '@babel/core': 7.29.0
       '@svgr/babel-preset': 8.1.0(@babel/core@7.29.0)
-      '@svgr/core': 8.1.0(typescript@5.9.3)
+      '@svgr/core': 8.1.0(typescript@6.0.2)
       '@svgr/hast-util-to-babel-ast': 8.0.0
       svg-parser: 2.0.4
     transitivePeerDependencies:
       - supports-color
 
-  '@svgr/plugin-svgo@8.1.0(@svgr/core@8.1.0(typescript@5.9.3))(typescript@5.9.3)':
+  '@svgr/plugin-svgo@8.1.0(@svgr/core@8.1.0(typescript@6.0.2))(typescript@6.0.2)':
     dependencies:
-      '@svgr/core': 8.1.0(typescript@5.9.3)
-      cosmiconfig: 8.3.6(typescript@5.9.3)
+      '@svgr/core': 8.1.0(typescript@6.0.2)
+      cosmiconfig: 8.3.6(typescript@6.0.2)
       deepmerge: 4.3.1
       svgo: 3.3.3
     transitivePeerDependencies:
       - typescript
 
-  '@svgr/webpack@8.1.0(typescript@5.9.3)':
+  '@svgr/webpack@8.1.0(typescript@6.0.2)':
     dependencies:
       '@babel/core': 7.29.0
       '@babel/plugin-transform-react-constant-elements': 7.27.1(@babel/core@7.29.0)
       '@babel/preset-env': 7.29.2(@babel/core@7.29.0)
       '@babel/preset-react': 7.28.5(@babel/core@7.29.0)
       '@babel/preset-typescript': 7.28.5(@babel/core@7.29.0)
-      '@svgr/core': 8.1.0(typescript@5.9.3)
-      '@svgr/plugin-jsx': 8.1.0(@svgr/core@8.1.0(typescript@5.9.3))
-      '@svgr/plugin-svgo': 8.1.0(@svgr/core@8.1.0(typescript@5.9.3))(typescript@5.9.3)
+      '@svgr/core': 8.1.0(typescript@6.0.2)
+      '@svgr/plugin-jsx': 8.1.0(@svgr/core@8.1.0(typescript@6.0.2))
+      '@svgr/plugin-svgo': 8.1.0(@svgr/core@8.1.0(typescript@6.0.2))(typescript@6.0.2)
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -12730,14 +12746,23 @@ snapshots:
     optionalDependencies:
       typescript: 5.9.3
 
-  cosmiconfig@9.0.1(typescript@5.9.3):
+  cosmiconfig@8.3.6(typescript@6.0.2):
+    dependencies:
+      import-fresh: 3.3.1
+      js-yaml: 4.1.1
+      parse-json: 5.2.0
+      path-type: 4.0.0
+    optionalDependencies:
+      typescript: 6.0.2
+
+  cosmiconfig@9.0.1(typescript@6.0.2):
     dependencies:
       env-paths: 2.2.1
       import-fresh: 3.3.1
       js-yaml: 4.1.1
       parse-json: 5.2.0
     optionalDependencies:
-      typescript: 5.9.3
+      typescript: 6.0.2
     optional: true
 
   create-require@1.1.1: {}
@@ -13952,11 +13977,11 @@ snapshots:
     optionalDependencies:
       webpack: 5.104.1
 
-  htmlnano@3.2.0(cssnano@7.1.3(postcss@8.5.8))(postcss@8.5.8)(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3):
+  htmlnano@3.2.0(cssnano@7.1.3(postcss@8.5.8))(postcss@8.5.8)(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2):
     dependencies:
       '@types/relateurl': 0.2.33
       commander: 14.0.3
-      cosmiconfig: 9.0.1(typescript@5.9.3)
+      cosmiconfig: 9.0.1(typescript@6.0.2)
       posthtml: 0.16.7
     optionalDependencies:
       cssnano: 7.1.3(postcss@8.5.8)
@@ -14326,15 +14351,15 @@ snapshots:
       - babel-plugin-macros
       - supports-color
 
-  jest-cli@30.3.0(@types/node@22.16.0)(ts-node@10.9.2(@types/node@22.16.0)(typescript@5.9.3)):
+  jest-cli@30.3.0(@types/node@22.16.0)(ts-node@10.9.2(@types/node@22.16.0)(typescript@6.0.2)):
     dependencies:
-      '@jest/core': 30.3.0(ts-node@10.9.2(@types/node@22.16.0)(typescript@5.9.3))
+      '@jest/core': 30.3.0(ts-node@10.9.2(@types/node@22.16.0)(typescript@6.0.2))
       '@jest/test-result': 30.3.0
       '@jest/types': 30.3.0
       chalk: 4.1.2
       exit-x: 0.2.2
       import-local: 3.2.0
-      jest-config: 30.3.0(@types/node@22.16.0)(ts-node@10.9.2(@types/node@22.16.0)(typescript@5.9.3))
+      jest-config: 30.3.0(@types/node@22.16.0)(ts-node@10.9.2(@types/node@22.16.0)(typescript@6.0.2))
       jest-util: 30.3.0
       jest-validate: 30.3.0
       yargs: 17.7.2
@@ -14345,15 +14370,15 @@ snapshots:
       - supports-color
       - ts-node
 
-  jest-cli@30.3.0(@types/node@25.5.0)(ts-node@10.9.2(@types/node@25.5.0)(typescript@5.9.3)):
+  jest-cli@30.3.0(@types/node@25.5.0)(ts-node@10.9.2(@types/node@25.5.0)(typescript@6.0.2)):
     dependencies:
-      '@jest/core': 30.3.0(ts-node@10.9.2(@types/node@25.5.0)(typescript@5.9.3))
+      '@jest/core': 30.3.0(ts-node@10.9.2(@types/node@25.5.0)(typescript@6.0.2))
       '@jest/test-result': 30.3.0
       '@jest/types': 30.3.0
       chalk: 4.1.2
       exit-x: 0.2.2
       import-local: 3.2.0
-      jest-config: 30.3.0(@types/node@25.5.0)(ts-node@10.9.2(@types/node@25.5.0)(typescript@5.9.3))
+      jest-config: 30.3.0(@types/node@25.5.0)(ts-node@10.9.2(@types/node@25.5.0)(typescript@6.0.2))
       jest-util: 30.3.0
       jest-validate: 30.3.0
       yargs: 17.7.2
@@ -14364,7 +14389,7 @@ snapshots:
       - supports-color
       - ts-node
 
-  jest-config@30.3.0(@types/node@22.16.0)(ts-node@10.9.2(@types/node@22.16.0)(typescript@5.9.3)):
+  jest-config@30.3.0(@types/node@22.16.0)(ts-node@10.9.2(@types/node@22.16.0)(typescript@6.0.2)):
     dependencies:
       '@babel/core': 7.29.0
       '@jest/get-type': 30.1.0
@@ -14391,12 +14416,12 @@ snapshots:
       strip-json-comments: 3.1.1
     optionalDependencies:
       '@types/node': 22.16.0
-      ts-node: 10.9.2(@types/node@22.16.0)(typescript@5.9.3)
+      ts-node: 10.9.2(@types/node@22.16.0)(typescript@6.0.2)
     transitivePeerDependencies:
       - babel-plugin-macros
       - supports-color
 
-  jest-config@30.3.0(@types/node@22.16.0)(ts-node@10.9.2(@types/node@25.5.0)(typescript@5.9.3)):
+  jest-config@30.3.0(@types/node@22.16.0)(ts-node@10.9.2(@types/node@25.5.0)(typescript@6.0.2)):
     dependencies:
       '@babel/core': 7.29.0
       '@jest/get-type': 30.1.0
@@ -14423,12 +14448,12 @@ snapshots:
       strip-json-comments: 3.1.1
     optionalDependencies:
       '@types/node': 22.16.0
-      ts-node: 10.9.2(@types/node@25.5.0)(typescript@5.9.3)
+      ts-node: 10.9.2(@types/node@25.5.0)(typescript@6.0.2)
     transitivePeerDependencies:
       - babel-plugin-macros
       - supports-color
 
-  jest-config@30.3.0(@types/node@25.5.0)(ts-node@10.9.2(@types/node@25.5.0)(typescript@5.9.3)):
+  jest-config@30.3.0(@types/node@25.5.0)(ts-node@10.9.2(@types/node@25.5.0)(typescript@6.0.2)):
     dependencies:
       '@babel/core': 7.29.0
       '@jest/get-type': 30.1.0
@@ -14455,7 +14480,7 @@ snapshots:
       strip-json-comments: 3.1.1
     optionalDependencies:
       '@types/node': 25.5.0
-      ts-node: 10.9.2(@types/node@25.5.0)(typescript@5.9.3)
+      ts-node: 10.9.2(@types/node@25.5.0)(typescript@6.0.2)
     transitivePeerDependencies:
       - babel-plugin-macros
       - supports-color
@@ -14697,12 +14722,12 @@ snapshots:
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
-  jest@30.3.0(@types/node@22.16.0)(ts-node@10.9.2(@types/node@22.16.0)(typescript@5.9.3)):
+  jest@30.3.0(@types/node@22.16.0)(ts-node@10.9.2(@types/node@22.16.0)(typescript@6.0.2)):
     dependencies:
-      '@jest/core': 30.3.0(ts-node@10.9.2(@types/node@22.16.0)(typescript@5.9.3))
+      '@jest/core': 30.3.0(ts-node@10.9.2(@types/node@22.16.0)(typescript@6.0.2))
       '@jest/types': 30.3.0
       import-local: 3.2.0
-      jest-cli: 30.3.0(@types/node@22.16.0)(ts-node@10.9.2(@types/node@22.16.0)(typescript@5.9.3))
+      jest-cli: 30.3.0(@types/node@22.16.0)(ts-node@10.9.2(@types/node@22.16.0)(typescript@6.0.2))
     transitivePeerDependencies:
       - '@types/node'
       - babel-plugin-macros
@@ -14710,12 +14735,12 @@ snapshots:
       - supports-color
       - ts-node
 
-  jest@30.3.0(@types/node@25.5.0)(ts-node@10.9.2(@types/node@25.5.0)(typescript@5.9.3)):
+  jest@30.3.0(@types/node@25.5.0)(ts-node@10.9.2(@types/node@25.5.0)(typescript@6.0.2)):
     dependencies:
-      '@jest/core': 30.3.0(ts-node@10.9.2(@types/node@25.5.0)(typescript@5.9.3))
+      '@jest/core': 30.3.0(ts-node@10.9.2(@types/node@25.5.0)(typescript@6.0.2))
       '@jest/types': 30.3.0
       import-local: 3.2.0
-      jest-cli: 30.3.0(@types/node@25.5.0)(ts-node@10.9.2(@types/node@25.5.0)(typescript@5.9.3))
+      jest-cli: 30.3.0(@types/node@25.5.0)(ts-node@10.9.2(@types/node@25.5.0)(typescript@6.0.2))
     transitivePeerDependencies:
       - '@types/node'
       - babel-plugin-macros
@@ -15525,11 +15550,11 @@ snapshots:
 
   minipass@7.1.3: {}
 
-  mjml-accordion@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3):
+  mjml-accordion@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2):
     dependencies:
       '@babel/runtime': 7.29.2
       lodash: 4.17.23
-      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
+      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
     transitivePeerDependencies:
       - purgecss
       - relateurl
@@ -15540,11 +15565,11 @@ snapshots:
       - uncss
     optional: true
 
-  mjml-body@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3):
+  mjml-body@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2):
     dependencies:
       '@babel/runtime': 7.29.2
       lodash: 4.17.23
-      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
+      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
     transitivePeerDependencies:
       - purgecss
       - relateurl
@@ -15555,11 +15580,11 @@ snapshots:
       - uncss
     optional: true
 
-  mjml-button@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3):
+  mjml-button@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2):
     dependencies:
       '@babel/runtime': 7.29.2
       lodash: 4.17.23
-      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
+      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
     transitivePeerDependencies:
       - purgecss
       - relateurl
@@ -15570,11 +15595,11 @@ snapshots:
       - uncss
     optional: true
 
-  mjml-carousel@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3):
+  mjml-carousel@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2):
     dependencies:
       '@babel/runtime': 7.29.2
       lodash: 4.17.23
-      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
+      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
     transitivePeerDependencies:
       - purgecss
       - relateurl
@@ -15585,16 +15610,16 @@ snapshots:
       - uncss
     optional: true
 
-  mjml-cli@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3):
+  mjml-cli@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2):
     dependencies:
       '@babel/runtime': 7.29.2
       chokidar: 3.6.0
       glob: 10.5.0
       lodash: 4.17.23
       minimatch: 9.0.9
-      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
+      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
       mjml-parser-xml: 5.0.0-beta.2
-      mjml-preset-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
+      mjml-preset-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
       mjml-validator: 5.0.0-beta.2
       yargs: 17.7.2
     transitivePeerDependencies:
@@ -15607,11 +15632,11 @@ snapshots:
       - uncss
     optional: true
 
-  mjml-column@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3):
+  mjml-column@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2):
     dependencies:
       '@babel/runtime': 7.29.2
       lodash: 4.17.23
-      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
+      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
     transitivePeerDependencies:
       - purgecss
       - relateurl
@@ -15622,14 +15647,14 @@ snapshots:
       - uncss
     optional: true
 
-  mjml-core@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3):
+  mjml-core@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2):
     dependencies:
       '@babel/runtime': 7.29.2
       cheerio: 1.0.0
       cssnano: 7.1.3(postcss@8.5.8)
       cssnano-preset-lite: 4.0.4(postcss@8.5.8)
       detect-node: 2.1.0
-      htmlnano: 3.2.0(cssnano@7.1.3(postcss@8.5.8))(postcss@8.5.8)(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
+      htmlnano: 3.2.0(cssnano@7.1.3(postcss@8.5.8))(postcss@8.5.8)(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
       juice: 11.1.1
       lodash: 4.17.23
       mjml-parser-xml: 5.0.0-beta.2
@@ -15646,11 +15671,11 @@ snapshots:
       - uncss
     optional: true
 
-  mjml-divider@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3):
+  mjml-divider@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2):
     dependencies:
       '@babel/runtime': 7.29.2
       lodash: 4.17.23
-      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
+      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
     transitivePeerDependencies:
       - purgecss
       - relateurl
@@ -15661,11 +15686,11 @@ snapshots:
       - uncss
     optional: true
 
-  mjml-group@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3):
+  mjml-group@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2):
     dependencies:
       '@babel/runtime': 7.29.2
       lodash: 4.17.23
-      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
+      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
     transitivePeerDependencies:
       - purgecss
       - relateurl
@@ -15676,11 +15701,11 @@ snapshots:
       - uncss
     optional: true
 
-  mjml-head-attributes@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3):
+  mjml-head-attributes@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2):
     dependencies:
       '@babel/runtime': 7.29.2
       lodash: 4.17.23
-      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
+      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
     transitivePeerDependencies:
       - purgecss
       - relateurl
@@ -15691,11 +15716,11 @@ snapshots:
       - uncss
     optional: true
 
-  mjml-head-breakpoint@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3):
+  mjml-head-breakpoint@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2):
     dependencies:
       '@babel/runtime': 7.29.2
       lodash: 4.17.23
-      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
+      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
     transitivePeerDependencies:
       - purgecss
       - relateurl
@@ -15706,11 +15731,11 @@ snapshots:
       - uncss
     optional: true
 
-  mjml-head-font@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3):
+  mjml-head-font@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2):
     dependencies:
       '@babel/runtime': 7.29.2
       lodash: 4.17.23
-      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
+      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
     transitivePeerDependencies:
       - purgecss
       - relateurl
@@ -15721,11 +15746,11 @@ snapshots:
       - uncss
     optional: true
 
-  mjml-head-html-attributes@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3):
+  mjml-head-html-attributes@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2):
     dependencies:
       '@babel/runtime': 7.29.2
       lodash: 4.17.23
-      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
+      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
     transitivePeerDependencies:
       - purgecss
       - relateurl
@@ -15736,11 +15761,11 @@ snapshots:
       - uncss
     optional: true
 
-  mjml-head-preview@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3):
+  mjml-head-preview@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2):
     dependencies:
       '@babel/runtime': 7.29.2
       lodash: 4.17.23
-      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
+      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
     transitivePeerDependencies:
       - purgecss
       - relateurl
@@ -15751,11 +15776,11 @@ snapshots:
       - uncss
     optional: true
 
-  mjml-head-style@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3):
+  mjml-head-style@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2):
     dependencies:
       '@babel/runtime': 7.29.2
       lodash: 4.17.23
-      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
+      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
     transitivePeerDependencies:
       - purgecss
       - relateurl
@@ -15766,11 +15791,11 @@ snapshots:
       - uncss
     optional: true
 
-  mjml-head-title@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3):
+  mjml-head-title@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2):
     dependencies:
       '@babel/runtime': 7.29.2
       lodash: 4.17.23
-      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
+      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
     transitivePeerDependencies:
       - purgecss
       - relateurl
@@ -15781,11 +15806,11 @@ snapshots:
       - uncss
     optional: true
 
-  mjml-head@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3):
+  mjml-head@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2):
     dependencies:
       '@babel/runtime': 7.29.2
       lodash: 4.17.23
-      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
+      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
     transitivePeerDependencies:
       - purgecss
       - relateurl
@@ -15796,11 +15821,11 @@ snapshots:
       - uncss
     optional: true
 
-  mjml-hero@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3):
+  mjml-hero@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2):
     dependencies:
       '@babel/runtime': 7.29.2
       lodash: 4.17.23
-      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
+      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
     transitivePeerDependencies:
       - purgecss
       - relateurl
@@ -15811,11 +15836,11 @@ snapshots:
       - uncss
     optional: true
 
-  mjml-image@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3):
+  mjml-image@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2):
     dependencies:
       '@babel/runtime': 7.29.2
       lodash: 4.17.23
-      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
+      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
     transitivePeerDependencies:
       - purgecss
       - relateurl
@@ -15826,11 +15851,11 @@ snapshots:
       - uncss
     optional: true
 
-  mjml-navbar@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3):
+  mjml-navbar@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2):
     dependencies:
       '@babel/runtime': 7.29.2
       lodash: 4.17.23
-      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
+      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
     transitivePeerDependencies:
       - purgecss
       - relateurl
@@ -15849,34 +15874,34 @@ snapshots:
       lodash: 4.17.23
     optional: true
 
-  mjml-preset-core@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3):
+  mjml-preset-core@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2):
     dependencies:
       '@babel/runtime': 7.29.2
-      mjml-accordion: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
-      mjml-body: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
-      mjml-button: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
-      mjml-carousel: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
-      mjml-column: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
-      mjml-divider: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
-      mjml-group: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
-      mjml-head: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
-      mjml-head-attributes: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
-      mjml-head-breakpoint: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
-      mjml-head-font: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
-      mjml-head-html-attributes: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
-      mjml-head-preview: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
-      mjml-head-style: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
-      mjml-head-title: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
-      mjml-hero: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
-      mjml-image: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
-      mjml-navbar: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
-      mjml-raw: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
-      mjml-section: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
-      mjml-social: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
-      mjml-spacer: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
-      mjml-table: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
-      mjml-text: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
-      mjml-wrapper: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
+      mjml-accordion: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
+      mjml-body: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
+      mjml-button: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
+      mjml-carousel: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
+      mjml-column: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
+      mjml-divider: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
+      mjml-group: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
+      mjml-head: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
+      mjml-head-attributes: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
+      mjml-head-breakpoint: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
+      mjml-head-font: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
+      mjml-head-html-attributes: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
+      mjml-head-preview: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
+      mjml-head-style: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
+      mjml-head-title: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
+      mjml-hero: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
+      mjml-image: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
+      mjml-navbar: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
+      mjml-raw: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
+      mjml-section: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
+      mjml-social: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
+      mjml-spacer: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
+      mjml-table: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
+      mjml-text: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
+      mjml-wrapper: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
     transitivePeerDependencies:
       - purgecss
       - relateurl
@@ -15887,11 +15912,11 @@ snapshots:
       - uncss
     optional: true
 
-  mjml-raw@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3):
+  mjml-raw@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2):
     dependencies:
       '@babel/runtime': 7.29.2
       lodash: 4.17.23
-      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
+      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
     transitivePeerDependencies:
       - purgecss
       - relateurl
@@ -15902,11 +15927,11 @@ snapshots:
       - uncss
     optional: true
 
-  mjml-section@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3):
+  mjml-section@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2):
     dependencies:
       '@babel/runtime': 7.29.2
       lodash: 4.17.23
-      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
+      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
     transitivePeerDependencies:
       - purgecss
       - relateurl
@@ -15917,11 +15942,11 @@ snapshots:
       - uncss
     optional: true
 
-  mjml-social@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3):
+  mjml-social@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2):
     dependencies:
       '@babel/runtime': 7.29.2
       lodash: 4.17.23
-      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
+      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
     transitivePeerDependencies:
       - purgecss
       - relateurl
@@ -15932,11 +15957,11 @@ snapshots:
       - uncss
     optional: true
 
-  mjml-spacer@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3):
+  mjml-spacer@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2):
     dependencies:
       '@babel/runtime': 7.29.2
       lodash: 4.17.23
-      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
+      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
     transitivePeerDependencies:
       - purgecss
       - relateurl
@@ -15947,11 +15972,11 @@ snapshots:
       - uncss
     optional: true
 
-  mjml-table@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3):
+  mjml-table@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2):
     dependencies:
       '@babel/runtime': 7.29.2
       lodash: 4.17.23
-      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
+      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
     transitivePeerDependencies:
       - purgecss
       - relateurl
@@ -15962,11 +15987,11 @@ snapshots:
       - uncss
     optional: true
 
-  mjml-text@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3):
+  mjml-text@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2):
     dependencies:
       '@babel/runtime': 7.29.2
       lodash: 4.17.23
-      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
+      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
     transitivePeerDependencies:
       - purgecss
       - relateurl
@@ -15982,12 +16007,12 @@ snapshots:
       '@babel/runtime': 7.29.2
     optional: true
 
-  mjml-wrapper@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3):
+  mjml-wrapper@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2):
     dependencies:
       '@babel/runtime': 7.29.2
       lodash: 4.17.23
-      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
-      mjml-section: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
+      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
+      mjml-section: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
     transitivePeerDependencies:
       - purgecss
       - relateurl
@@ -15998,12 +16023,12 @@ snapshots:
       - uncss
     optional: true
 
-  mjml@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3):
+  mjml@5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2):
     dependencies:
       '@babel/runtime': 7.29.2
-      mjml-cli: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
-      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
-      mjml-preset-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
+      mjml-cli: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
+      mjml-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
+      mjml-preset-core: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@6.0.2)
       mjml-validator: 5.0.0-beta.2
     transitivePeerDependencies:
       - purgecss
@@ -16610,9 +16635,9 @@ snapshots:
       '@csstools/utilities': 2.0.0(postcss@8.5.8)
       postcss: 8.5.8
 
-  postcss-loader@7.3.4(postcss@8.5.8)(typescript@5.9.3)(webpack@5.104.1):
+  postcss-loader@7.3.4(postcss@8.5.8)(typescript@6.0.2)(webpack@5.104.1):
     dependencies:
-      cosmiconfig: 8.3.6(typescript@5.9.3)
+      cosmiconfig: 8.3.6(typescript@6.0.2)
       jiti: 1.21.7
       postcss: 8.5.8
       semver: 7.7.4
@@ -18100,18 +18125,18 @@ snapshots:
 
   trough@2.2.0: {}
 
-  ts-jest@29.4.6(@babel/core@7.29.0)(@jest/transform@30.3.0)(@jest/types@30.3.0)(babel-jest@30.3.0(@babel/core@7.29.0))(jest-util@30.3.0)(jest@30.3.0(@types/node@22.16.0)(ts-node@10.9.2(@types/node@22.16.0)(typescript@5.9.3)))(typescript@5.9.3):
+  ts-jest@29.4.6(@babel/core@7.29.0)(@jest/transform@30.3.0)(@jest/types@30.3.0)(babel-jest@30.3.0(@babel/core@7.29.0))(jest-util@30.3.0)(jest@30.3.0(@types/node@22.16.0)(ts-node@10.9.2(@types/node@22.16.0)(typescript@6.0.2)))(typescript@6.0.2):
     dependencies:
       bs-logger: 0.2.6
       fast-json-stable-stringify: 2.1.0
       handlebars: 4.7.8
-      jest: 30.3.0(@types/node@22.16.0)(ts-node@10.9.2(@types/node@22.16.0)(typescript@5.9.3))
+      jest: 30.3.0(@types/node@22.16.0)(ts-node@10.9.2(@types/node@22.16.0)(typescript@6.0.2))
       json5: 2.2.3
       lodash.memoize: 4.1.2
       make-error: 1.3.6
       semver: 7.7.4
       type-fest: 4.41.0
-      typescript: 5.9.3
+      typescript: 6.0.2
       yargs-parser: 21.1.1
     optionalDependencies:
       '@babel/core': 7.29.0
@@ -18120,18 +18145,18 @@ snapshots:
       babel-jest: 30.3.0(@babel/core@7.29.0)
       jest-util: 30.3.0
 
-  ts-jest@29.4.6(@babel/core@7.29.0)(@jest/transform@30.3.0)(@jest/types@30.3.0)(babel-jest@30.3.0(@babel/core@7.29.0))(jest-util@30.3.0)(jest@30.3.0(@types/node@25.5.0)(ts-node@10.9.2(@types/node@25.5.0)(typescript@5.9.3)))(typescript@5.9.3):
+  ts-jest@29.4.6(@babel/core@7.29.0)(@jest/transform@30.3.0)(@jest/types@30.3.0)(babel-jest@30.3.0(@babel/core@7.29.0))(jest-util@30.3.0)(jest@30.3.0(@types/node@25.5.0)(ts-node@10.9.2(@types/node@25.5.0)(typescript@6.0.2)))(typescript@6.0.2):
     dependencies:
       bs-logger: 0.2.6
       fast-json-stable-stringify: 2.1.0
       handlebars: 4.7.8
-      jest: 30.3.0(@types/node@25.5.0)(ts-node@10.9.2(@types/node@25.5.0)(typescript@5.9.3))
+      jest: 30.3.0(@types/node@25.5.0)(ts-node@10.9.2(@types/node@25.5.0)(typescript@6.0.2))
       json5: 2.2.3
       lodash.memoize: 4.1.2
       make-error: 1.3.6
       semver: 7.7.4
       type-fest: 4.41.0
-      typescript: 5.9.3
+      typescript: 6.0.2
       yargs-parser: 21.1.1
     optionalDependencies:
       '@babel/core': 7.29.0
@@ -18140,17 +18165,17 @@ snapshots:
       babel-jest: 30.3.0(@babel/core@7.29.0)
       jest-util: 30.3.0
 
-  ts-loader@9.5.4(typescript@5.9.3)(webpack@5.104.1):
+  ts-loader@9.5.4(typescript@6.0.2)(webpack@5.104.1):
     dependencies:
       chalk: 4.1.2
       enhanced-resolve: 5.20.1
       micromatch: 4.0.8
       semver: 7.7.4
       source-map: 0.7.6
-      typescript: 5.9.3
+      typescript: 6.0.2
       webpack: 5.104.1
 
-  ts-node@10.9.2(@types/node@22.16.0)(typescript@5.9.3):
+  ts-node@10.9.2(@types/node@22.16.0)(typescript@6.0.2):
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
       '@tsconfig/node10': 1.0.12
@@ -18164,11 +18189,11 @@ snapshots:
       create-require: 1.1.1
       diff: 4.0.4
       make-error: 1.3.6
-      typescript: 5.9.3
+      typescript: 6.0.2
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
 
-  ts-node@10.9.2(@types/node@25.5.0)(typescript@5.9.3):
+  ts-node@10.9.2(@types/node@25.5.0)(typescript@6.0.2):
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
       '@tsconfig/node10': 1.0.12
@@ -18182,7 +18207,7 @@ snapshots:
       create-require: 1.1.1
       diff: 4.0.4
       make-error: 1.3.6
-      typescript: 5.9.3
+      typescript: 6.0.2
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
 
@@ -18265,6 +18290,8 @@ snapshots:
   typedarray@0.0.6: {}
 
   typescript@5.9.3: {}
+
+  typescript@6.0.2: {}
 
   uc.micro@2.1.0:
     optional: true
