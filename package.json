@@ -18,6 +18,7 @@
   },
   "pnpm": {
     "overrides": {
+      "@types/node": "25.5.0",
       "locutus": ">=3.0.14",
       "serialize-javascript": ">=7.0.3",
       "webpack": ">=5.104.1",
