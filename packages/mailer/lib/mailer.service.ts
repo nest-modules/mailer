@@ -212,7 +212,7 @@ export class MailerService implements OnModuleDestroy {
     context?: Record<string, any>,
   ): string {
     if (!context || !subject) return subject;
-    return subject.replace(/\{\{([^}]+)\}\}/g, (_, key) => {
+    return subject.replace(/\{\{([^{}]+)\}\}/g, (_, key) => {
       const trimmed = key.trim();
       return context[trimmed] !== undefined
         ? String(context[trimmed])
@@ -223,7 +223,7 @@ export class MailerService implements OnModuleDestroy {
   /** Feature 3: Compile inline HTML string with template context */
   private interpolateHtml(html: string, context?: Record<string, any>): string {
     if (!context || !html) return html;
-    return html.replace(/\{\{([^}]+)\}\}/g, (_, key) => {
+    return html.replace(/\{\{([^{}]+)\}\}/g, (_, key) => {
       const trimmed = key.trim();
       return context[trimmed] !== undefined
         ? String(context[trimmed])
@@ -405,7 +405,7 @@ export class MailerService implements OnModuleDestroy {
     try {
       let content = fs.readFileSync(fullPath, 'utf-8');
       // Simple interpolation for text templates
-      content = content.replace(/\{\{([^}]+)\}\}/g, (_, key) => {
+      content = content.replace(/\{\{([^{}]+)\}\}/g, (_, key) => {
         const trimmed = key.trim();
         return context[trimmed] !== undefined
           ? String(context[trimmed])
