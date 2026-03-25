@@ -27,6 +27,7 @@ export class MailerCoreModule {
 
     return {
       module: MailerCoreModule,
+      global: true,
       providers: [
         /** Options **/
         MailerOptionsProvider,
@@ -53,6 +54,7 @@ export class MailerCoreModule {
 
     return {
       module: MailerCoreModule,
+      global: true,
       providers: [
         /** Providers **/
         ...providers,
