@@ -54,7 +54,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@css-inline/css-inline": "0.20.0",
+    "@css-inline/css-inline": "0.20.1",
     "glob": "13.0.6",
     "tslib": "^2.8.1"
   },
