@@ -29,6 +29,6 @@
     "@biomejs/biome": "2.4.8",
     "@changesets/changelog-github": "^0.6.0",
     "@changesets/cli": "^2.30.0",
-    "turbo": "2.8.20"
+    "turbo": "2.8.21"
   }
 }
