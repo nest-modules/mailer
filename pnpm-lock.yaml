@@ -111,11 +111,11 @@ importers:
         specifier: 30.3.0
         version: 30.3.0(@types/node@25.5.0)(ts-node@10.9.2(@types/node@25.5.0)(typescript@5.9.3))
       nodemailer:
-        specifier: 8.0.4
-        version: 8.0.4
+        specifier: 8.0.5
+        version: 8.0.5
       nodemailer-mock:
         specifier: 2.0.9
-        version: 2.0.9(nodemailer@8.0.4)
+        version: 2.0.9(nodemailer@8.0.5)
       reflect-metadata:
         specifier: 0.2.2
         version: 0.2.2
@@ -184,8 +184,8 @@ importers:
         specifier: 17.3.1
         version: 17.3.1
       nodemailer:
-        specifier: 8.0.4
-        version: 8.0.4
+        specifier: 8.0.5
+        version: 8.0.5
       reflect-metadata:
         specifier: 0.2.2
         version: 0.2.2
@@ -254,8 +254,8 @@ importers:
         specifier: 11.1.17
         version: 11.1.17(@nestjs/common@11.1.17(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.17)
       nodemailer:
-        specifier: 8.0.4
-        version: 8.0.4
+        specifier: 8.0.5
+        version: 8.0.5
       reflect-metadata:
         specifier: 0.2.2
         version: 0.2.2
@@ -5918,8 +5918,8 @@ packages:
     resolution: {integrity: sha512-zbj002pZAIkWQFxyAaqoxvn+zoIwRnS40hgjqTXudKOOJkiFFgBeNqjgD3/YCR12sZnrghWYBY+yP1ZucdDRpw==}
     engines: {node: '>=6.0.0'}
 
-  nodemailer@8.0.4:
-    resolution: {integrity: sha512-k+jf6N8PfQJ0Fe8ZhJlgqU5qJU44Lpvp2yvidH3vp1lPnVQMgi4yEEMPXg5eJS1gFIJTVq1NHBk7Ia9ARdSBdQ==}
+  nodemailer@8.0.5:
+    resolution: {integrity: sha512-0PF8Yb1yZuQfQbq+5/pZJrtF6WQcjTd5/S4JOHs9PGFxuTqoB/icwuB44pOdURHJbRKX1PPoJZtY7R4VUoCC8w==}
     engines: {node: '>=6.0.0'}
 
   normalize-path@3.0.0:
@@ -15948,10 +15948,10 @@ snapshots:
 
   node-releases@2.0.36: {}
 
-  nodemailer-mock@2.0.9(nodemailer@8.0.4):
+  nodemailer-mock@2.0.9(nodemailer@8.0.5):
     dependencies:
       debug: 4.4.3
-      nodemailer: 8.0.4
+      nodemailer: 8.0.5
     transitivePeerDependencies:
       - supports-color
 
@@ -15961,7 +15961,7 @@ snapshots:
   nodemailer@8.0.2:
     optional: true
 
-  nodemailer@8.0.4: {}
+  nodemailer@8.0.5: {}
 
   normalize-path@3.0.0: {}
 
