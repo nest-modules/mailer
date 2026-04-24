@@ -64,7 +64,7 @@
     "@types/pug": "^2.0.10",
     "ejs": "^5.0.1",
     "handlebars": "^4.7.8",
-    "liquidjs": "^10.25.1",
+    "liquidjs": "^10.25.7",
     "mjml": "^5.0.0-alpha.4",
     "preview-email": "^3.1.1",
     "pug": "^3.0.4",
