@@ -111,11 +111,11 @@ importers:
         specifier: 30.3.0
         version: 30.3.0(@types/node@25.5.0)(ts-node@10.9.2(@types/node@25.5.0)(typescript@5.9.3))
       nodemailer:
-        specifier: 8.0.4
-        version: 8.0.4
+        specifier: 8.0.7
+        version: 8.0.7
       nodemailer-mock:
-        specifier: 2.0.9
-        version: 2.0.9(nodemailer@8.0.4)
+        specifier: 2.0.11
+        version: 2.0.11(nodemailer@8.0.7)
       reflect-metadata:
         specifier: 0.2.2
         version: 0.2.2
@@ -148,11 +148,11 @@ importers:
         specifier: ^5.0.1
         version: 5.0.1
       handlebars:
-        specifier: ^4.7.8
-        version: 4.7.8
+        specifier: ^4.7.9
+        version: 4.7.9
       liquidjs:
-        specifier: ^10.25.1
-        version: 10.25.1
+        specifier: ^10.25.7
+        version: 10.27.0
       mjml:
         specifier: ^5.0.0-alpha.4
         version: 5.0.0-beta.2(relateurl@0.2.7)(svgo@4.0.1)(terser@5.46.1)(typescript@5.9.3)
@@ -4575,6 +4575,11 @@ packages:
     engines: {node: '>=0.4.7'}
     hasBin: true
 
+  handlebars@4.7.9:
+    resolution: {integrity: sha512-4E71E0rpOaQuJR2A3xDZ+GM1HyWYv1clR58tC8emQNeQe3RH7MAzSbat+V0wG78LQBo6m6bzSG/L4pBuCsgnUQ==}
+    engines: {node: '>=0.4.7'}
+    hasBin: true
+
   has-flag@4.0.0:
     resolution: {integrity: sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==}
     engines: {node: '>=8'}
@@ -5292,8 +5297,8 @@ packages:
   linkify-it@5.0.0:
     resolution: {integrity: sha512-5aHCbzQRADcdP+ATqnDuhhJ/MRIqDkZX5pyjFHRRysS8vZ5AbqGEoFIb6pYHPZ+L/OC2Lc+xT8uHVVR5CAK/wQ==}
 
-  liquidjs@10.25.1:
-    resolution: {integrity: sha512-D+jsJvkGigFn8qNUgh8U6XNHhGFBp+p8Dk26ea/Hl+XrjFVSg9OXlN31hGAfS3MYQ3Kr8Xi9sEVBVQa/VTVSmg==}
+  liquidjs@10.27.0:
+    resolution: {integrity: sha512-tw/OA59K7aIBlMKIrKlumr37fiZUheShVHXY8cVctWisgY1p9mc5hreOvlreoS0wTiwlWk14Ya7305c2a/Cg5w==}
     engines: {node: '>=16'}
     hasBin: true
 
@@ -5905,10 +5910,10 @@ packages:
   node-releases@2.0.36:
     resolution: {integrity: sha512-TdC8FSgHz8Mwtw9g5L4gR/Sh9XhSP/0DEkQxfEFXOpiul5IiHgHan2VhYYb6agDSfp4KuvltmGApc8HMgUrIkA==}
 
-  nodemailer-mock@2.0.9:
-    resolution: {integrity: sha512-aDYiH2oUCE6NYolHssoorV7rWLR7Dfn6ZPjF3p3rtJkueHc7bU8VA6VpSslL4ffkTYbbNmpU5huEoIXYdK5Fgg==}
+  nodemailer-mock@2.0.11:
+    resolution: {integrity: sha512-XZm5JOSd51Ok/m/H28Vd80O1xFsU0FENllwS1BokYPNWe03AchjxNGp48OBhisKaGzBzae5SxStUlcfaQyktig==}
     peerDependencies:
-      nodemailer: ^6.x || ^7.x
+      nodemailer: ^6.x || ^7.x || ^8.x
 
   nodemailer@7.0.13:
     resolution: {integrity: sha512-PNDFSJdP+KFgdsG3ZzMXCgquO7I6McjY2vlqILjtJd0hy8wEvtugS9xKRF2NWlPNGxvLCXlTNIae4serI7dinw==}
@@ -5920,6 +5925,10 @@ packages:
 
   nodemailer@8.0.4:
     resolution: {integrity: sha512-k+jf6N8PfQJ0Fe8ZhJlgqU5qJU44Lpvp2yvidH3vp1lPnVQMgi4yEEMPXg5eJS1gFIJTVq1NHBk7Ia9ARdSBdQ==}
+    engines: {node: '>=6.0.0'}
+
+  nodemailer@8.0.7:
+    resolution: {integrity: sha512-pkjE4mkBzQjdJT4/UmlKl3pX0rC9fZmjh7c6C9o7lv66Ac6w9WCnzPzhbPNxwZAzlF4mdq4CSWB5+FbK6FWCow==}
     engines: {node: '>=6.0.0'}
 
   normalize-path@3.0.0:
@@ -13712,6 +13721,15 @@ snapshots:
     optionalDependencies:
       uglify-js: 3.19.3
 
+  handlebars@4.7.9:
+    dependencies:
+      minimist: 1.2.8
+      neo-async: 2.6.2
+      source-map: 0.6.1
+      wordwrap: 1.0.0
+    optionalDependencies:
+      uglify-js: 3.19.3
+
   has-flag@4.0.0: {}
 
   has-property-descriptors@1.0.2:
@@ -14675,7 +14693,7 @@ snapshots:
       uc.micro: 2.1.0
     optional: true
 
-  liquidjs@10.25.1:
+  liquidjs@10.27.0:
     dependencies:
       commander: 10.0.1
     optional: true
@@ -15948,10 +15966,10 @@ snapshots:
 
   node-releases@2.0.36: {}
 
-  nodemailer-mock@2.0.9(nodemailer@8.0.4):
+  nodemailer-mock@2.0.11(nodemailer@8.0.7):
     dependencies:
       debug: 4.4.3
-      nodemailer: 8.0.4
+      nodemailer: 8.0.7
     transitivePeerDependencies:
       - supports-color
 
@@ -15962,6 +15980,8 @@ snapshots:
     optional: true
 
   nodemailer@8.0.4: {}
+
+  nodemailer@8.0.7: {}
 
   normalize-path@3.0.0: {}
 
@@ -17947,7 +17967,7 @@ snapshots:
     dependencies:
       bs-logger: 0.2.6
       fast-json-stable-stringify: 2.1.0
-      handlebars: 4.7.8
+      handlebars: 4.7.9
       jest: 30.3.0(@types/node@25.5.0)(ts-node@10.9.2(@types/node@25.5.0)(typescript@5.9.3))
       json5: 2.2.3
       lodash.memoize: 4.1.2
