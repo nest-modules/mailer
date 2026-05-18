@@ -71,9 +71,9 @@
     "nunjucks": "^3.2.4"
   },
   "devDependencies": {
-    "@nestjs/common": "11.1.17",
-    "@nestjs/core": "11.1.17",
-    "@nestjs/testing": "11.1.17",
+    "@nestjs/common": "11.1.21",
+    "@nestjs/core": "11.1.21",
+    "@nestjs/testing": "11.1.21",
     "@types/glob": "9.0.0",
     "@types/jest": "30.0.0",
     "@types/lodash": "4.17.24",

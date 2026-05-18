@@ -20,9 +20,14 @@
     "overrides": {
       "@types/node": "25.5.0",
       "locutus": ">=3.0.14",
-      "serialize-javascript": ">=7.0.3",
+      "serialize-javascript": ">=7.0.5",
       "webpack": ">=5.104.1",
-      "ajv": ">=8.18.0"
+      "ajv": ">=8.18.0",
+      "fast-uri": ">=3.1.2",
+      "lodash": ">=4.18.1",
+      "follow-redirects": ">=1.16.0",
+      "uuid": ">=11.1.1",
+      "@babel/plugin-transform-modules-systemjs": ">=7.29.4"
     }
   },
   "devDependencies": {
