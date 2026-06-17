@@ -4,13 +4,16 @@ import { EjsAdapter } from './ejs.adapter';
 import { HandlebarsAdapter } from './handlebars.adapter';
 import { PugAdapter } from './pug.adapter';
 
-// Mock mjml since v5 alpha uses prettier which requires ESM dynamic imports
+// Mock mjml since v5 alpha uses prettier which requires ESM dynamic imports.
+// mjml v5+ returns a Promise from mjml2html (see issue #1312), so the mock
+// resolves asynchronously to mirror real-world behavior.
 jest.mock('mjml', () => {
   return {
     __esModule: true,
-    default: (mjmlContent: string) => ({
-      html: `<html><body>${mjmlContent}</body></html>`,
-    }),
+    default: (mjmlContent: string) =>
+      Promise.resolve({
+        html: `<html><body>${mjmlContent}</body></html>`,
+      }),
   };
 });
 
@@ -80,6 +83,27 @@ describe('MjmlAdapter', () => {
       () => {
         expect(mail.data.html).toContain('Hello');
         expect(mail.data.html).toContain('<html>');
+        done();
+      },
+      { transport: { host: 'localhost', port: 25 } },
+    );
+  });
+
+  it('should propagate errors raised by the inner engine', (done) => {
+    const failingEngine: TemplateAdapter = {
+      compile(_mail: any, callback: any, _options: MailerOptions) {
+        callback(new Error('engine failure'));
+      },
+    };
+
+    const adapter = new MjmlAdapter(failingEngine);
+    const mail = { data: { html: undefined as string | undefined } };
+
+    adapter.compile(
+      mail,
+      (err: any) => {
+        expect(err).toBeInstanceOf(Error);
+        expect(err.message).toBe('engine failure');
         done();
       },
       { transport: { host: 'localhost', port: 25 } },

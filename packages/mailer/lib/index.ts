@@ -24,6 +24,7 @@ export {
   MailerOptions,
   MailerPlugin,
   RateLimitOptions,
+  TransportType,
 } from './interfaces/mailer-options.interface';
 export { MailerOptionsFactory } from './interfaces/mailer-options-factory.interface';
 export { MailerTransportFactory } from './interfaces/mailer-transport-factory.interface';

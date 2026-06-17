@@ -33,6 +33,7 @@ export class MailerQueueModule {
 
     return {
       module: MailerQueueModule,
+      global: options.global ?? false,
       providers: [optionsProvider, MailerQueueService, MailerQueueProcessor],
       exports: [MailerQueueService],
     };
@@ -41,6 +42,7 @@ export class MailerQueueModule {
   static registerAsync(options: {
     imports?: any[];
     inject?: any[];
+    global?: boolean;
     useFactory: (
       ...args: any[]
     ) => Promise<MailerQueueOptions> | MailerQueueOptions;
@@ -53,6 +55,7 @@ export class MailerQueueModule {
 
     return {
       module: MailerQueueModule,
+      global: options.global ?? false,
       imports: options.imports || [],
       providers: [optionsProvider, MailerQueueService, MailerQueueProcessor],
       exports: [MailerQueueService],

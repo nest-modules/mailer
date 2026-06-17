@@ -26,6 +26,9 @@ import { MailerModule, MailerQueueModule } from '@nestjs-modules/mailer';
       transport: { host: 'smtp.example.com', port: 587 },
     }),
     MailerQueueModule.register({
+      // Set `global: true` so `MailerQueueService` can be injected in any
+      // feature module without re-importing `MailerQueueModule`.
+      global: true,
       connection: {
         host: 'localhost',
         port: 6379,

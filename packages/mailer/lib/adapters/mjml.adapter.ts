@@ -38,9 +38,20 @@ export class MjmlAdapter implements TemplateAdapter {
   public compile(mail: any, callback: any, mailerOptions: MailerOptions): void {
     this?.engine?.compile(
       mail,
-      () => {
-        mail.data.html = mjml2html(mail.data.html).html;
-        callback();
+      (err?: any) => {
+        if (err) {
+          callback(err);
+          return;
+        }
+
+        // mjml v5+ returns a Promise from mjml2html, while v4 returns the
+        // result synchronously. Promise.resolve handles both transparently.
+        Promise.resolve(mjml2html(mail.data.html))
+          .then((result) => {
+            mail.data.html = result.html;
+            callback();
+          })
+          .catch((error) => callback(error));
       },
       mailerOptions,
     );

@@ -32,4 +32,11 @@ export interface MailerQueueOptions {
 
   /** Queue name (default: 'mailer') */
   queueName?: string;
+
+  /**
+   * Register the module globally so `MailerQueueService` is available across
+   * the whole application without re-importing `MailerQueueModule`
+   * (default: false).
+   */
+  global?: boolean;
 }
