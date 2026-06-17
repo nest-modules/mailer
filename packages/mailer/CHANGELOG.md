@@ -1,5 +1,21 @@
 # Changelog
 
+## 2.3.7
+
+### Patch Changes
+
+- [#1313](https://github.com/nest-modules/mailer/pull/1313) [`3d92210`](https://github.com/nest-modules/mailer/commit/3d922107b1d9dbac130dce1f55855b7a0df870b4) Thanks [@juandav](https://github.com/juandav)! - Fix several issues in the mailer package:
+
+  - **MjmlAdapter**: handle the Promise returned by `mjml2html` in mjml v5+, so
+    rendered HTML is no longer `undefined` ([#1312](https://github.com/nest-modules/mailer/issues/1312)). The adapter now also
+    propagates errors from the inner engine.
+  - **MailerQueueModule**: support a `global` option in both `register` and
+    `registerAsync`, allowing `MailerQueueService` to be injected across the
+    application without re-importing the module ([#1311](https://github.com/nest-modules/mailer/issues/1311)).
+  - **TransportType**: re-export `TransportType` from the package entry point so
+    custom transports can type their `getTransport()` return value without deep
+    imports ([#1309](https://github.com/nest-modules/mailer/issues/1309)).
+
 ## 2.3.6
 
 ### Patch Changes
