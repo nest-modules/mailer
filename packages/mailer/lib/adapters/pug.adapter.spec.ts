@@ -1,3 +1,5 @@
+import * as fs from 'node:fs';
+import * as os from 'node:os';
 import * as path from 'node:path';
 import { MailerOptions } from '../interfaces/mailer-options.interface';
 import { PugAdapter } from './pug.adapter';
@@ -89,5 +91,91 @@ describe('PugAdapter', () => {
     });
 
     expect(html).toContain('Merged');
+  });
+
+  it('should accept a template name with an explicit extension', async () => {
+    const adapter = new PugAdapter({ inlineCssEnabled: false });
+    const mail = createMail('pug-template.pug', { world: 'Ext' });
+
+    const html = await compileAsync(adapter, mail, baseOptions);
+
+    expect(html).toBe('<p>Pug test template.</p><p>Hello Ext!</p>');
+  });
+
+  it('should resolve relative paths against the working directory without template options', async () => {
+    const adapter = new PugAdapter({ inlineCssEnabled: false });
+    const relativePath = path.relative(
+      process.cwd(),
+      path.join(templateDir, 'pug-template'),
+    );
+    const mail = createMail(relativePath, { world: 'Relative' });
+
+    const html = await compileAsync(adapter, mail, {
+      transport: { host: 'localhost', port: 25 },
+    });
+
+    expect(html).toBe('<p>Pug test template.</p><p>Hello Relative!</p>');
+  });
+
+  describe('with templates on disk', () => {
+    let tmpDir: string;
+
+    beforeEach(() => {
+      tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'mailer-pug-'));
+    });
+
+    afterEach(() => {
+      fs.rmSync(tmpDir, { recursive: true, force: true });
+    });
+
+    it('should pass template.options (e.g. basedir) to pug', async () => {
+      fs.mkdirSync(path.join(tmpDir, 'shared'));
+      fs.mkdirSync(path.join(tmpDir, 'emails'));
+      fs.writeFileSync(path.join(tmpDir, 'shared', 'footer.pug'), 'footer Bye');
+      fs.writeFileSync(
+        path.join(tmpDir, 'emails', 'main.pug'),
+        'p= greeting\ninclude /shared/footer.pug\n',
+      );
+      const adapter = new PugAdapter({ inlineCssEnabled: false });
+      const mail = createMail('main', { greeting: 'Hi' });
+
+      const html = await compileAsync(adapter, mail, {
+        transport: { host: 'localhost', port: 25 },
+        template: {
+          dir: path.join(tmpDir, 'emails'),
+          options: { basedir: tmpDir },
+        },
+      });
+
+      expect(html).toBe('<p>Hi</p><footer>Bye</footer>');
+    });
+
+    it('should inline <style> rules into elements', async () => {
+      fs.writeFileSync(
+        path.join(tmpDir, 'styled.pug'),
+        'style p { color: red; }\np Styled\n',
+      );
+      const adapter = new PugAdapter();
+      const mail = createMail('styled');
+
+      const html = await compileAsync(adapter, mail, {
+        transport: { host: 'localhost', port: 25 },
+        template: { dir: tmpDir },
+      });
+
+      expect(html).toContain('<p style="color: red;">Styled</p>');
+    });
+  });
+
+  it('should report CSS inlining errors through the callback', async () => {
+    const adapter = new PugAdapter({
+      inlineCssOptions: { baseUrl: 'not a url' },
+    });
+    const mail = createMail('pug-template', { world: 'Broken' });
+
+    await expect(compileAsync(adapter, mail, baseOptions)).rejects.toThrow(
+      /relative URL without a base/,
+    );
+    expect(mail.data.html).toBeUndefined();
   });
 });

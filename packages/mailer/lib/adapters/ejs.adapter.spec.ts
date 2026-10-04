@@ -1,3 +1,5 @@
+import * as fs from 'node:fs';
+import * as os from 'node:os';
 import * as path from 'node:path';
 import { MailerOptions } from '../interfaces/mailer-options.interface';
 import { EjsAdapter } from './ejs.adapter';
@@ -101,5 +103,290 @@ describe('EjsAdapter', () => {
     });
 
     expect(html).toContain('WithOptions');
+  });
+
+  describe('template resolution', () => {
+    let tmpDir: string;
+
+    beforeEach(() => {
+      tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'mailer-ejs-'));
+    });
+
+    afterEach(() => {
+      fs.rmSync(tmpDir, { recursive: true, force: true });
+    });
+
+    it('should accept a template name with an explicit extension', async () => {
+      const adapter = new EjsAdapter({ inlineCssEnabled: false });
+      const mail = createMail('ejs-template.ejs', { MAILER: 'WithExt' });
+
+      const html = await compileAsync(adapter, mail, baseOptions);
+
+      expect(html).toBe('<p>Ejs test template. by WithExt</p>');
+    });
+
+    it('should resolve absolute paths without any template options', async () => {
+      const adapter = new EjsAdapter({ inlineCssEnabled: false });
+      const mail = createMail(path.join(templateDir, 'ejs-template'), {
+        MAILER: 'NoTemplateOptions',
+      });
+
+      const html = await compileAsync(adapter, mail, {
+        transport: { host: 'localhost', port: 25 },
+      });
+
+      expect(html).toBe('<p>Ejs test template. by NoTemplateOptions</p>');
+    });
+
+    it('should report a missing absolute template when no template options exist', async () => {
+      const adapter = new EjsAdapter();
+      const mail = createMail(path.join(tmpDir, 'missing'));
+
+      await expect(
+        compileAsync(adapter, mail, {
+          transport: { host: 'localhost', port: 25 },
+        }),
+      ).rejects.toThrow(/ENOENT/);
+    });
+
+    it('should look up the template in additional template.dirs', async () => {
+      const firstDir = path.join(tmpDir, 'first');
+      const secondDir = path.join(tmpDir, 'second');
+      fs.mkdirSync(firstDir);
+      fs.mkdirSync(secondDir);
+      fs.writeFileSync(
+        path.join(secondDir, 'extra.ejs'),
+        '<p>From second dir: <%= name %></p>',
+      );
+
+      const adapter = new EjsAdapter({ inlineCssEnabled: false });
+      const mail = createMail('extra', { name: 'Ada' });
+
+      const html = await compileAsync(adapter, mail, {
+        transport: { host: 'localhost', port: 25 },
+        template: { dir: templateDir, dirs: [firstDir, secondDir] },
+      });
+
+      expect(html).toBe('<p>From second dir: Ada</p>');
+    });
+
+    it('should prefer template.dir over template.dirs when the template exists', async () => {
+      fs.writeFileSync(
+        path.join(tmpDir, 'ejs-template.ejs'),
+        '<p>Shadowed template</p>',
+      );
+
+      const adapter = new EjsAdapter({ inlineCssEnabled: false });
+      const mail = createMail('ejs-template', { MAILER: 'Primary' });
+
+      const html = await compileAsync(adapter, mail, {
+        transport: { host: 'localhost', port: 25 },
+        template: { dir: templateDir, dirs: [tmpDir] },
+      });
+
+      expect(html).toBe('<p>Ejs test template. by Primary</p>');
+    });
+
+    it('should report an error when the template is in none of the template.dirs', async () => {
+      const adapter = new EjsAdapter();
+      const mail = createMail('nowhere');
+
+      await expect(
+        compileAsync(adapter, mail, {
+          transport: { host: 'localhost', port: 25 },
+          template: { dir: templateDir, dirs: [tmpDir] },
+        }),
+      ).rejects.toThrow(/ENOENT/);
+    });
+
+    it('should resolve includes relative to the template file', async () => {
+      fs.writeFileSync(
+        path.join(tmpDir, 'greeting.ejs'),
+        '<strong><%= name %></strong>',
+      );
+      fs.writeFileSync(
+        path.join(tmpDir, 'main.ejs'),
+        "<p>Hi <%- include('greeting', { name }) %></p>",
+      );
+
+      const adapter = new EjsAdapter({ inlineCssEnabled: false });
+      const mail = createMail('main', { name: 'Grace' });
+
+      const html = await compileAsync(adapter, mail, {
+        transport: { host: 'localhost', port: 25 },
+        template: { dir: tmpDir },
+      });
+
+      expect(html).toBe('<p>Hi <strong>Grace</strong></p>');
+    });
+
+    it('should report template syntax errors through the callback', async () => {
+      fs.writeFileSync(path.join(tmpDir, 'broken.ejs'), '<p><%= </p>');
+
+      const adapter = new EjsAdapter();
+      const mail = createMail('broken');
+
+      await expect(
+        compileAsync(adapter, mail, {
+          transport: { host: 'localhost', port: 25 },
+          template: { dir: tmpDir },
+        }),
+      ).rejects.toThrow();
+      expect(mail.data.html).toBeUndefined();
+    });
+  });
+
+  describe('async templates', () => {
+    it('should render templates compiled with the async option', async () => {
+      const adapter = new EjsAdapter({ inlineCssEnabled: false });
+      const mail = createMail('ejs-template', { MAILER: 'Async' });
+
+      const html = await compileAsync(adapter, mail, {
+        transport: { host: 'localhost', port: 25 },
+        template: { dir: templateDir, options: { async: true } },
+      });
+
+      expect(html).toBe('<p>Ejs test template. by Async</p>');
+    });
+  });
+
+  describe('CSS handling', () => {
+    let tmpDir: string;
+
+    beforeEach(() => {
+      tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'mailer-ejs-css-'));
+      fs.writeFileSync(path.join(tmpDir, 'style.css'), 'p { color: red; }');
+    });
+
+    afterEach(() => {
+      fs.rmSync(tmpDir, { recursive: true, force: true });
+    });
+
+    function writeTemplate(name: string, href: string) {
+      fs.writeFileSync(
+        path.join(tmpDir, `${name}.ejs`),
+        `<link rel="stylesheet" href="${href}"><p>Styled</p>`,
+      );
+    }
+
+    it('should inline styles declared in <style> blocks', async () => {
+      fs.writeFileSync(
+        path.join(tmpDir, 'styled.ejs'),
+        '<style>p { color: blue; }</style><p>Styled</p>',
+      );
+      const adapter = new EjsAdapter();
+      const mail = createMail('styled');
+
+      const html = await compileAsync(adapter, mail, {
+        transport: { host: 'localhost', port: 25 },
+        template: { dir: tmpDir },
+      });
+
+      expect(html).toContain('<p style="color: blue;">Styled</p>');
+    });
+
+    it('should replace a local stylesheet <link> with its contents and inline it', async () => {
+      writeTemplate('local', 'style.css');
+      const adapter = new EjsAdapter();
+      const mail = createMail('local');
+
+      const html = await compileAsync(adapter, mail, {
+        transport: { host: 'localhost', port: 25 },
+        template: { dir: tmpDir },
+      });
+
+      expect(html).not.toContain('<link');
+      expect(html).toContain('<p style="color: red;">Styled</p>');
+    });
+
+    it('should embed a local stylesheet as <style> when inlining is disabled', async () => {
+      writeTemplate('local', 'style.css');
+      const adapter = new EjsAdapter({ inlineCssEnabled: false });
+      const mail = createMail('local');
+
+      const html = await compileAsync(adapter, mail, {
+        transport: { host: 'localhost', port: 25 },
+        template: { dir: tmpDir },
+      });
+
+      expect(html).toBe('<style>p { color: red; }</style><p>Styled</p>');
+    });
+
+    it('should resolve stylesheets against cssBaseUrl when configured', async () => {
+      const cssDir = path.join(tmpDir, 'assets');
+      fs.mkdirSync(cssDir);
+      fs.writeFileSync(path.join(cssDir, 'theme.css'), 'p { margin: 0; }');
+      writeTemplate('themed', 'theme.css');
+
+      const adapter = new EjsAdapter({
+        inlineCssEnabled: false,
+        cssBaseUrl: cssDir,
+      });
+      const mail = createMail('themed');
+
+      const html = await compileAsync(adapter, mail, {
+        transport: { host: 'localhost', port: 25 },
+        template: { dir: tmpDir },
+      });
+
+      expect(html).toBe('<style>p { margin: 0; }</style><p>Styled</p>');
+    });
+
+    it.each([
+      'http://cdn.example.com/style.css',
+      'https://cdn.example.com/style.css',
+      '//cdn.example.com/style.css',
+    ])('should keep remote stylesheet %s untouched', async (href) => {
+      writeTemplate('remote', href);
+      const adapter = new EjsAdapter({ inlineCssEnabled: false });
+      const mail = createMail('remote');
+
+      const html = await compileAsync(adapter, mail, {
+        transport: { host: 'localhost', port: 25 },
+        template: { dir: tmpDir },
+      });
+
+      expect(html).toBe(`<link rel="stylesheet" href="${href}"><p>Styled</p>`);
+    });
+
+    it('should keep the <link> tag when the local stylesheet does not exist', async () => {
+      writeTemplate('missing-css', 'missing.css');
+      const adapter = new EjsAdapter({ inlineCssEnabled: false });
+      const mail = createMail('missing-css');
+
+      const html = await compileAsync(adapter, mail, {
+        transport: { host: 'localhost', port: 25 },
+        template: { dir: tmpDir },
+      });
+
+      expect(html).toBe(
+        '<link rel="stylesheet" href="missing.css"><p>Styled</p>',
+      );
+    });
+
+    it('should not resolve stylesheets when there is no base directory', async () => {
+      writeTemplate('no-base', 'style.css');
+      const adapter = new EjsAdapter({ inlineCssEnabled: false });
+      const mail = createMail(path.join(tmpDir, 'no-base'));
+
+      const html = await compileAsync(adapter, mail, {
+        transport: { host: 'localhost', port: 25 },
+      });
+
+      expect(html).toBe(
+        '<link rel="stylesheet" href="style.css"><p>Styled</p>',
+      );
+    });
+
+    it('should report CSS inlining errors through the callback', async () => {
+      const adapter = new EjsAdapter({
+        inlineCssOptions: { baseUrl: 'not a url' },
+      });
+      const mail = createMail('ejs-template', { MAILER: 'Broken' });
+
+      await expect(compileAsync(adapter, mail, baseOptions)).rejects.toThrow(
+        /relative URL without a base/,
+      );
+    });
   });
 });

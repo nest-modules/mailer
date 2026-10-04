@@ -1,3 +1,5 @@
+import * as fs from 'node:fs';
+import * as os from 'node:os';
 import * as path from 'node:path';
 import { MailerOptions } from '../interfaces/mailer-options.interface';
 import { LiquidAdapter } from './liquid.adapter';
@@ -76,5 +78,75 @@ describe('LiquidAdapter', () => {
     const html = await compileAsync(adapter, mail, baseOptions);
 
     expect(html).toContain('NoConfig');
+  });
+
+  it('should accept a template name with an explicit extension', async () => {
+    const adapter = new LiquidAdapter();
+    const mail = createMail('liquid-template.liquid', { MAILER: 'WithExt' });
+
+    const html = await compileAsync(adapter, mail, baseOptions);
+
+    expect(html).toBe('<p>Liquid test template. by WithExt</p>\n');
+  });
+
+  it('should resolve relative paths against the working directory without template options', async () => {
+    const adapter = new LiquidAdapter();
+    const relativePath = path.relative(
+      process.cwd(),
+      path.join(templateDir, 'liquid-template'),
+    );
+    const mail = createMail(relativePath, { MAILER: 'Relative' });
+
+    const html = await compileAsync(adapter, mail, {
+      transport: { host: 'localhost', port: 25 },
+    });
+
+    expect(html).toBe('<p>Liquid test template. by Relative</p>\n');
+  });
+
+  describe('with templates on disk', () => {
+    let tmpDir: string;
+
+    beforeEach(() => {
+      tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'mailer-liquid-'));
+    });
+
+    afterEach(() => {
+      fs.rmSync(tmpDir, { recursive: true, force: true });
+    });
+
+    it('should render partials located next to the template', async () => {
+      fs.writeFileSync(
+        path.join(tmpDir, 'greeting.liquid'),
+        '<strong>{{ name }}</strong>',
+      );
+      fs.writeFileSync(
+        path.join(tmpDir, 'main.liquid'),
+        '<p>Hi {% render "greeting", name: name %}</p>',
+      );
+      const adapter = new LiquidAdapter();
+      const mail = createMail('main', { name: 'Grace' });
+
+      const html = await compileAsync(adapter, mail, {
+        transport: { host: 'localhost', port: 25 },
+        template: { dir: tmpDir },
+      });
+
+      expect(html).toBe('<p>Hi <strong>Grace</strong></p>');
+    });
+
+    it('should report template syntax errors through the callback', async () => {
+      fs.writeFileSync(path.join(tmpDir, 'broken.liquid'), '{% if %}');
+      const adapter = new LiquidAdapter();
+      const mail = createMail('broken');
+
+      await expect(
+        compileAsync(adapter, mail, {
+          transport: { host: 'localhost', port: 25 },
+          template: { dir: tmpDir },
+        }),
+      ).rejects.toThrow();
+      expect(mail.data.html).toBeUndefined();
+    });
   });
 });
