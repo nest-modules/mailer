@@ -33,7 +33,7 @@ Full documentation is available at **[nest-modules.github.io/mailer](https://nes
 pnpm add @nestjs-modules/mailer nodemailer
 ```
 
-Install a template engine of your choice:
+Install a template engine of your choice (they are optional peer dependencies and are not installed automatically):
 
 ```bash
 pnpm add handlebars
@@ -41,6 +41,12 @@ pnpm add handlebars
 pnpm add pug
 # or
 pnpm add ejs
+# or
+pnpm add liquidjs
+# or
+pnpm add nunjucks
+# or
+pnpm add mjml
 ```
 
 ## Quick Start

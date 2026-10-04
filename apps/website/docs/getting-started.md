@@ -23,7 +23,7 @@ pnpm add -D @types/nodemailer
 
 ### Template Engines (optional)
 
-Install the template engine(s) you plan to use:
+Template engines are optional peer dependencies and are **not** installed automatically. Install the engine(s) you plan to use:
 
 ```bash
 # Handlebars
@@ -40,6 +40,12 @@ pnpm add liquidjs
 
 # MJML (responsive emails)
 pnpm add mjml
+
+# Nunjucks
+pnpm add nunjucks
+
+# Email previews in development (`preview` option)
+pnpm add -D preview-email
 ```
 
 ## Basic Usage
