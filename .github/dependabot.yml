@@ -22,3 +22,8 @@ updates:
     groups:
       github-actions:
         patterns: ['*']
+    ignore:
+      # v2 requires @changesets/cli v3 and renames the action's inputs; upgrade
+      # both together in a dedicated change.
+      - dependency-name: changesets/action
+        update-types: ['version-update:semver-major']
