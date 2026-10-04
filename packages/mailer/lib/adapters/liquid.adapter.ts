@@ -2,7 +2,6 @@
 
 import * as path from 'node:path';
 import { Liquid } from 'liquidjs';
-import { get } from 'lodash';
 /** Interfaces **/
 import { MailerOptions } from '../interfaces/mailer-options.interface';
 import { TemplateAdapter } from '../interfaces/template-adapter.interface';
@@ -23,10 +22,7 @@ export class LiquidAdapter implements TemplateAdapter {
     const templateName = path.basename(template, path.extname(template));
     const templateDir = path.isAbsolute(template)
       ? path.dirname(template)
-      : path.join(
-          get(mailerOptions, 'template.dir', ''),
-          path.dirname(template),
-        );
+      : path.join(mailerOptions.template?.dir ?? '', path.dirname(template));
 
     const engine = new Liquid({
       extname: templateExt,

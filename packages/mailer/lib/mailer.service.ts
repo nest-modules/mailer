@@ -9,7 +9,6 @@ import {
   OnModuleDestroy,
   Optional,
 } from '@nestjs/common';
-import { defaultsDeep, get } from 'lodash';
 import { SentMessageInfo, Transporter } from 'nodemailer';
 /** Constants **/
 import {
@@ -28,6 +27,19 @@ import { ISendMailOptions } from './interfaces/send-mail-options.interface';
 import { TemplateAdapter } from './interfaces/template-adapter.interface';
 import { MailerEventService } from './mailer-event.service';
 import { MailerTransportFactory } from './mailer-transport.factory';
+
+type PreviewOptions = Exclude<MailerOptions['preview'], boolean | undefined>;
+
+/** Fill in `open: { wait: false }` without overriding user-provided values */
+function withPreviewDefaults(preview: true | PreviewOptions): PreviewOptions {
+  if (preview === true) return { open: { wait: false } };
+  const { open } = preview;
+  if (open === undefined) return { ...preview, open: { wait: false } };
+  if (typeof open === 'object' && open !== null) {
+    return { ...preview, open: { ...open, wait: open.wait ?? false } };
+  }
+  return preview;
+}
 
 @Injectable()
 export class MailerService implements OnModuleDestroy {
@@ -98,18 +110,16 @@ export class MailerService implements OnModuleDestroy {
     this.validateTransportOptions();
 
     /** Adapter setup **/
-    this.templateAdapter = get(this.mailerOptions, 'template.adapter');
+    this.templateAdapter = this.mailerOptions.template?.adapter;
 
     /*
      * Preview setup
      * THIS NEED TO RUN BEFORE ANY CALL TO `initTemplateAdapter`
      */
     if (this.mailerOptions.preview) {
-      const defaults = { open: { wait: false } };
-      this.mailerOptions.preview =
-        typeof this.mailerOptions.preview === 'boolean'
-          ? defaults
-          : defaultsDeep(this.mailerOptions.preview, defaults);
+      this.mailerOptions.preview = withPreviewDefaults(
+        this.mailerOptions.preview,
+      );
     }
 
     /** Transporters setup **/
@@ -393,7 +403,7 @@ export class MailerService implements OnModuleDestroy {
     templatePath: string,
     context: Record<string, any>,
   ): Promise<string> {
-    const templateDir = get(this.mailerOptions, 'template.dir', '');
+    const templateDir = this.mailerOptions.template?.dir ?? '';
     const ext = path.extname(templatePath) || '.txt';
     const name = path.basename(templatePath, path.extname(templatePath));
     const fullPath = path.join(
@@ -427,7 +437,7 @@ export class MailerService implements OnModuleDestroy {
   private resolveI18nTemplate(template: string, locale: string): string {
     const i18n = this.mailerOptions.i18n!;
     const pattern = i18n.templateDirPattern || '{{locale}}/';
-    const templateDir = get(this.mailerOptions, 'template.dir', '');
+    const templateDir = this.mailerOptions.template?.dir ?? '';
     const localizedPrefix = pattern.replace('{{locale}}', locale);
     const localizedTemplate = path.join(localizedPrefix, template);
 
