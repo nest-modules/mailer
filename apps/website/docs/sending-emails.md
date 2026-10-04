@@ -33,6 +33,28 @@ await this.mailerService.sendMail({
 });
 ```
 
+## Context Placeholders
+
+When `context` is set, `{{key}}` placeholders are replaced in the `subject`, in an inline `html` string (only when no `template` is used) and in a `textTemplate` file. Only the context's own properties are used; unknown keys are left as they are.
+
+In `html`, `{{key}}` is HTML-escaped. Use `{{{key}}}` to insert markup you trust:
+
+```typescript
+await this.mailerService.sendMail({
+  to: 'user@example.com',
+  subject: 'Welcome {{name}}',
+  html: '<p>Hi {{name}}</p>{{{signature}}}',
+  context: {
+    name: user.name, // escaped
+    signature: '<b>The Team</b>', // inserted as-is
+  },
+});
+```
+
+:::warning Changed in 3.0
+Before 3.0, `{{key}}` was inserted into `html` without escaping. If you relied on that to inject markup, switch those placeholders to `{{{key}}}`.
+:::
+
 ## With Templates
 
 Use your configured template engine. The file extension (`.hbs`, `.pug`, `.ejs`) is appended automatically:

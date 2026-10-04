@@ -77,6 +77,8 @@ MailerModule.forRoot({
 })
 ```
 
+`template.options` are passed to pug's compiler (for example `basedir`, `pretty` or `filters`) and are also available as template variables. Since 3.0, the `context` only provides template variables and can no longer change compiler options.
+
 ## EJS
 
 ```typescript
@@ -158,3 +160,16 @@ new PugAdapter({
   inlineCssOptions: {},
 });
 ```
+
+### Remote Stylesheets
+
+Since 3.0, CSS inlining never fetches stylesheets: `loadRemoteStylesheets` defaults to `false`, even when you pass your own `inlineCssOptions`. Local `<link rel="stylesheet">` tags are resolved by the Handlebars and EJS adapters, and only `.css` files inside the template directory (or `cssBaseUrl`) are read. Any other `<link>` is dropped.
+
+Opt back in only if your templates never contain URLs that come from user data:
+
+```typescript
+new HandlebarsAdapter(undefined, {
+  inlineCssOptions: { loadRemoteStylesheets: true },
+});
+```
+

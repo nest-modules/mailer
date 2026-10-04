@@ -1,13 +1,13 @@
 /** Dependencies **/
 
 import * as path from 'node:path';
-import { inline } from '@css-inline/css-inline';
-import { renderFile } from 'pug';
+import { compileFile } from 'pug';
 
 /** Interfaces **/
 import { MailerOptions } from '../interfaces/mailer-options.interface';
 import { TemplateAdapter } from '../interfaces/template-adapter.interface';
 import { TemplateAdapterConfig } from '../interfaces/template-adapter-config.interface';
+import { inlineCss } from '../utils/inline-css';
 
 export class PugAdapter implements TemplateAdapter {
   private config: TemplateAdapterConfig = {
@@ -28,26 +28,26 @@ export class PugAdapter implements TemplateAdapter {
       : path.join(mailerOptions.template?.dir ?? '', path.dirname(template));
     const templatePath = path.join(templateDir, templateName + templateExt);
 
-    const options = {
-      ...context,
-      ...mailerOptions.template?.options,
-    };
+    // Template data is kept out of the compiler options so values such as
+    // `filename`, `basedir`, `filters` or `plugins` in the context cannot
+    // change how pug compiles the template.
+    const options = mailerOptions.template?.options;
+    let body: string;
+    try {
+      body = compileFile(templatePath, options)({ ...context, ...options });
+    } catch (err) {
+      return callback(err);
+    }
 
-    renderFile(templatePath, options, (err, body) => {
-      if (err) {
-        return callback(err);
+    if (this.config.inlineCssEnabled) {
+      try {
+        mail.data.html = inlineCss(body, this.config.inlineCssOptions);
+      } catch (e) {
+        return callback(e);
       }
-
-      if (this.config.inlineCssEnabled) {
-        try {
-          mail.data.html = inline(body, this.config.inlineCssOptions);
-        } catch (e) {
-          return callback(e);
-        }
-      } else {
-        mail.data.html = body;
-      }
-      return callback();
-    });
+    } else {
+      mail.data.html = body;
+    }
+    return callback();
   }
 }

@@ -576,6 +576,21 @@ describe('MailerService (features)', () => {
       expect(lastSentMail(stub).subject).toBe('Hi Ana, order 42 {{missing}}');
     });
 
+    it('should not HTML-escape subject values', async () => {
+      const stub = createStubTransporter();
+      const service = createService(
+        { transport: 'smtp://x' },
+        createStubFactory(stub),
+      );
+
+      await service.sendMail({
+        subject: 'Q&A for {{name}}',
+        context: { name: "O'Brien & <Co>" },
+      });
+
+      expect(lastSentMail(stub).subject).toBe("Q&A for O'Brien & <Co>");
+    });
+
     it('should leave the subject untouched without a context', async () => {
       const stub = createStubTransporter();
       const service = createService(
@@ -608,6 +623,31 @@ describe('MailerService (features)', () => {
       });
 
       expect(lastSentMail(stub).html).toBe('<p>Hello Ana{{unknown}}</p>');
+    });
+
+    it('should escape {{value}} and keep {{{value}}} raw', async () => {
+      await service.sendMail({
+        html: '<p>{{name}}</p>{{{signature}}}',
+        context: {
+          name: '<img src=x onerror="alert(1)">',
+          signature: '<b>Team</b>',
+        },
+      });
+
+      expect(lastSentMail(stub).html).toBe(
+        '<p>&lt;img src=x onerror=&quot;alert(1)&quot;&gt;</p><b>Team</b>',
+      );
+    });
+
+    it('should not render inherited context members', async () => {
+      await service.sendMail({
+        html: '<p>{{constructor}}{{toString}}</p>',
+        context: {},
+      });
+
+      expect(lastSentMail(stub).html).toBe(
+        '<p>{{constructor}}{{toString}}</p>',
+      );
     });
 
     it('should not interpolate html when a template is also set', async () => {
