@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.3.8
+
+### Patch Changes
+
+- [#1322](https://github.com/nest-modules/mailer/pull/1322) [`a7f0b98`](https://github.com/nest-modules/mailer/commit/a7f0b98607813271cbc4b2d224917fc65c2ea78f) Thanks [@juandav](https://github.com/juandav)! - Remove the undeclared runtime dependency on `lodash` (fixes `Cannot find module 'lodash'` with strict package managers such as pnpm), make the public typings compatible with the types bundled in nodemailer >= 10, and update dependencies to address known security advisories.
+
 ## 2.3.7
 
 ### Patch Changes
