@@ -7,6 +7,10 @@ title: Template Adapters
 
 Each adapter wraps a template engine and provides a consistent interface for compiling email templates.
 
+:::info Import paths
+Adapters are imported from `@nestjs-modules/mailer/adapters/<name>.adapter`. The legacy `@nestjs-modules/mailer/dist/adapters/<name>.adapter` paths used by 2.0.x remain supported for backwards compatibility.
+:::
+
 ## Handlebars
 
 ```typescript

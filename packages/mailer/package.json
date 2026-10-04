@@ -25,15 +25,31 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
+    "./adapters/*.js": {
+      "types": "./dist/adapters/*.d.ts",
+      "default": "./dist/adapters/*.js"
+    },
     "./adapters/*": {
       "types": "./dist/adapters/*.d.ts",
       "default": "./dist/adapters/*.js"
-    }
+    },
+    "./dist/*.js": {
+      "types": "./dist/*.d.ts",
+      "default": "./dist/*.js"
+    },
+    "./dist/*": {
+      "types": "./dist/*.d.ts",
+      "default": "./dist/*.js"
+    },
+    "./package.json": "./package.json"
   },
   "typesVersions": {
     "*": {
       "adapters/*": [
         "./dist/adapters/*"
+      ],
+      "dist/*": [
+        "./dist/*"
       ]
     }
   },
