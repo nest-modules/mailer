@@ -485,9 +485,26 @@ describe('HandlebarsAdapter', () => {
       );
     });
 
-    it('should report a missing stylesheet as a CSS inlining error', async () => {
+    it('should drop a stylesheet it cannot resolve without reading it', async () => {
       writeTemplate('missing-css', 'missing.css');
       const adapter = new HandlebarsAdapter();
+      const mail = createMail('missing-css');
+
+      const html = await compileAsync(adapter, mail, {
+        transport: { host: 'localhost', port: 25 },
+        template: { dir: tmpDir },
+      });
+
+      expect(html).not.toContain('<link');
+      expect(html).toContain('<p>Styled</p>');
+    });
+
+    it('should still report a missing stylesheet when remote loading is enabled', async () => {
+      writeTemplate('missing-css', 'missing.css');
+      const adapter = new HandlebarsAdapter(undefined, {
+        inlineCssEnabled: true,
+        inlineCssOptions: { loadRemoteStylesheets: true },
+      });
       const mail = createMail('missing-css');
 
       await expect(

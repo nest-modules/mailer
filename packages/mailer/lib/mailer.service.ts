@@ -27,6 +27,7 @@ import { ISendMailOptions } from './interfaces/send-mail-options.interface';
 import { TemplateAdapter } from './interfaces/template-adapter.interface';
 import { MailerEventService } from './mailer-event.service';
 import { MailerTransportFactory } from './mailer-transport.factory';
+import { interpolate } from './utils/interpolate';
 import { isWithinDirectory } from './utils/is-within-directory';
 
 /** BCP 47-like language tags such as `en`, `es-CO`, `zh_Hant_TW` */
@@ -225,24 +226,17 @@ export class MailerService implements OnModuleDestroy {
   /** Feature 1: Interpolate subject with template context */
   private interpolateSubject(
     subject: string,
-    context?: Record<string, any>,
+    context: Record<string, any>,
   ): string {
-    return subject.replace(/\{\{([^{}]+)\}\}/g, (_, key) => {
-      const trimmed = key.trim();
-      return context[trimmed] !== undefined
-        ? String(context[trimmed])
-        : `{{${trimmed}}}`;
-    });
+    return interpolate(subject, context);
   }
 
-  /** Feature 3: Compile inline HTML string with template context */
-  private interpolateHtml(html: string, context?: Record<string, any>): string {
-    return html.replace(/\{\{([^{}]+)\}\}/g, (_, key) => {
-      const trimmed = key.trim();
-      return context[trimmed] !== undefined
-        ? String(context[trimmed])
-        : `{{${trimmed}}}`;
-    });
+  /**
+   * Feature 3: Compile inline HTML string with template context.
+   * `{{key}}` is HTML-escaped; use `{{{key}}}` to insert trusted markup.
+   */
+  private interpolateHtml(html: string, context: Record<string, any>): string {
+    return interpolate(html, context, { escape: true });
   }
 
   public async sendMail(
@@ -425,15 +419,8 @@ export class MailerService implements OnModuleDestroy {
     }
 
     try {
-      let content = fs.readFileSync(fullPath, 'utf-8');
       // Simple interpolation for text templates
-      content = content.replace(/\{\{([^{}]+)\}\}/g, (_, key) => {
-        const trimmed = key.trim();
-        return context[trimmed] !== undefined
-          ? String(context[trimmed])
-          : `{{${trimmed}}}`;
-      });
-      return content;
+      return interpolate(fs.readFileSync(fullPath, 'utf-8'), context);
     } catch {
       this.mailerLogger.warn(
         `Text template "${fullPath}" not found, skipping text fallback.`,

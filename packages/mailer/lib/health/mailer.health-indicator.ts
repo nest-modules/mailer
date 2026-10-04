@@ -1,4 +1,4 @@
-import { Injectable, Optional } from '@nestjs/common';
+import { Injectable, Logger, Optional } from '@nestjs/common';
 import { MailerService } from '../mailer.service';
 import { MailerQueueService } from '../mailer-queue.service';
 
@@ -26,6 +26,8 @@ import { MailerQueueService } from '../mailer-queue.service';
  */
 @Injectable()
 export class MailerHealthIndicator {
+  private readonly logger = new Logger(MailerHealthIndicator.name);
+
   constructor(
     private readonly mailerService: MailerService,
     @Optional() private readonly queueService?: MailerQueueService,
@@ -44,8 +46,13 @@ export class MailerHealthIndicator {
         await this.mailerService.verifyAllTransporters();
       details.transporters = transportersHealthy ? 'up' : 'down';
     } catch (error) {
+      // Health endpoints are often public: log the cause instead of
+      // returning it, as it may contain hosts or credentials.
       details.transporters = 'down';
-      details.error = (error as Error).message;
+      this.logger.error(
+        'Transporter verification failed',
+        (error as Error).stack,
+      );
     }
 
     // Check queue if available

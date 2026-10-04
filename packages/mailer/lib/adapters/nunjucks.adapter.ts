@@ -2,12 +2,12 @@
 
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { inline } from '@css-inline/css-inline';
 
 /** Interfaces **/
 import { MailerOptions } from '../interfaces/mailer-options.interface';
 import { TemplateAdapter } from '../interfaces/template-adapter.interface';
 import { TemplateAdapterConfig } from '../interfaces/template-adapter-config.interface';
+import { inlineCss } from '../utils/inline-css';
 
 export class NunjucksAdapter implements TemplateAdapter {
   private precompiledTemplates: {
@@ -72,7 +72,7 @@ export class NunjucksAdapter implements TemplateAdapter {
 
     if (this.config.inlineCssEnabled) {
       try {
-        mail.data.html = inline(rendered, this.config.inlineCssOptions);
+        mail.data.html = inlineCss(rendered, this.config.inlineCssOptions);
       } catch (e) {
         return callback(e);
       }

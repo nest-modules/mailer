@@ -55,6 +55,8 @@ export class HealthController {
 }
 ```
 
+If verifying the transporters throws, the indicator reports `"transporters": "down"` and logs the error through Nest's `Logger`. The error message is not included in the response, because it can contain SMTP hosts or credentials and health endpoints are often public.
+
 ## With Queue
 
 If `MailerQueueModule` is imported, the health check also reports queue metrics:

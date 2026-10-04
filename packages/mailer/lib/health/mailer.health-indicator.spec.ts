@@ -1,3 +1,4 @@
+import { Logger } from '@nestjs/common';
 import { MailerService } from '../mailer.service';
 import { MailerQueueService } from '../mailer-queue.service';
 import { MailerHealthIndicator } from './mailer.health-indicator';
@@ -46,20 +47,25 @@ describe('MailerHealthIndicator', () => {
       });
     });
 
-    it('reports down with the error message when verification throws', async () => {
+    it('reports down without leaking the error when verification throws', async () => {
+      const error = new Error('connect ECONNREFUSED smtp.internal:587');
+      const logged = jest
+        .spyOn(Logger.prototype, 'error')
+        .mockImplementation(() => undefined);
       const indicator = new MailerHealthIndicator(
         createMailerService(async () => {
-          throw new Error('connection refused');
+          throw error;
         }) as unknown as MailerService,
       );
 
       await expect(indicator.isHealthy()).resolves.toEqual({
-        mailer: {
-          status: 'down',
-          transporters: 'down',
-          error: 'connection refused',
-        },
+        mailer: { status: 'down', transporters: 'down' },
       });
+      expect(logged).toHaveBeenCalledWith(
+        'Transporter verification failed',
+        error.stack,
+      );
+      logged.mockRestore();
     });
   });
 

@@ -150,6 +150,41 @@ describe('PugAdapter', () => {
       expect(html).toBe('<p>Hi</p><footer>Bye</footer>');
     });
 
+    it('should not let context values act as compiler options', async () => {
+      fs.mkdirSync(path.join(tmpDir, 'shared'));
+      fs.writeFileSync(path.join(tmpDir, 'shared', 'secret.pug'), 'p Secret');
+      fs.writeFileSync(
+        path.join(tmpDir, 'main.pug'),
+        'p= greeting\ninclude /shared/secret.pug\n',
+      );
+      const adapter = new PugAdapter({ inlineCssEnabled: false });
+      const mail = createMail('main', { greeting: 'Hi', basedir: tmpDir });
+
+      await expect(
+        compileAsync(adapter, mail, {
+          transport: { host: 'localhost', port: 25 },
+          template: { dir: tmpDir },
+        }),
+      ).rejects.toThrow(/basedir/);
+      expect(mail.data.html).toBeUndefined();
+    });
+
+    it('should expose template.options as locals, overriding the context', async () => {
+      fs.writeFileSync(
+        path.join(tmpDir, 'brand.pug'),
+        'p= brand + " " + who\n',
+      );
+      const adapter = new PugAdapter({ inlineCssEnabled: false });
+      const mail = createMail('brand', { brand: 'ctx', who: 'Ana' });
+
+      const html = await compileAsync(adapter, mail, {
+        transport: { host: 'localhost', port: 25 },
+        template: { dir: tmpDir, options: { brand: 'Acme' } },
+      });
+
+      expect(html).toBe('<p>Acme Ana</p>');
+    });
+
     it('should inline <style> rules into elements', async () => {
       fs.writeFileSync(
         path.join(tmpDir, 'styled.pug'),
