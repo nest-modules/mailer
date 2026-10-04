@@ -204,7 +204,9 @@ export class MailerService implements OnModuleDestroy {
   }
 
   public async verifyAllTransporters() {
-    const transporters = [...this.transporters.values(), this.transporter];
+    const transporters = [...this.transporters.values()];
+    // Only named `transports` may be configured, leaving no default transporter
+    if (this.transporter) transporters.push(this.transporter);
     const transportersVerified = await Promise.all(
       transporters.map((transporter) => {
         if (!transporter.verify) return true; // Can't verify with nodemailer-sendgrid, so assume it's verified
@@ -221,7 +223,6 @@ export class MailerService implements OnModuleDestroy {
     subject: string,
     context?: Record<string, any>,
   ): string {
-    if (!context || !subject) return subject;
     return subject.replace(/\{\{([^{}]+)\}\}/g, (_, key) => {
       const trimmed = key.trim();
       return context[trimmed] !== undefined
@@ -232,7 +233,6 @@ export class MailerService implements OnModuleDestroy {
 
   /** Feature 3: Compile inline HTML string with template context */
   private interpolateHtml(html: string, context?: Record<string, any>): string {
-    if (!context || !html) return html;
     return html.replace(/\{\{([^{}]+)\}\}/g, (_, key) => {
       const trimmed = key.trim();
       return context[trimmed] !== undefined
@@ -280,6 +280,7 @@ export class MailerService implements OnModuleDestroy {
       sendMailOptions = {
         ...sendMailOptions,
         text: await this.compileTextTemplate(
+          this.mailerOptions.template.dir,
           sendMailOptions.textTemplate,
           sendMailOptions.context,
         ),
@@ -364,7 +365,7 @@ export class MailerService implements OnModuleDestroy {
     sendMailOptions: ISendMailOptions,
   ): Promise<SentMessageInfo> {
     if (sendMailOptions.transporterName) {
-      if (this.transporters?.get(sendMailOptions.transporterName)) {
+      if (this.transporters.get(sendMailOptions.transporterName)) {
         return this.transporters
           .get(sendMailOptions.transporterName)!
           .sendMail(sendMailOptions);
@@ -400,10 +401,10 @@ export class MailerService implements OnModuleDestroy {
 
   /** Feature 4: Compile a plain text template file */
   private async compileTextTemplate(
+    templateDir: string,
     templatePath: string,
     context: Record<string, any>,
   ): Promise<string> {
-    const templateDir = this.mailerOptions.template?.dir ?? '';
     const ext = path.extname(templatePath) || '.txt';
     const name = path.basename(templatePath, path.extname(templatePath));
     const fullPath = path.join(
