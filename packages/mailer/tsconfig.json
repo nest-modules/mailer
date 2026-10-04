@@ -16,7 +16,13 @@
     "sourceMap": false,
     "outDir": "./dist",
     "rootDir": "./lib",
-    "lib": ["es7", "DOM"]
+    "lib": ["es7", "DOM"],
+    // Compile against the @types layout so the emitted .d.ts stays compatible
+    // with every nodemailer major allowed by peerDependencies (>=8).
+    "paths": {
+      "nodemailer": ["./node_modules/@types/nodemailer"],
+      "nodemailer/*": ["./node_modules/@types/nodemailer/*"]
+    }
   },
   "include": ["lib/**/*"],
   "exclude": ["node_modules", "**/*.spec.ts"]

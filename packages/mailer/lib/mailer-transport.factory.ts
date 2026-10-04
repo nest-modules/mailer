@@ -1,6 +1,5 @@
 import { Inject } from '@nestjs/common';
-import { createTransport } from 'nodemailer';
-import * as Mail from 'nodemailer/lib/mailer';
+import { createTransport, Transporter } from 'nodemailer';
 import { MAILER_OPTIONS } from './constants/mailer.constant';
 import {
   MailerOptions,
@@ -14,7 +13,7 @@ export class MailerTransportFactory implements IMailerTransportFactory {
     private readonly options: MailerOptions,
   ) {}
 
-  public createTransport(opts?: TransportType): Mail {
+  public createTransport(opts?: TransportType): Transporter {
     return createTransport(
       opts || this.options.transport,
       this.options.defaults,

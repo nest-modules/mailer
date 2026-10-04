@@ -1,5 +1,5 @@
 /** Interfaces **/
-import { Transport, TransportOptions } from 'nodemailer';
+import { SendMailOptions, Transport, TransportOptions } from 'nodemailer';
 import * as JSONTransport from 'nodemailer/lib/json-transport';
 import * as SendmailTransport from 'nodemailer/lib/sendmail-transport';
 import * as SESTransport from 'nodemailer/lib/ses-transport';
@@ -20,14 +20,29 @@ type Options =
   | SESTransport.Options
   | TransportOptions;
 
+/**
+ * Instance type of a nodemailer transport module. Works with both the
+ * `export =` layout of `@types/nodemailer` and the `export default` layout of
+ * the types bundled with nodemailer >= 10.
+ */
+type TransportInstance<M> = M extends {
+  default: abstract new (...args: any[]) => infer I;
+}
+  ? I
+  : M extends abstract new (
+        ...args: any[]
+      ) => infer I
+    ? I
+    : never;
+
 export type TransportType =
   | Options
-  | SMTPTransport
-  | SMTPPool
-  | SendmailTransport
-  | StreamTransport
-  | JSONTransport
-  | SESTransport
+  | TransportInstance<typeof SMTPTransport>
+  | TransportInstance<typeof SMTPPool>
+  | TransportInstance<typeof SendmailTransport>
+  | TransportInstance<typeof StreamTransport>
+  | TransportInstance<typeof JSONTransport>
+  | TransportInstance<typeof SESTransport>
   | Transport
   | string;
 
@@ -48,7 +63,7 @@ export interface RateLimitOptions {
 }
 
 export interface MailerOptions {
-  defaults?: Options;
+  defaults?: Options | SendMailOptions;
   transport?: TransportType;
   transports?: {
     [name: string]: TransportType;
@@ -80,9 +95,9 @@ export interface MailerOptions {
          * an options object that is passed to `open` (defaults to { wait: false })
          *
          * @see https://github.com/sindresorhus/open#options
-         * @type {(boolean | { wait: boolean; app: string | string[] })}
+         * @type {(boolean | { wait?: boolean; app?: string | string[] })}
          */
-        open: boolean | { wait: boolean; app: string | string[] };
+        open: boolean | { wait?: boolean; app?: string | string[] };
       }>;
   verifyTransporters?: boolean;
   /** Nodemailer plugins to register on all transporters */
