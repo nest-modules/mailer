@@ -1,5 +1,22 @@
 # Changelog
 
+## 2.3.10
+
+### Patch Changes
+
+- [#1324](https://github.com/nest-modules/mailer/pull/1324) [`6328e30`](https://github.com/nest-modules/mailer/commit/6328e30ed8e84c0ef6ca381c26fc3cde3a8fa501) Thanks [@juandav](https://github.com/juandav)! - Fix several error-handling bugs found while bringing unit test coverage to 100%:
+
+  - `HandlebarsAdapter` no longer throws a `TypeError` after reporting a missing template, and skips unreadable partials
+  - `EjsAdapter`, `HandlebarsAdapter` and `PugAdapter` no longer call the callback twice when CSS inlining fails
+  - Render-time errors (and EJS async rejections) are now passed to the callback instead of being thrown or left unhandled
+  - `EjsAdapter` resolves nested templates from `template.dirs` correctly
+  - `LiquidAdapter` now forwards its whole config (`globals`, `strictVariables`, ...) to Liquid
+  - `MjmlAdapter('')` no longer crashes and completes the send when no engine is configured; synchronous mjml v4 errors reach the callback
+  - `verifyAllTransporters()` (and the health indicator) work when only named `transports` are configured
+  - `rateLimit.maxMessages` below 1 is treated as 1
+
+- [#1324](https://github.com/nest-modules/mailer/pull/1324) [`6328e30`](https://github.com/nest-modules/mailer/commit/6328e30ed8e84c0ef6ca381c26fc3cde3a8fa501) Thanks [@juandav](https://github.com/juandav)! - Restore the `@nestjs-modules/mailer/dist/*` deep import paths (e.g. `@nestjs-modules/mailer/dist/adapters/handlebars.adapter`) that stopped resolving after the `exports` map was introduced in a minor release. Both the legacy and the current `adapters/*` paths now resolve at runtime and in TypeScript (`node10`, `node16` and `bundler` resolution), with or without a `.js` extension.
+
 ## 2.3.9
 
 ### Patch Changes
