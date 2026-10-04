@@ -49,6 +49,14 @@ pnpm add nunjucks
 pnpm add mjml
 ```
 
+## Compatibility
+
+| `@nestjs-modules/mailer` | NestJS | Node.js |
+| --- | --- | --- |
+| 2.x / 3.x | 7 – 12 | NestJS 12 requires Node.js >= 20.19 (or >= 22.12) |
+
+NestJS 12 is published as ES modules. This package is CommonJS and loads it through Node.js' native `require(esm)` support, so no extra configuration is needed in your application. If you run Jest on a NestJS 12 project, use Node.js >= 24.9 with `NODE_OPTIONS=--experimental-vm-modules`.
+
 ## Quick Start
 
 ```typescript
