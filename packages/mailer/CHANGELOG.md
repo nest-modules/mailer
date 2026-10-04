@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.0.1
+
+### Patch Changes
+
+- Auto-release patch version with latest changes.
+
 ## 3.0.0
 
 ### Major Changes
