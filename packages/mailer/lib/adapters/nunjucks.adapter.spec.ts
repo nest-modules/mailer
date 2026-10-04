@@ -235,4 +235,28 @@ describe('NunjucksAdapter', () => {
       expect(mail.data.html).toBeUndefined();
     });
   });
+
+  describe('error handling', () => {
+    let tmpDir: string;
+
+    beforeEach(() => {
+      tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'mailer-njk-errors-'));
+    });
+
+    afterEach(() => {
+      fs.rmSync(tmpDir, { recursive: true, force: true });
+    });
+
+    it('should pass render errors to the callback', async () => {
+      fs.writeFileSync(path.join(tmpDir, 'broken.njk'), '{{ missing() }}');
+      const adapter = new NunjucksAdapter({ inlineCssEnabled: false });
+
+      await expect(
+        compileAsync(adapter, createMail('broken'), {
+          ...baseOptions,
+          template: { dir: tmpDir },
+        }),
+      ).rejects.toThrow(/Unable to call `missing`/);
+    });
+  });
 });

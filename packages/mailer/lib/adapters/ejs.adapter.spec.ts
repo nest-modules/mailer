@@ -389,4 +389,73 @@ describe('EjsAdapter', () => {
       );
     });
   });
+
+  describe('error handling', () => {
+    let tmpDir: string;
+
+    beforeEach(() => {
+      tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'mailer-ejs-errors-'));
+    });
+
+    afterEach(() => {
+      fs.rmSync(tmpDir, { recursive: true, force: true });
+    });
+
+    it('should pass render errors to the callback', async () => {
+      fs.writeFileSync(path.join(tmpDir, 'broken.ejs'), '<%= missing.prop %>');
+      const adapter = new EjsAdapter({ inlineCssEnabled: false });
+
+      await expect(
+        compileAsync(adapter, createMail('broken'), {
+          ...baseOptions,
+          template: { dir: tmpDir },
+        }),
+      ).rejects.toThrow(/missing is not defined/);
+    });
+
+    it('should pass async render rejections to the callback', async () => {
+      fs.writeFileSync(
+        path.join(tmpDir, 'async-broken.ejs'),
+        "<% await Promise.reject(new Error('async boom')) %>",
+      );
+      const adapter = new EjsAdapter({ inlineCssEnabled: false });
+
+      await expect(
+        compileAsync(adapter, createMail('async-broken'), {
+          ...baseOptions,
+          template: { dir: tmpDir, options: { async: true } },
+        }),
+      ).rejects.toThrow('async boom');
+    });
+
+    it('should resolve nested templates from additional dirs', async () => {
+      const extra = path.join(tmpDir, 'extra');
+      fs.mkdirSync(path.join(extra, 'sub'), { recursive: true });
+      fs.writeFileSync(path.join(extra, 'sub', 'nested.ejs'), '<p>nested</p>');
+      const adapter = new EjsAdapter({ inlineCssEnabled: false });
+
+      const html = await compileAsync(adapter, createMail('sub/nested'), {
+        ...baseOptions,
+        template: { dir: path.join(tmpDir, 'base'), dirs: [extra] },
+      });
+
+      expect(html).toBe('<p>nested</p>');
+    });
+
+    it('should call the callback once when CSS inlining fails', () => {
+      const adapter = new EjsAdapter({
+        inlineCssOptions: { baseUrl: 'not a url' },
+      });
+      const callback = jest.fn();
+
+      adapter.compile(
+        createMail('ejs-template', { MAILER: 'Once' }),
+        callback,
+        baseOptions,
+      );
+
+      expect(callback).toHaveBeenCalledTimes(1);
+      expect(callback.mock.calls[0][0].message).toMatch(/relative URL/);
+    });
+  });
 });

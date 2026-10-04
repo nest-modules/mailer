@@ -149,4 +149,40 @@ describe('LiquidAdapter', () => {
       expect(mail.data.html).toBeUndefined();
     });
   });
+
+  describe('engine options', () => {
+    let tmpDir: string;
+
+    beforeEach(() => {
+      tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'mailer-liquid-opts-'));
+    });
+
+    afterEach(() => {
+      fs.rmSync(tmpDir, { recursive: true, force: true });
+    });
+
+    it('should expose configured globals to templates', async () => {
+      fs.writeFileSync(path.join(tmpDir, 'global.liquid'), '{{ company }}');
+      const adapter = new LiquidAdapter({ globals: { company: 'ACME' } });
+
+      const html = await compileAsync(adapter, createMail('global'), {
+        ...baseOptions,
+        template: { dir: tmpDir },
+      });
+
+      expect(html).toBe('ACME');
+    });
+
+    it('should honour engine options such as strictVariables', async () => {
+      fs.writeFileSync(path.join(tmpDir, 'strict.liquid'), '{{ missing }}');
+      const adapter = new LiquidAdapter({ strictVariables: true });
+
+      await expect(
+        compileAsync(adapter, createMail('strict'), {
+          ...baseOptions,
+          template: { dir: tmpDir },
+        }),
+      ).rejects.toThrow(/undefined variable: missing/);
+    });
+  });
 });

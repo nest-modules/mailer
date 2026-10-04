@@ -85,9 +85,9 @@ describe('MjmlAdapter', () => {
     ).not.toThrow();
   });
 
-  it('should set engine to empty string for empty string input', () => {
+  it('should leave no engine for empty string input', () => {
     const adapter = new MjmlAdapter('');
-    expect((adapter as any).engine).toBe('');
+    expect((adapter as any).engine).toBeNull();
   });
 
   it('should compile mail using the inner engine and transform through mjml', (done) => {
@@ -246,23 +246,40 @@ describe('MjmlAdapter', () => {
     );
   });
 
-  it('should do nothing when no engine is configured', () => {
-    const adapter = new MjmlAdapter(null as any);
+  it('should complete without rendering when no engine is configured', () => {
+    const adapter = new MjmlAdapter('');
     const callback = jest.fn();
 
-    expect(() =>
-      adapter.compile({ data: {} }, callback, mailerOptions),
-    ).not.toThrow();
-    expect(callback).not.toHaveBeenCalled();
+    adapter.compile({ data: {} }, callback, mailerOptions);
+
+    expect(callback).toHaveBeenCalledTimes(1);
+    expect(callback).toHaveBeenCalledWith();
     expect(mockMjml2html).not.toHaveBeenCalled();
   });
 
-  it('should do nothing when compile is invoked without a bound instance', () => {
+  it('should complete when compile is invoked without a bound instance', () => {
     const adapter = new MjmlAdapter(staticEngine('<mjml></mjml>'));
     const { compile } = adapter;
     const callback = jest.fn();
 
-    expect(() => compile({ data: {} }, callback, mailerOptions)).not.toThrow();
-    expect(callback).not.toHaveBeenCalled();
+    compile({ data: {} }, callback, mailerOptions);
+
+    expect(callback).toHaveBeenCalledTimes(1);
+  });
+
+  it('should pass synchronous mjml errors to the callback', (done) => {
+    mockMjml2html.mockImplementation(() => {
+      throw new Error('mjml v4 failure');
+    });
+    const adapter = new MjmlAdapter(staticEngine('<mjml></mjml>'));
+
+    adapter.compile(
+      { data: {} },
+      (err?: Error) => {
+        expect(err?.message).toBe('mjml v4 failure');
+        done();
+      },
+      mailerOptions,
+    );
   });
 });

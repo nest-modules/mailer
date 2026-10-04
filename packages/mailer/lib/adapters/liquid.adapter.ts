@@ -25,9 +25,9 @@ export class LiquidAdapter implements TemplateAdapter {
       : path.join(mailerOptions.template?.dir ?? '', path.dirname(template));
 
     const engine = new Liquid({
+      ...this.config,
       extname: templateExt,
       root: templateDir,
-      ...this.config.globals,
     });
 
     engine

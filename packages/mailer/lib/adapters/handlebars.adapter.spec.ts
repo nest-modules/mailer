@@ -498,4 +498,84 @@ describe('HandlebarsAdapter', () => {
       ).rejects.toThrow(/Missing stylesheet file: missing\.css/);
     });
   });
+
+  describe('error handling', () => {
+    let tmpDir: string;
+
+    beforeEach(() => {
+      tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'mailer-hbs-errors-'));
+    });
+
+    afterEach(() => {
+      fs.rmSync(tmpDir, { recursive: true, force: true });
+    });
+
+    it('should report a missing template once without throwing', () => {
+      const adapter = new HandlebarsAdapter();
+      const callback = jest.fn();
+
+      expect(() =>
+        adapter.compile(createMail('does-not-exist'), callback, baseOptions),
+      ).not.toThrow();
+      expect(callback).toHaveBeenCalledTimes(1);
+      expect(callback.mock.calls[0][0]).toMatchObject({ code: 'ENOENT' });
+    });
+
+    it('should pass helper errors to the callback', async () => {
+      fs.writeFileSync(path.join(tmpDir, 'boom.hbs'), '{{boom}}');
+      const adapter = new HandlebarsAdapter(
+        {
+          boom: () => {
+            throw new Error('helper boom');
+          },
+        },
+        { inlineCssEnabled: false },
+      );
+
+      await expect(
+        compileAsync(adapter, createMail('boom'), {
+          ...baseOptions,
+          template: { dir: tmpDir },
+        }),
+      ).rejects.toThrow('helper boom');
+    });
+
+    it('should skip partials that cannot be read', async () => {
+      const partials = path.join(tmpDir, 'partials');
+      fs.mkdirSync(path.join(partials, 'unreadable.hbs'), { recursive: true });
+      fs.writeFileSync(path.join(partials, 'greeting.hbs'), 'Hi {{name}}');
+      fs.writeFileSync(path.join(tmpDir, 'main.hbs'), '<p>{{> greeting}}</p>');
+      const adapter = new HandlebarsAdapter(undefined, {
+        inlineCssEnabled: false,
+      });
+
+      const html = await compileAsync(
+        adapter,
+        createMail('main', { name: 'Ana' }),
+        {
+          ...baseOptions,
+          template: { dir: tmpDir },
+          options: { partials: { dir: partials } },
+        },
+      );
+
+      expect(html).toBe('<p>Hi Ana</p>');
+    });
+
+    it('should call the callback once when CSS inlining fails', () => {
+      fs.writeFileSync(path.join(tmpDir, 'plain.hbs'), '<p>plain</p>');
+      const adapter = new HandlebarsAdapter(undefined, {
+        inlineCssOptions: { baseUrl: 'not a url' },
+      });
+      const callback = jest.fn();
+
+      adapter.compile(createMail('plain'), callback, {
+        ...baseOptions,
+        template: { dir: tmpDir },
+      });
+
+      expect(callback).toHaveBeenCalledTimes(1);
+      expect(callback.mock.calls[0][0].message).toMatch(/relative URL/);
+    });
+  });
 });

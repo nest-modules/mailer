@@ -51,11 +51,7 @@ export class EjsAdapter implements TemplateAdapter {
           path.basename(template, path.extname(template)) + templateExt,
         );
         if (fs.existsSync(altPath)) {
-          templatePath = path.join(
-            dir,
-            path.dirname(template),
-            templateName + templateExt,
-          );
+          templatePath = altPath;
           break;
         }
       }
@@ -74,7 +70,12 @@ export class EjsAdapter implements TemplateAdapter {
       }
     }
 
-    const rendered = this.precompiledTemplates[templateName](context);
+    let rendered: ReturnType<TemplateFunction | AsyncTemplateFunction>;
+    try {
+      rendered = this.precompiledTemplates[templateName](context);
+    } catch (err) {
+      return callback(err);
+    }
 
     const render = (html: string) => {
       // Feature 16: Resolve external CSS <link> tags
@@ -84,7 +85,7 @@ export class EjsAdapter implements TemplateAdapter {
         try {
           mail.data.html = inline(html, this.config.inlineCssOptions);
         } catch (e) {
-          callback(e);
+          return callback(e);
         }
       } else {
         mail.data.html = html;
@@ -95,7 +96,7 @@ export class EjsAdapter implements TemplateAdapter {
     if (typeof rendered === 'string') {
       render(rendered);
     } else {
-      rendered.then(render);
+      rendered.then(render, callback);
     }
   }
 

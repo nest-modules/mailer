@@ -178,4 +178,23 @@ describe('PugAdapter', () => {
     );
     expect(mail.data.html).toBeUndefined();
   });
+
+  it('should call the callback once when CSS inlining fails', (done) => {
+    const adapter = new PugAdapter({
+      inlineCssOptions: { baseUrl: 'not a url' },
+    });
+    const callback = jest.fn();
+
+    adapter.compile(
+      createMail('pug-template', { MAILER: 'Once' }),
+      callback,
+      baseOptions,
+    );
+
+    setImmediate(() => {
+      expect(callback).toHaveBeenCalledTimes(1);
+      expect(callback.mock.calls[0][0].message).toMatch(/relative URL/);
+      done();
+    });
+  });
 });
