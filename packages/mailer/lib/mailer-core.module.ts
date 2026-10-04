@@ -1,7 +1,12 @@
 /** Dependencies **/
 
-import { DynamicModule, Global, Module, Provider } from '@nestjs/common';
-import { ValueProvider } from '@nestjs/common/interfaces';
+import {
+  DynamicModule,
+  Global,
+  Module,
+  Provider,
+  ValueProvider,
+} from '@nestjs/common';
 
 /** Constants **/
 import { MAILER_OPTIONS } from './constants/mailer.constant';

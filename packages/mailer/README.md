@@ -33,7 +33,7 @@ Full documentation is available at **[nest-modules.github.io/mailer](https://nes
 pnpm add @nestjs-modules/mailer nodemailer
 ```
 
-Install a template engine of your choice:
+Install a template engine of your choice (they are optional peer dependencies and are not installed automatically):
 
 ```bash
 pnpm add handlebars
@@ -41,7 +41,21 @@ pnpm add handlebars
 pnpm add pug
 # or
 pnpm add ejs
+# or
+pnpm add liquidjs
+# or
+pnpm add nunjucks
+# or
+pnpm add mjml
 ```
+
+## Compatibility
+
+| `@nestjs-modules/mailer` | NestJS | Node.js |
+| --- | --- | --- |
+| 2.x / 3.x | 7 – 12 | NestJS 12 requires Node.js >= 20.19 (or >= 22.12) |
+
+NestJS 12 is published as ES modules. This package is CommonJS and loads it through Node.js' native `require(esm)` support, so no extra configuration is needed in your application. If you run Jest on a NestJS 12 project, use Node.js >= 24.9 with `NODE_OPTIONS=--experimental-vm-modules`.
 
 ## Quick Start
 
