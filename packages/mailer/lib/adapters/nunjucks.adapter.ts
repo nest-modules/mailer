@@ -12,7 +12,7 @@ import { TemplateAdapterConfig } from '../interfaces/template-adapter-config.int
 export class NunjucksAdapter implements TemplateAdapter {
   private precompiledTemplates: {
     [name: string]: (context: any) => string;
-  } = {};
+  } = Object.create(null);
 
   private config: TemplateAdapterConfig = {
     inlineCssOptions: {},

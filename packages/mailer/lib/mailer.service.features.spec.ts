@@ -705,6 +705,27 @@ describe('MailerService (features)', () => {
 
       expect(lastSentMail(other).text).toBeUndefined();
     });
+
+    it('should refuse text templates outside the template dir', async () => {
+      const outside = path.join(
+        path.dirname(dir),
+        `${path.basename(dir)}.secret`,
+      );
+      fs.writeFileSync(outside, 'TOP SECRET');
+      try {
+        await service.sendMail({
+          textTemplate: `../${path.basename(outside)}`,
+          context: { name: 'Ana' },
+        });
+      } finally {
+        fs.rmSync(outside, { force: true });
+      }
+
+      expect(lastSentMail(stub).text).toBe('');
+      expect(warnSpy).toHaveBeenCalledWith(
+        `Text template "../${path.basename(outside)}" is outside the template directory, skipping text fallback.`,
+      );
+    });
   });
 
   describe('i18n template resolution', () => {
@@ -800,6 +821,32 @@ describe('MailerService (features)', () => {
       ).resolves.toBe(path.join('en', 'welcome'));
       expect(debugSpy).not.toHaveBeenCalled();
     });
+
+    it.each(['../../etc', 'es/../../secret', '/tmp/uploads', 'en\\..\\..'])(
+      'should ignore the unsafe locale %p and use the default one',
+      async (locale) => {
+        await expect(
+          sentTemplate(
+            { template: { dir }, i18n: { defaultLocale: 'en' } },
+            { template: 'welcome', locale },
+          ),
+        ).resolves.toBe(path.join('en', 'welcome'));
+        expect(warnSpy).toHaveBeenCalledWith(
+          `Ignoring invalid locale "${locale}", using "en"`,
+        );
+      },
+    );
+
+    it.each(['es', 'es-CO', 'zh_Hant_TW', 'pt-BR'])(
+      'should accept the locale %p',
+      async (locale) => {
+        await sentTemplate(
+          { template: { dir }, i18n: { defaultLocale: 'en' } },
+          { template: 'welcome', locale },
+        );
+        expect(warnSpy).not.toHaveBeenCalled();
+      },
+    );
 
     it('should not localize without i18n options', async () => {
       await expect(

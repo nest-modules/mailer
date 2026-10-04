@@ -14,11 +14,12 @@ import {
 import { MailerOptions } from '../interfaces/mailer-options.interface';
 import { TemplateAdapter } from '../interfaces/template-adapter.interface';
 import { TemplateAdapterConfig } from '../interfaces/template-adapter-config.interface';
+import { resolveExternalCss } from '../utils/resolve-external-css';
 
 export class EjsAdapter implements TemplateAdapter {
   private precompiledTemplates: {
     [name: string]: TemplateFunction | AsyncTemplateFunction | ClientFunction;
-  } = {};
+  } = Object.create(null);
 
   private config: TemplateAdapterConfig = {
     inlineCssOptions: {},
@@ -79,7 +80,10 @@ export class EjsAdapter implements TemplateAdapter {
 
     const render = (html: string) => {
       // Feature 16: Resolve external CSS <link> tags
-      html = this.resolveExternalCss(html, mailerOptions);
+      html = resolveExternalCss(
+        html,
+        this.config.cssBaseUrl || (mailerOptions.template?.dir ?? ''),
+      );
 
       if (this.config.inlineCssEnabled) {
         try {
@@ -98,35 +102,5 @@ export class EjsAdapter implements TemplateAdapter {
     } else {
       rendered.then(render, callback);
     }
-  }
-
-  private resolveExternalCss(
-    html: string,
-    mailerOptions: MailerOptions,
-  ): string {
-    const baseDir =
-      this.config.cssBaseUrl || (mailerOptions.template?.dir ?? '');
-
-    if (!baseDir) return html;
-
-    return html.replace(
-      /<link\s+[^>]*rel=["']stylesheet["'][^>]*href=["']([^"']+)["'][^>]*\/?>/gi,
-      (match, href) => {
-        if (
-          href.startsWith('http://') ||
-          href.startsWith('https://') ||
-          href.startsWith('//')
-        ) {
-          return match;
-        }
-        const cssPath = path.resolve(baseDir, href);
-        try {
-          const cssContent = fs.readFileSync(cssPath, 'utf-8');
-          return `<style>${cssContent}</style>`;
-        } catch {
-          return match;
-        }
-      },
-    );
   }
 }
