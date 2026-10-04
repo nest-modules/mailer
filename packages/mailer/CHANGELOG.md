@@ -1,5 +1,39 @@
 # Changelog
 
+## 3.0.0
+
+### Major Changes
+
+- [#1325](https://github.com/nest-modules/mailer/pull/1325) [`d47ee96`](https://github.com/nest-modules/mailer/commit/d47ee96fe84e5e17b3debbe6610b147761b9594a) Thanks [@juandav](https://github.com/juandav)! - Template engines are no longer installed automatically.
+
+  `ejs`, `handlebars`, `liquidjs`, `mjml`, `nunjucks`, `preview-email`, `pug` and their `@types/*` packages were listed both as optional `peerDependencies` and as `optionalDependencies`. npm, pnpm and yarn install `optionalDependencies` by default, so every project got all of them (and their transitive dependencies) even when using a single engine. They are now only optional peer dependencies, as the documentation already described ([#1320](https://github.com/nest-modules/mailer/issues/1320)).
+
+  **Migration:** install the engine used by your adapter, e.g. `pnpm add handlebars` for `HandlebarsAdapter`, and `preview-email` if you use the `preview` option. Projects that already followed the installation guide need no changes.
+
+- [#1328](https://github.com/nest-modules/mailer/pull/1328) [`647406d`](https://github.com/nest-modules/mailer/commit/647406d4e954b857ff6bb8d8ad4fc8b085da8522) Thanks [@juandav](https://github.com/juandav)! - Secure defaults for 3.0.
+
+  - **Breaking:** `{{key}}` placeholders in an inline `html` string are now HTML-escaped. Use `{{{key}}}` to insert trusted markup. Subject and text templates are not escaped.
+  - **Breaking:** CSS inlining no longer fetches remote stylesheets. `loadRemoteStylesheets` defaults to `false` and is kept when you pass your own `inlineCssOptions`; set it to `true` to opt back in.
+  - **Breaking:** the Pug adapter compiles with `template.options` only. Context values can no longer change compiler options such as `basedir`, `filename` or `plugins`. They are still available as template variables.
+  - **Breaking:** `MailerHealthIndicator` no longer returns the error message when transporter verification throws. The error is logged instead.
+  - Placeholder interpolation only reads the context's own properties, so keys like `constructor` are never rendered.
+
+### Minor Changes
+
+- [#1326](https://github.com/nest-modules/mailer/pull/1326) [`6cc304f`](https://github.com/nest-modules/mailer/commit/6cc304f15dfe86f8a9c12657589cf2bf447bfb28) Thanks [@juandav](https://github.com/juandav)! - Support NestJS 12. The module is tested against NestJS 11 and 12 in CI, and Nest types are now imported from the `@nestjs/common` entrypoint instead of the internal `@nestjs/common/interfaces` path, so the published declarations resolve with `node16`/`bundler` module resolution on NestJS 12. NestJS 12 requires Node.js >= 20.19 (or >= 22.12).
+
+### Patch Changes
+
+- [#1327](https://github.com/nest-modules/mailer/pull/1327) [`6c9356d`](https://github.com/nest-modules/mailer/commit/6c9356d36d7c7cc6ca16b7a5cd80ea605bb53333) Thanks [@juandav](https://github.com/juandav)! - Security hardening:
+
+  - External stylesheet inlining (`<link rel="stylesheet">` in Handlebars/EJS templates) now only reads `.css` files located inside `template.dir` (or `cssBaseUrl`). Previously an absolute or `../` href — including one injected through an unescaped context value — could inline any readable file from the server into the email. The tag matcher also runs in linear time now (it was vulnerable to ReDoS on large rendered output).
+  - i18n: locales that are not BCP 47-like tags (e.g. `../../uploads`) are ignored and the default locale is used, preventing path traversal through a user-provided `locale`.
+  - `textTemplate` files must live inside `template.dir`.
+  - Template caches no longer inherit from `Object.prototype`.
+  - Raise the optional peer floors to `ejs >= 3.1.10` and `pug >= 3.0.3`, which fix known template-injection CVEs.
+
+  If you reference stylesheets outside the template directory, set `cssBaseUrl` to a common parent directory.
+
 ## 2.3.10
 
 ### Patch Changes
