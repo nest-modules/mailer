@@ -133,21 +133,51 @@ importers:
       '@nestjs/testing':
         specifier: 11.2.7
         version: 11.2.7(@nestjs/common@11.2.7(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.2.7)(@nestjs/platform-express@11.2.7)
+      '@types/ejs':
+        specifier: 3.1.5
+        version: 3.1.5
       '@types/jest':
         specifier: 30.0.0
         version: 30.0.0
+      '@types/mjml':
+        specifier: 4.7.4
+        version: 4.7.4
       '@types/nodemailer':
         specifier: 8.0.2
         version: 8.0.2
+      '@types/pug':
+        specifier: 2.0.10
+        version: 2.0.10
+      ejs:
+        specifier: 5.0.2
+        version: 5.0.2
+      handlebars:
+        specifier: 4.7.9
+        version: 4.7.9
       jest:
         specifier: 30.5.2
         version: 30.5.2(@types/node@25.5.0)(ts-node@10.9.2(@types/node@25.5.0)(typescript@5.9.3))
+      liquidjs:
+        specifier: 10.30.0
+        version: 10.30.0
+      mjml:
+        specifier: 5.4.1
+        version: 5.4.1(relateurl@0.2.7)(svgo@4.1.0)(terser@5.46.1)(typescript@5.9.3)
       nodemailer:
         specifier: 10.0.14
         version: 10.0.14
       nodemailer-mock:
         specifier: 2.1.0
         version: 2.1.0(nodemailer@10.0.14)
+      nunjucks:
+        specifier: 3.2.4
+        version: 3.2.4(chokidar@3.6.0)
+      preview-email:
+        specifier: 3.4.1
+        version: 3.4.1
+      pug:
+        specifier: 3.0.4
+        version: 3.0.4
       reflect-metadata:
         specifier: 0.2.2
         version: 0.2.2
@@ -166,37 +196,6 @@ importers:
       typescript:
         specifier: 5.9.3
         version: 5.9.3
-    optionalDependencies:
-      '@types/ejs':
-        specifier: ^3.1.5
-        version: 3.1.5
-      '@types/mjml':
-        specifier: ^4.7.4
-        version: 4.7.4
-      '@types/pug':
-        specifier: ^2.0.10
-        version: 2.0.10
-      ejs:
-        specifier: ^5.0.1
-        version: 5.0.1
-      handlebars:
-        specifier: ^4.7.9
-        version: 4.7.9
-      liquidjs:
-        specifier: ^10.30.0
-        version: 10.30.0
-      mjml:
-        specifier: ^5.4.1
-        version: 5.4.1(relateurl@0.2.7)(svgo@4.1.0)(terser@5.46.1)(typescript@5.9.3)
-      nunjucks:
-        specifier: ^3.2.4
-        version: 3.2.4(chokidar@3.6.0)
-      preview-email:
-        specifier: ^3.4.1
-        version: 3.4.1
-      pug:
-        specifier: ^3.0.4
-        version: 3.0.4
 
   samples/basic:
     dependencies:
@@ -215,6 +214,9 @@ importers:
       dotenv:
         specifier: 17.3.1
         version: 17.3.1
+      handlebars:
+        specifier: 4.7.9
+        version: 4.7.9
       nodemailer:
         specifier: 10.0.14
         version: 10.0.14
@@ -4297,8 +4299,8 @@ packages:
   ee-first@1.1.1:
     resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
 
-  ejs@5.0.1:
-    resolution: {integrity: sha512-COqBPFMxuPTPspXl2DkVYaDS3HtrD1GpzOGkNTJ1IYkifq/r9h8SVEFrjA3D9/VJGOEoMQcrlhpntcSUrM8k6A==}
+  ejs@5.0.2:
+    resolution: {integrity: sha512-IpbUaI/CAW86l3f+T8zN0iggSc0LmMZLcIW5eRVStLVNCoTXkE0YlncbbH50fp8Cl6zHIky0sW2uUbhBqGw0Jw==}
     engines: {node: '>=0.12.18'}
     hasBin: true
 
@@ -9653,8 +9655,7 @@ snapshots:
       human-id: 4.1.3
       prettier: 2.8.8
 
-  '@colordx/core@5.8.0':
-    optional: true
+  '@colordx/core@5.8.0': {}
 
   '@colors/colors@1.5.0':
     optional: true
@@ -11538,8 +11539,7 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.20.1
 
-  '@one-ini/wasm@0.2.1':
-    optional: true
+  '@one-ini/wasm@0.2.1': {}
 
   '@paralleldrive/cuid2@2.3.1':
     dependencies:
@@ -11715,7 +11715,6 @@ snapshots:
       domelementtype: 2.3.0
       domhandler: 5.0.3
       selderee: 0.12.0
-    optional: true
 
   '@sideway/address@4.1.5':
     dependencies:
@@ -11939,8 +11938,7 @@ snapshots:
     dependencies:
       '@types/ms': 2.1.0
 
-  '@types/ejs@3.1.5':
-    optional: true
+  '@types/ejs@3.1.5': {}
 
   '@types/eslint-scope@3.7.7':
     dependencies:
@@ -12028,13 +12026,11 @@ snapshots:
 
   '@types/mime@1.3.5': {}
 
-  '@types/mjml-core@4.15.2':
-    optional: true
+  '@types/mjml-core@4.15.2': {}
 
   '@types/mjml@4.7.4':
     dependencies:
       '@types/mjml-core': 4.15.2
-    optional: true
 
   '@types/ms@2.1.0': {}
 
@@ -12048,8 +12044,7 @@ snapshots:
 
   '@types/prismjs@1.26.6': {}
 
-  '@types/pug@2.0.10':
-    optional: true
+  '@types/pug@2.0.10': {}
 
   '@types/qs@6.15.0': {}
 
@@ -12076,8 +12071,7 @@ snapshots:
     dependencies:
       csstype: 3.2.3
 
-  '@types/relateurl@0.2.33':
-    optional: true
+  '@types/relateurl@0.2.33': {}
 
   '@types/retry@0.12.2': {}
 
@@ -12298,13 +12292,10 @@ snapshots:
       libbase64: 1.3.0
       libmime: 5.4.3
       libqp: 2.1.1
-    optional: true
 
-  a-sync-waterfall@1.0.1:
-    optional: true
+  a-sync-waterfall@1.0.1: {}
 
-  abbrev@5.0.0:
-    optional: true
+  abbrev@5.0.0: {}
 
   accepts@1.3.8:
     dependencies:
@@ -12328,8 +12319,7 @@ snapshots:
     dependencies:
       acorn: 8.16.0
 
-  acorn@7.4.1:
-    optional: true
+  acorn@7.4.1: {}
 
   acorn@8.16.0: {}
 
@@ -12445,8 +12435,7 @@ snapshots:
       pvutils: 1.1.5
       tslib: 2.8.1
 
-  assert-never@1.4.0:
-    optional: true
+  assert-never@1.4.0: {}
 
   astring@1.9.0: {}
 
@@ -12558,8 +12547,7 @@ snapshots:
 
   babel-walk@3.0.0-canary-5:
     dependencies:
-      '@babel/types': 7.29.0
-    optional: true
+      '@babel/types': 7.29.8
 
   bail@2.0.2: {}
 
@@ -12799,7 +12787,6 @@ snapshots:
   character-parser@2.2.0:
     dependencies:
       is-regex: 1.2.1
-    optional: true
 
   character-reference-invalid@2.0.1: {}
 
@@ -12829,7 +12816,6 @@ snapshots:
       parse5-parser-stream: 7.1.2
       undici: 6.29.0
       whatwg-mimetype: 4.0.0
-    optional: true
 
   cheerio@1.0.0-rc.12:
     dependencies:
@@ -12854,7 +12840,6 @@ snapshots:
       parse5-parser-stream: 7.1.2
       undici: 7.30.0
       whatwg-mimetype: 4.0.0
-    optional: true
 
   chokidar@3.6.0:
     dependencies:
@@ -12948,14 +12933,11 @@ snapshots:
 
   commander@10.0.1: {}
 
-  commander@11.1.0:
-    optional: true
+  commander@11.1.0: {}
 
-  commander@12.1.0:
-    optional: true
+  commander@12.1.0: {}
 
-  commander@14.0.3:
-    optional: true
+  commander@14.0.3: {}
 
   commander@2.20.3: {}
 
@@ -13014,9 +12996,8 @@ snapshots:
 
   constantinople@4.0.1:
     dependencies:
-      '@babel/parser': 7.29.2
-      '@babel/types': 7.29.0
-    optional: true
+      '@babel/parser': 7.29.9
+      '@babel/types': 7.29.8
 
   content-disposition@0.5.2: {}
 
@@ -13082,7 +13063,6 @@ snapshots:
       parse-json: 5.2.0
     optionalDependencies:
       typescript: 5.9.3
-    optional: true
 
   create-require@1.1.1: {}
 
@@ -13168,7 +13148,6 @@ snapshots:
       domhandler: 5.0.3
       domutils: 3.2.2
       nth-check: 2.1.1
-    optional: true
 
   css-tree@2.2.1:
     dependencies:
@@ -13184,12 +13163,10 @@ snapshots:
     dependencies:
       mdn-data: 2.27.1
       source-map-js: 1.2.1
-    optional: true
 
   css-what@6.2.2: {}
 
-  css-what@7.0.0:
-    optional: true
+  css-what@7.0.0: {}
 
   cssdb@8.8.0: {}
 
@@ -13273,7 +13250,6 @@ snapshots:
       postcss-reduce-transforms: 7.0.3(postcss@8.5.28)
       postcss-svgo: 7.1.3(postcss@8.5.28)
       postcss-unique-selectors: 7.0.7(postcss@8.5.28)
-    optional: true
 
   cssnano-preset-lite@4.0.6(postcss@8.5.28):
     dependencies:
@@ -13282,7 +13258,6 @@ snapshots:
       postcss-discard-comments: 7.0.8(postcss@8.5.28)
       postcss-discard-empty: 7.0.3(postcss@8.5.28)
       postcss-normalize-whitespace: 7.0.3(postcss@8.5.28)
-    optional: true
 
   cssnano-utils@4.0.2(postcss@8.5.28):
     dependencies:
@@ -13291,7 +13266,6 @@ snapshots:
   cssnano-utils@5.0.3(postcss@8.5.28):
     dependencies:
       postcss: 8.5.28
-    optional: true
 
   cssnano@6.1.2(postcss@8.5.28):
     dependencies:
@@ -13304,7 +13278,6 @@ snapshots:
       cssnano-preset-default: 7.0.17(postcss@8.5.28)
       lilconfig: 3.1.3
       postcss: 8.5.28
-    optional: true
 
   csso@5.0.5:
     dependencies:
@@ -13336,8 +13309,7 @@ snapshots:
 
   deep-extend@0.6.0: {}
 
-  deepmerge-ts@8.0.2:
-    optional: true
+  deepmerge-ts@8.0.2: {}
 
   deepmerge@4.3.1: {}
 
@@ -13413,14 +13385,12 @@ snapshots:
     dependencies:
       escape-string-applescript: 3.0.0
       run-applescript: 5.0.0
-    optional: true
 
   dns-packet@5.6.1:
     dependencies:
       '@leichtgewicht/ip-codec': 2.0.5
 
-  doctypes@1.1.0:
-    optional: true
+  doctypes@1.1.0: {}
 
   dom-converter@0.2.0:
     dependencies:
@@ -13487,14 +13457,12 @@ snapshots:
     dependencies:
       '@one-ini/wasm': 0.2.1
       commander: 14.0.3
-      minimatch: 10.2.4
-      semver: 7.7.4
-    optional: true
+      minimatch: 10.2.6
+      semver: 7.8.5
 
   ee-first@1.1.1: {}
 
-  ejs@5.0.1:
-    optional: true
+  ejs@5.0.2: {}
 
   electron-to-chromium@1.5.444: {}
 
@@ -13512,14 +13480,12 @@ snapshots:
 
   encodeurl@2.0.0: {}
 
-  encoding-japanese@2.3.0:
-    optional: true
+  encoding-japanese@2.3.0: {}
 
   encoding-sniffer@0.2.1:
     dependencies:
       iconv-lite: 0.6.3
       whatwg-encoding: 3.1.1
-    optional: true
 
   enhanced-resolve@5.20.1:
     dependencies:
@@ -13533,18 +13499,15 @@ snapshots:
 
   entities@2.2.0: {}
 
-  entities@3.0.1:
-    optional: true
+  entities@3.0.1: {}
 
   entities@4.5.0: {}
 
   entities@6.0.1: {}
 
-  entities@7.0.1:
-    optional: true
+  entities@7.0.1: {}
 
-  env-paths@2.2.1:
-    optional: true
+  env-paths@2.2.1: {}
 
   error-ex@1.3.4:
     dependencies:
@@ -13585,15 +13548,13 @@ snapshots:
 
   escalade@3.2.0: {}
 
-  escape-goat@3.0.0:
-    optional: true
+  escape-goat@3.0.0: {}
 
   escape-goat@4.0.0: {}
 
   escape-html@1.0.3: {}
 
-  escape-string-applescript@3.0.0:
-    optional: true
+  escape-string-applescript@3.0.0: {}
 
   escape-string-regexp@2.0.0: {}
 
@@ -13982,8 +13943,7 @@ snapshots:
 
   get-package-type@0.1.0: {}
 
-  get-port@7.2.0:
-    optional: true
+  get-port@7.2.0: {}
 
   get-proto@1.0.1:
     dependencies:
@@ -14254,7 +14214,6 @@ snapshots:
       dom-serializer: 2.0.0
       htmlparser2: 10.1.0
       selderee: 0.12.0
-    optional: true
 
   html-void-elements@3.0.0: {}
 
@@ -14282,7 +14241,6 @@ snapshots:
       terser: 5.46.1
     transitivePeerDependencies:
       - typescript
-    optional: true
 
   htmlparser2@10.1.0:
     dependencies:
@@ -14290,7 +14248,6 @@ snapshots:
       domhandler: 5.0.3
       domutils: 3.2.2
       entities: 7.0.1
-    optional: true
 
   htmlparser2@6.1.0:
     dependencies:
@@ -14305,7 +14262,6 @@ snapshots:
       domhandler: 4.3.1
       domutils: 2.8.0
       entities: 3.0.1
-    optional: true
 
   htmlparser2@8.0.2:
     dependencies:
@@ -14320,7 +14276,6 @@ snapshots:
       domhandler: 5.0.3
       domutils: 3.2.2
       entities: 4.5.0
-    optional: true
 
   http-cache-semantics@4.2.0: {}
 
@@ -14480,7 +14435,6 @@ snapshots:
     dependencies:
       acorn: 7.4.1
       object-assign: 4.1.1
-    optional: true
 
   is-extendable@0.1.1: {}
 
@@ -14507,8 +14461,7 @@ snapshots:
 
   is-interactive@1.0.0: {}
 
-  is-json@2.0.1:
-    optional: true
+  is-json@2.0.1: {}
 
   is-network-error@1.3.1: {}
 
@@ -14530,8 +14483,7 @@ snapshots:
     dependencies:
       isobject: 3.0.1
 
-  is-promise@2.2.2:
-    optional: true
+  is-promise@2.2.2: {}
 
   is-promise@4.0.0: {}
 
@@ -14540,8 +14492,7 @@ snapshots:
       call-bound: 1.0.4
       gopd: 1.2.0
       has-tostringtag: 1.0.2
-      hasown: 2.0.2
-    optional: true
+      hasown: 2.0.4
 
   is-regexp@1.0.0: {}
 
@@ -15005,13 +14956,10 @@ snapshots:
       glob: 13.0.6
       js-cookie: 3.0.8
       nopt: 10.0.1
-    optional: true
 
-  js-cookie@3.0.8:
-    optional: true
+  js-cookie@3.0.8: {}
 
-  js-stringify@1.0.2:
-    optional: true
+  js-stringify@1.0.2: {}
 
   js-tokens@4.0.0: {}
 
@@ -15050,7 +14998,6 @@ snapshots:
     dependencies:
       is-promise: 2.2.2
       promise: 7.3.1
-    optional: true
 
   juice@11.1.1:
     dependencies:
@@ -15060,7 +15007,6 @@ snapshots:
       mensch: 0.3.4
       slick: 1.12.2
       web-resource-inliner: 8.0.0
-    optional: true
 
   keyv@4.5.4:
     dependencies:
@@ -15079,15 +15025,13 @@ snapshots:
       picocolors: 1.1.1
       shell-quote: 1.12.0
 
-  leac@0.7.0:
-    optional: true
+  leac@0.7.0: {}
 
   leven@3.1.0: {}
 
   levenshtein@1.0.5: {}
 
-  libbase64@1.3.0:
-    optional: true
+  libbase64@1.3.0: {}
 
   libmime@5.4.3:
     dependencies:
@@ -15095,10 +15039,8 @@ snapshots:
       iconv-lite: 0.7.3
       libbase64: 1.3.0
       libqp: 2.1.1
-    optional: true
 
-  libqp@2.1.1:
-    optional: true
+  libqp@2.1.1: {}
 
   lilconfig@3.1.3: {}
 
@@ -15107,12 +15049,10 @@ snapshots:
   linkify-it@5.0.2:
     dependencies:
       uc.micro: 2.1.0
-    optional: true
 
   liquidjs@10.30.0:
     dependencies:
       commander: 10.0.1
-    optional: true
 
   load-esm@1.0.3: {}
 
@@ -15195,7 +15135,6 @@ snapshots:
       nodemailer: 10.0.14
       punycode.js: 2.3.1
       tlds: 1.261.0
-    optional: true
 
   make-dir@4.0.0:
     dependencies:
@@ -15401,8 +15340,7 @@ snapshots:
 
   mdn-data@2.0.30: {}
 
-  mdn-data@2.27.1:
-    optional: true
+  mdn-data@2.27.1: {}
 
   media-typer@0.3.0: {}
 
@@ -15429,8 +15367,7 @@ snapshots:
       tree-dump: 1.1.0(tslib@2.8.1)
       tslib: 2.8.1
 
-  mensch@0.3.4:
-    optional: true
+  mensch@0.3.4: {}
 
   merge-descriptors@1.0.3: {}
 
@@ -15785,7 +15722,6 @@ snapshots:
   minimatch@10.2.6:
     dependencies:
       brace-expansion: 5.0.12
-    optional: true
 
   minimatch@3.1.5:
     dependencies:
@@ -15812,7 +15748,6 @@ snapshots:
       - terser
       - typescript
       - uncss
-    optional: true
 
   mjml-body@5.4.1(relateurl@0.2.7)(svgo@4.1.0)(terser@5.46.1)(typescript@5.9.3):
     dependencies:
@@ -15827,7 +15762,6 @@ snapshots:
       - terser
       - typescript
       - uncss
-    optional: true
 
   mjml-button@5.4.1(relateurl@0.2.7)(svgo@4.1.0)(terser@5.46.1)(typescript@5.9.3):
     dependencies:
@@ -15842,7 +15776,6 @@ snapshots:
       - terser
       - typescript
       - uncss
-    optional: true
 
   mjml-carousel@5.4.1(relateurl@0.2.7)(svgo@4.1.0)(terser@5.46.1)(typescript@5.9.3):
     dependencies:
@@ -15857,7 +15790,6 @@ snapshots:
       - terser
       - typescript
       - uncss
-    optional: true
 
   mjml-cli@5.4.1(relateurl@0.2.7)(svgo@4.1.0)(terser@5.46.1)(typescript@5.9.3):
     dependencies:
@@ -15879,7 +15811,6 @@ snapshots:
       - terser
       - typescript
       - uncss
-    optional: true
 
   mjml-column@5.4.1(relateurl@0.2.7)(svgo@4.1.0)(terser@5.46.1)(typescript@5.9.3):
     dependencies:
@@ -15894,7 +15825,6 @@ snapshots:
       - terser
       - typescript
       - uncss
-    optional: true
 
   mjml-core@5.4.1(relateurl@0.2.7)(svgo@4.1.0)(terser@5.46.1)(typescript@5.9.3):
     dependencies:
@@ -15918,7 +15848,6 @@ snapshots:
       - terser
       - typescript
       - uncss
-    optional: true
 
   mjml-divider@5.4.1(relateurl@0.2.7)(svgo@4.1.0)(terser@5.46.1)(typescript@5.9.3):
     dependencies:
@@ -15933,7 +15862,6 @@ snapshots:
       - terser
       - typescript
       - uncss
-    optional: true
 
   mjml-group@5.4.1(relateurl@0.2.7)(svgo@4.1.0)(terser@5.46.1)(typescript@5.9.3):
     dependencies:
@@ -15948,7 +15876,6 @@ snapshots:
       - terser
       - typescript
       - uncss
-    optional: true
 
   mjml-head-attributes@5.4.1(relateurl@0.2.7)(svgo@4.1.0)(terser@5.46.1)(typescript@5.9.3):
     dependencies:
@@ -15963,7 +15890,6 @@ snapshots:
       - terser
       - typescript
       - uncss
-    optional: true
 
   mjml-head-breakpoint@5.4.1(relateurl@0.2.7)(svgo@4.1.0)(terser@5.46.1)(typescript@5.9.3):
     dependencies:
@@ -15978,7 +15904,6 @@ snapshots:
       - terser
       - typescript
       - uncss
-    optional: true
 
   mjml-head-font@5.4.1(relateurl@0.2.7)(svgo@4.1.0)(terser@5.46.1)(typescript@5.9.3):
     dependencies:
@@ -15993,7 +15918,6 @@ snapshots:
       - terser
       - typescript
       - uncss
-    optional: true
 
   mjml-head-html-attributes@5.4.1(relateurl@0.2.7)(svgo@4.1.0)(terser@5.46.1)(typescript@5.9.3):
     dependencies:
@@ -16008,7 +15932,6 @@ snapshots:
       - terser
       - typescript
       - uncss
-    optional: true
 
   mjml-head-preview@5.4.1(relateurl@0.2.7)(svgo@4.1.0)(terser@5.46.1)(typescript@5.9.3):
     dependencies:
@@ -16023,7 +15946,6 @@ snapshots:
       - terser
       - typescript
       - uncss
-    optional: true
 
   mjml-head-style@5.4.1(relateurl@0.2.7)(svgo@4.1.0)(terser@5.46.1)(typescript@5.9.3):
     dependencies:
@@ -16038,7 +15960,6 @@ snapshots:
       - terser
       - typescript
       - uncss
-    optional: true
 
   mjml-head-title@5.4.1(relateurl@0.2.7)(svgo@4.1.0)(terser@5.46.1)(typescript@5.9.3):
     dependencies:
@@ -16053,7 +15974,6 @@ snapshots:
       - terser
       - typescript
       - uncss
-    optional: true
 
   mjml-head@5.4.1(relateurl@0.2.7)(svgo@4.1.0)(terser@5.46.1)(typescript@5.9.3):
     dependencies:
@@ -16068,7 +15988,6 @@ snapshots:
       - terser
       - typescript
       - uncss
-    optional: true
 
   mjml-hero@5.4.1(relateurl@0.2.7)(svgo@4.1.0)(terser@5.46.1)(typescript@5.9.3):
     dependencies:
@@ -16083,7 +16002,6 @@ snapshots:
       - terser
       - typescript
       - uncss
-    optional: true
 
   mjml-image@5.4.1(relateurl@0.2.7)(svgo@4.1.0)(terser@5.46.1)(typescript@5.9.3):
     dependencies:
@@ -16098,7 +16016,6 @@ snapshots:
       - terser
       - typescript
       - uncss
-    optional: true
 
   mjml-navbar@5.4.1(relateurl@0.2.7)(svgo@4.1.0)(terser@5.46.1)(typescript@5.9.3):
     dependencies:
@@ -16113,7 +16030,6 @@ snapshots:
       - terser
       - typescript
       - uncss
-    optional: true
 
   mjml-parser-xml@5.4.1:
     dependencies:
@@ -16121,7 +16037,6 @@ snapshots:
       detect-node: 2.1.0
       htmlparser2: 9.1.0
       lodash: 4.18.1
-    optional: true
 
   mjml-preset-core@5.4.1(relateurl@0.2.7)(svgo@4.1.0)(terser@5.46.1)(typescript@5.9.3):
     dependencies:
@@ -16159,7 +16074,6 @@ snapshots:
       - terser
       - typescript
       - uncss
-    optional: true
 
   mjml-raw@5.4.1(relateurl@0.2.7)(svgo@4.1.0)(terser@5.46.1)(typescript@5.9.3):
     dependencies:
@@ -16174,7 +16088,6 @@ snapshots:
       - terser
       - typescript
       - uncss
-    optional: true
 
   mjml-section@5.4.1(relateurl@0.2.7)(svgo@4.1.0)(terser@5.46.1)(typescript@5.9.3):
     dependencies:
@@ -16189,7 +16102,6 @@ snapshots:
       - terser
       - typescript
       - uncss
-    optional: true
 
   mjml-social@5.4.1(relateurl@0.2.7)(svgo@4.1.0)(terser@5.46.1)(typescript@5.9.3):
     dependencies:
@@ -16204,7 +16116,6 @@ snapshots:
       - terser
       - typescript
       - uncss
-    optional: true
 
   mjml-spacer@5.4.1(relateurl@0.2.7)(svgo@4.1.0)(terser@5.46.1)(typescript@5.9.3):
     dependencies:
@@ -16219,7 +16130,6 @@ snapshots:
       - terser
       - typescript
       - uncss
-    optional: true
 
   mjml-table@5.4.1(relateurl@0.2.7)(svgo@4.1.0)(terser@5.46.1)(typescript@5.9.3):
     dependencies:
@@ -16234,7 +16144,6 @@ snapshots:
       - terser
       - typescript
       - uncss
-    optional: true
 
   mjml-text@5.4.1(relateurl@0.2.7)(svgo@4.1.0)(terser@5.46.1)(typescript@5.9.3):
     dependencies:
@@ -16249,12 +16158,10 @@ snapshots:
       - terser
       - typescript
       - uncss
-    optional: true
 
   mjml-validator@5.4.1:
     dependencies:
       '@babel/runtime': 7.29.2
-    optional: true
 
   mjml-wrapper@5.4.1(relateurl@0.2.7)(svgo@4.1.0)(terser@5.46.1)(typescript@5.9.3):
     dependencies:
@@ -16270,7 +16177,6 @@ snapshots:
       - terser
       - typescript
       - uncss
-    optional: true
 
   mjml@5.4.1(relateurl@0.2.7)(svgo@4.1.0)(terser@5.46.1)(typescript@5.9.3):
     dependencies:
@@ -16287,7 +16193,6 @@ snapshots:
       - terser
       - typescript
       - uncss
-    optional: true
 
   mri@1.2.0: {}
 
@@ -16389,7 +16294,6 @@ snapshots:
   nopt@10.0.1:
     dependencies:
       abbrev: 5.0.0
-    optional: true
 
   normalize-path@3.0.0: {}
 
@@ -16418,7 +16322,6 @@ snapshots:
       commander: 5.1.0
     optionalDependencies:
       chokidar: 3.6.0
-    optional: true
 
   object-assign@4.1.1: {}
 
@@ -16485,7 +16388,6 @@ snapshots:
   p-event@6.0.1:
     dependencies:
       p-timeout: 6.1.4
-    optional: true
 
   p-filter@2.1.0:
     dependencies:
@@ -16534,15 +16436,13 @@ snapshots:
     dependencies:
       p-finally: 1.0.0
 
-  p-timeout@6.1.4:
-    optional: true
+  p-timeout@6.1.4: {}
 
   p-try@2.2.0: {}
 
   p-wait-for@5.0.2:
     dependencies:
       p-timeout: 6.1.4
-    optional: true
 
   package-json-from-dist@1.0.1: {}
 
@@ -16597,7 +16497,6 @@ snapshots:
   parse5-parser-stream@7.1.2:
     dependencies:
       parse5: 7.3.0
-    optional: true
 
   parse5@7.3.0:
     dependencies:
@@ -16607,7 +16506,6 @@ snapshots:
     dependencies:
       leac: 0.7.0
       peberminta: 0.10.0
-    optional: true
 
   parseurl@1.3.3: {}
 
@@ -16648,8 +16546,7 @@ snapshots:
 
   path-type@4.0.0: {}
 
-  peberminta@0.10.0:
-    optional: true
+  peberminta@0.10.0: {}
 
   picocolors@1.1.1: {}
 
@@ -16690,7 +16587,6 @@ snapshots:
       postcss: 8.5.28
       postcss-selector-parser: 7.1.6
       postcss-value-parser: 4.2.0
-    optional: true
 
   postcss-calc@9.0.1(postcss@8.5.28):
     dependencies:
@@ -16739,7 +16635,6 @@ snapshots:
       caniuse-api: 3.0.0
       postcss: 8.5.28
       postcss-value-parser: 4.2.0
-    optional: true
 
   postcss-convert-values@6.1.0(postcss@8.5.28):
     dependencies:
@@ -16752,7 +16647,6 @@ snapshots:
       browserslist: 4.29.3
       postcss: 8.5.28
       postcss-value-parser: 4.2.0
-    optional: true
 
   postcss-custom-media@11.0.6(postcss@8.5.28):
     dependencies:
@@ -16792,7 +16686,6 @@ snapshots:
     dependencies:
       postcss: 8.5.28
       postcss-selector-parser: 7.1.6
-    optional: true
 
   postcss-discard-duplicates@6.0.3(postcss@8.5.28):
     dependencies:
@@ -16801,7 +16694,6 @@ snapshots:
   postcss-discard-duplicates@7.0.4(postcss@8.5.28):
     dependencies:
       postcss: 8.5.28
-    optional: true
 
   postcss-discard-empty@6.0.3(postcss@8.5.28):
     dependencies:
@@ -16810,7 +16702,6 @@ snapshots:
   postcss-discard-empty@7.0.3(postcss@8.5.28):
     dependencies:
       postcss: 8.5.28
-    optional: true
 
   postcss-discard-overridden@6.0.2(postcss@8.5.28):
     dependencies:
@@ -16819,7 +16710,6 @@ snapshots:
   postcss-discard-overridden@7.0.3(postcss@8.5.28):
     dependencies:
       postcss: 8.5.28
-    optional: true
 
   postcss-discard-unused@6.0.5(postcss@8.5.28):
     dependencies:
@@ -16898,7 +16788,6 @@ snapshots:
       postcss: 8.5.28
       postcss-value-parser: 4.2.0
       stylehacks: 7.0.11(postcss@8.5.28)
-    optional: true
 
   postcss-merge-rules@6.1.1(postcss@8.5.28):
     dependencies:
@@ -16915,7 +16804,6 @@ snapshots:
       cssnano-utils: 5.0.3(postcss@8.5.28)
       postcss: 8.5.28
       postcss-selector-parser: 7.1.6
-    optional: true
 
   postcss-minify-font-values@6.1.0(postcss@8.5.28):
     dependencies:
@@ -16926,7 +16814,6 @@ snapshots:
     dependencies:
       postcss: 8.5.28
       postcss-value-parser: 4.2.0
-    optional: true
 
   postcss-minify-gradients@6.0.3(postcss@8.5.28):
     dependencies:
@@ -16941,7 +16828,6 @@ snapshots:
       cssnano-utils: 5.0.3(postcss@8.5.28)
       postcss: 8.5.28
       postcss-value-parser: 4.2.0
-    optional: true
 
   postcss-minify-params@6.1.0(postcss@8.5.28):
     dependencies:
@@ -16956,7 +16842,6 @@ snapshots:
       cssnano-utils: 5.0.3(postcss@8.5.28)
       postcss: 8.5.28
       postcss-value-parser: 4.2.0
-    optional: true
 
   postcss-minify-selectors@6.0.4(postcss@8.5.28):
     dependencies:
@@ -16970,7 +16855,6 @@ snapshots:
       cssesc: 3.0.0
       postcss: 8.5.28
       postcss-selector-parser: 7.1.6
-    optional: true
 
   postcss-modules-extract-imports@3.1.0(postcss@8.5.28):
     dependencies:
@@ -17007,7 +16891,6 @@ snapshots:
   postcss-normalize-charset@7.0.3(postcss@8.5.28):
     dependencies:
       postcss: 8.5.28
-    optional: true
 
   postcss-normalize-display-values@6.0.2(postcss@8.5.28):
     dependencies:
@@ -17018,7 +16901,6 @@ snapshots:
     dependencies:
       postcss: 8.5.28
       postcss-value-parser: 4.2.0
-    optional: true
 
   postcss-normalize-positions@6.0.2(postcss@8.5.28):
     dependencies:
@@ -17029,7 +16911,6 @@ snapshots:
     dependencies:
       postcss: 8.5.28
       postcss-value-parser: 4.2.0
-    optional: true
 
   postcss-normalize-repeat-style@6.0.2(postcss@8.5.28):
     dependencies:
@@ -17040,7 +16921,6 @@ snapshots:
     dependencies:
       postcss: 8.5.28
       postcss-value-parser: 4.2.0
-    optional: true
 
   postcss-normalize-string@6.0.2(postcss@8.5.28):
     dependencies:
@@ -17051,7 +16931,6 @@ snapshots:
     dependencies:
       postcss: 8.5.28
       postcss-value-parser: 4.2.0
-    optional: true
 
   postcss-normalize-timing-functions@6.0.2(postcss@8.5.28):
     dependencies:
@@ -17062,7 +16941,6 @@ snapshots:
     dependencies:
       postcss: 8.5.28
       postcss-value-parser: 4.2.0
-    optional: true
 
   postcss-normalize-unicode@6.1.0(postcss@8.5.28):
     dependencies:
@@ -17075,7 +16953,6 @@ snapshots:
       browserslist: 4.29.3
       postcss: 8.5.28
       postcss-value-parser: 4.2.0
-    optional: true
 
   postcss-normalize-url@6.0.2(postcss@8.5.28):
     dependencies:
@@ -17086,7 +16963,6 @@ snapshots:
     dependencies:
       postcss: 8.5.28
       postcss-value-parser: 4.2.0
-    optional: true
 
   postcss-normalize-whitespace@6.0.2(postcss@8.5.28):
     dependencies:
@@ -17097,7 +16973,6 @@ snapshots:
     dependencies:
       postcss: 8.5.28
       postcss-value-parser: 4.2.0
-    optional: true
 
   postcss-opacity-percentage@3.0.0(postcss@8.5.28):
     dependencies:
@@ -17114,7 +16989,6 @@ snapshots:
       cssnano-utils: 5.0.3(postcss@8.5.28)
       postcss: 8.5.28
       postcss-value-parser: 4.2.0
-    optional: true
 
   postcss-overflow-shorthand@6.0.0(postcss@8.5.28):
     dependencies:
@@ -17226,7 +17100,6 @@ snapshots:
       browserslist: 4.29.3
       caniuse-api: 3.0.0
       postcss: 8.5.28
-    optional: true
 
   postcss-reduce-transforms@6.0.2(postcss@8.5.28):
     dependencies:
@@ -17237,7 +17110,6 @@ snapshots:
     dependencies:
       postcss: 8.5.28
       postcss-value-parser: 4.2.0
-    optional: true
 
   postcss-replace-overflow-wrap@4.0.0(postcss@8.5.28):
     dependencies:
@@ -17274,7 +17146,6 @@ snapshots:
       postcss: 8.5.28
       postcss-value-parser: 4.2.0
       svgo: 4.1.0
-    optional: true
 
   postcss-unique-selectors@6.0.4(postcss@8.5.28):
     dependencies:
@@ -17285,7 +17156,6 @@ snapshots:
     dependencies:
       postcss: 8.5.28
       postcss-selector-parser: 7.1.6
-    optional: true
 
   postcss-value-parser@4.2.0: {}
 
@@ -17302,18 +17172,15 @@ snapshots:
   posthtml-parser@0.11.0:
     dependencies:
       htmlparser2: 7.2.0
-    optional: true
 
   posthtml-render@3.0.0:
     dependencies:
       is-json: 2.0.1
-    optional: true
 
   posthtml@0.16.7:
     dependencies:
       posthtml-parser: 0.11.0
       posthtml-render: 3.0.0
-    optional: true
 
   prettier@2.8.8: {}
 
@@ -17348,7 +17215,6 @@ snapshots:
       p-event: 6.0.1
       p-wait-for: 5.0.2
       pug: 3.0.4
-    optional: true
 
   prism-react-renderer@2.4.1(react@19.2.4):
     dependencies:
@@ -17363,7 +17229,6 @@ snapshots:
   promise@7.3.1:
     dependencies:
       asap: 2.0.6
-    optional: true
 
   prompts@2.4.2:
     dependencies:
@@ -17390,7 +17255,6 @@ snapshots:
       constantinople: 4.0.1
       js-stringify: 1.0.2
       pug-runtime: 3.0.1
-    optional: true
 
   pug-code-gen@3.0.4:
     dependencies:
@@ -17402,10 +17266,8 @@ snapshots:
       pug-runtime: 3.0.1
       void-elements: 3.1.0
       with: 7.0.2
-    optional: true
 
-  pug-error@2.1.0:
-    optional: true
+  pug-error@2.1.0: {}
 
   pug-filters@4.0.0:
     dependencies:
@@ -17414,43 +17276,35 @@ snapshots:
       pug-error: 2.1.0
       pug-walk: 2.0.0
       resolve: 1.22.11
-    optional: true
 
   pug-lexer@5.0.1:
     dependencies:
       character-parser: 2.2.0
       is-expression: 4.0.0
       pug-error: 2.1.0
-    optional: true
 
   pug-linker@4.0.0:
     dependencies:
       pug-error: 2.1.0
       pug-walk: 2.0.0
-    optional: true
 
   pug-load@3.0.0:
     dependencies:
       object-assign: 4.1.1
       pug-walk: 2.0.0
-    optional: true
 
   pug-parser@6.0.0:
     dependencies:
       pug-error: 2.1.0
       token-stream: 1.0.0
-    optional: true
 
-  pug-runtime@3.0.1:
-    optional: true
+  pug-runtime@3.0.1: {}
 
   pug-strip-comments@2.0.0:
     dependencies:
       pug-error: 2.1.0
-    optional: true
 
-  pug-walk@2.0.0:
-    optional: true
+  pug-walk@2.0.0: {}
 
   pug@3.0.4:
     dependencies:
@@ -17462,10 +17316,8 @@ snapshots:
       pug-parser: 6.0.0
       pug-runtime: 3.0.1
       pug-strip-comments: 2.0.0
-    optional: true
 
-  punycode.js@2.3.1:
-    optional: true
+  punycode.js@2.3.1: {}
 
   pupa@3.3.0:
     dependencies:
@@ -17822,7 +17674,6 @@ snapshots:
   run-applescript@5.0.0:
     dependencies:
       execa: 5.1.1
-    optional: true
 
   run-applescript@7.1.0: {}
 
@@ -17848,8 +17699,7 @@ snapshots:
 
   sax@1.6.0: {}
 
-  sax@1.6.1:
-    optional: true
+  sax@1.6.1: {}
 
   scheduler@0.27.0: {}
 
@@ -17878,7 +17728,6 @@ snapshots:
   selderee@0.12.0:
     dependencies:
       parseley: 0.13.1
-    optional: true
 
   select-hose@2.0.0: {}
 
@@ -18053,8 +17902,7 @@ snapshots:
 
   slash@4.0.0: {}
 
-  slick@1.12.2:
-    optional: true
+  slick@1.12.2: {}
 
   snake-case@2.1.0:
     dependencies:
@@ -18211,7 +18059,6 @@ snapshots:
       browserslist: 4.29.3
       postcss: 8.5.28
       postcss-selector-parser: 7.1.6
-    optional: true
 
   superagent@10.3.0:
     dependencies:
@@ -18266,7 +18113,6 @@ snapshots:
       csso: 5.0.5
       picocolors: 1.1.1
       sax: 1.6.1
-    optional: true
 
   symbol-observable@4.0.0: {}
 
@@ -18311,8 +18157,7 @@ snapshots:
 
   tinypool@1.1.1: {}
 
-  tlds@1.261.0:
-    optional: true
+  tlds@1.261.0: {}
 
   to-regex-range@5.0.1:
     dependencies:
@@ -18320,8 +18165,7 @@ snapshots:
 
   toidentifier@1.0.1: {}
 
-  token-stream@1.0.0:
-    optional: true
+  token-stream@1.0.0: {}
 
   token-types@6.1.2:
     dependencies:
@@ -18473,8 +18317,7 @@ snapshots:
 
   typescript@5.9.3: {}
 
-  uc.micro@2.1.0:
-    optional: true
+  uc.micro@2.1.0: {}
 
   uglify-js@3.19.3:
     optional: true
@@ -18487,11 +18330,9 @@ snapshots:
 
   undici-types@7.18.2: {}
 
-  undici@6.29.0:
-    optional: true
+  undici@6.29.0: {}
 
-  undici@7.30.0:
-    optional: true
+  undici@7.30.0: {}
 
   unicode-canonical-property-names-ecmascript@2.0.1: {}
 
@@ -18630,8 +18471,7 @@ snapshots:
       '@types/istanbul-lib-coverage': 2.0.6
       convert-source-map: 2.0.0
 
-  valid-data-url@3.0.1:
-    optional: true
+  valid-data-url@3.0.1: {}
 
   value-equal@1.0.1: {}
 
@@ -18652,8 +18492,7 @@ snapshots:
       '@types/unist': 3.0.3
       vfile-message: 4.0.3
 
-  void-elements@3.1.0:
-    optional: true
+  void-elements@3.1.0: {}
 
   watchpack@2.5.1:
     dependencies:
@@ -18677,7 +18516,6 @@ snapshots:
       htmlparser2: 9.1.0
       mime: 2.6.0
       valid-data-url: 3.0.1
-    optional: true
 
   webidl-conversions@3.0.1: {}
 
@@ -18819,10 +18657,8 @@ snapshots:
   whatwg-encoding@3.1.1:
     dependencies:
       iconv-lite: 0.6.3
-    optional: true
 
-  whatwg-mimetype@4.0.0:
-    optional: true
+  whatwg-mimetype@4.0.0: {}
 
   whatwg-url@5.0.0:
     dependencies:
@@ -18845,11 +18681,10 @@ snapshots:
 
   with@7.0.2:
     dependencies:
-      '@babel/parser': 7.29.2
-      '@babel/types': 7.29.0
+      '@babel/parser': 7.29.9
+      '@babel/types': 7.29.8
       assert-never: 1.4.0
       babel-walk: 3.0.0-canary-5
-    optional: true
 
   wordwrap@1.0.0: {}
 
