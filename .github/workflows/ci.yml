@@ -59,8 +59,9 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
+          # No pnpm cache: this job never installs, so the store path would not
+          # exist and the post-job cache save would fail.
           node-version: 24
-          cache: 'pnpm'
 
       - name: Audit dependencies
         run: pnpm audit --audit-level=low
