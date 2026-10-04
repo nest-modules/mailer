@@ -11,11 +11,12 @@ import { HelperDeclareSpec } from 'handlebars';
 import { MailerOptions } from '../interfaces/mailer-options.interface';
 import { TemplateAdapter } from '../interfaces/template-adapter.interface';
 import { TemplateAdapterConfig } from '../interfaces/template-adapter-config.interface';
+import { resolveExternalCss } from '../utils/resolve-external-css';
 
 export class HandlebarsAdapter implements TemplateAdapter {
   private precompiledTemplates: {
     [name: string]: handlebars.TemplateDelegate;
-  } = {};
+  } = Object.create(null);
 
   private config: TemplateAdapterConfig = {
     inlineCssOptions: {},
@@ -155,7 +156,10 @@ export class HandlebarsAdapter implements TemplateAdapter {
     }
 
     // Feature 16: Resolve external CSS <link> tags from local files
-    rendered = this.resolveExternalCss(rendered, mailerOptions);
+    rendered = resolveExternalCss(
+      rendered,
+      this.config.cssBaseUrl || (mailerOptions.template?.dir ?? ''),
+    );
 
     if (this.config.inlineCssEnabled) {
       try {
@@ -167,42 +171,5 @@ export class HandlebarsAdapter implements TemplateAdapter {
       mail.data.html = rendered;
     }
     return callback();
-  }
-
-  /**
-   * Feature 16: Replace <link rel="stylesheet" href="..."> with inline <style> blocks
-   * when the href points to a local file relative to the template directory.
-   */
-  private resolveExternalCss(
-    html: string,
-    mailerOptions: MailerOptions,
-  ): string {
-    const baseDir =
-      this.config.cssBaseUrl || (mailerOptions.template?.dir ?? '');
-
-    if (!baseDir) return html;
-
-    return html.replace(
-      /<link\s+[^>]*rel=["']stylesheet["'][^>]*href=["']([^"']+)["'][^>]*\/?>/gi,
-      (match, href) => {
-        // Skip remote URLs
-        if (
-          href.startsWith('http://') ||
-          href.startsWith('https://') ||
-          href.startsWith('//')
-        ) {
-          return match;
-        }
-
-        const cssPath = path.resolve(baseDir, href);
-        try {
-          const cssContent = fs.readFileSync(cssPath, 'utf-8');
-          return `<style>${cssContent}</style>`;
-        } catch {
-          // File not found, keep the original <link> tag
-          return match;
-        }
-      },
-    );
   }
 }

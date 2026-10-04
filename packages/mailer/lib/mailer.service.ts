@@ -27,6 +27,10 @@ import { ISendMailOptions } from './interfaces/send-mail-options.interface';
 import { TemplateAdapter } from './interfaces/template-adapter.interface';
 import { MailerEventService } from './mailer-event.service';
 import { MailerTransportFactory } from './mailer-transport.factory';
+import { isWithinDirectory } from './utils/is-within-directory';
+
+/** BCP 47-like language tags such as `en`, `es-CO`, `zh_Hant_TW` */
+const LOCALE_PATTERN = /^[A-Za-z]{2,3}(?:[-_][A-Za-z0-9]{2,8})*$/;
 
 type PreviewOptions = Exclude<MailerOptions['preview'], boolean | undefined>;
 
@@ -413,6 +417,13 @@ export class MailerService implements OnModuleDestroy {
       name + ext,
     );
 
+    if (!isWithinDirectory(templateDir, fullPath)) {
+      this.mailerLogger.warn(
+        `Text template "${templatePath}" is outside the template directory, skipping text fallback.`,
+      );
+      return '';
+    }
+
     try {
       let content = fs.readFileSync(fullPath, 'utf-8');
       // Simple interpolation for text templates
@@ -437,6 +448,13 @@ export class MailerService implements OnModuleDestroy {
    */
   private resolveI18nTemplate(template: string, locale: string): string {
     const i18n = this.mailerOptions.i18n!;
+    // The locale usually comes from user input; never let it shape a path
+    if (!LOCALE_PATTERN.test(locale)) {
+      this.mailerLogger.warn(
+        `Ignoring invalid locale "${locale}", using "${i18n.defaultLocale}"`,
+      );
+      locale = i18n.defaultLocale;
+    }
     const pattern = i18n.templateDirPattern || '{{locale}}/';
     const templateDir = this.mailerOptions.template?.dir ?? '';
     const localizedPrefix = pattern.replace('{{locale}}', locale);
