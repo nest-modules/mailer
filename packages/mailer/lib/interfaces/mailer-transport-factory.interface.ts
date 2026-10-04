@@ -1,6 +1,6 @@
-import * as Mail from 'nodemailer/lib/mailer';
+import { Transporter } from 'nodemailer';
 import { TransportType } from './mailer-options.interface';
 
 export interface MailerTransportFactory {
-  createTransport(opts?: TransportType): Mail;
+  createTransport(opts?: TransportType): Transporter;
 }

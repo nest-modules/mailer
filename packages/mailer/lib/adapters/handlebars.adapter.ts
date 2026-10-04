@@ -6,7 +6,6 @@ import { inline } from '@css-inline/css-inline';
 import * as glob from 'glob';
 import * as handlebars from 'handlebars';
 import { HelperDeclareSpec } from 'handlebars';
-import { get } from 'lodash';
 
 /** Interfaces **/
 import { MailerOptions } from '../interfaces/mailer-options.interface';
@@ -34,7 +33,7 @@ export class HandlebarsAdapter implements TemplateAdapter {
 
   public compile(mail: any, callback: any, mailerOptions: MailerOptions): void {
     const precompile = (template: any, callback: any, options: any) => {
-      const templateBaseDir = get(options, 'dir', '');
+      const templateBaseDir = options?.dir ?? '';
       const templateExt = path.extname(template) || '.hbs';
       let templateName = path.basename(template, path.extname(template));
       const templateDir = path.isAbsolute(template)
@@ -66,7 +65,7 @@ export class HandlebarsAdapter implements TemplateAdapter {
 
           this.precompiledTemplates[templateName] = handlebars.compile(
             template,
-            get(options, 'options', {}),
+            options?.options ?? {},
           );
         } catch (err) {
           return callback(err);
@@ -87,10 +86,10 @@ export class HandlebarsAdapter implements TemplateAdapter {
       mailerOptions.template,
     );
 
-    const runtimeOptions = get(mailerOptions, 'options', {
+    const runtimeOptions = mailerOptions.options ?? {
       partials: false,
       data: {},
-    });
+    };
 
     if (runtimeOptions.partials) {
       const partialPath = path
@@ -117,14 +116,14 @@ export class HandlebarsAdapter implements TemplateAdapter {
     }
 
     // Feature 11: Handlebars default layout support
-    const layoutName = get(mailerOptions, 'options.layout', null);
+    const layoutName = mailerOptions.options?.layout ?? null;
     let rendered = this.precompiledTemplates[templateName](mail.data.context, {
       ...runtimeOptions,
       partials: this.precompiledTemplates,
     });
 
     if (layoutName) {
-      const layoutDir = get(mailerOptions, 'template.dir', '');
+      const layoutDir = mailerOptions.template?.dir ?? '';
       const layoutExt = '.hbs';
       const layoutPath = path.join(layoutDir, layoutName + layoutExt);
 
@@ -172,7 +171,7 @@ export class HandlebarsAdapter implements TemplateAdapter {
     mailerOptions: MailerOptions,
   ): string {
     const baseDir =
-      this.config.cssBaseUrl || get(mailerOptions, 'template.dir', '');
+      this.config.cssBaseUrl || (mailerOptions.template?.dir ?? '');
 
     if (!baseDir) return html;
 

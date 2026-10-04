@@ -9,7 +9,6 @@ import {
   compile,
   TemplateFunction,
 } from 'ejs';
-import { get } from 'lodash';
 
 /** Interfaces **/
 import { MailerOptions } from '../interfaces/mailer-options.interface';
@@ -32,7 +31,7 @@ export class EjsAdapter implements TemplateAdapter {
 
   public compile(mail: any, callback: any, mailerOptions: MailerOptions): void {
     const { context, template } = mail.data;
-    const templateBaseDir = get(mailerOptions, 'template.dir', '');
+    const templateBaseDir = mailerOptions.template?.dir ?? '';
     const templateExt = path.extname(template) || '.ejs';
     let templateName = path.basename(template, path.extname(template));
     const templateDir = path.isAbsolute(template)
@@ -67,7 +66,7 @@ export class EjsAdapter implements TemplateAdapter {
         const template = fs.readFileSync(templatePath, 'utf-8');
 
         this.precompiledTemplates[templateName] = compile(template, {
-          ...get(mailerOptions, 'template.options', {}),
+          ...mailerOptions.template?.options,
           filename: templatePath,
         });
       } catch (err) {
@@ -105,7 +104,7 @@ export class EjsAdapter implements TemplateAdapter {
     mailerOptions: MailerOptions,
   ): string {
     const baseDir =
-      this.config.cssBaseUrl || get(mailerOptions, 'template.dir', '');
+      this.config.cssBaseUrl || (mailerOptions.template?.dir ?? '');
 
     if (!baseDir) return html;
 

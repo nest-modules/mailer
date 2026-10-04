@@ -42,7 +42,29 @@ export interface ICalOptions {
   encoding?: string;
 }
 
-export interface ISendMailOptions extends SendMailOptions {
+/** Fields redeclared below; omitted so the base type may differ per nodemailer major */
+type OverriddenFields =
+  | 'to'
+  | 'cc'
+  | 'bcc'
+  | 'replyTo'
+  | 'inReplyTo'
+  | 'from'
+  | 'subject'
+  | 'text'
+  | 'html'
+  | 'sender'
+  | 'raw'
+  | 'textEncoding'
+  | 'references'
+  | 'encoding'
+  | 'date'
+  | 'headers'
+  | 'attachments'
+  | 'dkim';
+
+export interface ISendMailOptions
+  extends Omit<SendMailOptions, OverriddenFields> {
   to?: string | Address | Array<string | Address>;
   cc?: string | Address | Array<string | Address>;
   bcc?: string | Address | Array<string | Address>;

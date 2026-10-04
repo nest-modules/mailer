@@ -3,7 +3,6 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { inline } from '@css-inline/css-inline';
-import { get } from 'lodash';
 
 /** Interfaces **/
 import { MailerOptions } from '../interfaces/mailer-options.interface';
@@ -26,7 +25,7 @@ export class NunjucksAdapter implements TemplateAdapter {
 
   public compile(mail: any, callback: any, mailerOptions: MailerOptions): void {
     const { context, template } = mail.data;
-    const templateBaseDir = get(mailerOptions, 'template.dir', '');
+    const templateBaseDir = mailerOptions.template?.dir ?? '';
     const templateExt = path.extname(template) || '.njk';
     let templateName = path.basename(template, path.extname(template));
     const templateDir = path.isAbsolute(template)
@@ -53,7 +52,7 @@ export class NunjucksAdapter implements TemplateAdapter {
         const templateContent = fs.readFileSync(templatePath, 'utf-8');
         const env = nunjucks.configure(templateDir, {
           autoescape: true,
-          ...get(mailerOptions, 'template.options', {}),
+          ...mailerOptions.template?.options,
         });
 
         const compiled = nunjucks.compile(templateContent, env);

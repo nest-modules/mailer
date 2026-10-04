@@ -2,7 +2,6 @@
 
 import * as path from 'node:path';
 import { inline } from '@css-inline/css-inline';
-import { get } from 'lodash';
 import { renderFile } from 'pug';
 
 /** Interfaces **/
@@ -26,15 +25,12 @@ export class PugAdapter implements TemplateAdapter {
     const templateName = path.basename(template, path.extname(template));
     const templateDir = path.isAbsolute(template)
       ? path.dirname(template)
-      : path.join(
-          get(mailerOptions, 'template.dir', ''),
-          path.dirname(template),
-        );
+      : path.join(mailerOptions.template?.dir ?? '', path.dirname(template));
     const templatePath = path.join(templateDir, templateName + templateExt);
 
     const options = {
       ...context,
-      ...get(mailerOptions, 'template.options', {}),
+      ...mailerOptions.template?.options,
     };
 
     renderFile(templatePath, options, (err, body) => {
