@@ -30,13 +30,15 @@ export class MjmlAdapter implements TemplateAdapter {
       } else if (engine === 'ejs') {
         this.engine = new EjsAdapter(config);
       } else if (engine === '') {
-        engine = null;
+        this.engine = null;
       }
     }
   }
 
   public compile(mail: any, callback: any, mailerOptions: MailerOptions): void {
-    this?.engine?.compile(
+    if (!this?.engine) return callback();
+
+    this.engine.compile(
       mail,
       (err?: any) => {
         if (err) {
@@ -46,7 +48,8 @@ export class MjmlAdapter implements TemplateAdapter {
 
         // mjml v5+ returns a Promise from mjml2html, while v4 returns the
         // result synchronously. Promise.resolve handles both transparently.
-        Promise.resolve(mjml2html(mail.data.html))
+        Promise.resolve()
+          .then(() => mjml2html(mail.data.html))
           .then((result) => {
             mail.data.html = result.html;
             callback();

@@ -68,7 +68,8 @@ export class HandlebarsAdapter implements TemplateAdapter {
             options?.options ?? {},
           );
         } catch (err) {
-          return callback(err);
+          callback(err);
+          return null;
         }
       }
 
@@ -80,11 +81,13 @@ export class HandlebarsAdapter implements TemplateAdapter {
       };
     };
 
-    const { templateName } = precompile(
+    const precompiled = precompile(
       mail.data.template,
       callback,
       mailerOptions.template,
     );
+    if (!precompiled) return;
+    const { templateName } = precompiled;
 
     const runtimeOptions = mailerOptions.options ?? {
       partials: false,
@@ -98,12 +101,11 @@ export class HandlebarsAdapter implements TemplateAdapter {
 
       const files = glob.sync(partialPath);
 
-      files.forEach((file) => {
-        const { templateName, templatePath } = precompile(
-          file,
-          () => {},
-          runtimeOptions.partials,
-        );
+      for (const file of files) {
+        const partial = precompile(file, () => {}, runtimeOptions.partials);
+        // Skip partials that cannot be read (e.g. a directory named *.hbs)
+        if (!partial) continue;
+        const { templateName, templatePath } = partial;
         const templateDir = path.relative(
           runtimeOptions.partials.dir,
           path.dirname(templatePath),
@@ -112,15 +114,20 @@ export class HandlebarsAdapter implements TemplateAdapter {
           path.join(templateDir, templateName),
           fs.readFileSync(templatePath, 'utf-8'),
         );
-      });
+      }
     }
 
     // Feature 11: Handlebars default layout support
     const layoutName = mailerOptions.options?.layout ?? null;
-    let rendered = this.precompiledTemplates[templateName](mail.data.context, {
-      ...runtimeOptions,
-      partials: this.precompiledTemplates,
-    });
+    let rendered: string;
+    try {
+      rendered = this.precompiledTemplates[templateName](mail.data.context, {
+        ...runtimeOptions,
+        partials: this.precompiledTemplates,
+      });
+    } catch (err) {
+      return callback(err);
+    }
 
     if (layoutName) {
       const layoutDir = mailerOptions.template?.dir ?? '';
@@ -154,7 +161,7 @@ export class HandlebarsAdapter implements TemplateAdapter {
       try {
         mail.data.html = inline(rendered, this.config.inlineCssOptions);
       } catch (e) {
-        callback(e);
+        return callback(e);
       }
     } else {
       mail.data.html = rendered;

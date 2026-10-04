@@ -51,7 +51,8 @@
     "prebuild": "rimraf dist && cp ../../README.md .",
     "build": "tsc -p tsconfig.json",
     "check": "biome check .",
-    "test": "jest"
+    "test": "jest",
+    "test:cov": "jest --coverage"
   },
   "dependencies": {
     "@css-inline/css-inline": "0.22.0",

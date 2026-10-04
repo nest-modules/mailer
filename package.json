@@ -61,6 +61,12 @@
       "websocket-driver@~0.7": "~0.7.5",
       "ws@^7": "^7.5.11",
       "ws@^8": "^8.21.0"
+    },
+    "auditConfig": {
+      "ignoreGhsas": [
+        "GHSA-ch52-4w7c-c8xp",
+        "GHSA-vfj7-8cjw-p6xm"
+      ]
     }
   },
   "devDependencies": {

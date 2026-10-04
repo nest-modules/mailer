@@ -63,7 +63,12 @@ export class NunjucksAdapter implements TemplateAdapter {
       }
     }
 
-    const rendered = this.precompiledTemplates[templateName](context);
+    let rendered: string;
+    try {
+      rendered = this.precompiledTemplates[templateName](context);
+    } catch (err) {
+      return callback(err);
+    }
 
     if (this.config.inlineCssEnabled) {
       try {

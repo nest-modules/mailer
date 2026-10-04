@@ -94,12 +94,13 @@ export class MailerBatchService {
     // Remove timestamps outside the current window
     this.sendTimestamps = this.sendTimestamps.filter((t) => now - t < period);
 
-    if (this.sendTimestamps.length >= rateLimit.maxMessages) {
+    // A limit below 1 would never let a message through; treat it as 1
+    const maxMessages = Math.max(1, rateLimit.maxMessages);
+
+    if (this.sendTimestamps.length >= maxMessages) {
       const oldestInWindow = this.sendTimestamps[0];
       const waitTime = period - (now - oldestInWindow);
-      if (waitTime > 0) {
-        await new Promise((resolve) => setTimeout(resolve, waitTime));
-      }
+      await new Promise((resolve) => setTimeout(resolve, waitTime));
       // Clean up again after waiting
       const newNow = Date.now();
       this.sendTimestamps = this.sendTimestamps.filter(

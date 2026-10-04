@@ -13,4 +13,20 @@ module.exports = {
       tsconfig: 'tsconfig.json',
     }],
   },
+  'collectCoverageFrom': [
+    '**/*.ts',
+    '!**/*.spec.ts',
+    '!**/*.d.ts',
+    // Type-only declarations: nothing to execute
+    '!interfaces/**',
+  ],
+  'coverageDirectory': '../coverage',
+  'coverageThreshold': {
+    'global': {
+      'branches': 100,
+      'functions': 100,
+      'lines': 100,
+      'statements': 100,
+    },
+  },
 };
