@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.0.2
+
+### Patch Changes
+
+- [#1336](https://github.com/nest-modules/mailer/pull/1336) [`b38d0e1`](https://github.com/nest-modules/mailer/commit/b38d0e1c2794b56540aeda40513104c3dac2e9ac) Thanks [@juandav](https://github.com/juandav)! - Fix the broken NestJS logo in the README (the previous image URL on nestjs.com no longer serves an image).
+
 ## 3.0.1
 
 ### Patch Changes
