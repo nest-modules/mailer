@@ -51,6 +51,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # Full history and tags, needed to find the last release below.
+          fetch-depth: 0
 
       - name: Setup pnpm
         uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
@@ -81,23 +84,22 @@ jobs:
             exit 0
           fi
 
-          # Check if there are actual changes in packages/ or apps/ since last tag
+          # Check if the published package changed since the last release tag.
+          # Without a tag there is nothing to compare against, so do not guess:
+          # releasing anyway published empty versions (e.g. 3.0.1).
           LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
-          if [ -n "$LAST_TAG" ]; then
-            CHANGES=$(git diff --name-only "$LAST_TAG"..HEAD -- packages/ apps/ | head -1)
-          else
-            CHANGES="first-release"
+          if [ -z "$LAST_TAG" ]; then
+            echo "::warning::No release tag found, skipping changeset creation"
+            exit 0
           fi
+          echo "Last release tag: $LAST_TAG"
+          CHANGES=$(git diff --name-only "$LAST_TAG"..HEAD -- packages/mailer/ | head -1)
 
           if [ -n "$CHANGES" ]; then
             echo "Source changes detected, determining version bump..."
 
             # Analyze commits since last tag to determine bump type
-            if [ -n "$LAST_TAG" ]; then
-              COMMITS=$(git log "$LAST_TAG"..HEAD --pretty=%s -- packages/ apps/)
-            else
-              COMMITS=$(git log --pretty=%s -- packages/ apps/)
-            fi
+            COMMITS=$(git log "$LAST_TAG"..HEAD --pretty=%s -- packages/mailer/)
 
             BUMP="patch"
 
@@ -110,11 +112,7 @@ jobs:
             if echo "$COMMITS" | grep -qiE "^[a-z]+(\(.*\))?!:"; then
               BUMP="major"
             fi
-            if [ -n "$LAST_TAG" ]; then
-              BODIES=$(git log "$LAST_TAG"..HEAD --pretty=%b -- packages/ apps/)
-            else
-              BODIES=$(git log --pretty=%b -- packages/ apps/)
-            fi
+            BODIES=$(git log "$LAST_TAG"..HEAD --pretty=%b -- packages/mailer/)
             if echo "$BODIES" | grep -q "BREAKING CHANGE"; then
               BUMP="major"
             fi
