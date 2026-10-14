@@ -81,7 +81,7 @@
     "@nestjs/testing": "11.2.7",
     "@types/ejs": "3.1.5",
     "@types/jest": "30.0.0",
-    "@types/mjml": "4.7.4",
+    "@types/mjml": "5.0.0",
     "@types/nodemailer": "8.0.2",
     "@types/pug": "2.0.10",
     "ejs": "5.0.2",
