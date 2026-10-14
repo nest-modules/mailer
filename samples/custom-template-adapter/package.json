@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@nestjs-modules/mailer": "workspace:*",
-    "@nestjs/common": "11.2.7",
+    "@nestjs/common": "12.1.2",
     "@nestjs/core": "11.2.7",
     "@nestjs/platform-express": "11.2.7",
     "nodemailer": "10.0.14",
