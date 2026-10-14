@@ -84,7 +84,7 @@
     "@types/mjml": "4.7.4",
     "@types/nodemailer": "8.0.2",
     "@types/pug": "2.0.10",
-    "ejs": "5.0.2",
+    "ejs": "7.0.1",
     "handlebars": "4.7.9",
     "jest": "30.5.2",
     "liquidjs": "10.30.0",
