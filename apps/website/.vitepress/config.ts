@@ -2,6 +2,47 @@ import { defineConfig } from 'vitepress';
 
 const repo = 'https://github.com/nest-modules/mailer';
 
+// Pages of the archived v2 and v3 docs (same set and order in both).
+const archivedPages = [
+  ['Getting started', 'getting-started'],
+  ['Configuration', 'configuration'],
+  ['Template adapters', 'adapters'],
+  ['Sending emails', 'sending-emails'],
+  ['Advanced', 'advanced'],
+  ['i18n', 'i18n'],
+  ['Events', 'events'],
+  ['Batch sending', 'batch-sending'],
+  ['Queue (BullMQ)', 'queue'],
+  ['Health check', 'health-check'],
+  ['Template resolver', 'template-resolver'],
+];
+
+function archivedSidebar(major: '2' | '3', release: string) {
+  return [
+    {
+      text: `v${major} (${release})`,
+      items: [
+        { text: 'Overview', link: `/v${major}/` },
+        ...archivedPages.map(([text, page]) => ({
+          text,
+          link: `/v${major}/${page}`,
+        })),
+      ],
+    },
+    {
+      text: 'Upgrading',
+      items: [
+        { text: 'Versions & upgrading', link: '/guide/versions' },
+        ...(major === '2'
+          ? [{ text: 'Migrating from v2 to v3', link: '/guide/migration-v3' }]
+          : []),
+        { text: 'Migrating to v4', link: '/guide/migration' },
+        { text: 'Latest docs (v4)', link: '/guide/getting-started' },
+      ],
+    },
+  ];
+}
+
 export default defineConfig({
   title: 'NestJS Mailer',
   description: 'A mailer module for the NestJS framework using Nodemailer',
@@ -31,19 +72,38 @@ export default defineConfig({
       { text: 'Blog', link: '/blog/', activeMatch: '/blog/' },
       { text: 'Playground', link: '/preview' },
       {
+        text: 'v4 (latest)',
+        items: [
+          {
+            items: [
+              { text: 'v4 (latest)', link: '/guide/getting-started' },
+              { text: 'v3', link: '/v3/' },
+              { text: 'v2', link: '/v2/' },
+            ],
+          },
+          {
+            items: [{ text: 'Versions & upgrading', link: '/guide/versions' }],
+          },
+        ],
+      },
+      {
         text: 'npm',
         link: 'https://www.npmjs.com/package/@nestjs-modules/mailer',
       },
     ],
 
     sidebar: {
+      '/v3/': archivedSidebar('3', '3.0.x'),
+      '/v2/': archivedSidebar('2', '2.3.x'),
       '/guide/': [
         {
           text: 'Introduction',
           items: [
             { text: 'Getting started', link: '/guide/getting-started' },
             { text: 'Configuration', link: '/guide/configuration' },
+            { text: 'Versions & upgrading', link: '/guide/versions' },
             { text: 'Migrating to v4', link: '/guide/migration' },
+            { text: 'Migrating from v2 to v3', link: '/guide/migration-v3' },
           ],
         },
         {
@@ -149,6 +209,14 @@ export default defineConfig({
 
     search: {
       provider: 'local',
+      options: {
+        // Keep the archived v2 and v3 docs out of the search index, so
+        // results always point at the current version.
+        _render(src, env, md) {
+          if (/^v[23]\//.test(env.relativePath)) return '';
+          return md.render(src, env);
+        },
+      },
     },
 
     lastUpdated: {

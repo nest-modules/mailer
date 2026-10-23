@@ -74,4 +74,6 @@ Mail classes, HTTP transports, retries with duplicate protection, typed errors, 
 pnpm add @nestjs-modules/mailer nodemailer
 ```
 
+Using an older version? Read the [v3](./v3/index.md) or [v2](./v2/index.md) docs, or see [Versions & upgrading](./guide/versions.md).
+
 </div>

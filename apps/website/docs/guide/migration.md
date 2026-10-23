@@ -6,6 +6,10 @@ title: Migrating to v4
 
 v4 keeps the v3 API: `MailerModule.forRoot()`, `sendMail()`, templates, adapters and the queue work as before. A few defaults and signatures changed, mostly to make delivery reliable and safe out of the box. Every new default can be switched back with one option: `retry: false`, `wrapErrors: false`, `validate: false`, `textFromHtml: false`. This page lists every breaking change with the one-line fix, then explains how to move over from the official `@nestjs/mail`.
 
+::: tip Coming from v2?
+Migrate to v3 first with [Migrating from v2 to v3](./migration-v3.md), or apply both lists in one go. [Versions & upgrading](./versions.md) compares v2, v3 and v4 side by side.
+:::
+
 ## Requirements
 
 - NestJS 11 or 12. NestJS 12 is ESM-only; this CommonJS package loads it through Node.js' `require(esm)`, which needs Node.js >= 20.19.

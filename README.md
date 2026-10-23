@@ -43,6 +43,8 @@ Full documentation is available at **[nest-modules.github.io/mailer](https://nes
 [Comparison](https://nest-modules.github.io/mailer/guide/comparison) ·
 [Migrating to v4](https://nest-modules.github.io/mailer/guide/migration)
 
+Older versions: [v3 docs](https://nest-modules.github.io/mailer/v3/) · [v2 docs](https://nest-modules.github.io/mailer/v2/) · [Versions & upgrading](https://nest-modules.github.io/mailer/guide/versions)
+
 ## Installation
 
 ```bash

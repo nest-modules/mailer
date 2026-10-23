@@ -10,6 +10,8 @@ title: Getting Started
 Read the [migration guide](./migration.md): retries are now on by default.
 :::
 
+Using an older version? The [v3](/v3/) and [v2](/v2/) docs are still online, and [Versions & upgrading](./versions.md) shows what changed between them.
+
 ## Choose Your Setup
 
 Every capability is optional. Pick one option on each line; you can mix them in one app and change your mind later without rewriting your emails:

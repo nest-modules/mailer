@@ -1,0 +1,194 @@
+---
+title: Sending Emails
+---
+
+<VersionBanner version="3" />
+
+# Sending Emails
+
+## Inject the Service
+
+```typescript
+import { Injectable } from '@nestjs/common';
+import { MailerService } from '@nestjs-modules/mailer';
+
+@Injectable()
+export class NotificationService {
+  constructor(private readonly mailerService: MailerService) {}
+}
+```
+
+`sendMail()` accepts the same fields as [nodemailer email message](https://nodemailer.com/message/).
+
+## Plain Text / HTML
+
+Send a simple email without templates:
+
+```typescript
+await this.mailerService.sendMail({
+  to: 'user@example.com',
+  from: 'noreply@example.com',
+  subject: 'Hello World',
+  text: 'Plain text content',
+  html: '<b>HTML content</b>',
+});
+```
+
+## Context Placeholders
+
+When `context` is set, <code v-pre>{{key}}</code> placeholders are replaced in the `subject`, in an inline `html` string (only when no `template` is used) and in a `textTemplate` file. Only the context's own properties are used; unknown keys are left as they are.
+
+In `html`, <code v-pre>{{key}}</code> is HTML-escaped. Use <code v-pre>{{{key}}}</code> to insert markup you trust:
+
+```typescript
+await this.mailerService.sendMail({
+  to: 'user@example.com',
+  subject: 'Welcome {{name}}',
+  html: '<p>Hi {{name}}</p>{{{signature}}}',
+  context: {
+    name: user.name, // escaped
+    signature: '<b>The Team</b>', // inserted as-is
+  },
+});
+```
+
+::: warning Changed in 3.0
+Before 3.0, <code v-pre>{{key}}</code> was inserted into `html` without escaping. If you relied on that to inject markup, switch those placeholders to <code v-pre>{{{key}}}</code>.
+:::
+
+## With Templates
+
+Use your configured template engine. The file extension (`.hbs`, `.pug`, `.ejs`) is appended automatically:
+
+```typescript
+await this.mailerService.sendMail({
+  to: 'user@example.com',
+  subject: 'Welcome!',
+  template: 'welcome',       // resolves to templates/welcome.hbs
+  context: {                  // data passed to the template
+    name: 'John Doe',
+    code: 'cf1a3f828287',
+  },
+});
+```
+
+## With Absolute Path
+
+You can use an absolute path to the template file:
+
+```typescript
+await this.mailerService.sendMail({
+  to: 'user@example.com',
+  subject: 'Welcome!',
+  template: `${__dirname}/welcome`,
+  context: {
+    name: 'John Doe',
+  },
+});
+```
+
+::: tip
+When using absolute paths, make sure template files are copied to the `dist` folder at build time. See [Copy Templates to dist](/v3/configuration#copy-templates-to-dist).
+:::
+
+## Attachments
+
+Send emails with file attachments:
+
+```typescript
+await this.mailerService.sendMail({
+  to: 'user@example.com',
+  subject: 'Invoice',
+  html: '<p>Please find your invoice attached.</p>',
+  attachments: [
+    {
+      filename: 'invoice.pdf',
+      path: '/absolute/path/to/invoice.pdf',
+    },
+  ],
+});
+```
+
+### Multiple Attachments
+
+```typescript
+await this.mailerService.sendMail({
+  to: 'user@example.com',
+  subject: 'Report',
+  template: 'report',
+  context: { title: 'Monthly Report' },
+  attachments: [
+    // File from disk
+    { filename: 'report.pdf', path: '/path/to/report.pdf' },
+    // Buffer
+    { filename: 'data.csv', content: Buffer.from('id,name\n1,John') },
+    // String content
+    { filename: 'notes.txt', content: 'Some notes here' },
+    // URL (nodemailer will fetch it)
+    { filename: 'logo.png', path: 'https://example.com/logo.png' },
+  ],
+});
+```
+
+### Inline Images (Embedded)
+
+Embed images directly in the HTML using `cid`:
+
+```typescript
+await this.mailerService.sendMail({
+  to: 'user@example.com',
+  subject: 'Newsletter',
+  html: '<img src="cid:logo" alt="Logo" />',
+  attachments: [
+    {
+      filename: 'logo.png',
+      path: '/path/to/logo.png',
+      cid: 'logo',
+    },
+  ],
+});
+```
+
+See [Nodemailer attachments docs](https://nodemailer.com/message/attachments/) for all options.
+
+## Custom Headers
+
+```typescript
+await this.mailerService.sendMail({
+  to: 'user@example.com',
+  subject: 'Hello',
+  html: '<p>Hello!</p>',
+  headers: {
+    'X-Custom-Header': 'custom-value',
+    'X-Priority': '1',
+  },
+});
+```
+
+## Reply-To and Threading
+
+```typescript
+await this.mailerService.sendMail({
+  to: 'user@example.com',
+  replyTo: 'support@example.com',
+  subject: 'Re: Your ticket',
+  html: '<p>We received your request.</p>',
+  inReplyTo: '<original-message-id@example.com>',
+  references: ['<original-message-id@example.com>'],
+});
+```
+
+## Using a Specific Transporter
+
+When you have multiple transporters configured, specify which one to use:
+
+```typescript
+await this.mailerService.sendMail({
+  transporterName: 'secondary',
+  to: 'user@example.com',
+  subject: 'Sent via secondary SMTP',
+  html: '<p>Hello!</p>',
+});
+```
+
+See [Multiple Transporters](/v3/configuration#multiple-transporters) for setup instructions.
