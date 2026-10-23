@@ -25,6 +25,9 @@ describe('public entrypoint', () => {
   it('should export the MailerEvent enum', () => {
     expect(entrypoint.MailerEvent).toEqual({
       BEFORE_SEND: 'mailer.before_send',
+      RETRY: 'mailer.retry',
+      FAILOVER: 'mailer.failover',
+      SUPPRESSED: 'mailer.suppressed',
       AFTER_SEND: 'mailer.after_send',
       SEND_ERROR: 'mailer.send_error',
       QUEUED: 'mailer.queued',
@@ -47,12 +50,53 @@ describe('public entrypoint', () => {
     expect(exported.name).toBe(name);
   });
 
+  it('should resolve every runtime export to a value', () => {
+    for (const name of Object.keys(entrypoint)) {
+      expect((entrypoint as Record<string, unknown>)[name]).toBeDefined();
+    }
+  });
+
   it('should only expose the documented runtime exports', () => {
     // Interfaces and types are erased at runtime and must not leak values
     expect(Object.keys(entrypoint).sort()).toEqual(
       [
+        'BrevoTransport',
+        'CapturedMail',
+        'HttpProviderTransport',
+        'MailgunTransport',
+        'PostmarkTransport',
+        'ResendTransport',
+        'SendGridTransport',
+        'SesTransport',
+        'parseRetryAfter',
+        'signV4',
+        'LOCAL_TRANSPORT',
+        'MailerConnectionError',
+        'MailerError',
+        'MailerMessageError',
+        'MailerProviderError',
+        'MailerRecipientsRejectedError',
+        'MailerSmtpError',
+        'MailerTemplateError',
+        'MailerTimeoutError',
+        'SafeHtml',
+        'html',
+        'htmlToText',
+        'isSafeHtml',
+        'mayHaveBeenDelivered',
+        'toMailerError',
+        'unsafeHtml',
+        'validateMessage',
+        'FileTransport',
+        'LogTransport',
+        'MAILER_EVENT_EMITTER',
         'MAILER_OPTIONS',
+        'MAILER_PREVIEW_OPTIONS',
         'MAILER_QUEUE_OPTIONS',
+        'MailerPreviewModule',
+        'TestMailbox',
+        'isTransientError',
+        'mailerChannelName',
         'MAILER_TEMPLATE_RESOLVER',
         'MAILER_TRANSPORT_FACTORY',
         'MailerBatchService',

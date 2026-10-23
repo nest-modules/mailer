@@ -58,6 +58,11 @@ function createService(
   factory?: MailerTransportFactory,
   eventService?: MailerEventService,
 ): MailerService {
+  // These tests cover single sends; retries are covered in the reliability spec
+  // v3 behavior: these tests predate retries, typed errors and the text part
+  options.retry ??= false;
+  options.wrapErrors ??= false;
+  options.textFromHtml ??= false;
   return new MailerService(options, factory as any, eventService);
 }
 
@@ -1018,6 +1023,9 @@ describe('MailerService (features)', () => {
         mailOptions: { subject: 'Evented' },
         result,
         timestamp: expect.any(Date),
+        attempt: 1,
+        transporterName: undefined,
+        durationMs: expect.any(Number),
       });
     });
 
@@ -1038,6 +1046,10 @@ describe('MailerService (features)', () => {
         mailOptions: { subject: 'Boom' },
         error: failure,
         timestamp: expect.any(Date),
+        attempt: 1,
+        permanent: false,
+        transporterName: undefined,
+        durationMs: expect.any(Number),
       });
       expect(emit).not.toHaveBeenCalledWith(
         MailerEvent.AFTER_SEND,
@@ -1075,9 +1087,9 @@ describe('MailerService (features)', () => {
       const pending = expect(service.sendMail({ timeout: 50 })).rejects.toThrow(
         'Send mail timed out after 50ms',
       );
-      jest.advanceTimersByTime(49);
+      await jest.advanceTimersByTimeAsync(49);
       expect(jest.getTimerCount()).toBe(1);
-      jest.advanceTimersByTime(1);
+      await jest.advanceTimersByTimeAsync(1);
       await pending;
 
       expect(emit).toHaveBeenLastCalledWith(

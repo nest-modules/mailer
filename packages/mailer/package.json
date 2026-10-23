@@ -7,7 +7,12 @@
     "nest",
     "nodemailer",
     "mailer",
-    "nodejs"
+    "nodejs",
+    "email",
+    "nestjs-mail",
+    "smtp",
+    "handlebars",
+    "mjml"
   ],
   "homepage": "https://github.com/nest-modules/mailer#readme",
   "bugs": {
@@ -24,6 +29,14 @@
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
+    },
+    "./nestjs-mail": {
+      "types": "./dist/nestjs-mail/index.d.ts",
+      "default": "./dist/nestjs-mail/index.js"
+    },
+    "./outbox": {
+      "types": "./dist/outbox/index.d.ts",
+      "default": "./dist/outbox/index.js"
     },
     "./adapters/*.js": {
       "types": "./dist/adapters/*.d.ts",
@@ -45,6 +58,12 @@
   },
   "typesVersions": {
     "*": {
+      "nestjs-mail": [
+        "./dist/nestjs-mail/index.d.ts"
+      ],
+      "outbox": [
+        "./dist/outbox/index.d.ts"
+      ],
       "adapters/*": [
         "./dist/adapters/*"
       ],
@@ -67,8 +86,9 @@
     "prebuild": "rimraf dist && cp ../../README.md .",
     "build": "tsc -p tsconfig.json",
     "check": "biome check .",
-    "test": "jest",
-    "test:cov": "jest --coverage"
+    "test": "jest && node --test test/nestjs-mail.interop.test.mjs test/outbox.interop.test.mjs",
+    "test:cov": "jest --coverage",
+    "test:interop": "node --test test/nestjs-mail.interop.test.mjs test/outbox.interop.test.mjs"
   },
   "dependencies": {
     "@css-inline/css-inline": "0.22.0",
@@ -78,6 +98,9 @@
   "devDependencies": {
     "@nestjs/common": "11.2.7",
     "@nestjs/core": "11.2.7",
+    "@nestjs/event-emitter": "3.1.0",
+    "@nestjs/mail": "0.0.1",
+    "@nestjs/outbox": "0.1.3",
     "@nestjs/testing": "11.2.7",
     "@types/ejs": "3.1.5",
     "@types/jest": "30.0.0",
@@ -85,7 +108,7 @@
     "@types/nodemailer": "8.0.2",
     "@types/pug": "2.0.10",
     "ejs": "5.0.2",
-    "handlebars": "4.7.9",
+    "handlebars": "4.7.10",
     "jest": "30.5.2",
     "liquidjs": "10.30.0",
     "mjml": "5.4.1",
@@ -104,20 +127,22 @@
   "peerDependencies": {
     "@nestjs/common": ">=7.0.9",
     "@nestjs/core": ">=7.0.9",
+    "@nestjs/event-emitter": ">=2.0.0",
+    "@nestjs/mail": ">=0.0.1",
+    "@nestjs/outbox": ">=0.1.3",
+    "@nestjs/terminus": ">=10.0.0",
     "@types/ejs": ">=3.0.3",
     "@types/mjml": ">=4.7.4",
     "@types/pug": ">=2.0.6",
+    "bullmq": ">=4.0.0",
     "ejs": ">=3.1.10",
-    "handlebars": ">=4.7.9",
+    "handlebars": ">=4.7.10",
     "liquidjs": ">=10.25.5",
     "mjml": ">=4.15.3",
-    "nunjucks": ">=3.2.0",
     "nodemailer": ">=8.0.5",
+    "nunjucks": ">=3.2.0",
     "preview-email": ">=3.0.19",
-    "pug": ">=3.0.3",
-    "@nestjs/event-emitter": ">=2.0.0",
-    "@nestjs/terminus": ">=10.0.0",
-    "bullmq": ">=4.0.0"
+    "pug": ">=3.0.3"
   },
   "peerDependenciesMeta": {
     "@types/ejs": {
@@ -157,6 +182,12 @@
       "optional": true
     },
     "bullmq": {
+      "optional": true
+    },
+    "@nestjs/mail": {
+      "optional": true
+    },
+    "@nestjs/outbox": {
       "optional": true
     }
   }

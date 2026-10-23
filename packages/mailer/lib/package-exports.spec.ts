@@ -73,7 +73,10 @@ describe('package exports', () => {
   let root: string;
 
   beforeAll(() => {
-    root = fs.mkdtempSync(path.join(os.tmpdir(), 'mailer-exports-'));
+    // realpath: on macOS os.tmpdir() is a symlink into /private
+    root = fs.realpathSync(
+      fs.mkdtempSync(path.join(os.tmpdir(), 'mailer-exports-')),
+    );
     createFakeInstall(root);
   });
 

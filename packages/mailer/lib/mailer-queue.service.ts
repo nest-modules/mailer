@@ -1,3 +1,4 @@
+import { randomUUID } from 'node:crypto';
 import {
   Inject,
   Injectable,
@@ -11,6 +12,15 @@ import { MailerEvent } from './interfaces/mailer-events.interface';
 import { MailerQueueOptions } from './interfaces/queue-options.interface';
 import { ISendMailOptions } from './interfaces/send-mail-options.interface';
 import { MailerEventService } from './mailer-event.service';
+
+/**
+ * Gives a queued email its own idempotency key, stored with the job, so every
+ * retry of the job carries the same Message-ID and two jobs never share one
+ * (BullMQ job ids are reused once removed, and restart with a new Redis).
+ */
+function withIdempotencyKey(mail: ISendMailOptions): ISendMailOptions {
+  return mail.idempotencyKey ? mail : { ...mail, idempotencyKey: randomUUID() };
+}
 
 /**
  * Service for enqueuing emails via BullMQ.
@@ -69,7 +79,11 @@ export class MailerQueueService implements OnModuleInit, OnModuleDestroy {
       throw new Error('Mailer queue is not initialized. Is bullmq installed?');
     }
 
-    const job = await this.queue.add('send-email', mailOptions, jobOptions);
+    const job = await this.queue.add(
+      'send-email',
+      withIdempotencyKey(mailOptions),
+      jobOptions,
+    );
 
     this.eventService?.emit(MailerEvent.QUEUED, {
       mailOptions,
@@ -77,6 +91,20 @@ export class MailerQueueService implements OnModuleInit, OnModuleDestroy {
     });
 
     return job;
+  }
+
+  /**
+   * Schedule an email for a later time. A time in the past sends it right away.
+   *
+   * @example await queue.schedule(reminder, new Date('2026-12-24T09:00:00Z'))
+   */
+  async schedule(
+    mailOptions: ISendMailOptions,
+    sendAt: Date,
+    jobOptions?: Record<string, any>,
+  ): Promise<any> {
+    const delay = Math.max(0, sendAt.getTime() - Date.now());
+    return this.enqueue(mailOptions, { ...jobOptions, delay });
   }
 
   /**
@@ -93,7 +121,7 @@ export class MailerQueueService implements OnModuleInit, OnModuleDestroy {
     const jobs = await this.queue.addBulk(
       messages.map((data) => ({
         name: 'send-email',
-        data,
+        data: withIdempotencyKey(data),
         opts: jobOptions,
       })),
     );

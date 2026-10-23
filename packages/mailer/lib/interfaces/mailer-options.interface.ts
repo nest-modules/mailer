@@ -8,6 +8,8 @@ import * as SMTPTransport from 'nodemailer/lib/smtp-transport';
 import * as StreamTransport from 'nodemailer/lib/stream-transport';
 
 import { I18nOptions } from './i18n-options.interface';
+import { MailerRetryOptions } from './retry-options.interface';
+import { ISendMailOptions } from './send-mail-options.interface';
 import { TemplateAdapter } from './template-adapter.interface';
 import { TemplateResolver } from './template-resolver.interface';
 
@@ -62,6 +64,25 @@ export interface RateLimitOptions {
   period?: number;
 }
 
+/**
+ * Redirects email meant for real people to a safe inbox, for staging and QA.
+ * Recipients matching `allow` are kept; every other recipient is removed and
+ * `to` is replaced by the intercept address.
+ */
+export interface InterceptOptions {
+  /** Where intercepted email goes */
+  to: string | string[];
+  /**
+   * Recipients that are delivered normally: exact addresses, domains written
+   * as `@example.com`, or regular expressions.
+   */
+  allow?: Array<string | RegExp>;
+  /** Prepended to the subject of intercepted email, such as `[STAGING] ` */
+  subjectPrefix?: string;
+  /** Default: `true`. Set it from configuration to turn interception off. */
+  enabled?: boolean;
+}
+
 export interface MailerOptions {
   defaults?: Options | SendMailOptions;
   transport?: TransportType;
@@ -106,4 +127,48 @@ export interface MailerOptions {
   sendTimeout?: number;
   /** Rate limiting options for email sending */
   rateLimit?: RateLimitOptions;
+  /**
+   * Retries transient failures with exponential backoff and jitter.
+   * Default: 3 attempts, starting at 1s and doubling up to 30s, with full jitter.
+   * `false` sends once.
+   * @example retry: 3
+   * @example retry: { attempts: 5, backoff: { delay: 500 } }
+   */
+  retry?: number | false | MailerRetryOptions;
+  /**
+   * Named transporters (from `transports`) to try, in order, when the selected
+   * transporter fails with an error another transporter could avoid.
+   */
+  failover?: string[];
+  /**
+   * Adds a plain-text part derived from the HTML when an email has none.
+   * Default: `true`.
+   */
+  textFromHtml?: boolean;
+  /**
+   * Throws typed errors (`MailerSmtpError`, `MailerTimeoutError`, …, all
+   * `MailerError`) that keep nodemailer's fields and the original as `cause`.
+   * `false` rethrows what the transport threw. Default: `true`.
+   */
+  wrapErrors?: boolean;
+  /**
+   * Rejects malformed addresses and line breaks in addresses, the subject or
+   * headers before sending (`MailerMessageError`). Default: `true`.
+   */
+  validate?: boolean;
+  /**
+   * How long shutdown waits for the sends in flight before closing the
+   * transporters, in milliseconds. Default: `30000`.
+   */
+  shutdownTimeout?: number;
+  /** Redirects recipients to a safe inbox (staging, QA) */
+  intercept?: InterceptOptions;
+  /**
+   * Called for every recipient; return `true` to drop it (bounces, complaints,
+   * unsubscribed users). An email with no recipients left is not sent.
+   */
+  suppress?: (
+    address: string,
+    mail: ISendMailOptions,
+  ) => boolean | Promise<boolean>;
 }

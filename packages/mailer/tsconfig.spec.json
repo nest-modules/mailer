@@ -1,0 +1,7 @@
+{
+  // Source maps so coverage reports point at the TypeScript lines
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "sourceMap": true
+  }
+}

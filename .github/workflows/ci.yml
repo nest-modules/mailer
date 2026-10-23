@@ -61,6 +61,9 @@ jobs:
         env:
           NODE_OPTIONS: ${{ matrix.nestjs == 12 && '--experimental-vm-modules' || '' }}
 
+      - name: Integration tests with the official @nestjs/mail
+        run: pnpm --filter @nestjs-modules/mailer run test:interop
+
   audit:
     name: Dependency audit
     runs-on: ubuntu-latest

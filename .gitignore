@@ -45,6 +45,10 @@ testem.log
 .DS_Store
 Thumbs.db
 
-# Docusaurus
-.docusaurus
+# Website (VitePress)
 apps/website/build
+apps/website/.vitepress/cache
+apps/website/.vitepress/dist
+
+# Emails written by FileTransport in development
+**/var/mail/

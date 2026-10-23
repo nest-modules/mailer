@@ -7,3 +7,6 @@ tsconfig.json
 publish.sh
 jest.config.js
 .turbo
+
+# tests
+/test/

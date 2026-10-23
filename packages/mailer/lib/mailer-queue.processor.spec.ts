@@ -7,6 +7,9 @@ import { MailerQueueProcessor } from './mailer-queue.processor';
 
 // Toggles whether the lazily required `bullmq` peer dependency resolves.
 let mockBullmqInstalled = true;
+// Older bullmq releases have no UnrecoverableError
+let mockHasUnrecoverable = true;
+class MockUnrecoverableError extends Error {}
 const mockWorkerInstance = { on: jest.fn() };
 const mockWorkerCtor = jest.fn(() => mockWorkerInstance);
 
@@ -16,7 +19,9 @@ jest.mock(
     if (!mockBullmqInstalled) {
       throw new Error("Cannot find module 'bullmq'");
     }
-    return { Worker: mockWorkerCtor };
+    return mockHasUnrecoverable
+      ? { Worker: mockWorkerCtor, UnrecoverableError: MockUnrecoverableError }
+      : { Worker: mockWorkerCtor };
   },
   { virtual: true },
 );
@@ -57,6 +62,7 @@ describe('MailerQueueProcessor', () => {
     jest.resetModules();
     jest.clearAllMocks();
     mockBullmqInstalled = true;
+    mockHasUnrecoverable = true;
     jest.useFakeTimers().setSystemTime(NOW);
     mailer = { sendMail: jest.fn() };
     events = { emit: jest.fn() };
@@ -93,6 +99,20 @@ describe('MailerQueueProcessor', () => {
   }
 
   describe('onModuleInit', () => {
+    it('uses the configured worker concurrency', async () => {
+      const processor = new MailerQueueProcessor(
+        mailer as unknown as MailerService,
+        { ...baseOptions, concurrency: 20 },
+      );
+      await processor.onModuleInit();
+
+      expect(mockWorkerCtor).toHaveBeenCalledWith(
+        'mailer',
+        expect.any(Function),
+        { connection: baseOptions.connection, concurrency: 20 },
+      );
+    });
+
     it('starts a worker on the default "mailer" queue', async () => {
       await createProcessor();
 
@@ -149,10 +169,79 @@ describe('MailerQueueProcessor', () => {
       await createProcessor();
 
       const data = { to: 'a@example.com', subject: 'Queued' };
-      await expect(getProcessor()({ id: '42', data })).resolves.toBe(info);
+      await expect(
+        getProcessor()({ id: '42', timestamp: 1700000000000, data }),
+      ).resolves.toBe(info);
+
+      // BullMQ owns the retries, and the job id keeps the Message-ID stable
+      expect(mailer.sendMail).toHaveBeenCalledWith({
+        ...data,
+        idempotencyKey: 'mailer-job:mailer:42:1700000000000',
+        retry: false,
+      });
+      expect(debugSpy).toHaveBeenCalledWith('Processing email job 42');
+    });
+
+    it('keeps the idempotency key and retry policy a job carries', async () => {
+      mailer.sendMail.mockResolvedValue({});
+      await createProcessor();
+
+      const data = { to: 'a@example.com', idempotencyKey: 'order-1', retry: 2 };
+      await getProcessor()({ id: '42', data });
 
       expect(mailer.sendMail).toHaveBeenCalledWith(data);
-      expect(debugSpy).toHaveBeenCalledWith('Processing email job 42');
+    });
+
+    it('sends no idempotency key for a job without an id', async () => {
+      mailer.sendMail.mockResolvedValue({});
+      await createProcessor();
+
+      await getProcessor()({ data: { to: 'a@example.com' } });
+
+      expect(mailer.sendMail).toHaveBeenCalledWith({
+        to: 'a@example.com',
+        idempotencyKey: undefined,
+        retry: false,
+      });
+    });
+
+    it('fails the job for good when the error is permanent', async () => {
+      const rejection = Object.assign(new Error('550 no such user'), {
+        responseCode: 550,
+      });
+      mailer.sendMail.mockRejectedValue(rejection);
+      await createProcessor();
+
+      const failure = await getProcessor()({ id: '7', data: {} }).catch(
+        (error: unknown) => error,
+      );
+
+      expect(failure).toBeInstanceOf(MockUnrecoverableError);
+      expect(failure.message).toBe('550 no such user');
+      expect(failure.cause).toBe(rejection);
+    });
+
+    it('describes permanent failures that are not errors', async () => {
+      mailer.sendMail.mockRejectedValue({ permanent: true });
+      await createProcessor();
+
+      const failure = await getProcessor()({ id: '7', data: {} }).catch(
+        (error: unknown) => error,
+      );
+
+      expect(failure).toBeInstanceOf(MockUnrecoverableError);
+      expect(failure.message).toBe('[object Object]');
+    });
+
+    it('rethrows permanent errors as is without UnrecoverableError', async () => {
+      mockHasUnrecoverable = false;
+      const rejection = Object.assign(new Error('550'), { responseCode: 550 });
+      mailer.sendMail.mockRejectedValue(rejection);
+      await createProcessor();
+
+      await expect(getProcessor()({ id: '7', data: {} })).rejects.toBe(
+        rejection,
+      );
     });
 
     it('propagates send errors so BullMQ can retry the job', async () => {
