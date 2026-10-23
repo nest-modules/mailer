@@ -17,6 +17,7 @@ import { Mailable, RenderedMail } from '../interfaces/mailable.interface';
 import { ISendMailOptions } from '../interfaces/send-mail-options.interface';
 import { MailerService } from '../mailer.service';
 import { escapeHtml } from '../utils/interpolate';
+import { trimSlashes } from '../utils/trim-slashes';
 
 export const MAILER_PREVIEW_OPTIONS = 'MAILER_PREVIEW_OPTIONS';
 
@@ -91,9 +92,10 @@ function createPreviewController(path: string): Type<unknown> {
     index(@Req() request: { originalUrl?: string; url?: string }): string {
       // From the request, so links work behind a global prefix or a proxy path
       const base = escapeHtml(
-        (request.originalUrl ?? request.url ?? `/${path}`)
-          .split('?')[0]
-          .replace(/\/+$/, ''),
+        trimSlashes(
+          (request.originalUrl ?? request.url ?? `/${path}`).split('?')[0],
+          { start: false },
+        ),
       );
       const items = this.options.previews
         .map(
@@ -190,7 +192,7 @@ export class MailerPreviewModule {
       return { module: MailerPreviewModule };
     }
 
-    const path = (options.path ?? '_mailer').replace(/^\/+|\/+$/g, '');
+    const path = trimSlashes(options.path ?? '_mailer');
     new Logger(MailerPreviewModule.name).log(
       `Email previews served at /${path}`,
     );

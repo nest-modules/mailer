@@ -4,6 +4,7 @@ import {
   MailerProviderError,
   MailerTimeoutError,
 } from '../../errors/mailer.errors';
+import { trimSlashes } from '../../utils/trim-slashes';
 import { NodemailerMail } from '../captured-mail';
 import { parseRetryAfter } from './retry-after';
 
@@ -280,7 +281,7 @@ export function checkBaseUrl(url: string, owner: string): string {
       `${owner} \`baseUrl\` must be https (the credentials travel with every request)`,
     );
   }
-  return url.replace(/\/+$/, '');
+  return trimSlashes(url, { start: false });
 }
 
 /** A required, non-empty string option */

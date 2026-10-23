@@ -45,4 +45,34 @@ describe('htmlToText', () => {
       'a b\n\nc',
     );
   });
+
+  it('should drop unclosed comments and dropped elements to the end', () => {
+    expect(htmlToText('<p>a</p><!-- open')).toBe('a');
+    expect(htmlToText('<p>a</p><script>alert(1)')).toBe('a');
+    expect(htmlToText('<p>a</p><style>p{}</style')).toBe('a');
+  });
+
+  it('should keep elements that only start like a dropped one', () => {
+    expect(htmlToText('<header>Top</header><titles>x</titles>')).toBe(
+      'Top\n\nx',
+    );
+    expect(htmlToText('1 < 2 and 1 &lt; 3')).toBe('1 < 2 and 1 < 3');
+  });
+
+  it('should not leave a tag behind nested tags', () => {
+    expect(htmlToText('<<b>i>x</i>')).toBe('x');
+  });
+
+  it('should stay linear on hostile input', () => {
+    const inputs = [
+      '<!--'.repeat(50_000),
+      '<script'.repeat(50_000),
+      `<a href="x">${'<'.repeat(50_000)}`,
+    ];
+    for (const input of inputs) {
+      const started = Date.now();
+      htmlToText(input);
+      expect(Date.now() - started).toBeLessThan(1000);
+    }
+  });
 });
