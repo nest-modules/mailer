@@ -139,9 +139,9 @@ function withPreviewDefaults(preview: true | PreviewOptions): PreviewOptions {
 export class MailerService implements OnModuleDestroy {
   private transporter!: Transporter;
   private transporters = new Map<string, Transporter>();
-  private templateAdapter: TemplateAdapter;
+  private templateAdapter?: TemplateAdapter;
   private initTemplateAdapter(
-    templateAdapter: TemplateAdapter,
+    templateAdapter: TemplateAdapter | undefined,
     transporter: Transporter,
   ): void {
     if (templateAdapter) {

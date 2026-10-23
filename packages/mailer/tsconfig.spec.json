@@ -2,6 +2,11 @@
   // Source maps so coverage reports point at the TypeScript lines
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "sourceMap": true
+    "sourceMap": true,
+    // TypeScript 6 no longer loads every @types package by default
+    "types": ["jest", "node"],
+    // The library is compiled strict; specs keep the looser checks they were
+    // written for (mock types, variables assigned in callbacks)
+    "strict": false
   }
 }

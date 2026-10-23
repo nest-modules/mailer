@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MailerModule } from '@nestjs-modules/mailer';
-import { TwingAdapter } from './adapters/twing.adapter';
+import { EtaAdapter } from './adapters/eta.adapter';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -9,7 +9,7 @@ import { AppService } from './app.service';
     MailerModule.forRoot({
       transport: {
         host: process.env.SMTP_HOST || 'localhost',
-        port: parseInt(process.env.SMTP_PORT, 10) || 1025,
+        port: Number.parseInt(process.env.SMTP_PORT ?? '1025', 10),
         secure: process.env.SMTP_SECURE === 'true',
         ignoreTLS: process.env.SMTP_SECURE !== 'false',
         auth: {
@@ -19,7 +19,7 @@ import { AppService } from './app.service';
       },
       template: {
         dir: `${process.cwd()}/templates/`,
-        adapter: new TwingAdapter(),
+        adapter: new EtaAdapter(),
       },
     }),
   ],
