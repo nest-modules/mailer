@@ -32,6 +32,12 @@ jest.mock(
 
 const NOW = new Date('2026-01-01T12:00:00Z');
 
+/** The job data: the email plus the idempotency key the service generated */
+const keyed = (mail: ISendMailOptions) => ({
+  ...mail,
+  idempotencyKey: expect.stringMatching(/^[0-9a-f-]{36}$/),
+});
+
 const baseOptions: MailerQueueOptions = {
   connection: { host: 'localhost', port: 6379 },
 };
@@ -141,6 +147,72 @@ describe('MailerQueueService', () => {
     });
   });
 
+  describe('idempotency keys', () => {
+    it('gives every job its own key and keeps a key the email has', async () => {
+      mockQueueInstance.add.mockResolvedValue({});
+      mockQueueInstance.addBulk.mockResolvedValue([]);
+      const service = new MailerQueueService(baseOptions);
+      await service.onModuleInit();
+
+      await service.enqueue(mail);
+      await service.enqueue(mail);
+      await service.enqueue({ ...mail, idempotencyKey: 'order-1' });
+      await service.enqueueBatch([
+        mail,
+        { ...mail, idempotencyKey: 'order-2' },
+      ]);
+
+      const keys = mockQueueInstance.add.mock.calls.map(
+        ([, data]: [string, ISendMailOptions]) => data.idempotencyKey,
+      );
+      expect(keys[0]).not.toBe(keys[1]);
+      expect(keys[2]).toBe('order-1');
+      expect(
+        mockQueueInstance.addBulk.mock.calls[0][0][1].data.idempotencyKey,
+      ).toBe('order-2');
+      // The caller's object is left alone
+      expect(mail).not.toHaveProperty('idempotencyKey');
+    });
+  });
+
+  describe('schedule', () => {
+    it('delays the job until the given time', async () => {
+      mockQueueInstance.add.mockResolvedValue({ id: 'job-s' });
+      const service = new MailerQueueService(baseOptions);
+      await service.onModuleInit();
+
+      const sendAt = new Date(NOW.getTime() + 60_000);
+      await expect(
+        service.schedule(mail, sendAt, { priority: 2 }),
+      ).resolves.toEqual({ id: 'job-s' });
+
+      expect(mockQueueInstance.add).toHaveBeenCalledWith(
+        'send-email',
+        keyed(mail),
+        {
+          priority: 2,
+          delay: 60_000,
+        },
+      );
+    });
+
+    it('sends right away when the time has passed', async () => {
+      mockQueueInstance.add.mockResolvedValue({ id: 'job-p' });
+      const service = new MailerQueueService(baseOptions);
+      await service.onModuleInit();
+
+      await service.schedule(mail, new Date(NOW.getTime() - 1000));
+
+      expect(mockQueueInstance.add).toHaveBeenCalledWith(
+        'send-email',
+        keyed(mail),
+        {
+          delay: 0,
+        },
+      );
+    });
+  });
+
   describe('enqueue', () => {
     it('adds a send-email job and emits a QUEUED event', async () => {
       const job = { id: 'job-1' };
@@ -157,7 +229,7 @@ describe('MailerQueueService', () => {
 
       expect(mockQueueInstance.add).toHaveBeenCalledWith(
         'send-email',
-        mail,
+        keyed(mail),
         jobOptions,
       );
       expect(events.emit).toHaveBeenCalledWith(MailerEvent.QUEUED, {
@@ -174,7 +246,7 @@ describe('MailerQueueService', () => {
       await expect(service.enqueue(mail)).resolves.toEqual({ id: 'job-2' });
       expect(mockQueueInstance.add).toHaveBeenCalledWith(
         'send-email',
-        mail,
+        keyed(mail),
         undefined,
       );
     });
@@ -215,8 +287,8 @@ describe('MailerQueueService', () => {
       );
 
       expect(mockQueueInstance.addBulk).toHaveBeenCalledWith([
-        { name: 'send-email', data: messages[0], opts: jobOptions },
-        { name: 'send-email', data: messages[1], opts: jobOptions },
+        { name: 'send-email', data: keyed(messages[0]), opts: jobOptions },
+        { name: 'send-email', data: keyed(messages[1]), opts: jobOptions },
       ]);
       expect(events.emit).toHaveBeenCalledTimes(2);
       expect(events.emit).toHaveBeenNthCalledWith(1, MailerEvent.QUEUED, {
@@ -236,8 +308,8 @@ describe('MailerQueueService', () => {
 
       await expect(service.enqueueBatch(messages)).resolves.toEqual([]);
       expect(mockQueueInstance.addBulk).toHaveBeenCalledWith([
-        { name: 'send-email', data: messages[0], opts: undefined },
-        { name: 'send-email', data: messages[1], opts: undefined },
+        { name: 'send-email', data: keyed(messages[0]), opts: undefined },
+        { name: 'send-email', data: keyed(messages[1]), opts: undefined },
       ]);
     });
   });

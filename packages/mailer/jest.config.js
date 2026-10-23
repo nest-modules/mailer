@@ -10,7 +10,7 @@ module.exports = {
   'testRegex': '/lib/.*\\.spec\\.(ts|js)$',
   'transform': {
     '^.+\\.ts$': ['ts-jest', {
-      tsconfig: 'tsconfig.json',
+      tsconfig: 'tsconfig.spec.json',
     }],
   },
   'collectCoverageFrom': [

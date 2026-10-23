@@ -30,6 +30,9 @@ export interface MailerQueueOptions {
     delay?: number;
   };
 
+  /** How many emails the worker sends at once (default: 5) */
+  concurrency?: number;
+
   /** Queue name (default: 'mailer') */
   queueName?: string;
 

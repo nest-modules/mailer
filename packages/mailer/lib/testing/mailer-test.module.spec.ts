@@ -1,12 +1,35 @@
+import { Readable } from 'node:stream';
+import { Injectable } from '@nestjs/common';
 import { GLOBAL_MODULE_METADATA } from '@nestjs/common/constants';
 import { Test, TestingModule } from '@nestjs/testing';
 import { MAILER_OPTIONS } from '../constants/mailer.constant';
-import { MailerOptions } from '../interfaces/mailer-options.interface';
+import { Mailable } from '../interfaces/mailable.interface';
+import {
+  MailerOptions,
+  MailerPlugin,
+} from '../interfaces/mailer-options.interface';
 import { TemplateAdapter } from '../interfaces/template-adapter.interface';
 import { MailerService } from '../mailer.service';
 import { MailerBatchService } from '../mailer-batch.service';
 import { MailerEventService } from '../mailer-event.service';
+import { TestMailbox } from '../transports/test-mailbox';
 import { MailerTestModule } from './mailer-test.module';
+
+@Injectable()
+class WelcomeMail implements Mailable<{ name: string }> {
+  render({ name }: { name: string }) {
+    return {
+      subject: `Welcome ${name}`,
+      html: `<a href="https://app.test/verify?user=${name}">Verify</a>`,
+    };
+  }
+}
+
+class OtherMail implements Mailable {
+  render() {
+    return { subject: 'Other', text: 'Other' };
+  }
+}
 
 describe('MailerTestModule', () => {
   let moduleRef: TestingModule | undefined;
@@ -31,16 +54,18 @@ describe('MailerTestModule', () => {
         MailerService,
         MailerBatchService,
         MailerEventService,
+        TestMailbox,
       ]);
     });
 
-    it('should provide services backed by a buffering stream transport', async () => {
+    it('should provide services backed by the TestMailbox transport', async () => {
       moduleRef = await Test.createTestingModule({
         imports: [MailerTestModule.register()],
       }).compile();
 
       expect(moduleRef.get(MAILER_OPTIONS)).toEqual({
-        transport: { streamTransport: true, newline: 'unix', buffer: true },
+        retry: false,
+        transport: moduleRef.get(TestMailbox),
       });
       expect(moduleRef.get(MailerBatchService)).toBeInstanceOf(
         MailerBatchService,
@@ -63,8 +88,27 @@ describe('MailerTestModule', () => {
       });
       expect(raw).toContain('Subject: Captured');
       expect(raw).toContain('Not delivered anywhere');
-      // `newline: 'unix'` means no CRLF line endings
-      expect(raw).not.toContain('\r\n');
+      // The MIME source as it would go on the wire
+      expect(raw).toContain('\r\n');
+    });
+
+    it('should capture stream attachments without consuming them twice', async () => {
+      moduleRef = await Test.createTestingModule({
+        imports: [MailerTestModule.register()],
+      }).compile();
+
+      const info = await moduleRef.get(MailerService).sendMail({
+        to: 'ada@example.test',
+        subject: 'Report',
+        text: 'Attached',
+        attachments: [
+          { filename: 'report.txt', content: Readable.from(['streamed body']) },
+        ],
+      });
+
+      const base64 = Buffer.from('streamed body').toString('base64');
+      expect(info.message.toString()).toContain(base64);
+      expect(moduleRef.get(TestMailbox).last?.raw).toContain(base64);
     });
 
     it('should merge the given template options with the test transport', async () => {
@@ -84,11 +128,7 @@ describe('MailerTestModule', () => {
       }).compile();
 
       const options = moduleRef.get<MailerOptions>(MAILER_OPTIONS);
-      expect(options.transport).toEqual({
-        streamTransport: true,
-        newline: 'unix',
-        buffer: true,
-      });
+      expect(options.transport).toBe(moduleRef.get(TestMailbox));
       expect(options.template).toEqual({
         dir: '/templates',
         adapter,
@@ -107,6 +147,119 @@ describe('MailerTestModule', () => {
         options,
       );
       expect(info.message.toString()).toContain('<p>Ana</p>');
+    });
+    describe('TestMailbox', () => {
+      it('should capture what MailerService sends', async () => {
+        moduleRef = await Test.createTestingModule({
+          imports: [MailerTestModule.register()],
+        }).compile();
+        const mailbox = moduleRef.get(TestMailbox);
+
+        await moduleRef.get(MailerService).sendMail({
+          from: 'sender@example.test',
+          to: 'ada@example.test',
+          subject: 'Hi',
+          text: 'Hello',
+        });
+
+        const mail = mailbox.assertSent({
+          to: 'ada@example.test',
+          subject: 'Hi',
+        });
+        expect(mail.text).toBe('Hello');
+        expect(mail.from).toBe('sender@example.test');
+        mailbox.assertCount(1);
+      });
+
+      it('should capture emails sent with a mail class and match them by class', async () => {
+        moduleRef = await Test.createTestingModule({
+          imports: [MailerTestModule.register()],
+        }).compile();
+        const mailbox = moduleRef.get(TestMailbox);
+
+        await moduleRef.get(MailerService).send(WelcomeMail, {
+          to: 'ada@example.test',
+          data: { name: 'Ada' },
+        });
+
+        const mail = mailbox.assertSent({ mail: WelcomeMail });
+        expect(mail.mailable).toBe(WelcomeMail);
+        expect(mail.subject).toBe('Welcome Ada');
+        expect(mail.link('/verify').searchParams.get('user')).toBe('Ada');
+        mailbox.assertNotSent({ mail: OtherMail });
+      });
+
+      it('should give each registered module its own mailbox', () => {
+        const first = MailerTestModule.register();
+        const second = MailerTestModule.register();
+        const mailboxOf = (dynamicModule: typeof first) =>
+          (dynamicModule.providers as any[]).find(
+            (provider) => provider.provide === TestMailbox,
+          ).useValue;
+
+        expect(mailboxOf(first)).toBeInstanceOf(TestMailbox);
+        expect(mailboxOf(first)).not.toBe(mailboxOf(second));
+      });
+    });
+
+    it('should keep the given plugins', async () => {
+      const userPlugin: MailerPlugin = {
+        step: 'compile',
+        plugin: jest.fn((mail, callback) => {
+          mail.data.subject = `[test] ${mail.data.subject}`;
+          callback();
+        }),
+      };
+      moduleRef = await Test.createTestingModule({
+        imports: [MailerTestModule.register({ plugins: [userPlugin] })],
+      }).compile();
+
+      const options = moduleRef.get<MailerOptions>(MAILER_OPTIONS);
+      expect(options.plugins).toEqual([userPlugin]);
+
+      await moduleRef
+        .get(MailerService)
+        .sendMail({ to: 'ada@example.test', subject: 'Hi', text: 'x' });
+
+      expect(userPlugin.plugin).toHaveBeenCalledTimes(1);
+      moduleRef.get(TestMailbox).assertSent({ subject: '[test] Hi' });
+    });
+
+    it('should not retry a simulated failure by default', async () => {
+      moduleRef = await Test.createTestingModule({
+        imports: [MailerTestModule.register()],
+      }).compile();
+      const mailbox = moduleRef.get(TestMailbox);
+      mailbox.failNext();
+
+      await expect(
+        moduleRef
+          .get(MailerService)
+          .sendMail({ to: 'ada@example.test', subject: 'Hi', text: 'x' }),
+      ).rejects.toThrow('TestMailbox: simulated failure');
+      mailbox.assertNotSent();
+    });
+
+    it('should retry when the test enables retries', async () => {
+      moduleRef = await Test.createTestingModule({
+        imports: [
+          MailerTestModule.register({
+            retry: { attempts: 2, backoff: { delay: 0 } },
+          }),
+        ],
+      }).compile();
+      expect(moduleRef.get<MailerOptions>(MAILER_OPTIONS).retry).toEqual({
+        attempts: 2,
+        backoff: { delay: 0 },
+      });
+      const mailbox = moduleRef.get(TestMailbox);
+      mailbox.failNext();
+
+      await moduleRef
+        .get(MailerService)
+        .sendMail({ to: 'ada@example.test', subject: 'Hi', text: 'x' });
+
+      mailbox.assertCount(1, { subject: 'Hi' });
     });
   });
 });

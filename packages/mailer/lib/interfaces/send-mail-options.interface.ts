@@ -1,6 +1,8 @@
+import { Type } from '@nestjs/common';
 import { SendMailOptions } from 'nodemailer';
 import * as DKIM from 'nodemailer/lib/dkim';
 import { Attachment } from 'nodemailer/lib/mailer';
+import { MailerRetryOptions } from './retry-options.interface';
 
 export type TextEncoding = 'quoted-printable' | 'base64';
 export type Headers =
@@ -42,6 +44,19 @@ export interface ICalOptions {
   encoding?: string;
 }
 
+/** One-click unsubscribe (RFC 8058), required by Gmail and Yahoo for bulk senders */
+export interface UnsubscribeOptions {
+  /** HTTPS endpoint that unsubscribes the recipient when it receives a POST */
+  url?: string;
+  /** Address that unsubscribes the sender of a message sent to it */
+  mailto?: string;
+  /**
+   * Adds `List-Unsubscribe-Post: List-Unsubscribe=One-Click`, so mailbox providers
+   * show an unsubscribe button. Default: `true` when `url` is set.
+   */
+  oneClick?: boolean;
+}
+
 /** Fields redeclared below; omitted so the base type may differ per nodemailer major */
 type OverriddenFields =
   | 'to'
@@ -73,7 +88,8 @@ export interface ISendMailOptions
   from?: string | Address;
   subject?: string;
   text?: string | Buffer | AttachmentLikeObject;
-  html?: string | Buffer;
+  /** A string, a Buffer, or `SafeHtml` from the `html` tag */
+  html?: string | Buffer | { toString(): string };
   sender?: string | Address;
   raw?: string | Buffer;
   textEncoding?: TextEncoding;
@@ -98,4 +114,26 @@ export interface ISendMailOptions
   icalEvent?: ICalOptions;
   /** Send timeout in milliseconds (overrides global sendTimeout) */
   timeout?: number;
+  /** Overrides the module's `retry` for this send */
+  retry?: number | false | MailerRetryOptions;
+  /**
+   * Aborts the send, including the wait between retries. A message already
+   * handed to the server may still be delivered.
+   */
+  signal?: AbortSignal;
+  /**
+   * Identifies this email across redeliveries (an order id, an outbox message id).
+   * The `Message-ID` is derived from it, so a redelivered email carries the same
+   * one and mailbox providers can drop the duplicate.
+   */
+  idempotencyKey?: string;
+  /**
+   * Named transporters to try, in order, when the selected one fails.
+   * Overrides the module's `failover`; `false` disables it for this send.
+   */
+  failover?: string[] | false;
+  /** Adds `List-Unsubscribe` headers (with one-click support) */
+  unsubscribe?: UnsubscribeOptions;
+  /** @internal Set by `send(MailClass)`: the mail class that rendered the email */
+  mailable?: Type<unknown>;
 }

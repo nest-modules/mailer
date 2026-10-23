@@ -14,7 +14,7 @@ export class AppService {
       to: 'user@gmail.com', // List of receivers email address
       from: 'user@localhost', // Senders email address
       subject: 'Testing Nest Mailer module with template ✔',
-      template: 'index', // The `.twig` extension is appended automatically.
+      template: 'index', // The `.eta` extension is appended automatically.
       context: {
         // Data to be sent to template engine.
         code: 'cf1a3f828287',
